@@ -1,4 +1,15 @@
 
+Hadoop + Pig 分析Nginx日志
+======================
+
+
+书籍录入程序
+======
+
+
+程序员专属Badge制作
+===
+
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
 ![Badge][1]
@@ -115,6 +126,96 @@ GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
   [3]: /static/media/uploads/finally-brand.jpg
   [4]: /static/media/uploads/brand-idea-prototype.jpg
 
+
+文本编辑器
+=====
+
+JavaScript打造Slide应用
+===================
+
+又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。
+
+![EchoesWorks][1]
+
+如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
+
+##需求
+
+当前我们有不同的方式可以记录我们的想法、博客、过程，如视频、音频、博客、幻灯片等等。
+
+然而这些并非那么完美，让我们说说这些方式的一些缺陷吧。
+
+1. 视频。有很多技术视频从开始到结束，只有PPT，然后我们就为了这张PPT和声音下了几百M的视频。即使在今天网速很快，但是这并不代表我们可以在我们的手机上放下很多的视频。
+
+2. 音频。音频所受到的限制我想大家都很清楚。什么也不知道~~，什么也看不到，只能听。
+
+3. 博客。博客的主要缺点可能就是不够直接，有时会有点啰嗦。
+
+4. 幻灯片。一个好的PPT，也就意味着上面的内容是很少的。即如果没有人说的时候，就缺少真正有用的东西。
+
+5. 代码。我们真的需要在另外打开一个网址来看代码么?
+
+于是，``EchoesWorks``出现了。
+
+##EchoesWorks功能
+
+想了想需要的功能，便将EchoesWorks需要的feature列出来:
+
+- Slide展示(完成)
+- 代码展示(github， 部分完成)
+- 音频播放。将视频转为音频，然后就可以简单地配上字幕。
+- 字幕。谁说字幕只能用在视频上。
+
+blabla，这就是总的需求啦。
+
+##现状
+
+接着，在过去的两个星期里，完成了简单的第一个版本，即一个简单的PPT功能。
+
+- ``Markdown`` Presentation
+- Integrate Github Code/Gist Code
+- ``Full Screen`` Background Image
+- Left/Right Images Support
+- Process Bar
+
+###idea
+
+1. Chrome插件。用于在一个tab里，控制另外一个tab，即类似于keynote的分屏功能。
+
+本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
+
+![EchoesWorks][1]
+
+##实现机制
+
+在这里并没有什么特别高级的用法，只是简单的事件监听
+
+		function handler() {
+			window.slide.slide(parseInt(localStorage.getItem('echoesworks'), 10));
+		}
+
+		if (window.addEventListener) {
+			window.addEventListener("storage", handler, false);
+		} else {
+                       // IE
+			window.attachEvent("onstorage", handler);
+		}
+
+即，当监听到调用``storage``的方法，就会跳转到相应的页面。
+
+正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。
+
+    localStorage.setItem('echoesworks', index);
+
+这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
+
+
+  [1]: /static/media/uploads/echoesworks.jpg
+  
+  
+
+编辑-发布-分离应用
+==========
 
 ​尽管没有特别的动力去构建一个全新的CMS，但是我还是愿意去撰文一篇来书写如何去做这样的事——编辑-发布-开发分离模式是如何工作的。微服务是我们对于复杂应用的一种趋势，编辑-发布-开发分离模式则是另外一种趋势。在上篇文章《[Repractise架构篇一: CMS的重构与演进](https://github.com/phodal/repractise/blob/gh-pages/chapters/refactor-cms.md)》中，我们说到编辑-发布-开发分离模式。
 
@@ -405,6 +506,13 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
   [1]: /static/media/uploads/eche-editor-screenshot.png
   [2]: /static/media/uploads/man-git.png  
 
+GitHub数据分析
+==========
+
+
+Google Map与Solr实现多连形搜索
+======================
+
 记录一下自己做的一个小东西，当然你也可以在github上找到它:[https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
 
 ##Solr
@@ -620,6 +728,9 @@ if(typeof module !== 'undefined' && module && module.exports){
 我就开始思索这个问题，未来的趋势是合并到一起，而这一个趋势在现在就已经是完成时了。
 
 那么未来呢？你觉得会是怎样的？
+
+Ionic ElasticSearch打造O2O应用
+===
 
 搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图
 
@@ -1278,6 +1389,9 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
   [1]: /static/media/uploads/elasticsearch_ionit_map.jpg    
 
+跨协议的物联网平台设计
+===
+
 在设计 lan (Github: [https://github.com/phodal/lan](https://github.com/phodal/lan)) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。
 
 然后像[lan](https://github.com/phodal/lan)这样的应用，在里面刚属于服务层。
@@ -1320,6 +1434,195 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
   [3]: /static/media/uploads/iot-server.jpg
   
   
+
+一步步搭建JavaScript框架: Lettuce
+==========================
+
+从开始打算写一个MV*，到一个简单的demo，花了几天的时间，虽然很多代码都是复制/改造过来的，然而**It Works**(nginx的那句话会让人激动有木有)。现在他叫lettuce，代码 [https://github.com/phodal/lettuce](https://github.com/phodal/lettuce)，如果有兴趣可以加入我们。
+
+虽然js还不够expert，但是开始了。
+
+##JavaScript项目名称
+
+一开始我做的3次commits是:
+
+    * e4e6e04 - Add README.md (3 weeks ago) <Fengda HUANG>
+    * 37411d7 - publish bower (3 weeks ago) <Fengda HUANG>
+    * aabf278 - init project (3 weeks ago) <Fengda HUANG>
+
+是的一开始什么也没做，除了从``bower``和``npm``上注册了一个叫做``lettuce``的库:
+
+    {
+      "name": "lettuce",
+      "version": "0.0.2",
+      "authors": [
+        "Fengda HUANG <h@phodal.com>"
+      ],
+      "description": "A Mobile JavaScript Framework",
+      "main": "index.js",
+      "moduleType": [
+        "amd",
+        "node"
+      ],
+      "keywords": [
+        "lettuce",
+        "mobile"
+      ],
+      "license": "MIT",
+      "homepage": "http://lettuce.phodal.com",
+      "private": false,
+      "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+      ]
+    }
+
+
+然后在我们还没有开始写代码的时候版本就已经是``0.0.2``这个速度好快。。总结如下:
+
+ - 取一个好的名字
+ - 在npm和bower上挖一个坑给自己
+ - 开始写README.md
+
+所以我的``README.md``是这样子的
+
+    #Lettuce
+
+    > A is Mobile JavaScript Framework
+
+    Coming soon
+
+是的，我们的代码已经``Coming soon``了。
+
+##生成Javascript项目框架
+
+为了简化这一个痛苦的过程，我们还是用yeoman。
+
+###安装Yeoman lib生成器
+
+1.安装yeoman
+
+    npm install -g yo
+
+2.安装generator-lib
+
+     npm install -g generator-lib
+
+3.创建项目
+ 
+     mkdir ~/lettuce && cd $_
+     yo lib
+
+接着我们就迎来了
+
+         _-----_
+        |       |
+        |--(o)--|   .--------------------------.
+       `---------´  |    Welcome to Yeoman,    |
+        ( _´U`_ )   |   ladies and gentlemen!  |
+        /___A___\   '__________________________'
+         |  ~  |
+       __'.___.'__
+     ´   `  |° ´ Y `
+
+    [?] What do you want to call your lib? Lettuce
+    [?] Describe your lib: A Framework for Romantic
+    [?] What is your GitHub username? phodal
+    [?] What is your full name? Fengda Huang
+    [?] What year for the copyright? 2015
+
+
+省略上百字，你的目录里就会有
+
+    .
+    |____.editorconfig
+    |____.gitattributes
+    |____.gitignore
+    |____.jshintrc
+    |____bower.json
+    |____demo
+    | |____assets
+    | | |____main.css
+    | | |____normalize.css
+    | |____index.html
+    |____dist
+    | |____Lettuce.js
+    | |____Lettuce.min.js
+    |____docs
+    | |____MAIN.md
+    |____Gruntfile.js
+    |____index.html
+    |____LICENSE.txt
+    |____package.json
+    |____README.md
+    |____src
+    | |_____intro.js
+    | |_____outro.js
+    | |____main.js
+    |____test
+    | |____all.html
+    | |____all.js
+    | |____lib
+    | | |____qunit.css
+    | | |____qunit.js
+
+这么多的文件。
+
+##Build JavaScript项目
+
+于是我们执行了一下
+
+    grunt
+
+就有了这么多的log:
+
+    Running "concat:dist" (concat) task
+    File "dist/Lettuce.js" created.
+
+    Running "jshint:files" (jshint) task
+    >> 1 file lint free.
+
+    Running "qunit:files" (qunit) task
+    Testing test/all.html .OK
+    >> 1 assertions passed (20ms)
+
+    Running "uglify:dist" (uglify) task
+    File "dist/Lettuce.min.js" created.
+
+    Done, without errors.
+
+看看我们的Lettuce.js里面有什么
+
+    (function(root, undefined) {
+      "use strict";
+    /* Lettuce main */
+    // Base function.
+    var Lettuce = function() {
+      // Add functionality here.
+      return true;
+    };
+    // Version.
+    Lettuce.VERSION = '0.0.1';
+    // Export to the root, which is probably `window`.
+    root.Lettuce = Lettuce;
+    }(this));
+
+我们的库写在[立即执行函数表达式](https://www.phodal.com/blog/javascript-immediately-invoked-function-expression)里面。这样便是和jQuery等库一样了。
+
+grunt里的任务包含了:
+
+ - jshint 代码检查
+ - contact 合并js到一个文件
+ - minify js 压缩js
+ - qunit 单元测试
+
+这样我们就可以轻松上路了。
+
+基于Virtual DOM的测试代码生成
+===
 
 > 尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。
 
@@ -1519,6 +1822,9 @@ function printNode(applyNode, originRootNodeHTML, patchIndex) {
 ###其他
 
 源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
+
+移动框架
+===
 
 看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——[墨颀 CMS](http://cms.moqi.mobi)，方便项目深入理解的同时，也可以自己维护一个CMS系统。
 
@@ -2579,7 +2885,8 @@ checkout到这个版本
  - 当用户向左滑动的时候，菜单应该关闭
  
 
-#Oculus  + Node.js  + Three.js 打造VR世界
+Oculus  + Node.js  + Three.js 打造VR世界
+===
 
 > Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。
 
@@ -3067,6 +3374,9 @@ if (this.camera.position.y < -10) {
 如我在[《RePractise前端篇: 前端演进史》](https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md)一文中所说的，这似乎就是新的"前端"。
 
 
+Python制作照片地图
+===
+
 最后效果可参见
 
 [Phodal|cart db][1]
@@ -3221,7 +3531,13 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
 ###上传到cartodb###
 
-###从零开始设计技能树: 使用Graphviz建立模型
+React制作Markdown简历生成器
+====================
+
+D3.js 制作技能树
+===========
+
+### 从零开始设计技能树: 使用Graphviz建立模型
 
 在开始设计新的技能树——[Sherlock](https://github.com/phodal/sherlock)的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。
 
@@ -3495,6 +3811,12 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
 
   [1]: /static/media/uploads/tips.jpg  
 
+D3.js 技术栈
+=========
+
+文本转化为Logo
+===
+
 在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:
 
 ![Node][1] ![Refactor][2] ![TDD][3] ![Clean Code][4]
@@ -3581,6 +3903,12 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
   [3]: /static/media/uploads/tdd.png
   [4]: /static/media/uploads/clean_code.png
   
+
+游戏地图生成器
+=======
+
+GEOJSON与ElasticSearch实现高级图形搜索
+===
 
 或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：
 

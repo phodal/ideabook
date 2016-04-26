@@ -5,8 +5,6 @@
 
 虽然js还不够expert，但是开始了。
 
-#一步步搭建JavaScript框架
-
 ##JavaScript项目名称
 
 一开始我做的3次commits是:

@@ -57,9 +57,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div style="width:800px">
 <nav id="TOC">
 <ul>
+<li><a href="#hadoop-pig-分析nginx日志">Hadoop + Pig 分析Nginx日志</a></li>
+<li><a href="#书籍录入程序">书籍录入程序</a></li>
+<li><a href="#程序员专属badge制作">程序员专属Badge制作</a><ul>
 <li><a href="#svg与svgwrite">SVG与SVGWrite</a></li>
 <li><a href="#高级badge">高级Badge</a></li>
 <li><a href="#最后代码">最后代码</a></li>
+</ul></li>
+<li><a href="#文本编辑器">文本编辑器</a></li>
+<li><a href="#javascript打造slide应用">JavaScript打造Slide应用</a><ul>
+<li><a href="#需求">需求</a></li>
+<li><a href="#echoesworks功能">EchoesWorks功能</a></li>
+<li><a href="#现状">现状</a><ul>
+<li><a href="#idea">idea</a></li>
+</ul></li>
+<li><a href="#实现机制">实现机制</a></li>
+</ul></li>
+<li><a href="#编辑-发布-分离应用">编辑-发布-分离应用</a><ul>
 <li><a href="#系统架构">系统架构</a><ul>
 <li><a href="#用户场景">用户场景</a></li>
 </ul></li>
@@ -70,10 +84,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#git作为nosql数据库">git作为NoSQL数据库</a><ul>
 <li><a href="#git-json文件">git + JSON文件</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#github数据分析">GitHub数据分析</a></li>
+<li><a href="#google-map与solr实现多连形搜索">Google Map与Solr实现多连形搜索</a><ul>
 <li><a href="#solr">Solr</a></li>
 <li><a href="#gmap-solr-polygon-搜索实战">Gmap Solr Polygon 搜索实战</a><ul>
 <li><a href="#solr-flask">Solr Flask</a></li>
 <li><a href="#google-map-polygon">Google map Polygon</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#growth">Growth</a><ul>
 <li><a href="#从web到混合应用再到桌面应用">从Web到混合应用，再到桌面应用</a></li>
@@ -85,6 +103,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#桌面应用">桌面应用</a></li>
 </ul></li>
 <li><a href="#未来">未来</a></li>
+</ul></li>
+<li><a href="#ionic-elasticsearch打造o2o应用">Ionic ElasticSearch打造O2O应用</a><ul>
 <li><a href="#构架设计">构架设计</a><ul>
 <li><a href="#gis架构说明-服务端">GIS架构说明 —— 服务端</a></li>
 <li><a href="#haystack">Haystack</a></li>
@@ -124,8 +144,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#添加点击事件">添加点击事件</a></li>
 </ul></li>
 <li><a href="#其他-4">其他:</a></li>
+</ul></li>
+<li><a href="#跨协议的物联网平台设计">跨协议的物联网平台设计</a><ul>
 <li><a href="#物联网层级结构">物联网层级结构</a></li>
 <li><a href="#物联网服务层">物联网服务层</a></li>
+</ul></li>
+<li><a href="#一步步搭建javascript框架-lettuce">一步步搭建JavaScript框架: Lettuce</a><ul>
+<li><a href="#javascript项目名称">JavaScript项目名称</a></li>
+<li><a href="#生成javascript项目框架">生成Javascript项目框架</a><ul>
+<li><a href="#安装yeoman-lib生成器">安装Yeoman lib生成器</a></li>
+</ul></li>
+<li><a href="#build-javascript项目">Build JavaScript项目</a></li>
+</ul></li>
+<li><a href="#基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</a><ul>
 <li><a href="#virtual-dom">Virtual DOM</a><ul>
 <li><a href="#一个jasmine-jquery测试">一个Jasmine jQuery测试</a></li>
 <li><a href="#virtual-dom与hyperscript">virtual-dom与HyperScript</a></li>
@@ -133,6 +164,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#标记dom变化">标记DOM变化</a><ul>
 <li><a href="#其他-5">其他</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#移动框架">移动框架</a><ul>
 <li><a href="#构建框架">构建框架</a><ul>
 <li><a href="#关于backbone">关于Backbone</a></li>
 <li><a href="#其他可替换的框架">其他可替换的框架</a></li>
@@ -196,6 +229,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#three.js-keyhandler">Three.js KeyHandler</a></li>
 </ul></li>
 <li><a href="#结语">结语</a></li>
+</ul></li>
+<li><a href="#python制作照片地图">Python制作照片地图</a><ul>
 <li><a href="#exif">EXIF</a><ul>
 <li><a href="#exifread">ExifRead</a></li>
 <li><a href="#exifread安装">ExifRead安装</a></li>
@@ -209,8 +244,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#python-解析照片信息">python 解析照片信息</a></li>
 <li><a href="#python-提取照片信息生成文件">python 提取照片信息生成文件</a></li>
 <li><a href="#上传到cartodb">上传到cartodb</a></li>
-<li><a href="#从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
+<li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
+<li><a href="#从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</a></li>
 <li><a href="#graphviz">Graphviz</a></li>
 <li><a href="#简单的技能树">简单的技能树</a></li>
 </ul></li>
@@ -225,6 +263,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#整合代码">整合代码</a></li>
 </ul></li>
 <li><a href="#结束">结束</a></li>
+</ul></li>
+<li><a href="#d3.js-技术栈">D3.js 技术栈</a></li>
+<li><a href="#文本转化为logo">文本转化为Logo</a><ul>
 <li><a href="#需求说明">需求说明</a></li>
 <li><a href="#python-文字转logo实战">Python 文字转Logo实战</a><ul>
 <li><a href="#基础代码">基础代码</a></li>
@@ -232,6 +273,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#颜色配置">颜色配置</a></li>
 </ul></li>
 <li><a href="#结束-1">结束</a></li>
+</ul></li>
+<li><a href="#游戏地图生成器">游戏地图生成器</a></li>
+<li><a href="#geojson与elasticsearch实现高级图形搜索">GEOJSON与ElasticSearch实现高级图形搜索</a><ul>
 <li><a href="#离线地图与搜索">离线地图与搜索</a><ul>
 <li><a href="#地图离线">地图离线</a></li>
 <li><a href="#多边形搜索">多边形搜索</a></li>
@@ -242,6 +286,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul>
 </nav>
+<h1 id="hadoop-pig-分析nginx日志">Hadoop + Pig 分析Nginx日志</h1>
+<h1 id="书籍录入程序">书籍录入程序</h1>
+<h1 id="程序员专属badge制作">程序员专属Badge制作</h1>
 <p>前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:</p>
 <figure>
 <img src="/static/media/uploads/node.png" alt="Badge" /><figcaption>Badge</figcaption>
@@ -327,6 +374,67 @@ dwg.save()</code></pre></div>
 </figure>
 <h2 id="最后代码">最后代码</h2>
 <p>GitHub: <a href="https://github.com/phodal/brand" class="uri">https://github.com/phodal/brand</a></p>
+<h1 id="文本编辑器">文本编辑器</h1>
+<h1 id="javascript打造slide应用">JavaScript打造Slide应用</h1>
+<p>又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
+</figure>
+<p>如名字所言，我所需要的是一个<code>回声</code>工坊，即将博客、Slide重新回放。</p>
+<h2 id="需求">需求</h2>
+<p>当前我们有不同的方式可以记录我们的想法、博客、过程，如视频、音频、博客、幻灯片等等。</p>
+<p>然而这些并非那么完美，让我们说说这些方式的一些缺陷吧。</p>
+<ol type="1">
+<li><p>视频。有很多技术视频从开始到结束，只有PPT，然后我们就为了这张PPT和声音下了几百M的视频。即使在今天网速很快，但是这并不代表我们可以在我们的手机上放下很多的视频。</p></li>
+<li><p>音频。音频所受到的限制我想大家都很清楚。什么也不知道~~，什么也看不到，只能听。</p></li>
+<li><p>博客。博客的主要缺点可能就是不够直接，有时会有点啰嗦。</p></li>
+<li><p>幻灯片。一个好的PPT，也就意味着上面的内容是很少的。即如果没有人说的时候，就缺少真正有用的东西。</p></li>
+<li><p>代码。我们真的需要在另外打开一个网址来看代码么?</p></li>
+</ol>
+<p>于是，<code>EchoesWorks</code>出现了。</p>
+<h2 id="echoesworks功能">EchoesWorks功能</h2>
+<p>想了想需要的功能，便将EchoesWorks需要的feature列出来:</p>
+<ul>
+<li>Slide展示(完成)</li>
+<li>代码展示(github， 部分完成)</li>
+<li>音频播放。将视频转为音频，然后就可以简单地配上字幕。</li>
+<li>字幕。谁说字幕只能用在视频上。</li>
+</ul>
+<p>blabla，这就是总的需求啦。</p>
+<h2 id="现状">现状</h2>
+<p>接着，在过去的两个星期里，完成了简单的第一个版本，即一个简单的PPT功能。</p>
+<ul>
+<li><code>Markdown</code> Presentation</li>
+<li>Integrate Github Code/Gist Code</li>
+<li><code>Full Screen</code> Background Image</li>
+<li>Left/Right Images Support</li>
+<li>Process Bar</li>
+</ul>
+<h3 id="idea">idea</h3>
+<ol type="1">
+<li>Chrome插件。用于在一个tab里，控制另外一个tab，即类似于keynote的分屏功能。</li>
+</ol>
+<p>本来想着给<a href="https://github.com/phodal/echoesworks">EchoesWorks</a>做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
+</figure>
+<h2 id="实现机制">实现机制</h2>
+<p>在这里并没有什么特别高级的用法，只是简单的事件监听</p>
+<pre><code>    function handler() {
+        window.slide.slide(parseInt(localStorage.getItem(&#39;echoesworks&#39;), 10));
+    }
+
+    if (window.addEventListener) {
+        window.addEventListener(&quot;storage&quot;, handler, false);
+    } else {
+                   // IE
+        window.attachEvent(&quot;onstorage&quot;, handler);
+    }</code></pre>
+<p>即，当监听到调用<code>storage</code>的方法，就会跳转到相应的页面。</p>
+<p>正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。</p>
+<pre><code>localStorage.setItem(&#39;echoesworks&#39;, index);</code></pre>
+<p>这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。</p>
+<h1 id="编辑-发布-分离应用">编辑-发布-分离应用</h1>
 <p>​尽管没有特别的动力去构建一个全新的CMS，但是我还是愿意去撰文一篇来书写如何去做这样的事——编辑-发布-开发分离模式是如何工作的。微服务是我们对于复杂应用的一种趋势，编辑-发布-开发分离模式则是另外一种趋势。在上篇文章《<a href="https://github.com/phodal/repractise/blob/gh-pages/chapters/refactor-cms.md">Repractise架构篇一: CMS的重构与演进</a>》中，我们说到编辑-发布-开发分离模式。</p>
 <h2 id="系统架构">系统架构</h2>
 <p>如先前提到的，Carrot使用了下面的方案来搭建他们的静态内容的CMS。</p>
@@ -539,6 +647,8 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <li>git commit</li>
 <li>git push</li>
 </ol>
+<h1 id="github数据分析">GitHub数据分析</h1>
+<h1 id="google-map与solr实现多连形搜索">Google Map与Solr实现多连形搜索</h1>
 <p>记录一下自己做的一个小东西，当然你也可以在github上找到它:<a href="https://github.com/phodal/gmap-solr" class="uri">https://github.com/phodal/gmap-solr</a></p>
 <h2 id="solr">Solr</h2>
 <blockquote>
@@ -690,6 +800,7 @@ if(isAndroid) {
 <h2 id="未来">未来</h2>
 <p>我就开始思索这个问题，未来的趋势是合并到一起，而这一个趋势在现在就已经是完成时了。</p>
 <p>那么未来呢？你觉得会是怎样的？</p>
+<h1 id="ionic-elasticsearch打造o2o应用">Ionic ElasticSearch打造O2O应用</h1>
 <p>搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图</p>
 <p><img src="/static/media/uploads/node.png" alt="elasticsearch_ionic_map" /> <img src="/static/media/uploads/refactor.png" alt="elasticsearch_ionic_info_page" /></p>
 <h2 id="构架设计">构架设计</h2>
@@ -1189,6 +1300,7 @@ $cordovaGeolocation
 <h2 id="其他-4">其他:</h2>
 <p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
 <p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<h1 id="跨协议的物联网平台设计">跨协议的物联网平台设计</h1>
 <p>在设计 lan (Github: <a href="https://github.com/phodal/lan" class="uri">https://github.com/phodal/lan</a>) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。</p>
 <p>然后像<a href="https://github.com/phodal/lan">lan</a>这样的应用，在里面刚属于服务层。</p>
 <h2 id="物联网层级结构">物联网层级结构</h2>
@@ -1241,6 +1353,156 @@ $cordovaGeolocation
 <img src="/static/media/uploads/tdd.png" alt="IoT Server Layer" /><figcaption>IoT Server Layer</figcaption>
 </figure>
 <p>上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。</p>
+<h1 id="一步步搭建javascript框架-lettuce">一步步搭建JavaScript框架: Lettuce</h1>
+<p>从开始打算写一个MV*，到一个简单的demo，花了几天的时间，虽然很多代码都是复制/改造过来的，然而<strong>It Works</strong>(nginx的那句话会让人激动有木有)。现在他叫lettuce，代码 <a href="https://github.com/phodal/lettuce" class="uri">https://github.com/phodal/lettuce</a>，如果有兴趣可以加入我们。</p>
+<p>虽然js还不够expert，但是开始了。</p>
+<h2 id="javascript项目名称">JavaScript项目名称</h2>
+<p>一开始我做的3次commits是:</p>
+<pre><code>* e4e6e04 - Add README.md (3 weeks ago) &lt;Fengda HUANG&gt;
+* 37411d7 - publish bower (3 weeks ago) &lt;Fengda HUANG&gt;
+* aabf278 - init project (3 weeks ago) &lt;Fengda HUANG&gt;</code></pre>
+<p>是的一开始什么也没做，除了从<code>bower</code>和<code>npm</code>上注册了一个叫做<code>lettuce</code>的库:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;lettuce&quot;,
+  &quot;version&quot;: &quot;0.0.2&quot;,
+  &quot;authors&quot;: [
+    &quot;Fengda HUANG &lt;h@phodal.com&gt;&quot;
+  ],
+  &quot;description&quot;: &quot;A Mobile JavaScript Framework&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;moduleType&quot;: [
+    &quot;amd&quot;,
+    &quot;node&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;lettuce&quot;,
+    &quot;mobile&quot;
+  ],
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;homepage&quot;: &quot;http://lettuce.phodal.com&quot;,
+  &quot;private&quot;: false,
+  &quot;ignore&quot;: [
+    &quot;**/.*&quot;,
+    &quot;node_modules&quot;,
+    &quot;bower_components&quot;,
+    &quot;test&quot;,
+    &quot;tests&quot;
+  ]
+}</code></pre>
+<p>然后在我们还没有开始写代码的时候版本就已经是<code>0.0.2</code>这个速度好快。。总结如下:</p>
+<ul>
+<li>取一个好的名字</li>
+<li>在npm和bower上挖一个坑给自己</li>
+<li>开始写README.md</li>
+</ul>
+<p>所以我的<code>README.md</code>是这样子的</p>
+<pre><code>#Lettuce
+
+&gt; A is Mobile JavaScript Framework
+
+Coming soon</code></pre>
+<p>是的，我们的代码已经<code>Coming soon</code>了。</p>
+<h2 id="生成javascript项目框架">生成Javascript项目框架</h2>
+<p>为了简化这一个痛苦的过程，我们还是用yeoman。</p>
+<h3 id="安装yeoman-lib生成器">安装Yeoman lib生成器</h3>
+<p>1.安装yeoman</p>
+<pre><code>npm install -g yo</code></pre>
+<p>2.安装generator-lib</p>
+<pre><code> npm install -g generator-lib</code></pre>
+<p>3.创建项目</p>
+<pre><code> mkdir ~/lettuce &amp;&amp; cd $_
+ yo lib</code></pre>
+<p>接着我们就迎来了</p>
+<pre><code>     _-----_
+    |       |
+    |--(o)--|   .--------------------------.
+   `---------´  |    Welcome to Yeoman,    |
+    ( _´U`_ )   |   ladies and gentlemen!  |
+    /___A___\   &#39;__________________________&#39;
+     |  ~  |
+   __&#39;.___.&#39;__
+ ´   `  |° ´ Y `
+
+[?] What do you want to call your lib? Lettuce
+[?] Describe your lib: A Framework for Romantic
+[?] What is your GitHub username? phodal
+[?] What is your full name? Fengda Huang
+[?] What year for the copyright? 2015</code></pre>
+<p>省略上百字，你的目录里就会有</p>
+<pre><code>.
+|____.editorconfig
+|____.gitattributes
+|____.gitignore
+|____.jshintrc
+|____bower.json
+|____demo
+| |____assets
+| | |____main.css
+| | |____normalize.css
+| |____index.html
+|____dist
+| |____Lettuce.js
+| |____Lettuce.min.js
+|____docs
+| |____MAIN.md
+|____Gruntfile.js
+|____index.html
+|____LICENSE.txt
+|____package.json
+|____README.md
+|____src
+| |_____intro.js
+| |_____outro.js
+| |____main.js
+|____test
+| |____all.html
+| |____all.js
+| |____lib
+| | |____qunit.css
+| | |____qunit.js</code></pre>
+<p>这么多的文件。</p>
+<h2 id="build-javascript项目">Build JavaScript项目</h2>
+<p>于是我们执行了一下</p>
+<pre><code>grunt</code></pre>
+<p>就有了这么多的log:</p>
+<pre><code>Running &quot;concat:dist&quot; (concat) task
+File &quot;dist/Lettuce.js&quot; created.
+
+Running &quot;jshint:files&quot; (jshint) task
+&gt;&gt; 1 file lint free.
+
+Running &quot;qunit:files&quot; (qunit) task
+Testing test/all.html .OK
+&gt;&gt; 1 assertions passed (20ms)
+
+Running &quot;uglify:dist&quot; (uglify) task
+File &quot;dist/Lettuce.min.js&quot; created.
+
+Done, without errors.</code></pre>
+<p>看看我们的Lettuce.js里面有什么</p>
+<pre><code>(function(root, undefined) {
+  &quot;use strict&quot;;
+/* Lettuce main */
+// Base function.
+var Lettuce = function() {
+  // Add functionality here.
+  return true;
+};
+// Version.
+Lettuce.VERSION = &#39;0.0.1&#39;;
+// Export to the root, which is probably `window`.
+root.Lettuce = Lettuce;
+}(this));</code></pre>
+<p>我们的库写在<a href="https://www.phodal.com/blog/javascript-immediately-invoked-function-expression">立即执行函数表达式</a>里面。这样便是和jQuery等库一样了。</p>
+<p>grunt里的任务包含了:</p>
+<ul>
+<li>jshint 代码检查</li>
+<li>contact 合并js到一个文件</li>
+<li>minify js 压缩js</li>
+<li>qunit 单元测试</li>
+</ul>
+<p>这样我们就可以轻松上路了。</p>
+<h1 id="基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</h1>
 <blockquote>
 <p>尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。</p>
 </blockquote>
@@ -1390,6 +1652,7 @@ $cordovaGeolocation
 <p>最后，我们似乎就可以生成相应的测试代码了。。。</p>
 <h3 id="其他-5">其他</h3>
 <p>源码见：<a href="https://github.com/phodal/luffa" class="uri">https://github.com/phodal/luffa</a></p>
+<h1 id="移动框架">移动框架</h1>
 <p>看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——<a href="http://cms.moqi.mobi">墨颀 CMS</a>，方便项目深入理解的同时，也可以自己维护一个CMS系统。</p>
 <h2 id="构建框架">构建框架</h2>
 <p>尝试过用AngularJS和EmberJS，发现对于使用AngluarJS以及EmberJS来说，主要的问题是要使用自己熟悉的东西没那么容易引入。而且考虑到谷歌向来对自己的项目的支持不是很好~~，所以便放弃了AngluarJS的想法。</p>
@@ -2642,6 +2905,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <p>快接上你的HMD试试吧~~</p>
 <h2 id="结语">结语</h2>
 <p>如我在<a href="https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md">《RePractise前端篇: 前端演进史》</a>一文中所说的，这似乎就是新的“前端”。</p>
+<h1 id="python制作照片地图">Python制作照片地图</h1>
 <p>最后效果可参见</p>
 <p><a href="/static/media/uploads/node.png">Phodal|cart db</a></p>
 <h2 id="exif">EXIF</h2>
@@ -2764,6 +3028,8 @@ jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
 <p>最终代码可见<a href="/static/media/uploads/tdd.png">python cartodb</a> <a href="/static/media/uploads/tdd.png">3</a>:https://github.com/gmszone/py_cartodb.git</p>
 <h3 id="上传到cartodb">上传到cartodb</h3>
+<h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
+<h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
 <h3 id="从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</h3>
 <p>在开始设计新的技能树——<a href="https://github.com/phodal/sherlock">Sherlock</a>的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。</p>
 <figure>
@@ -2976,6 +3242,8 @@ jsonFile.close()</code></pre>
     });</code></pre>
 <h2 id="结束">结束</h2>
 <p>代码见： <a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a></p>
+<h1 id="d3.js-技术栈">D3.js 技术栈</h1>
+<h1 id="文本转化为logo">文本转化为Logo</h1>
 <p>在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:</p>
 <p><img src="/static/media/uploads/node.png" alt="Node" /> <img src="/static/media/uploads/refactor.png" alt="Refactor" /> <img src="/static/media/uploads/tdd.png" alt="TDD" /> <img src="/static/media/uploads/clean_code.png" alt="Clean Code" /></p>
 <h2 id="需求说明">需求说明</h2>
@@ -3038,6 +3306,8 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <p>最后我们就可以得到我们想要的图片了~~</p>
 <h2 id="结束-1">结束</h2>
 <p>代码见:<a href="https://github.com/phodal/text2logo" class="uri">https://github.com/phodal/text2logo</a></p>
+<h1 id="游戏地图生成器">游戏地图生成器</h1>
+<h1 id="geojson与elasticsearch实现高级图形搜索">GEOJSON与ElasticSearch实现高级图形搜索</h1>
 <p>或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：</p>
 <figure>
 <img src="/static/media/uploads/general-province-city-map.png" alt="一般的省市区与地图联动" /><figcaption>一般的省市区与地图联动</figcaption>
