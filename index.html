@@ -166,54 +166,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#移动框架">移动框架</a><ul>
-<li><a href="#构建框架">构建框架</a><ul>
-<li><a href="#关于backbone">关于Backbone</a></li>
-<li><a href="#其他可替换的框架">其他可替换的框架</a></li>
-</ul></li>
-<li><a href="#项目">项目</a><ul>
-<li><a href="#源码">源码</a></li>
-<li><a href="#进展及目的">进展及目的</a></li>
-</ul></li>
-<li><a href="#其他-6">其他</a></li>
+<li><a href="#构建框架">构建框架</a></li>
 <li><a href="#requirejs-使用">RequireJS 使用</a><ul>
-<li><a href="#库及依赖">库及依赖</a></li>
 <li><a href="#使用requirejs">使用RequireJS</a></li>
-</ul></li>
-<li><a href="#开始之前-1">开始之前</a><ul>
 <li><a href="#环境准备">环境准备</a></li>
-<li><a href="#js库准备">JS库准备</a></li>
-<li><a href="#只想要这次的代码">只想要这次的代码</a></li>
-</ul></li>
-<li><a href="#构建移动web-cms">构建移动web CMS</a><ul>
 <li><a href="#添加路由">添加路由</a></li>
 <li><a href="#创建主页view">创建主页View</a></li>
-</ul></li>
-<li><a href="#requirejs与jquery-插件示例">RequireJS与jQuery 插件示例</a></li>
-<li><a href="#墨颀cms添加jquery插件"><a href="http://cms.moqi.mobi">墨颀CMS</a>添加jQuery插件</a><ul>
 <li><a href="#jquery-sidr">jQuery Sidr</a></li>
-<li><a href="#jquery-sidr与requirejs协作">jQuery Sidr与RequireJS协作</a></li>
-</ul></li>
-<li><a href="#django-tastypie-跨域">Django Tastypie 跨域</a><ul>
 <li><a href="#django-tastypie示例">Django Tastypie示例</a></li>
-<li><a href="#django-tastypie-跨域支持">Django Tastypie 跨域支持</a></li>
-</ul></li>
-<li><a href="#django-与墨颀cms整合">Django 与墨颀CMS整合</a></li>
+<li><a href="#跨域支持">跨域支持</a></li>
+<li><a href="#整合">整合</a></li>
 <li><a href="#requirejs-plugins">RequireJS Plugins</a></li>
-<li><a href="#requirejs-json文件加载">RequireJS JSON文件加载</a></li>
-<li><a href="#简单的博客构成">简单的博客构成</a><ul>
-<li><a href="#博文列表">博文列表</a></li>
 </ul></li>
-<li><a href="#移动cms-获取在线数据">移动CMS 获取在线数据</a><ul>
-<li><a href="#其他-7">其他</a></li>
+<li><a href="#简单的博客构成">简单的博客构成</a><ul>
+<li><a href="#获取在线数据">获取在线数据</a></li>
 </ul></li>
 <li><a href="#获取每篇博客">获取每篇博客</a></li>
-<li><a href="#添加博文的路由">添加博文的路由</a><ul>
-<li><a href="#backbone路由参数">Backbone路由参数</a></li>
-</ul></li>
-<li><a href="#墨颀cms-重构">墨颀CMS 重构</a></li>
+<li><a href="#添加博文的路由">添加博文的路由</a></li>
+<li><a href="#重构">重构</a><ul>
 <li><a href="#构建函数">构建函数</a></li>
-<li><a href="#移动cms滑动">移动CMS滑动</a><ul>
-<li><a href="#添加jquery-touchwipe">添加jQuery Touchwipe</a></li>
+<li><a href="#移动cms滑动">移动CMS滑动</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
@@ -257,7 +229,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#从knockout开始">从Knockout开始</a></li>
 </ul></li>
 <li><a href="#点数计算">点数计算</a></li>
-<li><a href="#其他-8">其他</a></li>
+<li><a href="#其他-6">其他</a></li>
 <li><a href="#tooltipster">Tooltipster</a><ul>
 <li><a href="#d3.js-tooltipster-require配置">D3.js Tooltipster Require配置</a></li>
 <li><a href="#整合代码">整合代码</a></li>
@@ -1664,7 +1636,7 @@ root.Lettuce = Lettuce;
 <li>Backbone</li>
 </ul>
 <p>相对于AngularJS来说，Backbone是一个轻量级的方案，从大小上来说。对于自己来说，灵活性算是其中好的一点，也就是自己可以随意的加入很多东西。</p>
-<h3 id="关于backbone">关于Backbone</h3>
+<p><strong>关于Backbone</strong></p>
 <blockquote>
 <p>Backbone.js是一套JavaScript框架与RESTful JSON的应用程式接口。也是一套大致上符合MVC架构的编程范型。Backbone.js以轻量为特色，只需依赖一套Javascript 函式库即可运行。</p>
 </blockquote>
@@ -1676,15 +1648,15 @@ root.Lettuce = Lettuce;
 <li>RequireJS 你可以顺序读取仅需要相关依赖模块。</li>
 </ul>
 <p>前台UI，使用的是Pure CSS，一个轻量级的CSS框架，但是最后感觉，总体用到一起，大小还是相当的。只是可以有一个更好的移动体验。</p>
-<h3 id="其他可替换的框架">其他可替换的框架</h3>
+<p>****其他可替换的框架**</p>
 <p><strong>AngularJS</strong>，考虑到某些因素，可能会替换掉Backbone，但是还不是当前可行的方案。为了学习是一方案，也为了更好的普及某些东西。</p>
 <p><strong>handlebars</strong> Handlebars 是Mustache的改进，显示与逻辑分离，语法兼容Mustache，可以编译成代码，改进Mustache对路径的支持，但是若需要在服务端运行需要使用服务端Javascript引擎如Node.js。</p>
-<h2 id="项目">项目</h2>
+<p><strong>项目</strong></p>
 <p>前后端分离设计，后台对前台只提供JSON数据，所以在某种意义上来说可能会只适合浏览，和这个要配合后台的框架。总的来说，适合于阅读类的网站。</p>
-<h3 id="源码">源码</h3>
+<p><strong>源码</strong></p>
 <p>代码依然是放在Github上，基本功能已经可以Works了。</p>
 <p><a href="https://github.com/gmszone/moqi.mobi" class="uri">https://github.com/gmszone/moqi.mobi</a></p>
-<h3 id="进展及目的">进展及目的</h3>
+<p><strong>进展及目的</strong></p>
 <p>最后目标:构建一个移动平台的CMS系统。</p>
 <p>当前:对于这样一个项目来说，目前会考虑优先支持下面的两个框架，</p>
 <ul>
@@ -1692,7 +1664,7 @@ root.Lettuce = Lettuce;
 <li>Wordpress</li>
 </ul>
 <p>现在：可以从后台读取到数据。</p>
-<h2 id="其他-6">其他</h2>
+<p><strong>其他</strong></p>
 <p>一些比较好的资料有</p>
 <ul>
 <li><a href="http://backbonetutorials.com/organizing-backbone-using-modules/">Organizing your application using Modules</a></li>
@@ -1700,7 +1672,7 @@ root.Lettuce = Lettuce;
 </ul>
 <p>在一篇<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">构建基于Javascript的移动web CMS入门——简介</a>中简单的介绍了关于<a href="http://cms.moqi.mobi">墨颀CMS</a>的一些原理，其极框架组成，于是开始接着应该说明一下这个CMS是如何一步步搭建起来。</p>
 <h2 id="requirejs-使用">RequireJS 使用</h2>
-<h3 id="库及依赖">库及依赖</h3>
+<p><strong>库及依赖</strong></p>
 <p>这里用的是bower的JS来下载库，详细可以参考一下<a href="http://www.phodal.com/blog/use-bower-to-install-js-plugins/">bower install js使用bower管理js</a> 这篇文章。</p>
 <p>需要下载的库有</p>
 <ul>
@@ -1752,21 +1724,19 @@ require([&#39;../app&#39;], function(App){
 });</code></pre>
 <p>当打开index.html的时候便会在console中输出<code>Hello World</code>。这样我们就完成一个基本的框架，只是还没有HTML，这个将会在下次继续。</p>
 <p>在上一篇<a href="www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">《构建基于Javascript的移动CMS——Hello,World》</a>讲述了<a href="http://cms.moqi.mobi/">墨颀 CMS</a>的大概组成，并进行了一个简单的示例，即Hello,World。这一次，我们将把CMS简单的放到一个可以运行的服务器环境中，也就是说我们需要一个简单的运行环境，以便于进行更有意思的东西——添加模板。</p>
-<h2 id="开始之前-1">开始之前</h2>
 <h3 id="环境准备">环境准备</h3>
-<h4 id="类unix系统">类Unix系统</h4>
+<p><strong>类Unix系统</strong></p>
 <p>因为电脑上已经装有python了，这里便用python起一个简单的server，对于GNU/Linux、Mac OS等类unix系统来说，都可以这样运行:</p>
 <pre><code>python -m SimpleHTTPServer 8000</code></pre>
-<h4 id="windows">Windows</h4>
+<p><strong>Windows</strong></p>
 <p>对于Windows来说，如果你已经装有python的话，那自然是可以用上面的方式运行。如果没有的话，可以试一下<code>mongoose</code>，下载一个安装之。</p>
-<h3 id="js库准备">JS库准备</h3>
+<p><strong>JS库准备</strong></p>
 <p>需要准备的JS库有</p>
 <ul>
 <li>Backbone</li>
 <li>RequireJs的插件text.js</li>
 <li>Mustache</li>
 </ul>
-<h3 id="只想要这次的代码">只想要这次的代码</h3>
 <p>那么就这样子吧</p>
 <pre><code> git@github.com:gmszone/moqi.mobi.git
  </code></pre>
@@ -1775,7 +1745,6 @@ require([&#39;../app&#39;], function(App){
  </code></pre>
 <p>checkout到这个版本</p>
 <pre><code>git checkout 62fbdaf</code></pre>
-<h2 id="构建移动web-cms">构建移动web CMS</h2>
 <p>文件列表如下所示</p>
 <pre><code>.
 |____app.js
@@ -1871,7 +1840,7 @@ require([&#39;../app&#39;], function(App){
 <p>在HomeView.js中，定义了data这样一个object，代码最终的效果便是用“My Sample Project”替换到HTML中的{{project}}。</p>
 <p>这样我们便完成了一个真正意义上的移动web CMS平台的Hello,World，剩下的便是添加一个又一个的脚手架。</p>
 <p>当看到<a href="http://cms.moqi.mobi/">墨颀 CMS</a>的菜单，变成一个工具栏的时候，变觉得这一切有了意义。于是就继续看看这样一个CMS的边栏是怎么组成的。</p>
-<h2 id="requirejs与jquery-插件示例">RequireJS与jQuery 插件示例</h2>
+<p><strong>RequireJS与jQuery 插件示例</strong></p>
 <p>一个简单的组合示例如下所示，在main.js中添加下面的内容</p>
 <pre><code>requirejs.config( {
     &quot;shim&quot;: {
@@ -1884,7 +1853,6 @@ require([&#39;../app&#39;], function(App){
            //添加函数
 });</code></pre>
 <p>这样我们就可以完成一个简单的插件的添加。</p>
-<h2 id="墨颀cms添加jquery插件"><a href="http://cms.moqi.mobi">墨颀CMS</a>添加jQuery插件</h2>
 <h3 id="jquery-sidr">jQuery Sidr</h3>
 <blockquote>
 <p>The best jQuery plugin for creating side menus and the easiest way for doing your menu responsive</p>
@@ -1915,7 +1883,6 @@ require([&#39;../app&#39;], function(App){
     App.initialize();
 });</code></pre>
 <p>添加jquery.sidr.min到里面。</p>
-<h3 id="jquery-sidr与requirejs协作">jQuery Sidr与RequireJS协作</h3>
 <p>引用官方的示例代码</p>
 <pre><code>$(document).ready(function() {
   $(&#39;#simple-menu&#39;).sidr();
@@ -1942,7 +1909,6 @@ require([&#39;../app&#39;], function(App){
 });</code></pre>
 <p>这样打开<a href="http://cms.moqi.mobi">墨颀 CMS</a>便可以看到最后的效果。</p>
 <p>正在一步步完善<a href="http://cms.moqi.mobi/">墨颀 CMS</a>，在暂时不考虑其他新的功能的时候，先和<a href="http://www.phodal.com">自己的博客</a>整合一下。</p>
-<h2 id="django-tastypie-跨域">Django Tastypie 跨域</h2>
 <h3 id="django-tastypie示例">Django Tastypie示例</h3>
 <p>之前用AngluarJS做的全部文章的时候是Tastypie做的API，只是用来生成的是博客的内容。只是打开的速度好快，可以在1秒内打开，献上URL:</p>
 <p><a href="http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json" class="uri">http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json</a></p>
@@ -1984,7 +1950,7 @@ class BlogResource(ModelResource):
     }
   ]
 }</code></pre>
-<h3 id="django-tastypie-跨域支持">Django Tastypie 跨域支持</h3>
+<h3 id="跨域支持">跨域支持</h3>
 <p>于是网上搜索了一下，有了下面的代码:</p>
 <pre><code>from tastypie.resources import Resource, ModelResource
 from mezzanine.blog.models import BlogPost, BlogCategory
@@ -2047,7 +2013,7 @@ class BlogResource(BaseCorsResource, ModelResource):
         allowed_methods = [&#39;get&#39;]
         serializer = Serializer()</code></pre>
 <p>接着便可以很愉快地、危险地跨域。</p>
-<h2 id="django-与墨颀cms整合">Django 与墨颀CMS整合</h2>
+<h3 id="整合">整合</h3>
 <p>接着修改了一下代码中configure.json的blogListUrl，以及模块</p>
 <pre><code>    &lt;div class=&quot;l-box blogPosts&quot;&gt;
         &lt;h2&gt;动 态&lt;/h2&gt;
@@ -2061,7 +2027,7 @@ class BlogResource(BaseCorsResource, ModelResource):
 <p>便可以请求到结果了。</p>
 <p>一开始对于可配置的选择是正确的.</p>
 <p>在上一篇中说到了如何创建一个<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-work-with-django/">Django Tastypie API</a>给<a href="http://cms.moqi.mobi">移动CMS</a>用，接着我们似乎也应该有一个本地的配置文件用于一些简单的配置，如“获取API的URL”、“产品列表”、“SEO”(在一开始的时候发现这是不好的，后面又发现Google的爬虫可以运行Javascript，不过也是不推荐的。)这些东西是不太需要修改的，直接写在代码中似乎又不好，于是放到了一个叫作<code>configure.json</code>的文件里。</p>
-<h2 id="requirejs-plugins">RequireJS Plugins</h2>
+<h3 id="requirejs-plugins">RequireJS Plugins</h3>
 <p>网上搜索到一个叫RequireJS Plugins的repo。</p>
 <p>里面有这样的几个插件:</p>
 <ul>
@@ -2075,7 +2041,6 @@ class BlogResource(BaseCorsResource, ModelResource):
 </ul>
 <p>于是，我们可以用到这里的json用来加载JSON文件，虽然也可以用Requirejs的text插件，但是这里的json有对此稍稍的优化。</p>
 <p>在后面的部分中我们也用到了mdown，用于显示一个md文件，用法上大致是一样的。</p>
-<h2 id="requirejs-json文件加载">RequireJS JSON文件加载</h2>
 <p>将json.js插件放到目录里，再配置好main.js。</p>
 <pre><code>require.config({
     paths: {
@@ -2127,7 +2092,7 @@ require([&#39;app&#39;], function(App) {
 <li>博客内容(blogposts detail)</li>
 </ul>
 <p>在这里我们先关注博文列表</p>
-<h3 id="博文列表">博文列表</h3>
+<p><strong>博文列表</strong></p>
 <p>博文列表的内容一般有:</p>
 <ul>
 <li>作者(Author)</li>
@@ -2151,7 +2116,7 @@ require([&#39;app&#39;], function(App) {
     &quot;created&quot;: &quot;2014-07-17 14:16:18.035763&quot;
 }]</code></pre>
 <p>这里基本上也就有了上面的要素，除了作者，当然因为作者只有一个，所以在里面写作者就是在浪费流量和钱啊。接着我们就是要把上面的内容读取出来放到CMS里。和之前不同的是，虽然我们可以用和<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-json-configure/">墨颀CMS文件 JSON文件</a>一样的方法，但是显然这种方法很快就会不适用。</p>
-<h2 id="移动cms-获取在线数据">移动CMS 获取在线数据</h2>
+<h3 id="获取在线数据">获取在线数据</h3>
 <p>这里会用到Backbone的Model，我们先创建一个Model</p>
 <pre><code>var BlogPostModel = Backbone.Model.extend({
     name: &#39;Blog Posts&#39;,
@@ -2231,7 +2196,6 @@ require([&#39;app&#39;], function(App) {
 &lt;p&gt;看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——墨颀 CMS，方便项目深入理解的同时，也可以自己维护一个CMS系统。&lt;/p&gt;</code></pre>
 <p>把description去掉，再修改一个CSS，便是我们在首页看到的结果。</p>
 <p>下一次我们将打开这些URL。</p>
-<h3 id="其他-7">其他</h3>
 <h4 id="如何查看是否支持json跨域请求">如何查看是否支持JSON跨域请求</h4>
 <p>本次代码下载:<a href="https://github.com/gmszone/moqi.mobi/archive/0.1.1.zip" class="uri">https://github.com/gmszone/moqi.mobi/archive/0.1.1.zip</a></p>
 <p>一个简单的工具就是</p>
@@ -2319,7 +2283,6 @@ Cache-Control: max-age=600</code></pre>
 <p>问题出现了，我们怎样才能进入最后的页面？</p>
 <h2 id="添加博文的路由">添加博文的路由</h2>
 <p>在上一篇结束之后，每个博文都有对应的URL，即有对应的slug。而我们的博客的获取就是根据这个URL，获取的，换句话说，这些事情都是由API在做的。这里所要做的便是，获取博客的内容，再render。这其中又有一个问题是ajax执行的数据无法从外部取出，于是就有了上面的getBlog()调用render的方法。</p>
-<h3 id="backbone路由参数">Backbone路由参数</h3>
 <p>我们需要传进一个参数，以便告诉BlogDetail需要获取哪一篇博文。</p>
 <pre><code>    routes: {
         &#39;index&#39;: &#39;homePage&#39;,
@@ -2369,7 +2332,7 @@ Cache-Control: max-age=600</code></pre>
 });        </code></pre>
 <p>接着我们便可以很愉快地打开每一篇博客查看里面的内容了。</p>
 <p>当前<a href="http://cms.moqi.mobi/">墨颀CMS</a>的一些基础功能设计已经接近尾声了，在完成博客的前两部分之后，我们需要对此进行一个简单的重构。为的是提取出其中的获取Blog内容的逻辑，于是经过一番努力之后，终于有了点小成果。</p>
-<h2 id="墨颀cms-重构">墨颀CMS 重构</h2>
+<h2 id="重构">重构</h2>
 <p>我们想要的结果，便是可以直接初始化及渲染，即如下的结果:</p>
 <pre><code>    initialize: function(){
         this.getBlog();
@@ -2394,7 +2357,7 @@ Cache-Control: max-age=600</code></pre>
         blogView.renderBlog(about);
     }</code></pre>
 <p>我们只需要将id、url、template传进去，便可以返回结果，再用getBlog部分传进参数。再渲染结果，这样我们就可以提取出两个不同View里面的相同的部分。</p>
-<h2 id="构建函数">构建函数</h2>
+<h3 id="构建函数">构建函数</h3>
 <p>于是，我们就需要构建一个函数RenderBlog，只需要将id,url,template等传进去就可以了。</p>
 <pre><code>var RenderBlog = function (params, url, template) {
     this.params = params;
@@ -2425,7 +2388,7 @@ RenderBlog.prototype.render = function(params, template, response) {
 <p>大致便是将原来的函数中的功能抽取出来，再调用自己的方法。于是就这样可以继续进行下一步了，只是暂时没有一个明确的方向。</p>
 <p>在和几个有兴趣做<strong>移动CMS</strong>的小伙伴讨论了一番之后，我们觉得当前比较重要的便是统一一下RESTful API。然而最近持续断网中，又遭遇了一次停电，暂停了对API的思考。在周末无聊的时光了看了《人间失格》，又看了会《一个人流浪，不必去远方》。开始思考所谓的技术以外的事情，或许这将是下一篇讨论的话题。</p>
 <p>正在我对这个<a href="http://cms.moqi.mobi/">移动CMS</a>的功能一筹莫展的时候，帮小伙伴在做一个图片滑动的时候，便想着将这个功能加进去，很顺利地找到了一个库。</p>
-<h2 id="移动cms滑动">移动CMS滑动</h2>
+<h3 id="移动cms滑动">移动CMS滑动</h3>
 <p>我们所需要的两个功能很简单</p>
 <ul>
 <li>当用户向右滑动的时候，菜单应该展开</li>
@@ -2437,7 +2400,7 @@ RenderBlog.prototype.render = function(params, template, response) {
 <p>jQuery Plugin to obtain touch gestures from iPhone, iPod Touch and iPad, should also work with Android mobile phones (not tested yet!)</p>
 </blockquote>
 <p>然而，它并不会其他一些设备上工作。</p>
-<h3 id="添加jquery-touchwipe">添加jQuery Touchwipe</h3>
+<p><strong>添加jQuery Touchwipe</strong></p>
 <p>添加到requirejs的配置中:</p>
 <pre><code>require.config({
     baseUrl: &#39;lib/&#39;,
@@ -3181,7 +3144,7 @@ jsonFile.close()</code></pre>
 <blockquote>
 <p>click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。</p>
 </blockquote>
-<h2 id="其他-8">其他</h2>
+<h2 id="其他-6">其他</h2>
 <p>Sherlock:一个新的技能树:<a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a>。</p>
 <p>开发进行时，欢迎加入。</p>
 <p>使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。</p>
