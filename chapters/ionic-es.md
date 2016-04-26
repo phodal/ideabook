@@ -23,7 +23,7 @@ Ionic ElasticSearch打造O2O应用
 
 下面是框架的一些简单的介绍
 
-####Django
+**Django**
 
 > [Django](http://www.phodal.com/blog/tag/django/) 是一个开放源代码的Web应用框架，由Python写成。采用了MVC的软件设计模式，即模型M，视图V和控制器C。它最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的。并于2005年7月在BSD许可证下发布。这套框架是以比利时的吉普赛爵士吉他手Django Reinhardt来命名的。
 
@@ -42,7 +42,7 @@ Ionic ElasticSearch打造O2O应用
 
 最后一个才是亮点，内置GIS，虽然没怎么用到，但是至少在部署上还是比较方便的。
 
-###Haystack
+**Haystack**
 
 > Haystack provides modular search for Django. It features a unified, familiar API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code.
 
@@ -52,7 +52,7 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 
 也就是说你只需要写你的代码选择你的搜索引擎就可以工作了。
 
-###ElasticSearch
+**ElasticSearch**
 
 在上面的Haystack提供了这些一堆的搜索引擎，当然支持地点搜索的只有``Solr``和``ElasticSearch``，他们支持的空间搜索有:
 
@@ -68,43 +68,31 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 
 ###GIS架构说明 —— 客户端 
 
-####简单说明  —— GET
+**简单说明  —— GET**
 
 1. 当我们访问Map View的时候，会调用HTML5获取用户的位置
 2. 根据用户的位置定位，设置缩放
 3. 根据用户的位置发出ElasticSearch请求，返回结果中带上距离
 4. 显示
 
-####简单说明  —— POST
+**简单说明  —— POST**
 
 1. 用户填写数据会发给Django API，并验证
 2. 成功时，存入数据库，更新索引。
 
-###Ionic
+**Ionic**
 
 > Ionic提供了一个免费且开源的移动优化HTML，CSS和JS组件库，来构建高交互性应用。基于Sass构建和AngularJS 优化。
 
 用到的主要是AngularJS，之前用他写过三个APP。
 
-###Django REST Framework
+**Django REST Framework**
 
 与Django Tastypie相比，DRF的主要优势在于Web界面的调试。
-
-##其他
-
-因为选的是比较熟悉的技术栈，所以也只花了不到两天的业余时间完成的。或许，这也是全栈程序员的优势所在。
-
-服务端代码: [https://github.com/phodal/django-elasticsearch](https://github.com/phodal/django-elasticsearch)
-
-客户端代码: [https://github.com/phodal/ionic-elasticsearch](https://github.com/phodal/ionic-elasticsearch)
-
-下一章: [GIS 移动应用实战 —— Django Haystack ElasticSearch 环境准备](http://www.phodal.com/blog/django-elasticsearch-haystack-prepare-enviorment/)
 
   [1]: /static/media/uploads/elasticsearch_ionic_map.jpg
   [2]: /static/media/uploads/elasticsearch_ionic_info_page.jpg
   [3]: /static/media/uploads/struct.png
-  
-在一篇中，我们介绍了 [《Django ElasticSearch Ionic 打造 GIS 移动应用 —— 架构设计》](http://www.phodal.com/blog/django-elasticsearch-ionic-build-gis-application/)。接着，我们就开始实战了，内容也很简单。
 
 ##Django GIS准备
 
@@ -153,7 +141,7 @@ MacOS: [Mac OS Django Geo 环境搭建](http://www.phodal.com/blog/django-elasti
 
 ##配置Django 
 
-###配置Haystack
+**配置Haystack**
 
     HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
@@ -168,7 +156,7 @@ MacOS: [Mac OS Django Geo 环境搭建](http://www.phodal.com/blog/django-elasti
 ``HAYSTACK_SIGNAL_PROCESSOR``是为了可以实时处理。
 ``HAYSTACK_CONNECTIONS`` 则是配置搜索引擎用的。
 
-###配置Django
+**配置Django**
 
 在``settings.py``中的``INSTALLED_APPS``添加
 
@@ -185,15 +173,6 @@ MacOS: [Mac OS Django Geo 环境搭建](http://www.phodal.com/blog/django-elasti
 
      python manage.py runserver
 
-
-##其他: 
-
-
-服务端代码: [https://github.com/phodal/django-elasticsearch](https://github.com/phodal/django-elasticsearch)
-
-客户端代码: [https://github.com/phodal/ionic-elasticsearch](https://github.com/phodal/ionic-elasticsearch)
-
-上一篇中我们说到了[Django Haystack ElasticSearch 环境准备](http://www.phodal.com/blog/django-elasticsearch-haystack-prepare-enviorment/)，接着实战啦~~
 
 官方有一个简单的文档说明空间搜索—— [Spatial Search](http://django-haystack.readthedocs.org/en/latest/spatial.html)
 
@@ -272,7 +251,7 @@ api.py是后面要用的。
     {{ object.get_location }}
     {{ object.get_location_info }}
 
-##创建数据
+**创建数据**
 
 migrate数据库
 
@@ -284,7 +263,7 @@ run
 
 接着我们就可以后台创建数据了。 打开: http://127.0.0.1:8000/admin/nx/note/，把除了``Latitude``和``Longitude``以外的数据都一填——经纬度是自动生成的。就可以创建数据了。
 
-###测试
+**测试**
 
 访问 http://localhost:9200/haystack/_search
 
@@ -293,20 +272,6 @@ run
     curl -XGET http://127.0.0.1:9200/haystack/_search
 
 
-##其他: 
-
-
-服务端代码: [https://github.com/phodal/django-elasticsearch](https://github.com/phodal/django-elasticsearch)
-
-客户端代码: [https://github.com/phodal/ionic-elasticsearch](https://github.com/phodal/ionic-elasticsearch)
-
-在上一篇[《GIS 移动应用实战 —— Django Haystack ElasticSearch 构建》](http://www.phodal.com/blog/django-elasticsearch-ionic-build-gis-application-create-model/)中，我们构建了我们的服务端，可以通过搜索搜索到结果，这一篇，我们来构建一个简单的搜索。
-
-最后效果如下图所示:
-
-![Ionic ElasticSearch][1]
-
-##开始之前
 
 如果你没有Ionic的经验，可以参考一下之前的一些文章:[《HTML5打造原生应用——Ionic框架简介与Ionic Hello World》](http://www.phodal.com/blog/ionic-development-android-ios-windows-phone-application/)。
 
@@ -449,27 +414,8 @@ run
 
 这个Service主要做的是创建ElasitcSearch Query，然后返回解析结果。
 
-##运行
 
-如果是要在真机上运行，需要处于同一网段，或者是部署到服务器上。
-
-##其他: 
-
-
-服务端代码: [https://github.com/phodal/django-elasticsearch](https://github.com/phodal/django-elasticsearch)
-
-客户端代码: [https://github.com/phodal/ionic-elasticsearch](https://github.com/phodal/ionic-elasticsearch)
-
-
-  [1]: /static/media/uploads/ionic_elasticsearch_search_view.jpg
-
-在上一篇[《地图移动应用实战:Ionic ElasticSearch 搜索服务》](http://www.phodal.com/blog/ionic-searchview-django-elasticsearch-ionic-build-gis-application/)中我们说到了，如果创建一个搜索服务，以及使用搜索接口。接着，我们来将他们显示到地图上。
-
-效果图:
-
-![Ionic ElasticSearch Map Show][1]
-
-##设计思路
+**设计思路**
 
 1. 判断是否有上次记录的位置信息，如果有则将地图的中心设置为上次的位置。
 
@@ -478,7 +424,7 @@ run
 3. 从ElasticSearch中获取数据，并解析Render到地图上。
 
 
-##OpenLayer
+**OpenLayer**
 
 > OpenLayers是一个用于开发WebGIS客户端的JavaScript包。OpenLayers 支持的地图来源包括Google Maps、Yahoo、 Map、微软Virtual Earth 等，用户还可以用简单的图片地图作为背景图，与其他的图层在OpenLayers 中进行叠加，在这一方面OpenLayers提供了非常多的选择。除此之外，OpenLayers实现访问地理空间数据的方法都符合行业标准。OpenLayers 支持Open GIS 协会制定的WMS（Web Mapping Service）和WFS（Web Feature Service）等网络服务规范，可以通过远程服务的方式，将以OGC 服务形式发布的地图数据加载到基于浏览器的OpenLayers 客户端中进行显示。OpenLayers采用面向对象方式开发，并使用来自Prototype.js和Rico中的一些组件。
 
@@ -490,9 +436,9 @@ run
 
     <script src="js/ol.js"></script>
 
-##Ionic OpenLayer 地图显示:
+## Ionic OpenLayer 地图显示
 
-###创建NSService
+**创建NSService**
 
 新建一个``MapCtrl``，需要用到``ESService``和 ``NSService``，NSService是官方示例中的一个函数，提供了一个``getRendererFromQueryString``方法。
 
@@ -520,7 +466,7 @@ run
           };
     })
 
-###创建基本地图显示
+**创建基本地图显示**
 
 这里我们使用的是Bing地图:
 
@@ -551,7 +497,7 @@ run
 
 一个简单的地图如上如示。
 
-###获取当前位置
+**获取当前位置**
 
 ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置。代码如下所示:
 
@@ -572,7 +518,7 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 当获取到位置时，将位置存储到``localstorage``中。
 
-###获取结果并显示
+**获取结果并显示**
 
 最后代码如下所示，获取解析后的结果，添加icon
 
@@ -608,7 +554,7 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 		map.addLayer(vectorLayer);
 	});
 
-###添加点击事件
+**添加点击事件**
 
 在上面的代码中添加:
 
@@ -646,14 +592,5 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 		});
 
 当用户点击时，调用Bootstrap的Popover来显示信息。
-
-
-##其他: 
-
-
-服务端代码: [https://github.com/phodal/django-elasticsearch](https://github.com/phodal/django-elasticsearch)
-
-客户端代码: [https://github.com/phodal/ionic-elasticsearch](https://github.com/phodal/ionic-elasticsearch)
-
 
   [1]: /static/media/uploads/elasticsearch_ionit_map.jpg    
