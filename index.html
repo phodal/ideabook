@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>IdeaBook - </title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<p>
+<h1>IdeaBook</h1>
+<p>Phodal</p>
+</p>
+<div style="width:800px">
+<nav id="TOC">
+<ul>
+<li><a href="#svg与svgwrite">SVG与SVGWrite</a></li>
+<li><a href="#高级badge">高级Badge</a></li>
+<li><a href="#最后代码">最后代码</a></li>
+<li><a href="#系统架构">系统架构</a><ul>
+<li><a href="#用户场景">用户场景</a></li>
+</ul></li>
+<li><a href="#builder-构建工具">Builder: 构建工具</a></li>
+<li><a href="#code-静态页面生成">Code: 静态页面生成</a></li>
+<li><a href="#编辑-发布-开发分离">编辑-发布-开发分离</a></li>
+<li><a href="#从schema到数据库">从Schema到数据库</a></li>
+<li><a href="#git作为nosql数据库">git作为NoSQL数据库</a><ul>
+<li><a href="#git-json文件">git + JSON文件</a></li>
+</ul></li>
+<li><a href="#solr">Solr</a></li>
+<li><a href="#gmap-solr-polygon-搜索实战">Gmap Solr Polygon 搜索实战</a><ul>
+<li><a href="#solr-flask">Solr Flask</a></li>
+<li><a href="#google-map-polygon">Google map Polygon</a></li>
+</ul></li>
+<li><a href="#growth">Growth</a><ul>
+<li><a href="#从web到混合应用再到桌面应用">从Web到混合应用，再到桌面应用</a></li>
+<li><a href="#响应式设计">响应式设计</a></li>
+<li><a href="#平台特定代码">平台特定代码</a><ul>
+<li><a href="#存储">存储</a></li>
+<li><a href="#数据分析">数据分析</a></li>
+<li><a href="#更新">更新</a></li>
+<li><a href="#桌面应用">桌面应用</a></li>
+</ul></li>
+<li><a href="#未来">未来</a></li>
+<li><a href="#构架设计">构架设计</a><ul>
+<li><a href="#gis架构说明-服务端">GIS架构说明 —— 服务端</a></li>
+<li><a href="#haystack">Haystack</a></li>
+<li><a href="#elasticsearch">ElasticSearch</a></li>
+<li><a href="#gis架构说明-客户端">GIS架构说明 —— 客户端</a></li>
+<li><a href="#ionic">Ionic</a></li>
+<li><a href="#django-rest-framework">Django REST Framework</a></li>
+</ul></li>
+<li><a href="#其他">其他</a></li>
+<li><a href="#django-gis准备">Django GIS准备</a></li>
+<li><a href="#配置django">配置Django</a><ul>
+<li><a href="#配置haystack">配置Haystack</a></li>
+<li><a href="#配置django-1">配置Django</a></li>
+</ul></li>
+<li><a href="#其他-1">其他:</a><ul>
+<li><a href="#django-haystack-model创建">Django Haystack Model创建</a></li>
+<li><a href="#创建search_index">创建search_index</a></li>
+</ul></li>
+<li><a href="#创建数据">创建数据</a><ul>
+<li><a href="#测试">测试</a></li>
+</ul></li>
+<li><a href="#其他-2">其他:</a></li>
+<li><a href="#开始之前">开始之前</a></li>
+<li><a href="#ionic-elasticsearch-创建页面">Ionic ElasticSearch 创建页面</a></li>
+<li><a href="#ionic-elasticsearch-service">Ionic ElasticSearch Service</a></li>
+<li><a href="#运行">运行</a></li>
+<li><a href="#其他-3">其他:</a></li>
+<li><a href="#设计思路">设计思路</a></li>
+<li><a href="#openlayer">OpenLayer</a><ul>
+<li><a href="#添加openlayer-3">添加OpenLayer 3</a></li>
+</ul></li>
+<li><a href="#ionic-openlayer-地图显示">Ionic OpenLayer 地图显示:</a><ul>
+<li><a href="#创建nsservice">创建NSService</a></li>
+<li><a href="#创建基本地图显示">创建基本地图显示</a></li>
+<li><a href="#获取当前位置">获取当前位置</a></li>
+<li><a href="#获取结果并显示">获取结果并显示</a></li>
+<li><a href="#添加点击事件">添加点击事件</a></li>
+</ul></li>
+<li><a href="#其他-4">其他:</a></li>
+<li><a href="#物联网层级结构">物联网层级结构</a></li>
+<li><a href="#物联网服务层">物联网服务层</a></li>
+<li><a href="#virtual-dom">Virtual DOM</a><ul>
+<li><a href="#一个jasmine-jquery测试">一个Jasmine jQuery测试</a></li>
+<li><a href="#virtual-dom与hyperscript">virtual-dom与HyperScript</a></li>
+</ul></li>
+<li><a href="#标记dom变化">标记DOM变化</a><ul>
+<li><a href="#其他-5">其他</a></li>
+</ul></li>
+<li><a href="#构建框架">构建框架</a><ul>
+<li><a href="#关于backbone">关于Backbone</a></li>
+<li><a href="#其他可替换的框架">其他可替换的框架</a></li>
+</ul></li>
+<li><a href="#项目">项目</a><ul>
+<li><a href="#源码">源码</a></li>
+<li><a href="#进展及目的">进展及目的</a></li>
+</ul></li>
+<li><a href="#其他-6">其他</a></li>
+<li><a href="#requirejs-使用">RequireJS 使用</a><ul>
+<li><a href="#库及依赖">库及依赖</a></li>
+<li><a href="#使用requirejs">使用RequireJS</a></li>
+</ul></li>
+<li><a href="#开始之前-1">开始之前</a><ul>
+<li><a href="#环境准备">环境准备</a></li>
+<li><a href="#js库准备">JS库准备</a></li>
+<li><a href="#只想要这次的代码">只想要这次的代码</a></li>
+</ul></li>
+<li><a href="#构建移动web-cms">构建移动web CMS</a><ul>
+<li><a href="#添加路由">添加路由</a></li>
+<li><a href="#创建主页view">创建主页View</a></li>
+</ul></li>
+<li><a href="#requirejs与jquery-插件示例">RequireJS与jQuery 插件示例</a></li>
+<li><a href="#墨颀cms添加jquery插件"><a href="http://cms.moqi.mobi">墨颀CMS</a>添加jQuery插件</a><ul>
+<li><a href="#jquery-sidr">jQuery Sidr</a></li>
+<li><a href="#jquery-sidr与requirejs协作">jQuery Sidr与RequireJS协作</a></li>
+</ul></li>
+<li><a href="#django-tastypie-跨域">Django Tastypie 跨域</a><ul>
+<li><a href="#django-tastypie示例">Django Tastypie示例</a></li>
+<li><a href="#django-tastypie-跨域支持">Django Tastypie 跨域支持</a></li>
+</ul></li>
+<li><a href="#django-与墨颀cms整合">Django 与墨颀CMS整合</a></li>
+<li><a href="#requirejs-plugins">RequireJS Plugins</a></li>
+<li><a href="#requirejs-json文件加载">RequireJS JSON文件加载</a></li>
+<li><a href="#简单的博客构成">简单的博客构成</a><ul>
+<li><a href="#博文列表">博文列表</a></li>
+</ul></li>
+<li><a href="#移动cms-获取在线数据">移动CMS 获取在线数据</a><ul>
+<li><a href="#其他-7">其他</a></li>
+</ul></li>
+<li><a href="#获取每篇博客">获取每篇博客</a></li>
+<li><a href="#添加博文的路由">添加博文的路由</a><ul>
+<li><a href="#backbone路由参数">Backbone路由参数</a></li>
+</ul></li>
+<li><a href="#墨颀cms-重构">墨颀CMS 重构</a></li>
+<li><a href="#构建函数">构建函数</a></li>
+<li><a href="#移动cms滑动">移动CMS滑动</a><ul>
+<li><a href="#添加jquery-touchwipe">添加jQuery Touchwipe</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
+<li><a href="#node-oculus-services">Node Oculus Services</a><ul>
+<li><a href="#安装node-nmd">安装Node NMD</a></li>
+<li><a href="#node.js-oculus-helloworld">Node.js Oculus Hello，World</a></li>
+<li><a href="#node-oculus-websocket">Node Oculus WebSocket</a></li>
+</ul></li>
+<li><a href="#three.js-oculus-effect-dk2-control">Three.js + Oculus Effect + DK2 Control</a></li>
+<li><a href="#three.js-dk2controls">Three.js DK2Controls</a><ul>
+<li><a href="#欧拉角与四元数">欧拉角与四元数</a></li>
+<li><a href="#three.js-dk2controls-1">Three.js DK2Controls</a></li>
+<li><a href="#three.js-keyhandler">Three.js KeyHandler</a></li>
+</ul></li>
+<li><a href="#结语">结语</a></li>
+<li><a href="#exif">EXIF</a><ul>
+<li><a href="#exifread">ExifRead</a></li>
+<li><a href="#exifread安装">ExifRead安装</a></li>
+<li><a href="#exifread-exif.py">ExifRead Exif.py</a></li>
+</ul></li>
+<li><a href="#cartodb">CartoDB</a><ul>
+<li><a href="#简介">简介</a></li>
+</ul></li>
+<li><a href="#打造自己的照片地图">打造自己的照片地图</a><ul>
+<li><a href="#python-遍历文件">python 遍历文件</a></li>
+<li><a href="#python-解析照片信息">python 解析照片信息</a></li>
+<li><a href="#python-提取照片信息生成文件">python 提取照片信息生成文件</a></li>
+<li><a href="#上传到cartodb">上传到cartodb</a></li>
+<li><a href="#从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</a></li>
+</ul></li>
+<li><a href="#graphviz">Graphviz</a></li>
+<li><a href="#简单的技能树">简单的技能树</a></li>
+</ul></li>
+<li><a href="#技能树之旅-计算点数与从这开始">技能树之旅: 计算点数与从这开始</a><ul>
+<li><a href="#从这开始">从这开始</a><ul>
+<li><a href="#从knockout开始">从Knockout开始</a></li>
+</ul></li>
+<li><a href="#点数计算">点数计算</a></li>
+<li><a href="#其他-8">其他</a></li>
+<li><a href="#tooltipster">Tooltipster</a><ul>
+<li><a href="#d3.js-tooltipster-require配置">D3.js Tooltipster Require配置</a></li>
+<li><a href="#整合代码">整合代码</a></li>
+</ul></li>
+<li><a href="#结束">结束</a></li>
+<li><a href="#需求说明">需求说明</a></li>
+<li><a href="#python-文字转logo实战">Python 文字转Logo实战</a><ul>
+<li><a href="#基础代码">基础代码</a></li>
+<li><a href="#圆角代码">圆角代码</a></li>
+<li><a href="#颜色配置">颜色配置</a></li>
+</ul></li>
+<li><a href="#结束-1">结束</a></li>
+<li><a href="#离线地图与搜索">离线地图与搜索</a><ul>
+<li><a href="#地图离线">地图离线</a></li>
+<li><a href="#多边形搜索">多边形搜索</a></li>
+</ul></li>
+<li><a href="#从地点到地图上显示">从地点到地图上显示</a></li>
+<li><a href="#从地图到地点上显示">从地图到地点上显示</a></li>
+<li><a href="#demo">Demo</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Badge" /><figcaption>Badge</figcaption>
+</figure>
+<p>接着，我就找了个图形工具简单地先设计了下面的一个Badge:</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="Demo" /><figcaption>Demo</figcaption>
+</figure>
+<p>生成的格式是SVG，接着我就打开SVG看看里面发现了什么。</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;?xml</span> version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;<span class="kw">?&gt;</span>
+<span class="kw">&lt;svg</span><span class="ot"> width=</span><span class="st">&quot;1006px&quot;</span><span class="ot"> height=</span><span class="st">&quot;150px&quot;</span><span class="ot"> viewBox=</span><span class="st">&quot;0 0 1006 150&quot;</span><span class="ot"> version=</span><span class="st">&quot;1.1&quot;</span><span class="ot"> xmlns=</span><span class="st">&quot;http://www.w3.org/2000/svg&quot;</span><span class="ot"> xmlns:xlink=</span><span class="st">&quot;http://www.w3.org/1999/xlink&quot;</span><span class="kw">&gt;</span>
+    <span class="co">&lt;!-- Generator: Sketch 3.7 (28169) - http://www.bohemiancoding.com/sketch --&gt;</span>
+    <span class="kw">&lt;title&gt;</span>phodal<span class="kw">&lt;/title&gt;</span>
+    <span class="kw">&lt;desc&gt;</span>Created with Sketch.<span class="kw">&lt;/desc&gt;</span>
+    <span class="kw">&lt;defs&gt;&lt;/defs&gt;</span>
+    <span class="kw">&lt;g</span><span class="ot"> id=</span><span class="st">&quot;Page-1&quot;</span><span class="ot"> stroke=</span><span class="st">&quot;none&quot;</span><span class="ot"> stroke-width=</span><span class="st">&quot;1&quot;</span><span class="ot"> fill=</span><span class="st">&quot;none&quot;</span><span class="ot"> fill-rule=</span><span class="st">&quot;evenodd&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;rect</span><span class="ot"> id=</span><span class="st">&quot;Rectangle-1&quot;</span><span class="ot"> fill=</span><span class="st">&quot;#5E6772&quot;</span><span class="ot"> style=</span><span class="st">&quot;mix-blend-mode: hue;&quot;</span><span class="ot"> x=</span><span class="st">&quot;0&quot;</span><span class="ot"> y=</span><span class="st">&quot;0&quot;</span><span class="ot"> width=</span><span class="st">&quot;640&quot;</span><span class="ot"> height=</span><span class="st">&quot;150&quot;</span><span class="kw">&gt;&lt;/rect&gt;</span>
+        <span class="kw">&lt;rect</span><span class="ot"> id=</span><span class="st">&quot;Rectangle-1&quot;</span><span class="ot"> fill=</span><span class="st">&quot;#2196F3&quot;</span><span class="ot"> style=</span><span class="st">&quot;mix-blend-mode: hue;&quot;</span><span class="ot"> x=</span><span class="st">&quot;640&quot;</span><span class="ot"> y=</span><span class="st">&quot;0&quot;</span><span class="ot"> width=</span><span class="st">&quot;366&quot;</span><span class="ot"> height=</span><span class="st">&quot;150&quot;</span><span class="kw">&gt;&lt;/rect&gt;</span>
+        <span class="kw">&lt;text</span><span class="ot"> id=</span><span class="st">&quot;PHODAL&quot;</span><span class="ot"> font-family=</span><span class="st">&quot;Helvetica&quot;</span><span class="ot"> font-size=</span><span class="st">&quot;120&quot;</span><span class="ot"> font-weight=</span><span class="st">&quot;normal&quot;</span><span class="ot"> fill=</span><span class="st">&quot;#FFFFFF&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;tspan</span><span class="ot"> x=</span><span class="st">&quot;83&quot;</span><span class="ot"> y=</span><span class="st">&quot;119&quot;</span><span class="kw">&gt;</span>PHODAL<span class="kw">&lt;/tspan&gt;</span>
+        <span class="kw">&lt;/text&gt;</span>
+        <span class="kw">&lt;text</span><span class="ot"> id=</span><span class="st">&quot;idea&quot;</span><span class="ot"> font-family=</span><span class="st">&quot;Helvetica&quot;</span><span class="ot"> font-size=</span><span class="st">&quot;120&quot;</span><span class="ot"> font-weight=</span><span class="st">&quot;normal&quot;</span><span class="ot"> fill=</span><span class="st">&quot;#FFFFFF&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;tspan</span><span class="ot"> x=</span><span class="st">&quot;704&quot;</span><span class="ot"> y=</span><span class="st">&quot;122&quot;</span><span class="kw">&gt;</span>idea<span class="kw">&lt;/tspan&gt;</span>
+        <span class="kw">&lt;/text&gt;</span>
+    <span class="kw">&lt;/g&gt;</span>
+<span class="kw">&lt;/svg&gt;</span></code></pre></div>
+<p>看了看代码很简单，我就想这可以用代码生成——我就可以生成出不同的样子了。</p>
+<h2 id="svg与svgwrite">SVG与SVGWrite</h2>
+<p>SVG就是一个XML</p>
+<blockquote>
+<p>可缩放矢量图形（Scalable Vector Graphics，SVG) ，是一种用来描述二维矢量图形的XML 标记语言。</p>
+</blockquote>
+<p>要对这个XML进行修改也是一件很容易的事。只是，先找了PIL发现不支持，就找到了一个名为SVGWrite的工具。</p>
+<blockquote>
+<p>A Python library to create SVG drawings.</p>
+</blockquote>
+<p>示例代码如下:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> svgwrite
+
+dwg <span class="op">=</span> svgwrite.Drawing(<span class="st">&#39;test.svg&#39;</span>, profile<span class="op">=</span><span class="st">&#39;tiny&#39;</span>)
+dwg.add(dwg.line((<span class="dv">0</span>, <span class="dv">0</span>), (<span class="dv">10</span>, <span class="dv">0</span>), stroke<span class="op">=</span>svgwrite.rgb(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">16</span>, <span class="st">&#39;%&#39;</span>)))
+dwg.add(dwg.text(<span class="st">&#39;Test&#39;</span>, insert<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">0.2</span>)))
+dwg.save()</code></pre></div>
+<p>然后我就照猫画虎地写了一个：</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> svgwrite
+
+dwg <span class="op">=</span> svgwrite.Drawing(<span class="st">&#39;idea.svg&#39;</span>, profile<span class="op">=</span><span class="st">&#39;full&#39;</span>, size<span class="op">=</span>(<span class="st">u&#39;1006&#39;</span>, <span class="st">u&#39;150&#39;</span>))
+
+shapes <span class="op">=</span> dwg.add(dwg.g(<span class="bu">id</span><span class="op">=</span><span class="st">&#39;shapes&#39;</span>, fill<span class="op">=</span><span class="st">&#39;none&#39;</span>))
+shapes.add(dwg.rect((<span class="dv">0</span>, <span class="dv">0</span>), (<span class="dv">640</span>, <span class="dv">150</span>), fill<span class="op">=</span><span class="st">&#39;#5E6772&#39;</span>))
+shapes.add(dwg.rect((<span class="dv">640</span>, <span class="dv">0</span>), (<span class="dv">366</span>, <span class="dv">150</span>), fill<span class="op">=</span><span class="st">&#39;#2196F3&#39;</span>))
+shapes.add(dwg.text(<span class="st">&#39;PHODAL&#39;</span>, insert<span class="op">=</span>(<span class="dv">83</span>, <span class="dv">119</span>), fill<span class="op">=</span><span class="st">&#39;#FFFFFF&#39;</span>,font_size<span class="op">=</span><span class="dv">120</span>, font_family<span class="op">=</span><span class="st">&#39;Helvetica&#39;</span>))
+shapes.add(dwg.text(<span class="st">&#39;idea&#39;</span>, insert<span class="op">=</span>(<span class="dv">704</span>, <span class="dv">122</span>), fill<span class="op">=</span><span class="st">&#39;#FFFFFF&#39;</span>, font_size<span class="op">=</span><span class="dv">120</span>, font_family<span class="op">=</span><span class="st">&#39;Helvetica&#39;</span>))
+
+dwg.save()</code></pre></div>
+<p>发现和上面的样式几乎是一样的，就顺手做了剩下的几个。然后想了想，我这样做都一样，一点都不好看。</p>
+<h2 id="高级badge">高级Badge</h2>
+<p>第一眼看到</p>
+<figure>
+<img src="/static/media/uploads/clean_code.png" alt="Idea Prototype" /><figcaption>Idea Prototype</figcaption>
+</figure>
+<p>我就想着要不和这个一样好了，不就是画几条线的事么。</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">
+    <span class="kw">def</span> draw_for_bg_plus():
+        <span class="cf">for</span> x <span class="op">in</span> <span class="bu">range</span>(y_text_split <span class="op">+</span> rect_length, width, rect_length):
+            shapes.add(dwg.line((x, <span class="dv">0</span>), (x, height), stroke<span class="op">=</span><span class="st">&#39;#EEEEEE&#39;</span>, stroke_opacity<span class="op">=</span><span class="fl">0.3</span>))
+
+        <span class="cf">for</span> y <span class="op">in</span> <span class="bu">range</span>(rect_length, height, rect_length):
+            shapes.add(dwg.line((y_text_split, y), (width, y), stroke<span class="op">=</span><span class="st">&#39;#EEEEEE&#39;</span>, stroke_opacity<span class="op">=</span><span class="fl">0.3</span>))
+
+        <span class="cf">for</span> x <span class="op">in</span> <span class="bu">range</span>(y_text_split <span class="op">+</span> max_rect_length, width, max_rect_length):
+            <span class="cf">for</span> y <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>, height, max_rect_length):
+                shapes.add(dwg.line((x, y <span class="op">-</span> <span class="dv">4</span>), (x, y <span class="op">+</span> <span class="dv">4</span>), stroke<span class="op">=</span><span class="st">&#39;#EEEEEE&#39;</span>, stroke_width<span class="op">=</span><span class="st">&#39;2&#39;</span>, stroke_opacity<span class="op">=</span><span class="fl">0.4</span>))
+
+        <span class="cf">for</span> y <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>, height, max_rect_length):
+            <span class="cf">for</span> x <span class="op">in</span> <span class="bu">range</span>(y_text_split <span class="op">+</span> max_rect_length, width, max_rect_length):
+                shapes.add(dwg.line((x <span class="op">-</span> <span class="dv">4</span>, y), (x <span class="op">+</span> <span class="dv">4</span>, y), stroke<span class="op">=</span><span class="st">&#39;#EEEEEE&#39;</span>, stroke_width<span class="op">=</span><span class="st">&#39;2&#39;</span>, stroke_opacity<span class="op">=</span><span class="fl">0.4</span>))
+
+    draw_for_bg_plus()</code></pre></div>
+<p>就有了下面的图，于是我又按照这种感觉来了好几下</p>
+<figure>
+<img src="/static/media/uploads/tdd.png" alt="Finally" /><figcaption>Finally</figcaption>
+</figure>
+<h2 id="最后代码">最后代码</h2>
+<p>GitHub: <a href="https://github.com/phodal/brand" class="uri">https://github.com/phodal/brand</a></p>
+<p>​尽管没有特别的动力去构建一个全新的CMS，但是我还是愿意去撰文一篇来书写如何去做这样的事——编辑-发布-开发分离模式是如何工作的。微服务是我们对于复杂应用的一种趋势，编辑-发布-开发分离模式则是另外一种趋势。在上篇文章《<a href="https://github.com/phodal/repractise/blob/gh-pages/chapters/refactor-cms.md">Repractise架构篇一: CMS的重构与演进</a>》中，我们说到编辑-发布-开发分离模式。</p>
+<h2 id="系统架构">系统架构</h2>
+<p>如先前提到的，Carrot使用了下面的方案来搭建他们的静态内容的CMS。</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Carrot" /><figcaption>Carrot</figcaption>
+</figure>
+<p>在这个方案里内容是用Contentful来发布他们的内容。而在我司<a href="https://www.thoughtworks.com/">ThoughtWorks</a>的官网里则采用了Github来管理这些内容。于是如果让我们写一个基于Github的CMS，那么架构变成了这样：</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="Github 编辑-发布-开发" /><figcaption>Github 编辑-发布-开发</figcaption>
+</figure>
+<p>或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。</p>
+<p>从我们设计系统的角度来说，我们会在Github上有三个代码库：</p>
+<ol type="1">
+<li>Content。用于存放编辑器生成的JSON文件，这样我们就可以GET这些资源，并用Backbone / Angular / React 这些前端框架来搭建SPA。</li>
+<li>Code。开发者在这里存放他们的代码，如主题、静态文件生成器、资源文件等等。</li>
+<li>Builder。在这里它是运行于Travis CI上的一些脚本文件，用于Clone代码，并执行Code中的脚本。</li>
+</ol>
+<p>以及一些额外的服务，当且仅当你有一些额外的功能需求的时候。</p>
+<ol type="1">
+<li>Extend Service。当我们需要搜索服务时，我们就需要这样的一些服务。如我正考虑使用Python的whoosh来完成这个功能，这时候我计划用Flask框架，但是只是计划中——因为没有合适的中间件。</li>
+<li>Editor。相比于前面的那些知识这一步适合更重要，也就是为什么生成的格式是JSON而不是Markdown的原理。对于非程序员来说，要熟练掌握Markdown不是一件容易的事。于是，一个考虑中的方案就是使用 Electron + Node.js来生成API，最后通过GitHub API V3来实现上传。</li>
+</ol>
+<p>So，这一个过程是如何进行的。</p>
+<h3 id="用户场景">用户场景</h3>
+<p>整个过程的Pipeline如下所示：</p>
+<ol type="1">
+<li>编辑使用他们的编辑器来编辑的内容并点击发布，然后这个内容就可以通过GitHub API上传到Content这个Repo里。</li>
+<li>这时候需要有一个WebHooks监测到了Content代码库的变化，便运行Builder这个代码库的Travis CI。</li>
+<li>这个Builder脚本首先，会设置一些基本的git配置。然后clone Content和Code的代码，接着运行构建命令，生成新的内容。</li>
+<li>然后Builder Commit内容，并PUSH内容。</li>
+</ol>
+<p>这里还依赖于WebHook这个东西——还没想到一个合适的解决方案。下面，我们对里面的内容进行一些拆解，Content里面由于是JSON就不多解释了。</p>
+<h2 id="builder-构建工具">Builder: 构建工具</h2>
+<p>Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">travis</span> encrypt-file ssh_key --add</code></pre></div>
+<p>加密后的Key就会保存到<code>.travis.yml</code>文件里，然后就可以在Travis CI上push你的代码到Github上了。</p>
+<p>接着，你需要创建个deploy脚本，并且在<code>after_success</code>执行它：</p>
+<pre class="yml"><code>after_success:
+  - test $TRAVIS_PULL_REQUEST == &quot;false&quot; &amp;&amp; test $TRAVIS_BRANCH == &quot;master&quot; &amp;&amp; bash deploy.sh</code></pre>
+<p>在这个脚本里，你所需要做的就是clone content和code中的代码，并执行code中的生成脚本，生成新的内容后，提交代码。</p>
+<pre><code>#!/bin/bash
+
+set -o errexit -o nounset
+
+rev=$(git rev-parse --short HEAD)
+
+cd stage/
+
+git init
+git config user.name &quot;Robot&quot;
+git config user.email &quot;robot@phodal.com&quot;
+
+git remote add upstream &quot;https://$GH_TOKEN@github.com/phodal-archive/echeveria-deploy.git&quot;
+git fetch upstream
+git reset upstream/gh-pages
+
+git clone https://github.com/phodal-archive/echeveria-deploy code
+git clone https://github.com/phodal-archive/echeveria-content content
+pwd
+cp -a content/contents code/content
+
+cd code
+
+npm install
+npm install grunt-cli -g
+grunt 
+mv dest/* ../
+cd ../
+rm -rf code
+rm -rf content
+
+touch .
+
+if [ ! -f CNAME ]; then
+    echo &quot;deploy.baimizhou.net&quot; &gt; CNAME
+fi
+
+git add -A .
+git commit -m &quot;rebuild pages at ${rev}&quot;
+git push -q upstream HEAD:gh-pages</code></pre>
+<p>这就是这个builder做的事情——其中最主要的一个任务是<code>grunt</code>，它所做的就是:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">grunt</span>.<span class="at">registerTask</span>(<span class="st">&#39;default&#39;</span><span class="op">,</span> [<span class="st">&#39;clean&#39;</span><span class="op">,</span> <span class="st">&#39;assemble&#39;</span><span class="op">,</span> <span class="st">&#39;copy&#39;</span>])<span class="op">;</span></code></pre></div>
+<h2 id="code-静态页面生成">Code: 静态页面生成</h2>
+<p>Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。</p>
+<p>我们所要做的就是在我们的<code>Gruntfile.js</code>中写相应的生成代码。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    assemble<span class="op">:</span> <span class="op">{</span>
+      <span class="dt">options</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">flatten</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+        <span class="dt">partials</span><span class="op">:</span> [<span class="st">&#39;templates/includes/*.hbs&#39;</span>]<span class="op">,</span>
+        <span class="dt">layoutdir</span><span class="op">:</span> <span class="st">&#39;templates/layouts&#39;</span><span class="op">,</span>
+        <span class="dt">data</span><span class="op">:</span> <span class="st">&#39;content/blogs.json&#39;</span><span class="op">,</span>
+        <span class="dt">layout</span><span class="op">:</span> <span class="st">&#39;default.hbs&#39;</span>
+      <span class="op">},</span>
+      <span class="dt">site</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">files</span><span class="op">:</span> <span class="op">{</span><span class="st">&#39;dest/&#39;</span><span class="op">:</span> [<span class="st">&#39;templates/*.hbs&#39;</span>]<span class="op">}</span>
+      <span class="op">},</span>
+      <span class="dt">blogs</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">options</span><span class="op">:</span> <span class="op">{</span>
+          <span class="dt">flatten</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+          <span class="dt">layoutdir</span><span class="op">:</span> <span class="st">&#39;templates/layouts&#39;</span><span class="op">,</span>
+          <span class="dt">data</span><span class="op">:</span> <span class="st">&#39;content/*.json&#39;</span><span class="op">,</span>
+          <span class="dt">partials</span><span class="op">:</span> [<span class="st">&#39;templates/includes/*.hbs&#39;</span>]<span class="op">,</span>
+          <span class="dt">pages</span><span class="op">:</span> pages
+        <span class="op">},</span>
+        <span class="dt">files</span><span class="op">:</span> [
+          <span class="op">{</span> <span class="dt">dest</span><span class="op">:</span> <span class="st">&#39;./dest/blog/&#39;</span><span class="op">,</span> <span class="dt">src</span><span class="op">:</span> <span class="st">&#39;!*&#39;</span> <span class="op">}</span>
+        ]
+      <span class="op">}</span>
+    <span class="op">}</span></code></pre></div>
+<p>配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。</p>
+<p>生成后的目录结果如下图所示：</p>
+<pre><code> .
+├── about.html
+├── blog
+│   ├── blog-posts.html
+│   └── blogs.html
+├── blog.html
+├── css
+│   ├── images
+│   │   └── banner.jpg
+│   └── style.css
+├── index.html
+└── js
+    ├── jquery.min.js
+    └── script.js
+
+7 directories, 30 files</code></pre>
+<p>这里的静态文件内容就是最后我们要发布的内容。</p>
+<p>还需要做的一件事情就是：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">grunt</span>.<span class="at">registerTask</span>(<span class="st">&#39;dev&#39;</span><span class="op">,</span> [<span class="st">&#39;default&#39;</span><span class="op">,</span> <span class="st">&#39;connect:server&#39;</span><span class="op">,</span> <span class="st">&#39;watch:site&#39;</span>])<span class="op">;</span></code></pre></div>
+<p>用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。</p>
+<h2 id="编辑-发布-开发分离">编辑-发布-开发分离</h2>
+<p>在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。</p>
+<p>开发人员只在需要的时候去修改网站的一些内容。</p>
+<p>So，你可能会担心如果这时候修改的东西有问题了怎么办。</p>
+<ol type="1">
+<li>使用这种模式就意味着你需要有测试来覆盖这些构建工具、生成工具。</li>
+<li>相比于自己的代码，别人的CMS更可靠？</li>
+</ol>
+<p>需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。</p>
+<p>其次，由于生成的是静态文件，查错的成本就比较低。</p>
+<p>最后，重新放上之前的静态文件。</p>
+<blockquote>
+<p>动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？</p>
+</blockquote>
+<p>为了实现之前说到的<code>编辑-发布-开发分离</code>的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Echeveria Editor" /><figcaption>Echeveria Editor</figcaption>
+</figure>
+<p>作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。</p>
+<p>尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？</p>
+<h2 id="从schema到数据库">从Schema到数据库</h2>
+<p>我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《<a href="https://www.phodal.com/blog/editing-publishing-coding-seperate/">编辑-发布-开发分离</a> 》一文中我们说到了echeveria-content的一个数据文件如下所示：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="op">{</span>
+      <span class="st">&quot;title&quot;</span><span class="op">:</span> <span class="st">&quot;白米粥&quot;</span><span class="op">,</span>
+      <span class="st">&quot;author&quot;</span><span class="op">:</span> <span class="st">&quot;白米粥&quot;</span><span class="op">,</span>
+      <span class="st">&quot;url&quot;</span><span class="op">:</span> <span class="st">&quot;baimizhou&quot;</span><span class="op">,</span>
+      <span class="st">&quot;date&quot;</span><span class="op">:</span> <span class="st">&quot;2015-10-21&quot;</span><span class="op">,</span>
+      <span class="st">&quot;description&quot;</span><span class="op">:</span> <span class="st">&quot;# Blog post </span><span class="sc">\n</span><span class="st">  &gt; This is an example blog post </span><span class="sc">\n</span><span class="st"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &quot;</span><span class="op">,</span>
+      <span class="st">&quot;blogpost&quot;</span><span class="op">:</span> <span class="st">&quot;# Blog post </span><span class="sc">\n</span><span class="st">  &gt; This is an example blog post </span><span class="sc">\n</span><span class="st"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span><span class="sc">\n</span><span class="st"> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;</span>
+    <span class="op">}</span></code></pre></div>
+<p>比起之前的直接生成静态页面这里的数据就是更有意思地一步了，我们从数据库读取数据就是为了生成一个JSON文件。何不直接以JSON的形式存储文件呢？</p>
+<p>我们都定义了这每篇文章的基本元素:</p>
+<ol type="1">
+<li>title</li>
+<li>author</li>
+<li>date</li>
+<li>description</li>
+<li>content</li>
+<li>url</li>
+</ol>
+<p>即使我们使用NoSQL我们也很难逃离这种模式。我们定义这些数据，为了在使用的时候更方便。存储这些数据只是这个过程中的一部分，下部分就是取出这些数据并对他们进行过滤，取出我们需要的数据。</p>
+<p>Web的骨架就是这么简单，当然APP也是如此。难的地方在于存储怎样的数据，返回怎样的数据。不同的网站存储着不同的数据，如淘宝存储的是商品的信息，Google存储着各种网站的数据——人们需要不同的方式去存储这些数据，为了更好地存储衍生了更多的数据存储方案——于是有了GFS、Haystack等等。运营型网站想尽办法为最后一公里努力着，成长型的网站一直在想着怎样更好的返回数据，从更好的用户体验到机器学习。而数据则是这个过程中不变的东西。</p>
+<p>尽管，我已经想了很多办法去尽可能减少元素——在最开始的版本里只有标题和内容。然而为了满足我们在数据库中定义的结构，不得不造出来这么多对于一般用户不友好的字段。如链接名是为了存储的文件名而存在的，即这个链接名在最后会变成文件名：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">repo</span>.<span class="at">write</span>(<span class="st">&#39;master&#39;</span><span class="op">,</span> <span class="st">&#39;contents/&#39;</span> <span class="op">+</span> <span class="va">data</span>.<span class="at">url</span> <span class="op">+</span> <span class="st">&#39;.json&#39;</span><span class="op">,</span> stringifyData<span class="op">,</span> <span class="st">&#39;Robot: add article &#39;</span> <span class="op">+</span> <span class="va">data</span>.<span class="at">title</span><span class="op">,</span> options<span class="op">,</span> <span class="kw">function</span> (err<span class="op">,</span> data) <span class="op">{</span>
+      <span class="cf">if</span>(<span class="va">data</span>.<span class="at">commit</span>)<span class="op">{</span>
+        <span class="va">that</span>.<span class="at">setState</span>(<span class="op">{</span><span class="dt">message</span><span class="op">:</span> <span class="st">&quot;上传成功&quot;</span> <span class="op">+</span> <span class="va">JSON</span>.<span class="at">stringify</span>(data)<span class="op">}</span>)<span class="op">;</span>
+        <span class="va">that</span>.<span class="va">refs</span>.<span class="va">snackbar</span>.<span class="at">show</span>()<span class="op">;</span>
+        <span class="va">that</span>.<span class="at">setState</span>(<span class="op">{</span>
+          <span class="dt">sending</span><span class="op">:</span> <span class="dv">0</span>
+        <span class="op">}</span>)<span class="op">;</span>
+      <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>然后，上面的数据就会变成一个对象存储到“数据库”中。</p>
+<p>今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。</p>
+<h2 id="git作为nosql数据库">git作为NoSQL数据库</h2>
+<p>在控制台中运行一下 <code>man git</code>你会得到下面的结果:</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="Man Git" /><figcaption>Man Git</figcaption>
+</figure>
+<p>这个答案看起来很有意思——不过这看上去似乎无关主题。</p>
+<p>不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。</p>
+<blockquote>
+<p>这些上千年的组织机构，只想让人们知道他们想要说的东西。</p>
+</blockquote>
+<p>我们使用NoSQL是因为：</p>
+<ol type="1">
+<li>不使用关系模型</li>
+<li>在集群中运行良好</li>
+<li>开源</li>
+<li>无模式</li>
+<li>数据交换格式</li>
+</ol>
+<p>我想其中只有两点对于我来说是比较重要的<code>集群</code>与<code>数据格式</code>。但是集群和数据格式都不是我们要考虑的问题。。。</p>
+<p>我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。</p>
+<h3 id="git-json文件">git + JSON文件</h3>
+<p>JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。</p>
+<p>git的“API”提供了丰富的增、删、改功能——你需要commit就可以了。我们所要做的就是:</p>
+<ol type="1">
+<li>git commit</li>
+<li>git push</li>
+</ol>
+<p>记录一下自己做的一个小东西，当然你也可以在github上找到它:<a href="https://github.com/phodal/gmap-solr" class="uri">https://github.com/phodal/gmap-solr</a></p>
+<h2 id="solr">Solr</h2>
+<blockquote>
+<p>Solr是一个高性能，采用Java5开发，基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。</p>
+</blockquote>
+<p>简单地说: 它是一个搜索引擎</p>
+<blockquote>
+<p>文档通过Http利用XML 加到一个搜索集合中。查询该集合也是通过http收到一个XML/JSON响应来实现。它的主要特性包括：高效、灵活的缓存功能，垂直搜索功能，高亮显示搜索结果，通过索引复制来提高可用性，提供一套强大Data Schema来定义字段，类型和设置文本分析，提供基于Web的管理界面等。</p>
+</blockquote>
+<p>即schema.xml</p>
+<p><strong>Solr 安装</strong></p>
+<pre><code>brew install solr</code></pre>
+<h2 id="gmap-solr-polygon-搜索实战">Gmap Solr Polygon 搜索实战</h2>
+<p>思路:</p>
+<p>用Flask搭建一个简单的servrices，接着在前台用google的api，对后台发出请求。</p>
+<h3 id="solr-flask">Solr Flask</h3>
+<p>由于，直接调用的是Solr的接口，所以我们的代码显得比较简单:</p>
+<pre><code>class All(Resource):
+    @staticmethod
+    def get():
+        base_url = &#39;&#39;
+        url = (base_url + &#39;select?q=&#39; + request.query_string + &#39;+&amp;wt=json&amp;indent=true&#39;)
+        result = requests.get(url)
+        return (result.json()[&#39;response&#39;][&#39;docs&#39;]), 201, {&#39;Access-Control-Allow-Origin&#39;: &#39;*&#39;}
+
+
+api.add_resource(All, &#39;/geo/&#39;)</code></pre>
+<p>我们在前台需要做的便是，组装geo query。</p>
+<h3 id="google-map-polygon">Google map Polygon</h3>
+<p>在Google Map的API是支持Polygon搜索的，有对应的一个</p>
+<pre><code>google.maps.event.addListener(drawingManager, &#39;polygoncomplete&#39;, renderMarker);</code></pre>
+<p>函数来监听，完成<code>polygoncomplete</code>时执行的函数，当我们完成搜索时，便执行<code>renderMarker</code>，在里面做的便是:</p>
+<pre><code>$.get(&#39;/geo/?&#39; + query, function (results) {
+        for (var i = 0; i &lt; results.length; i++) {
+            var location = results[i].geo[0].split(&#39;,&#39;);
+            var myLatLng = new google.maps.LatLng(location[0], location[1]);
+            var title = results[i].title;
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: title
+            });
+
+            contentString = &#39;&lt;h1&gt;City&lt;/h1&gt;&lt;br/&gt; address &#39; + i + &#39;&#39;;
+
+            google.maps.event.addListener(marker, &#39;click&#39;, (function (marker, contentString, infowindow) {
+                return function () {
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                };
+            })(marker, contentString, infowindow));
+        }
+    });</code></pre>
+<p>对应的去解析数据，并显示在地图上</p>
+<h1 id="growth">Growth</h1>
+<p>Web本身就是跨平台的，这意味着这中间存在着无限的可能性。</p>
+<p>我是一名Web Developer，对于我来能用Web开发的事情就用Web来完成就好了——不需要编译，不需要等它编译完。我想到哪我就可以写到哪，我改到哪我就可以发生哪发生了变化。</p>
+<p>最近我在写Growth——一个帮助开发人员成长的应用，在近一个月的业余时间里，完成了这个应用的：</p>
+<ul>
+<li>移动应用版：Android、Windows Phone、iOS（等账号和上线）</li>
+<li>Web版</li>
+<li>桌面版：Mac OS、Windows、GNU/Linux</li>
+</ul>
+<p>截图合并如下：</p>
+<figure>
+<img src="/static/media/uploads/growth-full-platforms.jpg" alt="growth-full-platforms.png" /><figcaption>growth-full-platforms.png</figcaption>
+</figure>
+<p>而更重要的是它们使用了同一份代码——除了对特定设备进行一些处理就没有其他修改。相信全栈的你已经看出来了：</p>
+<p>Web = Chrome + Angular.js + Ionic</p>
+<p>Desktop = Electron + Angular.js + Ionic</p>
+<p>Mobile = Cordova + Angular.js + Ionic</p>
+<p>除了前面的WebView不一样，后面都是Angular.js + Ionic。</p>
+<h2 id="从web到混合应用再到桌面应用">从Web到混合应用，再到桌面应用</h2>
+<p>在最打开的时候它只是一个单纯的混合应用，我想总结一下我的学习经验，分享一下学习的心得，如：</p>
+<ul>
+<li>完整的Web开发,运维,部署,维护介绍<br />
+</li>
+<li>如何写好代码——重构、测试、模式</li>
+<li>遗留代码、遗留系统的形成</li>
+<li>不同阶段所需的技能</li>
+<li>书籍推荐</li>
+<li>技术栈推荐</li>
+<li>Web应用解决方案</li>
+</ul>
+<p>接着我用Ionic创建了这个应用，这是一个再普通不过的过程。在这个过程里，我一直使用Chrome在调度我的代码。因为我是Android用户，我有Google Play的账号，便发布了Android版本。这时候遇到了一个问题，我并没有Apple Developer账号(现在在申请ing。。)，而主要的用户对象程序员，这是一群<strong>不土</strong>的土豪。</p>
+<figure>
+<img src="/static/media/uploads/iphone.jpg" alt="iPHONE" /><figcaption>iPHONE</figcaption>
+</figure>
+<p>偶然间我才想到，我只要上传Web版本的代码就可以暂时性实现这个需求了。接着找了个AWS S3的插件，直接上传到了AWS S3上托管成静态文件服务。</p>
+<p>几天前在Github上收到一个issue——关于创造桌面版， 我便想着这也是可能的，我只需要写一个启动脚本和编译脚本即可。</p>
+<p>所以，最后我们的流程图就如下所示：</p>
+<figure>
+<img src="/static/media/uploads/growth-arch.png" alt="Growth Arch" /><figcaption>Growth Arch</figcaption>
+</figure>
+<p>除了显示到VR设备上，好像什么也不缺了。并且在我之前的文章《<a href="https://github.com/phodal/oculus-nodejs-threejs-example">Oculus + Node.js + Three.js 打造VR世界</a>》，也展示了Web在VR世界的可能性。</p>
+<p>在这实现期间有几个点可以分享一下：</p>
+<ol type="1">
+<li>响应式设计</li>
+<li>平台/设备特定代码</li>
+</ol>
+<h2 id="响应式设计">响应式设计</h2>
+<p>响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：</p>
+<figure>
+<img src="/static/media/uploads/full-platforms.jpg" alt="full-platforms.jpg" /><figcaption>full-platforms.jpg</figcaption>
+</figure>
+<p>这也意味着，我们需要对不同的设备进行一些处理，如在大的屏幕下，我们需要展示菜单：</p>
+<figure>
+<img src="/static/media/uploads/gnu-linux.jpg" alt="gnu-linux.png" /><figcaption>gnu-linux.png</figcaption>
+</figure>
+<p>而这可以依赖于Ionic的<strong>expose-aside-when=“large”</strong>，而并非所有的情形都是这么简单的。如我最近遇到的问题就是图片缩放的问题，之前的图片针对的都是手机版——经过了一定的缩放。</p>
+<p>这时在桌面应用上就会出现问题，就需要限定大小等等。</p>
+<p>而这个问题相比于平台特定问题则更容易解决。</p>
+<h2 id="平台特定代码">平台特定代码</h2>
+<p>对于特定平台才有的问题就不是一件容易解决的事，分享一下：</p>
+<h3 id="存储">存储</h3>
+<p>我遇到的第一个问题是<strong>数据存储</strong>的问题。最开始的时候，我只需要开始混合应用。因此我可以用<strong>Preferences</strong>、或者<strong>SQLite</strong>来存储数据。</p>
+<p>后来，我扩展到了Web版，我只好用LocalStoarge。于是，我就开始抽象出一个<strong>$storageServices</strong>来做相应的事。接着遇到一系列的问题，我舍弃了原有的方案，直接使用LocalStoarge。</p>
+<h3 id="数据分析">数据分析</h3>
+<p>为了开发方便，我使用Google Analytics来分析用户的行为——毕竟数据对我来说也不是特别重要，只要可以看到有人使用就可以了。</p>
+<p>这时候遇到的一个问题是，我不需要记录Web用户的行为，但是我希望可以看到有这样的请求发出。于是对于Web用户来说，只需要：</p>
+<pre class="js"><code>        trackView: function (view) {
+          console.log(view);
+        }</code></pre>
+<p>而对于手机用户则是:</p>
+<pre class="js"><code>      trackView: function (view) {
+        $window.analytics.startTrackerWithId(&#39;UA-71907748-1&#39;);
+        $window.analytics.trackView(view)
+      }</code></pre>
+<p>这样在我调试的时候我只需要打个Log，在产品环境时就会Track。</p>
+<h3 id="更新">更新</h3>
+<p>同样的，对于Android用户来说，他们可以选择自行下载更新，所以我需要针对Android用户有一个自动更新：</p>
+<pre><code>var isAndroid = ionic.Platform.isAndroid();
+if(isAndroid) {
+  $updateServices.check(&#39;main&#39;);
+}</code></pre>
+<h3 id="桌面应用">桌面应用</h3>
+<p>对于桌面应用来说也会有类似的问题，我遇到的第一个问题是Electron默认开启了AMD。于是，直接删之：</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script&gt;</span>
+<span class="co">//remove module for electron</span>
+<span class="cf">if</span>(<span class="kw">typeof</span> module <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span> <span class="op">&amp;&amp;</span> module <span class="op">&amp;&amp;</span> <span class="va">module</span>.<span class="at">exports</span>)<span class="op">{</span>
+  <span class="kw">delete</span> module<span class="op">;</span>
+<span class="op">}</span>
+<span class="op">&lt;</span><span class="ss">/script&gt;</span></code></pre></div>
+<p>类似的问题还有许多，不过由于应用内容的限制，这些问题就没有那么严重了。</p>
+<p>如果有一天，我有钱开放这个应用的应用号，那么我就会再次献上这个图：</p>
+<figure>
+<img src="/static/media/uploads/hexoarch.png" alt="六边形架构" /><figcaption>六边形架构</figcaption>
+</figure>
+<h2 id="未来">未来</h2>
+<p>我就开始思索这个问题，未来的趋势是合并到一起，而这一个趋势在现在就已经是完成时了。</p>
+<p>那么未来呢？你觉得会是怎样的？</p>
+<p>搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图</p>
+<p><img src="/static/media/uploads/node.png" alt="elasticsearch_ionic_map" /> <img src="/static/media/uploads/refactor.png" alt="elasticsearch_ionic_info_page" /></p>
+<h2 id="构架设计">构架设计</h2>
+<p>对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。</p>
+<figure>
+<img src="/static/media/uploads/tdd.png" alt="Django ElasticSearch Ionic 架构" /><figcaption>Django ElasticSearch Ionic 架构</figcaption>
+</figure>
+<h3 id="gis架构说明-服务端">GIS架构说明 —— 服务端</h3>
+<p>简单说明:</p>
+<ul>
+<li>用户在前台或者后台创建数据。</li>
+<li>在model保存数据的时候，会调用Google的API解析GPS</li>
+<li>在haystack的配置中设置实时更新，当数据创建的时候自动更新索引</li>
+<li>数据被ElasticSearch索引</li>
+</ul>
+<p>下面是框架的一些简单的介绍</p>
+<h4 id="django">Django</h4>
+<blockquote>
+<p><a href="http://www.phodal.com/blog/tag/django/">Django</a> 是一个开放源代码的Web应用框架，由Python写成。采用了MVC的软件设计模式，即模型M，视图V和控制器C。它最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的。并于2005年7月在BSD许可证下发布。这套框架是以比利时的吉普赛爵士吉他手Django Reinhardt来命名的。</p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.phodal.com/blog/tag/django/">Django</a> 的主要目标是使得开发复杂的、数据库驱动的网站变得简单。Django注重组件的重用性和“可插拔性”，敏捷开发和DRY法则（Don’t Repeat Yourself）。在Django中Python被普遍使用，甚至包括配置文件和数据模型。</p>
+</blockquote>
+<p>首先考虑Django，而不是其他Node或者Ruby框架的原因是：</p>
+<ul>
+<li>内置认证系统</li>
+<li>内置CSRF</li>
+</ul>
+<p>当然这是其他框架也所拥有的，主要特性还有:</p>
+<ul>
+<li>一个表单序列化及验证系统，用于HTML表单和适于数据库存储的数据之间的转换。</li>
+<li>一套协助创建地理信息系统（GIS）的基础框架</li>
+</ul>
+<p>最后一个才是亮点，内置GIS，虽然没怎么用到，但是至少在部署上还是比较方便的。</p>
+<h3 id="haystack">Haystack</h3>
+<blockquote>
+<p>Haystack provides modular search for Django. It features a unified, familiar API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code.</p>
+</blockquote>
+<p>Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可以</p>
+<blockquote>
+<p>write your search code once and choose the search engine you want it to run on</p>
+</blockquote>
+<p>也就是说你只需要写你的代码选择你的搜索引擎就可以工作了。</p>
+<h3 id="elasticsearch">ElasticSearch</h3>
+<p>在上面的Haystack提供了这些一堆的搜索引擎，当然支持地点搜索的只有<code>Solr</code>和<code>ElasticSearch</code>，他们支持的空间搜索有:</p>
+<ul>
+<li>within<br />
+</li>
+<li>dwithin</li>
+<li>distance<br />
+</li>
+<li>order_by(‘distance’)<br />
+</li>
+<li>polygon</li>
+</ul>
+<p>在文档上没有写Solr的polygon搜索，但是实际上也是支持的(详细见这篇文章: <a href="http://www.phodal.com/blog/google-map-width-solr-use-polygon-search/，用的地图是谷歌，所以需要先学会访问谷歌">google map solr polygon 搜索</a>。</p>
+<p>至于为什么用的是ElasticSearch，是因为之前用Solr做过。。。</p>
+<h3 id="gis架构说明-客户端">GIS架构说明 —— 客户端</h3>
+<h4 id="简单说明-get">简单说明 —— GET</h4>
+<ol type="1">
+<li>当我们访问Map View的时候，会调用HTML5获取用户的位置</li>
+<li>根据用户的位置定位，设置缩放</li>
+<li>根据用户的位置发出ElasticSearch请求，返回结果中带上距离</li>
+<li>显示</li>
+</ol>
+<h4 id="简单说明-post">简单说明 —— POST</h4>
+<ol type="1">
+<li>用户填写数据会发给Django API，并验证</li>
+<li>成功时，存入数据库，更新索引。</li>
+</ol>
+<h3 id="ionic">Ionic</h3>
+<blockquote>
+<p>Ionic提供了一个免费且开源的移动优化HTML，CSS和JS组件库，来构建高交互性应用。基于Sass构建和AngularJS 优化。</p>
+</blockquote>
+<p>用到的主要是AngularJS，之前用他写过三个APP。</p>
+<h3 id="django-rest-framework">Django REST Framework</h3>
+<p>与Django Tastypie相比，DRF的主要优势在于Web界面的调试。</p>
+<h2 id="其他">其他</h2>
+<p>因为选的是比较熟悉的技术栈，所以也只花了不到两天的业余时间完成的。或许，这也是全栈程序员的优势所在。</p>
+<p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
+<p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<p>下一章: <a href="http://www.phodal.com/blog/django-elasticsearch-haystack-prepare-enviorment/">GIS 移动应用实战 —— Django Haystack ElasticSearch 环境准备</a></p>
+<p>在一篇中，我们介绍了 <a href="http://www.phodal.com/blog/django-elasticsearch-ionic-build-gis-application/">《Django ElasticSearch Ionic 打造 GIS 移动应用 —— 架构设计》</a>。接着，我们就开始实战了，内容也很简单。</p>
+<h2 id="django-gis准备">Django GIS准备</h2>
+<p>1.创建虚拟环境</p>
+<pre><code> virtualenv -p /usr/bin/python2.67 django-elasticsearch</code></pre>
+<p>2.创建项目</p>
+<p>为了方便，这里用的是Mezzanine CMS，相比Django的主要优势是，以后扩展方便。但是对于Django也是可以的。</p>
+<p>3.安装依赖</p>
+<p>这里我的所有依赖有</p>
+<pre><code>django-haystack
+Mezzanine==3.1.10
+djangorestframework
+pygeocoder
+elasticsearch</code></pre>
+<p>安装</p>
+<pre><code>pip install requirements.txt</code></pre>
+<p>4.安装ElasticSearch</p>
+<p>CentOS</p>
+<pre><code>wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.2.zip
+sudo unzip elasticsearch-1.4.2 -d /usr/local/elasticsearch
+rm elasticsearch-1.4.2.zip
+cd /usr/local/elasticsearch/elasticsearch-1.4.2/
+./bin/plugin install elasticsearch/elasticsearch-cloud-aws/2.4.1
+curl -XGET http://localhost:9200</code></pre>
+<p>Mac OS</p>
+<pre><code>brew install elasticsearch</code></pre>
+<p>5.Django Geo环境搭建</p>
+<p>CentOS等GNU/Linux系统: 可以参照<a href="http://www.phodal.com/blog/install-geo-django-in-centos/">CentOS Django Geo 环境搭建</a></p>
+<p>MacOS: <a href="http://www.phodal.com/blog/django-elasticsearch-geo-solution/">Mac OS Django Geo 环境搭建</a></p>
+<h2 id="配置django">配置Django</h2>
+<h3 id="配置haystack">配置Haystack</h3>
+<pre><code>HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
+
+HAYSTACK_CONNECTIONS = {
+    &#39;default&#39;: {
+        &#39;ENGINE&#39;: &#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;,
+        &#39;URL&#39;: &#39;http://127.0.0.1:9200/&#39;,
+        &#39;INDEX_NAME&#39;: &#39;haystack&#39;,
+    },
+}   </code></pre>
+<p><code>HAYSTACK_SIGNAL_PROCESSOR</code>是为了可以实时处理。 <code>HAYSTACK_CONNECTIONS</code> 则是配置搜索引擎用的。</p>
+<h3 id="配置django-1">配置Django</h3>
+<p>在<code>settings.py</code>中的<code>INSTALLED_APPS</code>添加</p>
+<pre><code>&quot;haystack&quot;,
+&quot;rest_framework&quot;,</code></pre>
+<p>接着</p>
+<pre><code> python manage.py createdb
+ python manage.py migreate</code></pre>
+<p>运行</p>
+<pre><code> python manage.py runserver</code></pre>
+<h2 id="其他-1">其他:</h2>
+<p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
+<p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<p>上一篇中我们说到了<a href="http://www.phodal.com/blog/django-elasticsearch-haystack-prepare-enviorment/">Django Haystack ElasticSearch 环境准备</a>，接着实战啦~~</p>
+<p>官方有一个简单的文档说明空间搜索—— <a href="http://django-haystack.readthedocs.org/en/latest/spatial.html">Spatial Search</a></p>
+<p>里面只有<code>Solr</code>和<code>ElasticSearch</code>是支持的，当然我们也不需要这么复杂的特性。</p>
+<p>创建Django app名为nx，目录结构如下</p>
+<pre><code>.
+|______init__.py
+|____api.py
+|____models.py
+|____search_indexes.py
+|____templates
+| |____search
+| | |____indexes
+| | | |____nx
+| | | | |____note_text.txt</code></pre>
+<p>api.py是后面要用的。</p>
+<h3 id="django-haystack-model创建">Django Haystack Model创建</h3>
+<p>而一般的model没有什么区别，除了修改了save方法</p>
+<pre><code>from django.contrib import admin
+
+from django.contrib.gis.geos import Point
+from django.core import validators
+from django.utils.translation import ugettext_lazy as _
+from django.db import models
+from pygeocoder import Geocoder
+
+class Note(models.Model):
+    title = models.CharField(&quot;标题&quot;, max_length=30, unique=True)
+    latitude = models.FloatField(blank=True)
+    longitude = models.FloatField(blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        results = Geocoder.geocode(self.province + self.city + self.address)
+        self.latitude = results[0].coordinates[0]
+        self.longitude = results[0].coordinates[1]
+        super(Note, self).save(*args, **kwargs)
+
+    def get_location(self):
+        return Point(self.longitude, self.latitude)
+
+    def get_location_info(self):
+        return self.province + self.city + self.address
+
+admin.site.register(Note)</code></pre>
+<p>通过<code>Geocoder.geocode</code> 解析用户输入的地址，为了方便直接后台管理了。</p>
+<h3 id="创建search_index">创建search_index</h3>
+<p>在源码的目录下有一个<code>search_indexes.py</code>的文件就是用于索引用的。</p>
+<pre><code>from haystack import indexes
+from .models import Note
+
+class NoteIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    title = indexes.CharField(model_attr=&#39;title&#39;)
+    location = indexes.LocationField(model_attr=&#39;get_location&#39;)
+    location_info = indexes.CharField(model_attr=&#39;get_location_info&#39;)
+
+    def get_model(self):
+        return Note</code></pre>
+<p>与些同时我们还需要在<code>templates/search/indexes/nx/</code>目录中有<code>note_text.txt</code>里面的内容是:</p>
+<pre><code>{{ object.title }}
+{{ object.get_location }}
+{{ object.get_location_info }}</code></pre>
+<h2 id="创建数据">创建数据</h2>
+<p>migrate数据库</p>
+<pre><code>python manage.py migrate</code></pre>
+<p>run</p>
+<pre><code>python manage.py runserver</code></pre>
+<p>接着我们就可以后台创建数据了。 打开: http://127.0.0.1:8000/admin/nx/note/，把除了<code>Latitude</code>和<code>Longitude</code>以外的数据都一填——经纬度是自动生成的。就可以创建数据了。</p>
+<h3 id="测试">测试</h3>
+<p>访问 http://localhost:9200/haystack/_search</p>
+<p>或者</p>
+<pre><code>curl -XGET http://127.0.0.1:9200/haystack/_search</code></pre>
+<h2 id="其他-2">其他:</h2>
+<p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
+<p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<p>在上一篇<a href="http://www.phodal.com/blog/django-elasticsearch-ionic-build-gis-application-create-model/">《GIS 移动应用实战 —— Django Haystack ElasticSearch 构建》</a>中，我们构建了我们的服务端，可以通过搜索搜索到结果，这一篇，我们来构建一个简单的搜索。</p>
+<p>最后效果如下图所示:</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Ionic ElasticSearch" /><figcaption>Ionic ElasticSearch</figcaption>
+</figure>
+<h2 id="开始之前">开始之前</h2>
+<p>如果你没有Ionic的经验，可以参考一下之前的一些文章:<a href="http://www.phodal.com/blog/ionic-development-android-ios-windows-phone-application/">《HTML5打造原生应用——Ionic框架简介与Ionic Hello World》</a>。</p>
+<p>我们用到的库有:</p>
+<ul>
+<li>elasticsearch</li>
+<li>ionic</li>
+<li>ngCordova</li>
+</ul>
+<p>将他们添加到<code>bower.json</code>，然后 bower install</p>
+<p>吧</p>
+<h2 id="ionic-elasticsearch-创建页面">Ionic ElasticSearch 创建页面</h2>
+<p>1.引入库</p>
+<p>在<code>index.html</code>中添加</p>
+<pre><code>&lt;script src=&quot;lib/elasticsearch/elasticsearch.angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;lib/ngCordova/dist/ng-cordova.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>接着开始写我们的搜索模板<code>tab-search.html</code></p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ion-view</span><span class="ot"> view-title=</span><span class="st">&quot;搜索&quot;</span><span class="ot"> ng-controller=</span><span class="st">&quot;SearchCtrl&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;ion-content&gt;</span>
+            <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;search-bar&quot;</span><span class="kw">&gt;</span>
+                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item item-input-inset&quot;</span><span class="kw">&gt;</span>
+                    <span class="kw">&lt;label</span><span class="ot"> class=</span><span class="st">&quot;item-input-wrapper&quot;</span><span class="ot"> id=</span><span class="st">&quot;search-input&quot;</span><span class="kw">&gt;</span>
+                        <span class="kw">&lt;i</span><span class="ot"> class=</span><span class="st">&quot;icon ion-search placeholder-icon&quot;</span><span class="kw">&gt;&lt;/i&gt;</span>
+                        <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;Search&quot;</span><span class="ot"> ng-model=</span><span class="st">&quot;query&quot;</span><span class="ot"> ng-change=</span><span class="st">&quot;search(query)&quot;</span><span class="ot"> autocorrect=</span><span class="st">&quot;off&quot;</span><span class="kw">&gt;</span>
+                    <span class="kw">&lt;/label&gt;</span>
+                <span class="kw">&lt;/div&gt;</span>
+            <span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;/ion-content&gt;</span>
+    <span class="kw">&lt;/ion-view&gt;</span></code></pre></div>
+<p>显示部分</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ion-list&gt;</span>
+                <span class="kw">&lt;ion-item</span><span class="ot"> class=</span><span class="st">&quot;item-remove-animate item-icon-right&quot;</span><span class="ot"> ng-repeat=</span><span class="st">&quot;result in results&quot;</span><span class="kw">&gt;</span>
+                    <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;icon-left&quot;</span><span class="kw">&gt;</span>{{result.title}}<span class="kw">&lt;/h2&gt;</span>
+                    <span class="kw">&lt;p&gt;</span>简介: {{result.body}}<span class="kw">&lt;/p&gt;</span>
+                    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;icon-left ion-ios-home location_info&quot;</span><span class="kw">&gt;</span>
+                        {{result.location_info}}
+                    <span class="kw">&lt;/div&gt;</span>
+                    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;</span><span class="kw">&gt;</span>
+                        <span class="kw">&lt;a</span><span class="ot"> ng-href=</span><span class="st">&quot;tel: {{result.phone_number}}&quot;</span><span class="kw">&gt;</span>{{result.phone_number}}<span class="kw">&lt;/a&gt;</span>
+                    <span class="kw">&lt;/div&gt;</span>
+                <span class="kw">&lt;/ion-item&gt;</span>
+            <span class="kw">&lt;/ion-list&gt;</span></code></pre></div>
+<p>而我们期待的<code>SearchCtrl</code>则是这样的</p>
+<pre><code>$scope.query = &quot;&quot;;
+var doSearch = ionic.debounce(function(query) {
+    ESService.search(query, 0).then(function(results){
+        $scope.results = results;
+    });
+}, 500);
+
+$scope.search = function(query) {
+    doSearch(query);
+}</code></pre>
+<p>当我们点下搜索的时候，调用 ESService.</p>
+<h2 id="ionic-elasticsearch-service">Ionic ElasticSearch Service</h2>
+<p>接着我们就来构建我们的ESService，下面的部分来自网上:</p>
+<pre><code>angular.module(&#39;starter.services&#39;, [&#39;ngCordova&#39;, &#39;elasticsearch&#39;])
+
+.factory(&#39;ESService&#39;,
+  [&#39;$q&#39;, &#39;esFactory&#39;, &#39;$location&#39;, &#39;$localstorage&#39;, function($q, elasticsearch, $location, $localstorage){
+    var client = elasticsearch({
+      host: $location.host() + &quot;:9200&quot;
+    });
+
+    var search = function(term, offset){
+      var deferred = $q.defer(), query, sort;
+      if(!term){
+        query = {
+          &quot;match_all&quot;: {}
+        };
+      } else {
+        query = {
+          match: { title: term }
+        }
+      }
+
+      var position = $localstorage.get(&#39;position&#39;);
+
+      if(position){
+        sort = [{
+          &quot;_geo_distance&quot;: {
+            &quot;location&quot;: position,
+            &quot;unit&quot;: &quot;km&quot;
+          }
+        }];
+      } else {
+        sort = [];
+      }
+
+      client.search({
+        &quot;index&quot;: &#39;haystack&#39;,
+        &quot;body&quot;: {
+          &quot;query&quot;: query,
+          &quot;sort&quot;: sort
+        }
+      }).then(function(result) {
+        var ii = 0, hits_in, hits_out = [];
+        hits_in = (result.hits || {}).hits || [];
+        for(;ii &lt; hits_in.length; ii++){
+          var data = hits_in[ii]._source;
+          var distance = {};
+          if(hits_in[ii].sort){
+            distance = {&quot;distance&quot;: parseFloat(hits_in[ii].sort[0]).toFixed(1)}
+          }
+          angular.extend(data, distance);
+          hits_out.push(data);
+        }
+        deferred.resolve(hits_out);
+      }, deferred.reject);
+
+      return deferred.promise;
+    };
+
+
+    return {
+      &quot;search&quot;: search
+    };
+  }]
+);</code></pre>
+<p>这个Service主要做的是创建ElasitcSearch Query，然后返回解析结果。</p>
+<h2 id="运行">运行</h2>
+<p>如果是要在真机上运行，需要处于同一网段，或者是部署到服务器上。</p>
+<h2 id="其他-3">其他:</h2>
+<p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
+<p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<p>在上一篇<a href="http://www.phodal.com/blog/ionic-searchview-django-elasticsearch-ionic-build-gis-application/">《地图移动应用实战:Ionic ElasticSearch 搜索服务》</a>中我们说到了，如果创建一个搜索服务，以及使用搜索接口。接着，我们来将他们显示到地图上。</p>
+<p>效果图:</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Ionic ElasticSearch Map Show" /><figcaption>Ionic ElasticSearch Map Show</figcaption>
+</figure>
+<h2 id="设计思路">设计思路</h2>
+<ol type="1">
+<li><p>判断是否有上次记录的位置信息，如果有则将地图的中心设置为上次的位置。</p></li>
+<li><p>将位置添加到ElasticSearch的Query中。</p></li>
+<li><p>从ElasticSearch中获取数据，并解析Render到地图上。</p></li>
+</ol>
+<h2 id="openlayer">OpenLayer</h2>
+<blockquote>
+<p>OpenLayers是一个用于开发WebGIS客户端的JavaScript包。OpenLayers 支持的地图来源包括Google Maps、Yahoo、 Map、微软Virtual Earth 等，用户还可以用简单的图片地图作为背景图，与其他的图层在OpenLayers 中进行叠加，在这一方面OpenLayers提供了非常多的选择。除此之外，OpenLayers实现访问地理空间数据的方法都符合行业标准。OpenLayers 支持Open GIS 协会制定的WMS（Web Mapping Service）和WFS（Web Feature Service）等网络服务规范，可以通过远程服务的方式，将以OGC 服务形式发布的地图数据加载到基于浏览器的OpenLayers 客户端中进行显示。OpenLayers采用面向对象方式开发，并使用来自Prototype.js和Rico中的一些组件。</p>
+</blockquote>
+<h3 id="添加openlayer-3">添加OpenLayer 3</h3>
+<p>1.下载OpenLayer</p>
+<p>2.添加到<code>index.html</code>:</p>
+<pre><code>&lt;script src=&quot;js/ol.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2 id="ionic-openlayer-地图显示">Ionic OpenLayer 地图显示:</h2>
+<h3 id="创建nsservice">创建NSService</h3>
+<p>新建一个<code>MapCtrl</code>，需要用到<code>ESService</code>和 <code>NSService</code>，NSService是官方示例中的一个函数，提供了一个<code>getRendererFromQueryString</code>方法。</p>
+<pre><code>.factory(&#39;NSService&#39;, function(){
+      var exampleNS = {};
+
+      exampleNS.getRendererFromQueryString = function() {
+        var obj = {}, queryString = location.search.slice(1),
+            re = /([^&amp;=]+)=([^&amp;]*)/g, m;
+
+        while (m = re.exec(queryString)) {
+          obj[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        }
+        if (&#39;renderers&#39; in obj) {
+          return obj[&#39;renderers&#39;].split(&#39;,&#39;);
+        } else if (&#39;renderer&#39; in obj) {
+          return [obj[&#39;renderer&#39;]];
+        } else {
+          return undefined;
+        }
+      };
+
+      return {
+        &quot;exampleNS&quot;: exampleNS
+      };
+})</code></pre>
+<h3 id="创建基本地图显示">创建基本地图显示</h3>
+<p>这里我们使用的是Bing地图:</p>
+<pre><code>  var view = new ol.View({
+    center: map_center,
+    zoom: 4
+});
+
+var controls = ol.control.defaults({rotate: false});
+var interactions = ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false});
+
+var map = new ol.Map({
+    controls: controls,
+    interactions: interactions,
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.BingMaps({
+                key: &#39;Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3&#39;,
+                culture: &#39;zh-CN&#39;,
+                imagerySet: &#39;Road&#39;
+            })
+        })
+    ],
+    renderer: NSService.exampleNS.getRendererFromQueryString(),
+    target: &#39;map&#39;,
+    view: view
+});</code></pre>
+<p>一个简单的地图如上如示。</p>
+<h3 id="获取当前位置">获取当前位置</h3>
+<p>ngCordova有一个插件是<code>$cordovaGeolocation</code>，用于获取当前的位置。代码如下所示:</p>
+<pre><code>var posOptions = {timeout: 10000, enableHighAccuracy: true};
+$cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+        var pos = new ol.proj.transform([position.coords.longitude, position.coords.latitude], &#39;EPSG:4326&#39;, &#39;EPSG:3857&#39;);
+
+        $localstorage.set(&#39;position&#39;, [position.coords.latitude, position.coords.longitude].toString());
+        $localstorage.set(&#39;map_center&#39;, pos);
+
+        view.setCenter(pos);
+    }, function (err) {
+        console.log(err)
+    });</code></pre>
+<p>当获取到位置时，将位置存储到<code>localstorage</code>中。</p>
+<h3 id="获取结果并显示">获取结果并显示</h3>
+<p>最后代码如下所示，获取解析后的结果，添加icon</p>
+<pre><code>ESService.search(&quot;&quot;, 0).then(function(results){
+    var vectorSource = new ol.source.Vector({ });
+    $.each(results, function(index, result){
+        var position = result.location.split(&quot;,&quot;);
+        var pos = ol.proj.transform([parseFloat(position[1]), parseFloat(position[0])], &#39;EPSG:4326&#39;, &#39;EPSG:3857&#39;);
+
+        var iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point(pos),
+                name: result.title,
+                phone: result.phone_number,
+                distance: result.distance
+        });
+        vectorSource.addFeature(iconFeature);
+    });
+
+    var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(({
+            anchor: [0.5, 46],
+            anchorXUnits: &#39;fraction&#39;,
+            anchorYUnits: &#39;pixels&#39;,
+            opacity: 0.75,
+            src: &#39;img/icon.png&#39;
+        }))
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: iconStyle
+    });
+    map.addLayer(vectorLayer);
+});</code></pre>
+<h3 id="添加点击事件">添加点击事件</h3>
+<p>在上面的代码中添加:</p>
+<pre><code>    var element = document.getElementById(&#39;popup&#39;);
+
+    var popup = new ol.Overlay({
+        element: element,
+        positioning: &#39;bottom-center&#39;,
+        stopEvent: false
+    });
+    map.addOverlay(popup);
+
+    map.on(&#39;click&#39;, function(evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+            function(feature, layer) {
+                return feature;
+            });
+
+        if (feature) {
+            var geometry = feature.getGeometry();
+            var coord = geometry.getCoordinates();
+            popup.setPosition(coord);
+            $(element).popover({
+                &#39;placement&#39;: &#39;top&#39;,
+                &#39;html&#39;: true,
+                &#39;content&#39;: &quot;&lt;h4&gt;商品:&quot; + feature.get(&#39;name&#39;) + &quot;&lt;/h4&gt;&quot; + &#39;&#39; +
+                &#39;&lt;div class=&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;&gt;&#39; +
+                &#39;&lt;a ng-href=&quot;tel: {{result.phone_number}}&quot;&gt;&#39; + feature.get(&#39;phone&#39;) + &#39;&lt;/a&gt; &lt;/div&gt;&#39; +
+                    &quot;&lt;p class=&#39;icon-left ion-ios-navigate&#39;&gt; &quot; + feature.get(&#39;distance&#39;) + &quot;公里&lt;/p&gt;&quot;
+            });
+            $(element).popover(&#39;show&#39;);
+        } else {
+            $(element).popover(&#39;destroy&#39;);
+        }
+    });</code></pre>
+<p>当用户点击时，调用Bootstrap的Popover来显示信息。</p>
+<h2 id="其他-4">其他:</h2>
+<p>服务端代码: <a href="https://github.com/phodal/django-elasticsearch" class="uri">https://github.com/phodal/django-elasticsearch</a></p>
+<p>客户端代码: <a href="https://github.com/phodal/ionic-elasticsearch" class="uri">https://github.com/phodal/ionic-elasticsearch</a></p>
+<p>在设计 lan (Github: <a href="https://github.com/phodal/lan" class="uri">https://github.com/phodal/lan</a>) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。</p>
+<p>然后像<a href="https://github.com/phodal/lan">lan</a>这样的应用，在里面刚属于服务层。</p>
+<h2 id="物联网层级结构">物联网层级结构</h2>
+<p>通常，我们很容易在网上看到如下图所示的三层结构:</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="物联网三层结构" /><figcaption>物联网三层结构</figcaption>
+</figure>
+<p>从理论上划分这样的层级结构是没有问题的，也是有各种理论依据。然而理论和现实往往是严重脱轨的，如上图所示，图中将网络层单独分为了一层，而并没有独立出应用程序相关的功能。</p>
+<p>从实践的角度上，我更愿意用如下的架构来构建我的物联网系统。</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="物联网层级结构" /><figcaption>物联网层级结构</figcaption>
+</figure>
+<p>其功能可以用下表来表示。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">层级</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">与下一层级的连接方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">硬件层</td>
+<td style="text-align: left;">获取、发送传感器数据，执行指令</td>
+<td style="text-align: left;">串口、蓝牙、有线、SPI、WiFi、USB等等</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">协调层</td>
+<td style="text-align: left;">协调硬件层与服务器的通信，并负责处理部分数据</td>
+<td style="text-align: left;">网络连接及硬件层的连接方式</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">服务层</td>
+<td style="text-align: left;">以视为服务器层</td>
+<td style="text-align: left;">网络连接</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">应用程序层</td>
+<td style="text-align: left;">为用户提供交互功能</td>
+<td style="text-align: left;">网络连接</td>
+</tr>
+</tbody>
+</table>
+<p>硬件层包含了数据众多的传感器、控制器、以及执行器，通常这部份会由硬件人员与硬件开发人员一起协作和开发。而协调层则是充当硬件与服务层通信的桥梁，这是在系统中需要<strong>特别考虑</strong>的部份，一个物联网系统的设计主要<strong>取决于这个层级</strong>。</p>
+<h2 id="物联网服务层">物联网服务层</h2>
+<p>而服务层的核心是传统的Web应用程序的结构，只是协议层变成了一些适配器，我们需要支持不同的协议，这导致了我们在这个层需要有一个更好的结构，故而我们建议使用<strong>六边形架构</strong>。而在实际中，用户最后接触到的便是应用程序层，在这一层中需要有很好的用户体验设计及流畅度。</p>
+<p>因而在设计<a href="https://github.com/phodal/lan">Lan</a>物联网平台的时候，参考了之前的<a href="https://github.com/phodal/diaonan">物联网平台</a>的设计，增加了用户授权以及模块化加载思想。</p>
+<figure>
+<img src="/static/media/uploads/tdd.png" alt="IoT Server Layer" /><figcaption>IoT Server Layer</figcaption>
+</figure>
+<p>上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。</p>
+<blockquote>
+<p>尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。</p>
+</blockquote>
+<p>当我们在写一些UI测试的时候，我们总需要到浏览器去看一下一些DOM的变化。比如，我们点击了某个下拉菜单，会有另外一个联动的下拉菜单发生了变化。而如果这个事件更复杂的时候，有时我们可能就很难观察出来他们之间的变化。</p>
+<h2 id="virtual-dom">Virtual DOM</h2>
+<p>尽管这里的例子是以Jasmine作为例子，但是我想对于React也会有同样的方法。</p>
+<h3 id="一个jasmine-jquery测试">一个Jasmine jQuery测试</h3>
+<p>如下是一个简单的Jamine jQuery的测试示例：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="at">describe</span>(<span class="st">&quot;toHaveCss&quot;</span><span class="op">,</span> <span class="kw">function</span> ()<span class="op">{</span>
+    <span class="at">beforeEach</span>(<span class="kw">function</span> ()<span class="op">{</span>
+      <span class="at">setFixtures</span>(<span class="at">sandbox</span>())
+    <span class="op">}</span>)
+
+    <span class="at">it</span>(<span class="st">&quot;should pass if the element has matching css&quot;</span><span class="op">,</span> <span class="kw">function</span> ()<span class="op">{</span>
+      <span class="at">$</span>(<span class="st">&quot;#sandbox&quot;</span>).<span class="at">css</span>(<span class="st">&quot;display&quot;</span><span class="op">,</span> <span class="st">&quot;none&quot;</span>)
+      <span class="at">$</span>(<span class="st">&quot;#sandbox&quot;</span>).<span class="at">css</span>(<span class="st">&quot;margin-left&quot;</span><span class="op">,</span> <span class="st">&quot;10px&quot;</span>)
+      <span class="at">expect</span>(<span class="at">$</span>(<span class="st">&quot;#sandbox&quot;</span>)).<span class="at">toHaveCss</span>(<span class="op">{</span><span class="dt">display</span><span class="op">:</span> <span class="st">&quot;none&quot;</span><span class="op">,</span> <span class="st">&quot;margin-left&quot;</span><span class="op">:</span> <span class="st">&quot;10px&quot;</span><span class="op">}</span>)
+    <span class="op">}</span>)
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>在beforeEach的时候，我们设定了固定的DOM进去，按照用户的行为做一些相应的操作。接着依据这个DOM中的元素变化 ，来作一些断言。</p>
+<p>那么，即使我们已经有一个固定的DOM，想要监听这个DOM的变化就是一件容易的事。在我们断言之前，我们就会有一个新的DOM。我们只需要Diff一下这两个DOM的变化，就可以生成这部分测试代码。</p>
+<h3 id="virtual-dom与hyperscript">virtual-dom与HyperScript</h3>
+<p>在寻觅中发现了<a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a>这个库，一个可以支持创建元素、diff计算以及patch操作的库，并且它效率好像还不错。</p>
+<p>virtual-dom可以说由下面几部分组成的：</p>
+<ol type="1">
+<li>createElement，用于创建virtual Node。</li>
+<li>diff，顾名思义，diff算法。</li>
+<li>h，用于创建虚拟树的DSL——HyperScript。HyperScript是一个JavaScript的HyperText。</li>
+<li>patch，用于patch修改的内容。</li>
+</ol>
+<p>举例来说，我们有下面一个生成Virtual DOM的函数:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">render</span>(count)  <span class="op">{</span>
+    <span class="cf">return</span> <span class="at">h</span>(<span class="st">&#39;div&#39;</span><span class="op">,</span> <span class="op">{</span>
+        <span class="dt">style</span><span class="op">:</span> <span class="op">{</span>
+            <span class="dt">textAlign</span><span class="op">:</span> <span class="st">&#39;center&#39;</span><span class="op">,</span>
+            <span class="dt">lineHeight</span><span class="op">:</span> (<span class="dv">100</span> <span class="op">+</span> count) <span class="op">+</span> <span class="st">&#39;px&#39;</span><span class="op">,</span>
+            <span class="dt">border</span><span class="op">:</span> <span class="st">&#39;1px solid red&#39;</span><span class="op">,</span>
+            <span class="dt">width</span><span class="op">:</span> (<span class="dv">100</span> <span class="op">+</span> count) <span class="op">+</span> <span class="st">&#39;px&#39;</span><span class="op">,</span>
+            <span class="dt">height</span><span class="op">:</span> (<span class="dv">100</span> <span class="op">+</span> count) <span class="op">+</span> <span class="st">&#39;px&#39;</span>
+        <span class="op">}</span>
+    <span class="op">},</span> [<span class="at">String</span>(count)])<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>render函数用于生成一个Virtual Node。在这里，我们可以将我们的变量传进去，如1。就会生成如下图所示的节点：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+    <span class="st">&quot;children&quot;</span><span class="op">:</span> [
+        <span class="op">{</span>
+            <span class="st">&quot;text&quot;</span><span class="op">:</span> <span class="st">&quot;1&quot;</span>
+        <span class="op">}</span>
+    ]<span class="op">,</span>
+    <span class="st">&quot;count&quot;</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>
+    <span class="st">&quot;descendantHooks&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+    <span class="st">&quot;hasThunks&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+    <span class="st">&quot;hasWidgets&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+    <span class="st">&quot;namespace&quot;</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>
+    <span class="st">&quot;properties&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;style&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;border&quot;</span><span class="op">:</span> <span class="st">&quot;1px solid red&quot;</span><span class="op">,</span>
+            <span class="st">&quot;height&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span><span class="op">,</span>
+            <span class="st">&quot;lineHeight&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span><span class="op">,</span>
+            <span class="st">&quot;textAlign&quot;</span><span class="op">:</span> <span class="st">&quot;center&quot;</span><span class="op">,</span>
+            <span class="st">&quot;width&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span>
+        <span class="op">}</span>
+    <span class="op">},</span>
+    <span class="st">&quot;tagName&quot;</span><span class="op">:</span> <span class="st">&quot;DIV&quot;</span>
+<span class="op">}</span></code></pre></div>
+<p>其中包含中相对应的属性等等。而我们只要调用createElement就可以创建出这个DOM。</p>
+<p>如果我们修改了这个节点的一些元素，或者我们render了一个count=2的值时，我们就可以diff两个DOM。如:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">virtualDom</span>.<span class="at">diff</span>(<span class="at">render</span>(<span class="dv">2</span>)<span class="op">,</span> <span class="at">render</span>(<span class="dv">1</span>))</code></pre></div>
+<p>根据两个值的变化就会生成如下的一个对象：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+    <span class="st">&quot;0&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;patch&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;style&quot;</span><span class="op">:</span> <span class="op">{</span>
+                <span class="st">&quot;height&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span><span class="op">,</span>
+                <span class="st">&quot;lineHeight&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span><span class="op">,</span>
+                <span class="st">&quot;width&quot;</span><span class="op">:</span> <span class="st">&quot;101px&quot;</span>
+            <span class="op">}</span>
+        <span class="op">},</span>
+        <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
+        <span class="st">&quot;vNode&quot;</span><span class="op">:</span> <span class="op">{</span>
+            ...
+        <span class="op">}</span>
+    <span class="op">},</span>
+    <span class="st">&quot;1&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;patch&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;text&quot;</span><span class="op">:</span> <span class="st">&quot;1&quot;</span>
+        <span class="op">},</span>
+        <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>
+        <span class="st">&quot;vNode&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;text&quot;</span><span class="op">:</span> <span class="st">&quot;2&quot;</span>
+        <span class="op">}</span>
+    <span class="op">},</span>
+    ...
+<span class="op">}</span></code></pre></div>
+<p>第一个对象，即0中包含了一些属性的变化。而第二个则是文本的变化——从2变成了1。我们所要做的测试生成便是标记这些变化，并记录之。</p>
+<h2 id="标记dom变化">标记DOM变化</h2>
+<p>由于virtual-dom依赖于虚拟节点vNode，我们需要将fixtures转换为hyperscript。这里我们就需要一个名为html2hyperscript的插件，来解析html。接着，我们就可以diff转换完后的DOM：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> leftNode <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">,</span> rightNode <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span>
+<span class="kw">var</span> fixtures <span class="op">=</span> <span class="st">&#39;&lt;div id=&quot;example&quot;&gt;&lt;h1 class=&quot;hello&quot;&gt;Hello World&lt;/h1&gt;&lt;/div&gt;&#39;</span><span class="op">;</span>
+<span class="kw">var</span> change <span class="op">=</span> <span class="st">&#39;&lt;div id=&quot;example&quot;&gt;&lt;h1 class=&quot;hello&quot;&gt;Hello World&lt;/h1&gt;&lt;h2&gt;fs&lt;/h2&gt;&lt;/div&gt;&#39;</span><span class="op">;</span>
+<span class="at">parser</span>(fixtures<span class="op">,</span> <span class="kw">function</span> (err<span class="op">,</span> hscript) <span class="op">{</span>
+  leftNode <span class="op">=</span> <span class="at">eval</span>(hscript)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="at">parser</span>(change<span class="op">,</span> <span class="kw">function</span> (err<span class="op">,</span> hscript) <span class="op">{</span>
+  rightNode <span class="op">=</span> <span class="at">eval</span>(hscript)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> patches <span class="op">=</span> <span class="at">diff</span>(leftNode<span class="op">,</span> rightNode)<span class="op">;</span></code></pre></div>
+<p>接着，我们需要调用patch函数来做一些相应的改变。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">luffa</span>.<span class="at">patch</span>(<span class="va">virtualDom</span>.<span class="at">create</span>(leftNode)<span class="op">,</span> patches)</code></pre></div>
+<p>并且，我们可以尝试在patch阶段做一些处理——输出修改：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">printChange</span>(originRootNodeHTML<span class="op">,</span> applyNode) <span class="op">{</span>
+  <span class="kw">var</span> patchType<span class="op">;</span>
+
+  <span class="cf">for</span> (<span class="kw">var</span> patchIndex <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> patchIndex <span class="op">&lt;</span> <span class="va">applyNode</span>.<span class="va">newNodes</span>.<span class="at">length</span><span class="op">;</span> patchIndex<span class="op">++</span>) <span class="op">{</span>
+    patchType <span class="op">=</span> <span class="va">applyNode</span>.<span class="at">newNodes</span>[patchIndex].<span class="at">method</span><span class="op">;</span>
+    <span class="cf">switch</span> (patchType) <span class="op">{</span>
+      <span class="cf">case</span> <span class="st">&#39;insert&#39;</span><span class="op">:</span>
+        <span class="at">printInsert</span>(applyNode)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+      <span class="cf">case</span> <span class="st">&#39;node&#39;</span><span class="op">:</span>
+        <span class="at">printNode</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+      <span class="cf">case</span> <span class="st">&#39;remove&#39;</span><span class="op">:</span>
+        <span class="at">printRemove</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+      <span class="cf">case</span> <span class="st">&#39;string&#39;</span><span class="op">:</span>
+        <span class="at">printString</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+      <span class="cf">case</span> <span class="st">&#39;prop&#39;</span><span class="op">:</span>
+        <span class="at">printProp</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+      <span class="dt">default</span><span class="op">:</span>
+        <span class="at">printDefault</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex)<span class="op">;</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>根据不同的类型，作一些对应的输出处理，如pringNode：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">printNode</span>(applyNode<span class="op">,</span> originRootNodeHTML<span class="op">,</span> patchIndex) <span class="op">{</span>
+  <span class="kw">var</span> originNode <span class="op">=</span> <span class="at">$</span>(<span class="va">applyNode</span>.<span class="at">newNodes</span>[patchIndex].<span class="at">vNode</span>).<span class="at">prop</span>(<span class="st">&#39;outerHTML&#39;</span>) <span class="op">||</span> <span class="at">$</span>(<span class="va">applyNode</span>.<span class="at">newNodes</span>[patchIndex].<span class="at">vNode</span>).<span class="at">text</span>()<span class="op">;</span>
+  <span class="kw">var</span> newNode <span class="op">=</span> <span class="at">$</span>(<span class="va">applyNode</span>.<span class="at">newNodes</span>[patchIndex].<span class="at">newNode</span>).<span class="at">prop</span>(<span class="st">&#39;outerHTML&#39;</span>)<span class="op">;</span>
+
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;%c&#39;</span> <span class="op">+</span> <span class="va">originRootNodeHTML</span>.<span class="at">replace</span>(originNode<span class="op">,</span> <span class="st">&#39;%c&#39;</span> <span class="op">+</span> originNode <span class="op">+</span> <span class="st">&#39;%c&#39;</span>) <span class="op">+</span> <span class="st">&#39;, %c&#39;</span> <span class="op">+</span> newNode<span class="op">,</span> <span class="va">luffa</span>.<span class="at">ORIGIN_STYLE</span><span class="op">,</span> <span class="va">luffa</span>.<span class="at">CHANGE_STYLE</span><span class="op">,</span> <span class="va">luffa</span>.<span class="at">ORIGIN_STYLE</span><span class="op">,</span> <span class="va">luffa</span>.<span class="at">NEW_STYLE</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>用Chrome的console来标记修改的部分，及添加的部分。</p>
+<p>最后，我们似乎就可以生成相应的测试代码了。。。</p>
+<h3 id="其他-5">其他</h3>
+<p>源码见：<a href="https://github.com/phodal/luffa" class="uri">https://github.com/phodal/luffa</a></p>
+<p>看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——<a href="http://cms.moqi.mobi">墨颀 CMS</a>，方便项目深入理解的同时，也可以自己维护一个CMS系统。</p>
+<h2 id="构建框架">构建框架</h2>
+<p>尝试过用AngularJS和EmberJS，发现对于使用AngluarJS以及EmberJS来说，主要的问题是要使用自己熟悉的东西没那么容易引入。而且考虑到谷歌向来对自己的项目的支持不是很好~~，所以便放弃了AngluarJS的想法。</p>
+<p>于是开始寻找一些方案，但是最后还是选择了一个比较通用的方案。</p>
+<ul>
+<li>RequireJS</li>
+<li>jQuery</li>
+<li>Underscore</li>
+<li>Backbone</li>
+</ul>
+<p>相对于AngularJS来说，Backbone是一个轻量级的方案，从大小上来说。对于自己来说，灵活性算是其中好的一点，也就是自己可以随意的加入很多东西。</p>
+<h3 id="关于backbone">关于Backbone</h3>
+<blockquote>
+<p>Backbone.js是一套JavaScript框架与RESTful JSON的应用程式接口。也是一套大致上符合MVC架构的编程范型。Backbone.js以轻量为特色，只需依赖一套Javascript 函式库即可运行。</p>
+</blockquote>
+<p>具体功能上应该是</p>
+<ul>
+<li>Backbone 轻量级，支持jquery，自带路由，对象化视图，强大的sync机制减少页面大小从而加快页面显示。</li>
+<li>jQuery jQuery使用户能更方便地处理HTML（标准通用标记语言下的一个应用）、events、实现动画效果，并且方便地为网站提供AJAX交互。不过主要是jQuery能够使用户的html页面保持代码和html内容分离，只需定义id即可。</li>
+<li>Underscore是Backbone的依赖库 Underscore 是一个JavaScript实用库,提供了类似Prototype.js的一些功能,但是没有继承任何JavaScript内置对象。</li>
+<li>RequireJS 你可以顺序读取仅需要相关依赖模块。</li>
+</ul>
+<p>前台UI，使用的是Pure CSS，一个轻量级的CSS框架，但是最后感觉，总体用到一起，大小还是相当的。只是可以有一个更好的移动体验。</p>
+<h3 id="其他可替换的框架">其他可替换的框架</h3>
+<p><strong>AngularJS</strong>，考虑到某些因素，可能会替换掉Backbone，但是还不是当前可行的方案。为了学习是一方案，也为了更好的普及某些东西。</p>
+<p><strong>handlebars</strong> Handlebars 是Mustache的改进，显示与逻辑分离，语法兼容Mustache，可以编译成代码，改进Mustache对路径的支持，但是若需要在服务端运行需要使用服务端Javascript引擎如Node.js。</p>
+<h2 id="项目">项目</h2>
+<p>前后端分离设计，后台对前台只提供JSON数据，所以在某种意义上来说可能会只适合浏览，和这个要配合后台的框架。总的来说，适合于阅读类的网站。</p>
+<h3 id="源码">源码</h3>
+<p>代码依然是放在Github上，基本功能已经可以Works了。</p>
+<p><a href="https://github.com/gmszone/moqi.mobi" class="uri">https://github.com/gmszone/moqi.mobi</a></p>
+<h3 id="进展及目的">进展及目的</h3>
+<p>最后目标:构建一个移动平台的CMS系统。</p>
+<p>当前:对于这样一个项目来说，目前会考虑优先支持下面的两个框架，</p>
+<ul>
+<li>Django+Tastypie API</li>
+<li>Wordpress</li>
+</ul>
+<p>现在：可以从后台读取到数据。</p>
+<h2 id="其他-6">其他</h2>
+<p>一些比较好的资料有</p>
+<ul>
+<li><a href="http://backbonetutorials.com/organizing-backbone-using-modules/">Organizing your application using Modules</a></li>
+<li><a href="http://ozkatz.github.io/converting-an-existing-backbonejs-project-to-requirejs.html">Converting an existing Backbone.js project to Require.js</a></li>
+</ul>
+<p>在一篇<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">构建基于Javascript的移动web CMS入门——简介</a>中简单的介绍了关于<a href="http://cms.moqi.mobi">墨颀CMS</a>的一些原理，其极框架组成，于是开始接着应该说明一下这个CMS是如何一步步搭建起来。</p>
+<h2 id="requirejs-使用">RequireJS 使用</h2>
+<h3 id="库及依赖">库及依赖</h3>
+<p>这里用的是bower的JS来下载库，详细可以参考一下<a href="http://www.phodal.com/blog/use-bower-to-install-js-plugins/">bower install js使用bower管理js</a> 这篇文章。</p>
+<p>需要下载的库有</p>
+<ul>
+<li>RequireJS</li>
+<li>Backbone</li>
+<li>Underscore</li>
+<li>Mustache</li>
+<li>jQuery</li>
+</ul>
+<h3 id="使用requirejs">使用RequireJS</h3>
+<p>引用官网的示例</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My Sample Project&lt;/title&gt;
+        &lt;!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. --&gt;
+        &lt;script data-main=&quot;js/main&quot; src=&quot;lib/require.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;My Sample Project&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>我们需要一个require.js和一个main.js放在同一个目录，在main.js中用使用require()来载入需要加载的脚本。</p>
+<pre><code>require.config({
+    baseUrl: &#39;lib/&#39;,
+    paths: {
+        jquery: &#39;jquery-2.1.1.min&#39;
+    },
+    shim: {
+        underscore: {
+            exports: &#39;_&#39;
+        }
+    }
+});
+
+require([&#39;../app&#39;], function(App){
+    App.initialize();
+});</code></pre>
+<p>在config中可以配置好其他的库，接着调用了app.js。</p>
+<pre><code>define([&#39;jquery&#39;, &#39;underscore&#39;], function($, _){
+    var initialize = function() {
+        console.log(&quot;Hello World&quot;);
+    }
+
+    return {
+        initialize: initialize
+    };
+});</code></pre>
+<p>当打开index.html的时候便会在console中输出<code>Hello World</code>。这样我们就完成一个基本的框架，只是还没有HTML，这个将会在下次继续。</p>
+<p>在上一篇<a href="www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">《构建基于Javascript的移动CMS——Hello,World》</a>讲述了<a href="http://cms.moqi.mobi/">墨颀 CMS</a>的大概组成，并进行了一个简单的示例，即Hello,World。这一次，我们将把CMS简单的放到一个可以运行的服务器环境中，也就是说我们需要一个简单的运行环境，以便于进行更有意思的东西——添加模板。</p>
+<h2 id="开始之前-1">开始之前</h2>
+<h3 id="环境准备">环境准备</h3>
+<h4 id="类unix系统">类Unix系统</h4>
+<p>因为电脑上已经装有python了，这里便用python起一个简单的server，对于GNU/Linux、Mac OS等类unix系统来说，都可以这样运行:</p>
+<pre><code>python -m SimpleHTTPServer 8000</code></pre>
+<h4 id="windows">Windows</h4>
+<p>对于Windows来说，如果你已经装有python的话，那自然是可以用上面的方式运行。如果没有的话，可以试一下<code>mongoose</code>，下载一个安装之。</p>
+<h3 id="js库准备">JS库准备</h3>
+<p>需要准备的JS库有</p>
+<ul>
+<li>Backbone</li>
+<li>RequireJs的插件text.js</li>
+<li>Mustache</li>
+</ul>
+<h3 id="只想要这次的代码">只想要这次的代码</h3>
+<p>那么就这样子吧</p>
+<pre><code> git@github.com:gmszone/moqi.mobi.git
+ </code></pre>
+<p>接着切换到learing分支</p>
+<pre><code> git checkout learning     
+ </code></pre>
+<p>checkout到这个版本</p>
+<pre><code>git checkout 62fbdaf</code></pre>
+<h2 id="构建移动web-cms">构建移动web CMS</h2>
+<p>文件列表如下所示</p>
+<pre><code>.
+|____app.js
+|____backbone.js
+|____HomeView.js
+|____index.html
+|____jquery.js
+|____main.js
+|____mustache.js
+|____require.js
+|____router.js
+|____text.js
+|____underscore.js</code></pre>
+<p>在这里有些混乱，但是为了少去其中的一些配置的麻烦，就先这样讲述。</p>
+<h3 id="添加路由">添加路由</h3>
+<p>用Backbone的一个目的就在于其的路由功能，于是便添加这样一个js——<code>router.js</code>,内容如下所示:</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;backbone&#39;,
+    &#39;HomeView.js&#39;
+], function($, _, Backbone, HomeView) {
+
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+            &#39;index&#39;: &#39;homePage&#39;,
+            &#39;*actions&#39;: &#39;homePage&#39;
+        }
+    });
+    var initialize = function() {
+        var app_router = new AppRouter;
+
+        app_router.on(&#39;route:homePage&#39;, function() {
+            var homeView = new HomeView();
+            homeView.render();
+        });
+
+        Backbone.history.start();
+    };
+    return {
+        initialize: initialize
+    };
+});</code></pre>
+<p>在这里我们先忽略掉HomeView.js，因为这是下面要讲的，在router.js中，我们定义了一个AppRouter，</p>
+<ul>
+<li><code>index</code>指向的是在初始化时候定义的homePage，这样就可以将主页转向HomeView.js。</li>
+<li><code>*actions</code>便是将其他未匹配的都转向homePage。</li>
+</ul>
+<p>接着我们需要修改一下<code>app.js</code>，让他一运行地时候便可以进入路由选择</p>
+<pre><code>define([&#39;jquery&#39;, &#39;underscore&#39;, &#39;router&#39;], function($, _, Router) {
+    var initialize = function() {
+        Router.initialize();
+    };
+
+    return {
+        initialize: initialize
+    };
+});</code></pre>
+<p>也就是初始化一下路由。</p>
+<h3 id="创建主页view">创建主页View</h3>
+<p>使用Mustache的优点在于，后台仅仅只需要提供数据，并在前台提供一个位置。因此我们修改了下HTML</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My Sample Project&lt;/title&gt;
+        &lt;script data-main=&quot;main&quot; src=&quot;require.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;aboutArea&quot;&gt;{{project}}&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html</code></pre>
+<p>创建了aboutArea这样一个ID，于是我们便可以很愉快地在HomeView.js中添加project的数据。</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;mustache&#39;,
+    &#39;text!/index.html&#39;
+], function($, _, Mustache, indexTemplate) {
+
+    var HomeView = Backbone.View.extend({
+        el: $(&#39;#aboutArea&#39;),
+
+        render: function() {
+            var data = {
+                project: &quot;My Sample Project&quot;
+            };
+            this.$el.html(Mustache.to_html(indexTemplate, data));
+        }
+    });
+
+    return HomeView;
+});</code></pre>
+<p>在HomeView.js中，定义了data这样一个object，代码最终的效果便是用“My Sample Project”替换到HTML中的{{project}}。</p>
+<p>这样我们便完成了一个真正意义上的移动web CMS平台的Hello,World，剩下的便是添加一个又一个的脚手架。</p>
+<p>当看到<a href="http://cms.moqi.mobi/">墨颀 CMS</a>的菜单，变成一个工具栏的时候，变觉得这一切有了意义。于是就继续看看这样一个CMS的边栏是怎么组成的。</p>
+<h2 id="requirejs与jquery-插件示例">RequireJS与jQuery 插件示例</h2>
+<p>一个简单的组合示例如下所示，在main.js中添加下面的内容</p>
+<pre><code>requirejs.config( {
+    &quot;shim&quot;: {
+        &quot;jquery-cookie&quot;  : [&quot;jquery&quot;]
+    }
+} );</code></pre>
+<p>接着在另外的文件中添加</p>
+<pre><code>define([&quot;jquery&quot;],
+       function($){
+           //添加函数
+});</code></pre>
+<p>这样我们就可以完成一个简单的插件的添加。</p>
+<h2 id="墨颀cms添加jquery插件"><a href="http://cms.moqi.mobi">墨颀CMS</a>添加jQuery插件</h2>
+<h3 id="jquery-sidr">jQuery Sidr</h3>
+<blockquote>
+<p>The best jQuery plugin for creating side menus and the easiest way for doing your menu responsive</p>
+</blockquote>
+<p>这是一个创建响应式侧边栏的最好的也是最简单的工具，于是我们需要下载jQuery.sidr.min.js到目录中，接着修改一下main.js:</p>
+<pre><code>require.config({
+    baseUrl: &#39;lib/&#39;,
+    paths: {
+        &#39;text&#39;: &#39;text&#39;,
+        jquery: &#39;jquery-2.1.1.min&#39;,
+        async: &#39;require/async&#39;,
+        json: &#39;require/json&#39;,
+        mdown: &#39;require/mdown&#39;,
+        router: &#39;../router&#39;,
+        templates: &#39;../templates&#39;,
+        jquerySidr: &#39;jquery.sidr.min&#39;,
+        markdownConverter : &#39;require/Markdown.Converter&#39;
+    },
+    shim: {
+        jquerySidr:[&quot;jquery&quot;],
+        underscore: {
+            exports: &#39;_&#39;
+        }
+    }
+});
+
+require([&#39;../app&#39;], function(App){
+    App.initialize();
+});</code></pre>
+<p>添加jquery.sidr.min到里面。</p>
+<h3 id="jquery-sidr与requirejs协作">jQuery Sidr与RequireJS协作</h3>
+<p>引用官方的示例代码</p>
+<pre><code>$(document).ready(function() {
+  $(&#39;#simple-menu&#39;).sidr();
+});</code></pre>
+<p>我们需要将上面的初始化代码添加到app.js的初始化中，</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;backbone&#39;,
+    &#39;router&#39;,
+    &#39;jquerySidr&#39;
+], function($, _, Backbone, Router){
+
+    var initialize = function(){
+        $(document).ready(function() {
+            $(&#39;#menu&#39;).sidr();
+        });
+        Router.initialize();
+    };
+
+    return {
+        initialize: initialize
+    };
+});</code></pre>
+<p>这样打开<a href="http://cms.moqi.mobi">墨颀 CMS</a>便可以看到最后的效果。</p>
+<p>正在一步步完善<a href="http://cms.moqi.mobi/">墨颀 CMS</a>，在暂时不考虑其他新的功能的时候，先和<a href="http://www.phodal.com">自己的博客</a>整合一下。</p>
+<h2 id="django-tastypie-跨域">Django Tastypie 跨域</h2>
+<h3 id="django-tastypie示例">Django Tastypie示例</h3>
+<p>之前用AngluarJS做的全部文章的时候是Tastypie做的API，只是用来生成的是博客的内容。只是打开的速度好快，可以在1秒内打开，献上URL:</p>
+<p><a href="http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json" class="uri">http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json</a></p>
+<p>之前只是拿Tastypie生成一些简单的JSON数据，如keywords_string,slug,title这些简单的数据。</p>
+<p>因为这里的Blogpost是来自mezzanine，原来的<code>api.py</code>，如下所示：</p>
+<pre><code>from tastypie.resources import ModelResource
+from mezzanine.blog.models import BlogPost, BlogCategory
+
+
+class AllBlogSlugResource(ModelResource):
+    class Meta:
+        queryset = BlogPost.objects.published()
+        resource_name = &quot;url&quot;
+        fields = [&#39;keywords_string&#39;, &#39;slug&#39;, &#39;title&#39;]
+        allowed_methods = [&#39;get&#39;]
+
+
+class BlogResource(ModelResource):
+    class Meta:
+        queryset = BlogPost.objects.published()
+        resource_name = &quot;blog&quot;
+        fields = [&#39;keywords_string&#39;, &#39;slug&#39;, &#39;title&#39;, &#39;content&#39;, &#39;description&#39;]
+        allowed_methods = [&#39;get&#39;]</code></pre>
+<p>而这时为了测试方便，还需要解决跨域请求的问题，生成的内容大致如下所示:</p>
+<pre><code>{
+  &quot;meta&quot;: {
+    &quot;limit&quot;: 1,
+    &quot;next&quot;: &quot;/api/v1/url/?offset=1&amp;limit=1&amp;format=json&quot;,
+    &quot;offset&quot;: 0,
+    &quot;previous&quot;: null,
+    &quot;total_count&quot;: 290
+  },
+  &quot;objects&quot;: [
+    {
+      &quot;keywords_string&quot;: &quot;jquery backbone mustache underscore siderbar&quot;,
+      &quot;resource_uri&quot;: &quot;/api/v1/url/369/&quot;,
+      &quot;slug&quot;: &quot;use-jquery-backbone-mustache-build-mobile-app-cms-add-jquery-plugins&quot;,
+      &quot;title&quot;: &quot;构建基于Javascript的移动web CMS——添加jQuery插件&quot;
+    }
+  ]
+}</code></pre>
+<h3 id="django-tastypie-跨域支持">Django Tastypie 跨域支持</h3>
+<p>于是网上搜索了一下，有了下面的代码:</p>
+<pre><code>from tastypie.resources import Resource, ModelResource
+from mezzanine.blog.models import BlogPost, BlogCategory
+from django.http.response import HttpResponse
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie import http
+from tastypie.serializers import Serializer
+
+class BaseCorsResource(Resource):
+
+    def create_response(self, *args, **kwargs):
+        response = super(BaseCorsResource, self).create_response(*args, **kwargs)
+        response[&#39;Access-Control-Allow-Origin&#39;] = &#39;*&#39;
+        response[&#39;Access-Control-Allow-Headers&#39;] = &#39;Content-Type&#39;
+        return response
+
+    def post_list(self, request, **kwargs):
+
+        response = super(BaseCorsResource, self).post_list(request, **kwargs)
+        response[&#39;Access-Control-Allow-Origin&#39;] = &#39;*&#39;
+        response[&#39;Access-Control-Expose-Headers&#39;] = &#39;Location&#39;
+        return response
+    
+    def method_check(self, request, allowed=None):
+
+        if allowed is None:
+            allowed = []
+ 
+        request_method = request.method.lower()
+        allows = &#39;,&#39;.join(map(lambda s: s.upper(), allowed))
+ 
+        if request_method == &#39;options&#39;:
+            response = HttpResponse(allows)
+            response[&#39;Access-Control-Allow-Origin&#39;] = &#39;*&#39;
+            response[&#39;Access-Control-Allow-Headers&#39;] = &#39;Content-Type&#39;
+            response[&#39;Access-Control-Allow-Methods&#39;] = &quot;GET, PUT, POST, PATCH&quot;
+            response[&#39;Allow&#39;] = allows
+            raise ImmediateHttpResponse(response=response)
+ 
+        if not request_method in allowed:
+            response = http.HttpMethodNotAllowed(allows)
+            response[&#39;Allow&#39;] = allows
+            raise ImmediateHttpResponse(response=response)
+ 
+        return request_method
+
+class AllBlogSlugResource(BaseCorsResource, ModelResource):
+    class Meta:
+        queryset = BlogPost.objects.published()
+        resource_name = &quot;url&quot;
+        fields = [&#39;keywords_string&#39;, &#39;slug&#39;, &#39;title&#39;]
+        allowed_methods = [&#39;get&#39;]
+        serializer = Serializer()
+
+class BlogResource(BaseCorsResource, ModelResource):
+    class Meta:
+        queryset = BlogPost.objects.published()
+        resource_name = &quot;blog&quot;
+        fields = [&#39;keywords_string&#39;, &#39;slug&#39;, &#39;title&#39;, &#39;content&#39;, &#39;description&#39;]
+        allowed_methods = [&#39;get&#39;]
+        serializer = Serializer()</code></pre>
+<p>接着便可以很愉快地、危险地跨域。</p>
+<h2 id="django-与墨颀cms整合">Django 与墨颀CMS整合</h2>
+<p>接着修改了一下代码中configure.json的blogListUrl，以及模块</p>
+<pre><code>    &lt;div class=&quot;l-box blogPosts&quot;&gt;
+        &lt;h2&gt;动 态&lt;/h2&gt;
+        {{#objects}}
+        &lt;p&gt;
+        &lt;!--&lt;span class=&quot;date&quot;&gt;{{created}}&lt;/span&gt;--&gt;
+        &lt;a href=&quot;#/blog/{{slug}}&quot; alt=&quot;{{title}}&quot;&gt;{{title}}&lt;/a&gt;
+        &lt;/p&gt;
+        {{/objects}}
+    &lt;/div&gt;</code></pre>
+<p>便可以请求到结果了。</p>
+<p>一开始对于可配置的选择是正确的.</p>
+<p>在上一篇中说到了如何创建一个<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-work-with-django/">Django Tastypie API</a>给<a href="http://cms.moqi.mobi">移动CMS</a>用，接着我们似乎也应该有一个本地的配置文件用于一些简单的配置，如“获取API的URL”、“产品列表”、“SEO”(在一开始的时候发现这是不好的，后面又发现Google的爬虫可以运行Javascript，不过也是不推荐的。)这些东西是不太需要修改的，直接写在代码中似乎又不好，于是放到了一个叫作<code>configure.json</code>的文件里。</p>
+<h2 id="requirejs-plugins">RequireJS Plugins</h2>
+<p>网上搜索到一个叫RequireJS Plugins的repo。</p>
+<p>里面有这样的几个插件:</p>
+<ul>
+<li><strong>async</strong> : Useful for JSONP and asynchronous dependencies (e.g. Google Maps).</li>
+<li><strong>font</strong> : Load web fonts using the <a href="https://code.google.com/apis/webfonts/docs/webfont_loader.html">WebFont Loader API</a> (requires <code>propertyParser</code>)</li>
+<li><strong>goog</strong> : Load <a href="http://code.google.com/apis/loader/">Google APIs</a> asynchronously (requires <code>async!</code> plugin and <code>propertyParser</code>).</li>
+<li><strong>image</strong> : Load image files as dependencies. Option to “cache bust”.</li>
+<li><strong>json</strong> : Load JSON files and parses the result. (Requires <code>text!</code> plugin).</li>
+<li><strong>mdown</strong> : Load Markdown files and parses into HTML. (Requires <code>text!</code> plugin and a markdown converter).</li>
+<li><strong>noext</strong> : Load scripts without appending “.js” extension, useful for dynamic scripts.</li>
+</ul>
+<p>于是，我们可以用到这里的json用来加载JSON文件，虽然也可以用Requirejs的text插件，但是这里的json有对此稍稍的优化。</p>
+<p>在后面的部分中我们也用到了mdown，用于显示一个md文件，用法上大致是一样的。</p>
+<h2 id="requirejs-json文件加载">RequireJS JSON文件加载</h2>
+<p>将json.js插件放到目录里，再配置好main.js。</p>
+<pre><code>require.config({
+    paths: {
+        &#39;text&#39;: &#39;text&#39;,
+        jquery: &#39;jquery&#39;,
+        json: &#39;require/json&#39;
+    },
+    shim: {
+        underscore: {
+            exports: &#39;_&#39;
+        }
+    }
+});
+
+require([&#39;app&#39;], function(App) {
+    App.initialize();
+});</code></pre>
+<p>于是我们将HomeView.js中的data变为configure的数据，这样便可以直接使用这个json文件。</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;mustache&#39;,
+    &#39;text!/index.html&#39;,
+    &#39;json!/configure.json&#39;
+], function($, _, Mustache, indexTemplate, configure) {
+
+    var HomeView = Backbone.View.extend({
+        el: $(&#39;#aboutArea&#39;),
+
+        render: function() {
+            this.$el.html(Mustache.to_html(indexTemplate, configure));
+        }
+    });
+
+    return HomeView;
+});</code></pre>
+<p>configure.json的代码如下所示:</p>
+<pre><code>{
+    &quot;project&quot;: &quot;My Sample Project&quot;
+}</code></pre>
+<p>最后实现的效果和模板结束是一样的，只会在页面上显示</p>
+<pre><code> My Sample Project</code></pre>
+<p>在<a href="http://cms.moqi.mobi">墨颀 CMS</a>中的动态的文章是从我博客的API加载过来的，因为当前没有其他好的CMS当接口。之前直接拿博客的DB文件+Nodejs+RESTify生成了一个博客的API，而且可以支持跨域请求。</p>
+<h2 id="简单的博客构成">简单的博客构成</h2>
+<p>这次我们可以简单的做一个可以供移动平台阅读的博客，除了不能写作以外(ps:不能写作还能叫博客么)。对于写博客的人来说更多的只是写，而对于读者来说，他们只需要读，所以在某种意义上可以将博客的写和读分离开来。</p>
+<p>对于用户来说，博客是由两个页面构建的:</p>
+<ul>
+<li>博文列表(blogposts list)</li>
+<li>博客内容(blogposts detail)</li>
+</ul>
+<p>在这里我们先关注博文列表</p>
+<h3 id="博文列表">博文列表</h3>
+<p>博文列表的内容一般有:</p>
+<ul>
+<li>作者(Author)</li>
+<li>标题(title)</li>
+<li>创建时间/修改时间(Time)</li>
+<li>关键词(Keywords)</li>
+<li>摘要(Description)</li>
+<li>链接(Slug)</li>
+</ul>
+<p>一个简单的示例如下，也就是我们接下来要用到的<strong>1.json</strong>中的一部分。</p>
+<pre><code>[{
+    &quot;title&quot;: &quot;构建基于Javascript的移动web CMS入门——简介&quot;,
+    &quot;slug&quot;: &quot;use-jquery-backbone-mustache-build-mobile-app-cms&quot;,
+    &quot;description&quot;: &quot;看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——墨颀 CMS，方便项目深入理解的同时，也可以自己维护一个CMS系统。&quot;,
+    &quot;keywords&quot;: [
+        &quot;backbone&quot;,
+        &quot;jquery&quot;,
+        &quot;underscore&quot;,
+        &quot;mustache&quot;
+    ],
+    &quot;created&quot;: &quot;2014-07-17 14:16:18.035763&quot;
+}]</code></pre>
+<p>这里基本上也就有了上面的要素，除了作者，当然因为作者只有一个，所以在里面写作者就是在浪费流量和钱啊。接着我们就是要把上面的内容读取出来放到CMS里。和之前不同的是，虽然我们可以用和<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-json-configure/">墨颀CMS文件 JSON文件</a>一样的方法，但是显然这种方法很快就会不适用。</p>
+<h2 id="移动cms-获取在线数据">移动CMS 获取在线数据</h2>
+<p>这里会用到Backbone的Model，我们先创建一个Model</p>
+<pre><code>var BlogPostModel = Backbone.Model.extend({
+    name: &#39;Blog Posts&#39;,
+    url: function(){
+        return this.instanceUrl;
+    },
+    initialize: function(props){
+        this.instanceUrl = props;
+    }
+});</code></pre>
+<p>我们需要在初始化的时候传入一个URL，以便在<code>getBlog</code>的时候用到，为了方便调试将url改为同路径的1.json文件</p>
+<pre><code>    getBlog: function() {
+        var url = &#39;/1.json&#39;;
+        var that = this;
+        collection = new BlogPostModel;
+        collection.initialize(url);
+        collection.fetch({
+            success: function(collection, response){
+                that.render(response);
+            }
+        });
+    },
+    </code></pre>
+<p>这样当成功获取数据的时候便render页面。最后的HomeView.js代码如下所示:</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;mustache&#39;,
+    &#39;text!/index.html&#39;,
+    &#39;text!/blog.html&#39;
+], function($, _, Mustache, indexTemplate, blogTemplate) {
+
+    var BlogPostModel = Backbone.Model.extend({
+        name: &#39;Blog Posts&#39;,
+        url: function(){
+            return this.instanceUrl;
+        },
+        initialize: function(props){
+            this.instanceUrl = props;
+        }
+    });
+
+    var HomeView = Backbone.View.extend({
+        el: $(&#39;#aboutArea&#39;),
+
+        initialize: function(){
+            this.getBlog();
+        },
+
+        getBlog: function() {
+            var url = &#39;/1.json&#39;;
+            var that = this;
+            collection = new BlogPostModel;
+            collection.initialize(url);
+            collection.fetch({
+                success: function(collection, response){
+                    that.render(response);
+                }
+            });
+        },
+
+        render: function(response) {
+            this.$el.html(Mustache.to_html(blogTemplate, response));
+        }
+    });
+
+    return HomeView;
+});</code></pre>
+<p>这样也就意味着我们需要在index.html中创建一个id为aboutArea的div。接着我们需要创建一个新的Template——blog.html，它的内容就比较简单了，只是简单的Mustache的使用。</p>
+<pre><code>{{#.}}
+&lt;h2&gt;&lt;a href=&quot;{{slug}}&quot; alt=&quot;{{title}}&quot;&gt;{{title}}&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;{{description}}&lt;/p&gt;
+{{/.}}</code></pre>
+<p><code>{{#.}}</code>及<code>{{/.}}</code>可以用于JSON数组，即循环，也可以是判断是否存在。</p>
+<p>最后的结果便是:</p>
+<pre><code>&lt;h2&gt;&lt;a href=&quot;use-jquery-backbone-mustache-build-mobile-app-cms&quot; alt=&quot;构建基于Javascript的移动web CMS入门——简介&quot;&gt;构建基于Javascript的移动web CMS入门——简介&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——墨颀 CMS，方便项目深入理解的同时，也可以自己维护一个CMS系统。&lt;/p&gt;</code></pre>
+<p>把description去掉，再修改一个CSS，便是我们在首页看到的结果。</p>
+<p>下一次我们将打开这些URL。</p>
+<h3 id="其他-7">其他</h3>
+<h4 id="如何查看是否支持json跨域请求">如何查看是否支持JSON跨域请求</h4>
+<p>本次代码下载:<a href="https://github.com/gmszone/moqi.mobi/archive/0.1.1.zip" class="uri">https://github.com/gmszone/moqi.mobi/archive/0.1.1.zip</a></p>
+<p>一个简单的工具就是</p>
+<pre><code>curl I -s http://example.com</code></pre>
+<p>在这里我们查看</p>
+<pre><code>curl -I -s http://api.phodal.net/blog/page/1</code></pre>
+<p>应该要返回 Access-Control-Allow-Origin: *</p>
+<pre><code>HTTP/1.1 200 OK
+Server: mokcy/0.17.0
+Date: Thu, 24 Jul 2014 00:38:19 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 3943
+Connection: keep-alive
+Vary: Accept-Encoding
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: X-Requested-With
+Cache-Control: max-age=600</code></pre>
+<p>在有了上部分的基础之后，我们就可以生成一个博客的内容——BlogPosts Detail。这样就完成了我们这个<a href="http://cms.moqi.mobi">移动CMS</a>的几乎主要的功能了，有了上节想必对于我们来说要获取一个文章已经不是一件难的事情了。</p>
+<h2 id="获取每篇博客">获取每篇博客</h2>
+<p>于是我们照猫画虎地写了一个<code>BlogDetail.js</code></p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;mustache&#39;,
+    &#39;text!/blog_details.html&#39;
+],function($, _, Mustache, blogDetailsTemplate){
+
+    var BlogPostModel = Backbone.Model.extend({
+        name: &#39;Blog Posts&#39;,
+        url: function(){
+            return this.instanceUrl;
+        },
+        initialize: function(props){
+            this.instanceUrl = props;
+        }
+    });
+
+    var BlogDetailView = Backbone.View.extend ({
+        el: $(&quot;#content&quot;),
+
+        initialize: function () {
+        },
+
+        getBlog: function(slug) {
+            url = &quot;http://api.phodal.net/blog/&quot; + slug;
+            var that = this;
+            collection = new BlogPostModel;
+            collection.initialize(url);
+            collection.fetch({
+                success: function(collection, response){
+                    that.render(response);
+                }
+            });
+        },
+
+        render: function(response){
+            this.$el.html(Mustache.to_html(blogDetailsTemplate, response));
+        }
+    });
+
+    return BlogDetailView;
+});</code></pre>
+<p>又写了一个<code>blog_details.html</code>，然后，然后</p>
+<pre><code>&lt;div class=&quot;information pure-g&quot;&gt;
+    {{#.}}
+    &lt;div class=&quot;pure-u-1 &quot;&gt;
+        &lt;div class=&quot;l-box&quot;&gt;
+            &lt;h3 class=&quot;information-head&quot;&gt;&lt;a href=&quot;#/blog/{{slug}}&quot; alt=&quot;{{title}}&quot;&gt;{{title}}&lt;/a&gt;&lt;/h3&gt;
+            &lt;p&gt;
+                发布时间:&lt;span&gt;{{created}}&lt;/span&gt;
+            &lt;p&gt;
+                {{{content}}}
+            &lt;/p&gt;
+
+            &lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    {{/.}}
+&lt;/div&gt;</code></pre>
+<p>我们显然需要稍微地修改一下之前<code>blog.html</code>的模板，为了让他可以在前台跳转</p>
+<pre><code>{{#.}}
+&lt;h2&gt;&lt;a href=&quot;#/{{slug}}&quot; alt=&quot;{{title}}&quot;&gt;{{title}}&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;{{description}}&lt;/p&gt;
+{{/.}}</code></pre>
+<p>问题出现了，我们怎样才能进入最后的页面？</p>
+<h2 id="添加博文的路由">添加博文的路由</h2>
+<p>在上一篇结束之后，每个博文都有对应的URL，即有对应的slug。而我们的博客的获取就是根据这个URL，获取的，换句话说，这些事情都是由API在做的。这里所要做的便是，获取博客的内容，再render。这其中又有一个问题是ajax执行的数据无法从外部取出，于是就有了上面的getBlog()调用render的方法。</p>
+<h3 id="backbone路由参数">Backbone路由参数</h3>
+<p>我们需要传进一个参数，以便告诉BlogDetail需要获取哪一篇博文。</p>
+<pre><code>    routes: {
+        &#39;index&#39;: &#39;homePage&#39;,
+        &#39;blog/*slug&#39;: &#39;blog&#39;,
+        &#39;*actions&#39;: &#39;homePage&#39;
+    }</code></pre>
+<p><code>*slug</code>便是这里的参数的内容，接着我们需要调用getBlog(slug)对其进行处理。</p>
+<pre><code>    app_router.on(&#39;route:blog&#39;, function(blogSlug){
+        var blogDetailsView = new BlogDetail();
+        blogDetailsView.getBlog(blogSlug);
+    });
+    </code></pre>
+<p>最后，我们的<code>router.js</code>的内容如下所示:</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;backbone&#39;,
+    &#39;HomeView&#39;,
+    &#39;BlogDetail&#39;
+], function($, _, Backbone, HomeView, BlogDetail) {
+
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+            &#39;index&#39;: &#39;homePage&#39;,
+            &#39;blog/*slug&#39;: &#39;blog&#39;,
+            &#39;*actions&#39;: &#39;homePage&#39;
+        }
+    });
+    var initialize = function() {
+        var app_router = new AppRouter;
+
+        app_router.on(&#39;route:homePage&#39;, function() {
+            var homeView = new HomeView();
+            homeView.render();
+        });
+
+        app_router.on(&#39;route:blog&#39;, function(blogSlug){
+            var blogDetailsView = new BlogDetail();
+            blogDetailsView.getBlog(blogSlug);
+        });
+
+        Backbone.history.start();
+    };
+    return {
+        initialize: initialize
+    };
+});        </code></pre>
+<p>接着我们便可以很愉快地打开每一篇博客查看里面的内容了。</p>
+<p>当前<a href="http://cms.moqi.mobi/">墨颀CMS</a>的一些基础功能设计已经接近尾声了，在完成博客的前两部分之后，我们需要对此进行一个简单的重构。为的是提取出其中的获取Blog内容的逻辑，于是经过一番努力之后，终于有了点小成果。</p>
+<h2 id="墨颀cms-重构">墨颀CMS 重构</h2>
+<p>我们想要的结果，便是可以直接初始化及渲染，即如下的结果:</p>
+<pre><code>    initialize: function(){
+        this.getBlog();
+    },
+
+    render: function(response){
+        var about = {
+            about:aboutCMS,
+            aboutcompany:urlConfig[&quot;aboutcompany&quot;]
+        };
+        response.push(about);
+        this.$el.html(Mustache.to_html(blogPostsTemplate, response));
+    }</code></pre>
+<p>为的便是简化其中的逻辑，将与View无关的部分提取出来，最后的结果便是都放在初始化里，显然我们需要一个<code>render</code>，只是暂时放在<code>initialize</code>应该就够了。下面便是最后的结果:</p>
+<pre><code>    initialize: function(){
+        var params=&#39;#content&#39;;
+        var about = {
+            about:aboutCMS,
+            aboutcompany:configure[&quot;aboutcompany&quot;]
+        };
+        var blogView = new RenderBlog(params, &#39;/1.json&#39;, blogPostsTemplate);
+        blogView.renderBlog(about);
+    }</code></pre>
+<p>我们只需要将id、url、template传进去，便可以返回结果，再用getBlog部分传进参数。再渲染结果，这样我们就可以提取出两个不同View里面的相同的部分。</p>
+<h2 id="构建函数">构建函数</h2>
+<p>于是，我们就需要构建一个函数RenderBlog，只需要将id,url,template等传进去就可以了。</p>
+<pre><code>var RenderBlog = function (params, url, template) {
+    this.params = params;
+    this.url = url;
+    this.template = template;
+};</code></pre>
+<p>用Javascript的原型继承就可以实现这样的功能，虽然还不是很熟练，但是还是勉强用了上来。</p>
+<pre><code>RenderBlog.prototype.renderBlog = function(addInfo) {
+    var template = this.template;
+    var params = this.params;
+    var url = this.url;
+    var collection = new BlogPostModel;
+
+    collection.initialize(url);
+    collection.fetch({
+        success: function(collection, response){
+            if(addInfo !== undefined){
+                response.push(addInfo);
+            }
+            RenderBlog.prototype.render(params, template, response);
+        }
+    });
+};
+
+RenderBlog.prototype.render = function(params, template, response) {
+    $(params).html(Mustache.to_html(template, response));
+};</code></pre>
+<p>大致便是将原来的函数中的功能抽取出来，再调用自己的方法。于是就这样可以继续进行下一步了，只是暂时没有一个明确的方向。</p>
+<p>在和几个有兴趣做<strong>移动CMS</strong>的小伙伴讨论了一番之后，我们觉得当前比较重要的便是统一一下RESTful API。然而最近持续断网中，又遭遇了一次停电，暂停了对API的思考。在周末无聊的时光了看了《人间失格》，又看了会《一个人流浪，不必去远方》。开始思考所谓的技术以外的事情，或许这将是下一篇讨论的话题。</p>
+<p>正在我对这个<a href="http://cms.moqi.mobi/">移动CMS</a>的功能一筹莫展的时候，帮小伙伴在做一个图片滑动的时候，便想着将这个功能加进去，很顺利地找到了一个库。</p>
+<h2 id="移动cms滑动">移动CMS滑动</h2>
+<p>我们所需要的两个功能很简单</p>
+<ul>
+<li>当用户向右滑动的时候，菜单应该展开</li>
+<li>当用户向左滑动的时候，菜单应该关闭</li>
+</ul>
+<p>在官网看到了一个简单的示例，然而并不是用于这个菜单，等到我完成之后我才知道：为什么不用于菜单？</p>
+<p>找到了这样一个符合功能的库，虽然知道要写这个功能也不难。相比于自己写这个库，还不如用别人维护了一些时候的库来得简单、稳定。</p>
+<blockquote>
+<p>jQuery Plugin to obtain touch gestures from iPhone, iPod Touch and iPad, should also work with Android mobile phones (not tested yet!)</p>
+</blockquote>
+<p>然而，它并不会其他一些设备上工作。</p>
+<h3 id="添加jquery-touchwipe">添加jQuery Touchwipe</h3>
+<p>添加到requirejs的配置中:</p>
+<pre><code>require.config({
+    baseUrl: &#39;lib/&#39;,
+    paths: {
+        jquery: &#39;jquery-2.1.1.min&#39;,
+        router: &#39;../router&#39;,
+        touchwipe: &#39;jquery.touchwipe.min&#39;
+    },
+    shim: {
+        touchwipe: [&quot;jquery&quot;],
+        underscore: {
+            exports: &#39;_&#39;
+        }
+    }
+});
+
+require([&#39;../app&#39;], function(App){
+    App.initialize();
+});</code></pre>
+<p>(注：上面的代码中暂时去掉了一部分无关本文的，为了简单描述。)</p>
+<p>接着，添加下面的代码添加到app.js的初始化方法中</p>
+<pre><code>    $(window).touchwipe({
+        wipeLeft: function() {
+            $.sidr(&#39;close&#39;);
+        },
+        wipeRight: function() {
+            $.sidr(&#39;open&#39;);
+        },
+        preventDefaultEvents: false
+    });
+    </code></pre>
+<p>就变成了我们需要的代码。。</p>
+<pre><code>define([
+    &#39;jquery&#39;,
+    &#39;underscore&#39;,
+    &#39;backbone&#39;,
+    &#39;router&#39;,
+    &#39;jquerySidr&#39;,
+    &#39;touchwipe&#39;
+], function($, _, Backbone, Router){
+
+    var initialize = function(){
+        $(window).touchwipe({
+            wipeLeft: function() {
+                $.sidr(&#39;close&#39;);
+            },
+            wipeRight: function() {
+                $.sidr(&#39;open&#39;);
+            },
+            preventDefaultEvents: false
+        });
+        $(document).ready(function() {
+            $(&#39;#sidr&#39;).show();
+            $(&#39;#menu&#39;).sidr();
+            $(&quot;#sidr li a&quot; ).bind(&#39;touchstart click&#39;, function() {
+                if(null != Backbone.history.fragment){
+                    _.each($(&quot;#sidr li&quot;),function(li){
+                        $(li).removeClass()
+                    });
+
+                    $(&#39;a[href$=&quot;#/&#39;+Backbone.history.fragment+&#39;&quot;]&#39;).parent().addClass(&quot;active&quot;);
+                    $.sidr(&#39;close&#39;);
+                    window.scrollTo(0,0);
+                }
+            });
+        });
+        Router.initialize();
+    };
+
+    return {
+        initialize: initialize
+    };
+});</code></pre>
+<p>便可以实现我们需要的</p>
+<ul>
+<li>当用户向右滑动的时候，菜单应该展开</li>
+<li>当用户向左滑动的时候，菜单应该关闭</li>
+</ul>
+<h1 id="oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</h1>
+<blockquote>
+<p>Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。</p>
+</blockquote>
+<p>周五Hackday Showcase的时候，突然有了点小灵感，便将闲置在公司的Oculus DK2借回家了——已经都是灰尘了~~。</p>
+<p>在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。</p>
+<p>说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:</p>
+<figure>
+<img src="docs/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
+</figure>
+<p>效果：</p>
+<ol type="1">
+<li>WASD控制前进、后退等等。</li>
+<li>旋转头部 = 真实的世界。</li>
+<li>附加效果： 看久了头晕。</li>
+</ol>
+<p>现在，让我们开始构建吧。</p>
+<h2 id="node-oculus-services">Node Oculus Services</h2>
+<p>这里，我们所要做的事情便是将传感器返回来的四元数(Quaternions)与欧拉角(Euler angles)以API的形式返回到前端。</p>
+<h3 id="安装node-nmd">安装Node NMD</h3>
+<p>Node.js上有一个Oculus的插件名为node-hmd，hmd即面向头戴式显示器。它就是Oculus SDK的Node接口，虽说年代已经有些久远了，但是似乎是可以用的——官方针对 Mac OS和Linux的SDK也已经很久没有更新了。</p>
+<p>在GNU/Linux系统下，你需要安装下面的这些东西的</p>
+<pre><code>freeglut3-dev
+mesa-common-dev
+libudev-dev
+libxext-dev
+libxinerama-dev
+libxrandr-dev
+libxxf86vm-dev</code></pre>
+<p>Mac OS如果安装失败，请使用Clang来，以及GCC的C标准库（PS： 就是 Clang + GCC的混合体，它们之间就是各种复杂的关系。。）：</p>
+<pre><code>export CXXFLAGS=-stdlib=libstdc++
+
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++</code></pre>
+<p>（PS： 我使用的是Mac OS El Captian + Xcode 7.0. 2）clang版本如下:</p>
+<pre><code>Apple LLVM version 7.0.2 (clang-700.1.81)
+Target: x86_64-apple-darwin15.0.0
+Thread model: posix</code></pre>
+<p>反正都是会报错的:</p>
+<pre><code>ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Service/Service_NetClient.o) was built for newer OSX version (10.7) than being linked (10.5)
+ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Tracking/Tracking_SensorStateReader.o) was built for newer OSX version (10.7) than being linked (10.5)
+ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Util/Util_ImageWindow.o) was built for newer OSX version (10.7) than being linked (10.5)
+ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Util/Util_Interface.o) was built for newer OSX version (10.7) than being linked (10.5)
+ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Util/Util_LatencyTest2Reader.o) was built for newer OSX version (10.7) than being linked (10.5)
+ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Util/Util_Render_Stereo.o) was built for newer OSX version (10.7) than being linked (10.5)
+node-hmd@0.2.1 node_modules/node-hmd</code></pre>
+<p>不过，有最后一行就够了。</p>
+<h3 id="node.js-oculus-helloworld">Node.js Oculus Hello，World</h3>
+<p>现在，我们就可以写一个Hello，World了，直接来官方的示例~~。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> hmd <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;node-hmd&#39;</span>)<span class="op">;</span>
+
+<span class="kw">var</span> manager <span class="op">=</span> <span class="va">hmd</span>.<span class="at">createManager</span>(<span class="st">&quot;oculusrift&quot;</span>)<span class="op">;</span>
+
+<span class="va">manager</span>.<span class="at">getDeviceInfo</span>(<span class="kw">function</span>(err<span class="op">,</span> deviceInfo) <span class="op">{</span>
+    <span class="cf">if</span>(<span class="op">!</span>err) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(deviceInfo)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">else</span> <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">error</span>(<span class="st">&quot;Unable to retrieve device information.&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">manager</span>.<span class="at">getDeviceOrientation</span>(<span class="kw">function</span>(err<span class="op">,</span> deviceOrientation) <span class="op">{</span>
+    <span class="cf">if</span>(<span class="op">!</span>err) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(deviceOrientation)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">else</span> <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">error</span>(<span class="st">&quot;Unable to retrieve device orientation.&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>运行之前，记得先连上你的Oculus。会有类似于下面的结果:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span> <span class="dt">CameraFrustumFarZInMeters</span><span class="op">:</span> <span class="fl">2.5</span><span class="op">,</span>
+  <span class="dt">CameraFrustumHFovInRadians</span><span class="op">:</span> <span class="fl">1.29154372215271</span><span class="op">,</span>
+  <span class="dt">CameraFrustumNearZInMeters</span><span class="op">:</span> <span class="fl">0.4000000059604645</span><span class="op">,</span>
+  <span class="dt">CameraFrustumVFovInRadians</span><span class="op">:</span> <span class="fl">0.942477822303772</span><span class="op">,</span>
+  <span class="dt">DefaultEyeFov</span><span class="op">:</span>
+   [ <span class="op">{</span> <span class="dt">RightTan</span><span class="op">:</span> <span class="fl">1.0923680067062378</span><span class="op">,</span>
+       <span class="dt">LeftTan</span><span class="op">:</span> <span class="fl">1.0586576461791992</span><span class="op">,</span>
+       <span class="dt">DownTan</span><span class="op">:</span> <span class="fl">1.3292863368988037</span><span class="op">,</span>
+       <span class="dt">UpTan</span><span class="op">:</span> <span class="fl">1.3292863368988037</span> <span class="op">},</span>
+     <span class="op">{</span> <span class="dt">RightTan</span><span class="op">:</span> <span class="fl">1.0586576461791992</span><span class="op">,</span>
+       <span class="dt">LeftTan</span><span class="op">:</span> <span class="fl">1.0923680067062378</span><span class="op">,</span>
+       <span class="dt">DownTan</span><span class="op">:</span> <span class="fl">1.3292863368988037</span><span class="op">,</span>
+       <span class="dt">UpTan</span><span class="op">:</span> <span class="fl">1.3292863368988037</span> <span class="op">}</span> ]<span class="op">,</span>
+  <span class="dt">DisplayDeviceName</span><span class="op">:</span> <span class="st">&#39;&#39;</span><span class="op">,</span>
+  <span class="dt">DisplayId</span><span class="op">:</span> <span class="dv">880804035</span><span class="op">,</span>
+  <span class="dt">DistortionCaps</span><span class="op">:</span> <span class="dv">66027</span><span class="op">,</span>
+  <span class="dt">EyeRenderOrder</span><span class="op">:</span> [ <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> ]<span class="op">,</span>
+  ...</code></pre></div>
+<p>接着，我们就可以实时返回这些数据了。</p>
+<h3 id="node-oculus-websocket">Node Oculus WebSocket</h3>
+<p>在网上看到<a href="http://laht.info/WebGL/DK2Demo.html" class="uri">http://laht.info/WebGL/DK2Demo.html</a>这个虚拟现实的电影，并且发现了它有一个WebSocket，然而是Java写的，只能拿来当参考代码。</p>
+<p>现在我们就可以写一个这样的Web Services，用的仍然是Express + Node.js + WS。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> hmd <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;node-hmd&quot;</span>)<span class="op">,</span>
+    express <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;express&quot;</span>)<span class="op">,</span>
+    http <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;http&quot;</span>).<span class="at">createServer</span>()<span class="op">,</span>
+    WebSocketServer <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;ws&#39;</span>).<span class="at">Server</span><span class="op">,</span>
+    path <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;path&#39;</span>)<span class="op">;</span>
+
+<span class="co">// Create HMD manager object</span>
+<span class="va">console</span>.<span class="at">info</span>(<span class="st">&quot;Attempting to load node-hmd driver: oculusrift&quot;</span>)<span class="op">;</span>
+<span class="kw">var</span> manager <span class="op">=</span> <span class="va">hmd</span>.<span class="at">createManager</span>(<span class="st">&quot;oculusrift&quot;</span>)<span class="op">;</span>
+<span class="cf">if</span> (<span class="kw">typeof</span>(manager) <span class="op">===</span> <span class="st">&quot;undefined&quot;</span>) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">error</span>(<span class="st">&quot;Unable to load driver: oculusrift&quot;</span>)<span class="op">;</span>
+    <span class="va">process</span>.<span class="at">exit</span>(<span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>
+<span class="co">// Instantiate express server</span>
+<span class="kw">var</span> app <span class="op">=</span> <span class="at">express</span>()<span class="op">;</span>
+<span class="va">app</span>.<span class="at">set</span>(<span class="st">&#39;port&#39;</span><span class="op">,</span> <span class="va">process</span>.<span class="va">env</span>.<span class="at">PORT</span> <span class="op">||</span> <span class="dv">3000</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">use</span>(<span class="va">express</span>.<span class="at">static</span>(<span class="va">path</span>.<span class="at">join</span>(__dirname <span class="op">+</span> <span class="st">&#39;/&#39;</span><span class="op">,</span> <span class="st">&#39;public&#39;</span>)))<span class="op">;</span>
+<span class="va">app</span>.<span class="at">set</span>(<span class="st">&#39;views&#39;</span><span class="op">,</span> <span class="va">path</span>.<span class="at">join</span>(__dirname <span class="op">+</span> <span class="st">&#39;/public/&#39;</span><span class="op">,</span> <span class="st">&#39;views&#39;</span>))<span class="op">;</span>
+<span class="va">app</span>.<span class="at">set</span>(<span class="st">&#39;view engine&#39;</span><span class="op">,</span> <span class="st">&#39;jade&#39;</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/demo&#39;</span><span class="op">,</span> <span class="kw">function</span> (req<span class="op">,</span> res) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="va">res</span>.<span class="at">render</span>(<span class="st">&#39;demo&#39;</span><span class="op">,</span> <span class="op">{</span>
+        <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Home&#39;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// Attach socket.io listener to the server</span>
+<span class="kw">var</span> wss <span class="op">=</span> <span class="kw">new</span> <span class="at">WebSocketServer</span>(<span class="op">{</span><span class="dt">server</span><span class="op">:</span> http<span class="op">}</span>)<span class="op">;</span>
+<span class="kw">var</span> id <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>
+
+<span class="va">wss</span>.<span class="at">on</span>(<span class="st">&#39;open&#39;</span><span class="op">,</span> <span class="kw">function</span> <span class="at">open</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;connected&#39;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// On socket connection set up event emitters to automatically push the HMD orientation data</span>
+<span class="va">wss</span>.<span class="at">on</span>(<span class="st">&quot;connection&quot;</span><span class="op">,</span> <span class="kw">function</span> (ws) <span class="op">{</span>
+    <span class="kw">function</span> <span class="at">emitOrientation</span>() <span class="op">{</span>
+        id <span class="op">=</span> id <span class="op">+</span> <span class="dv">1</span><span class="op">;</span>
+        <span class="kw">var</span> deviceQuat <span class="op">=</span> <span class="va">manager</span>.<span class="at">getDeviceQuatSync</span>()<span class="op">;</span>
+        <span class="kw">var</span> devicePosition <span class="op">=</span> <span class="va">manager</span>.<span class="at">getDevicePositionSync</span>()<span class="op">;</span>
+
+        <span class="kw">var</span> data <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span>
+            <span class="dt">id</span><span class="op">:</span> id<span class="op">,</span>
+            <span class="dt">quat</span><span class="op">:</span> deviceQuat<span class="op">,</span>
+            <span class="dt">position</span><span class="op">:</span> devicePosition
+        <span class="op">}</span>)<span class="op">;</span>
+
+        <span class="va">ws</span>.<span class="at">send</span>(data<span class="op">,</span> <span class="kw">function</span> (error) <span class="op">{</span>
+            <span class="co">//it&#39;s a bug of websocket, see in https://github.com/websockets/ws/issues/337</span>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>
+
+    <span class="kw">var</span> orientation <span class="op">=</span> <span class="at">setInterval</span>(emitOrientation<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span>
+
+    <span class="va">ws</span>.<span class="at">on</span>(<span class="st">&quot;message&quot;</span><span class="op">,</span> <span class="kw">function</span> (data) <span class="op">{</span>
+        <span class="at">clearInterval</span>(orientation)<span class="op">;</span>
+        orientation <span class="op">=</span> <span class="at">setInterval</span>(emitOrientation<span class="op">,</span> data)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="va">ws</span>.<span class="at">on</span>(<span class="st">&quot;close&quot;</span><span class="op">,</span> <span class="kw">function</span> () <span class="op">{</span>
+        <span class="at">setTimeout</span>(<span class="kw">null</span><span class="op">,</span> <span class="dv">500</span>)<span class="op">;</span>
+        <span class="at">clearInterval</span>(orientation)<span class="op">;</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;disconnect&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// Launch express server</span>
+<span class="va">http</span>.<span class="at">on</span>(<span class="st">&#39;request&#39;</span><span class="op">,</span> app)<span class="op">;</span>
+<span class="va">http</span>.<span class="at">listen</span>(<span class="dv">3000</span><span class="op">,</span> <span class="kw">function</span> () <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Express server listening on port 3000&quot;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>总之，就是连上的时候不断地发现设备的数据:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> data <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span>
+    <span class="dt">id</span><span class="op">:</span> id<span class="op">,</span>
+    <span class="dt">quat</span><span class="op">:</span> deviceQuat<span class="op">,</span>
+    <span class="dt">position</span><span class="op">:</span> devicePosition
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">ws</span>.<span class="at">send</span>(data<span class="op">,</span> <span class="kw">function</span> (error) <span class="op">{</span>
+    <span class="co">//it&#39;s a bug of websocket, see in https://github.com/websockets/ws/issues/337</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>上面有一行注释是我之前一直遇到的一个坑，总之需要callback就是了。</p>
+<h2 id="three.js-oculus-effect-dk2-control">Three.js + Oculus Effect + DK2 Control</h2>
+<p>在最后我们需要如下的画面：</p>
+<figure>
+<img src="docs/oculus-vr.jpg" alt="Three.js Oculus Effect" /><figcaption>Three.js Oculus Effect</figcaption>
+</figure>
+<p>当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。</p>
+<p>在之前的版本中，Three.js都提供了Oculus的Demo，当然只能用来看。并且交互的接口是HTTP，感觉很难玩~~。</p>
+<h2 id="three.js-dk2controls">Three.js DK2Controls</h2>
+<p>这时，我们就需要根据上面传过来的<code>四元数</code>(Quaternions)与欧拉角(Euler angles)来作相应的处理。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+    <span class="st">&quot;position&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;x&quot;</span><span class="op">:</span> <span class="fl">0.020077044144272804</span><span class="op">,</span>
+        <span class="st">&quot;y&quot;</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.0040545957162976265</span><span class="op">,</span>
+        <span class="st">&quot;z&quot;</span><span class="op">:</span> <span class="fl">0.16216422617435455</span>
+    <span class="op">},</span>
+    <span class="st">&quot;quat&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;w&quot;</span><span class="op">:</span> <span class="fl">0.10187230259180069</span><span class="op">,</span>
+        <span class="st">&quot;x&quot;</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.02359195239841938</span><span class="op">,</span>
+        <span class="st">&quot;y&quot;</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.99427556991577148</span><span class="op">,</span>
+        <span class="st">&quot;z&quot;</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.021934293210506439</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<h3 id="欧拉角与四元数">欧拉角与四元数</h3>
+<p>（ps: 如果没copy好，麻烦提出正确的说法，原谅我这个挂过高数的人。我只在高中的时候，看到这些资料。）</p>
+<blockquote>
+<p>欧拉角是一组用于描述刚体姿态的角度，欧拉提出，刚体在三维欧氏空间中的任意朝向可以由绕三个轴的转动复合生成。通常情况下，三个轴是相互正交的。</p>
+</blockquote>
+<p>对应的三个角度又分别成为roll（横滚角），pitch（俯仰角）和yaw（偏航角），就是上面的postion里面的三个值。。</p>
+<pre><code>roll = (rotation about Z);
+
+pitch = (rotation about (Roll • Y));
+
+yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
+<p>– 引自《Oculus Rift In Action》</p>
+<p>转换成代码。。</p>
+<pre><code>this.headPos.set(sensorData.position.x * 10 - 0.4, sensorData.position.y * 10 + 1.75, sensorData.position.z * 10 + 10);</code></pre>
+<blockquote>
+<p>四元数是由爱尔兰数学家威廉·卢云·哈密顿在1843年发现的数学概念。</p>
+</blockquote>
+<p>从明确地角度而言，四元数是复数的不可交换延伸。如把四元数的集合考虑成多维实数空间的话，四元数就代表着一个四维空间，相对于复数为二维空间。</p>
+<p>反正就是用于<code>描述三维空间的旋转变换</code>。</p>
+<p>结合下代码：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">this</span>.<span class="va">headPos</span>.<span class="at">set</span>(<span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">x</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> <span class="fl">0.4</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="fl">1.75</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">z</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="dv">10</span>)<span class="op">;</span>
+<span class="kw">this</span>.<span class="va">headQuat</span>.<span class="at">set</span>(<span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">x</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">y</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">z</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">w</span>)<span class="op">;</span>
+
+<span class="kw">this</span>.<span class="va">camera</span>.<span class="at">setRotationFromQuaternion</span>(<span class="kw">this</span>.<span class="at">headQuat</span>)<span class="op">;</span>
+<span class="kw">this</span>.<span class="va">controller</span>.<span class="at">setRotationFromMatrix</span>(<span class="kw">this</span>.<span class="va">camera</span>.<span class="at">matrix</span>)<span class="op">;</span></code></pre></div>
+<p>就是，我们需要设置camera和controller的旋转。</p>
+<p>这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。</p>
+<figure>
+<img src="docs/mpu6050.jpg" alt="Oculus 6050" /><figcaption>Oculus 6050</figcaption>
+</figure>
+<h3 id="three.js-dk2controls-1">Three.js DK2Controls</h3>
+<p>虽然下面的代码不是我写的，但是还是简单地说一下。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">/*</span>
+<span class="co"> Copyright 2014 Lars Ivar Hatledal</span>
+<span class="co"> Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="co"> you may not use this file except in compliance with the License.</span>
+<span class="co"> You may obtain a copy of the License at</span>
+<span class="co"> http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="co"> Unless required by applicable law or agreed to in writing, software</span>
+<span class="co"> distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="co"> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="co"> See the License for the specific language governing permissions and</span>
+<span class="co"> limitations under the License.</span>
+<span class="co"> */</span>
+
+<span class="va">THREE</span>.<span class="at">DK2Controls</span> <span class="op">=</span> <span class="kw">function</span> (camera) <span class="op">{</span>
+
+    <span class="kw">this</span>.<span class="at">camera</span> <span class="op">=</span> camera<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">ws</span><span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">sensorData</span><span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">lastId</span> <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span>
+
+    <span class="kw">this</span>.<span class="at">controller</span> <span class="op">=</span> <span class="kw">new</span> <span class="va">THREE</span>.<span class="at">Object3D</span>()<span class="op">;</span>
+
+    <span class="kw">this</span>.<span class="at">headPos</span> <span class="op">=</span> <span class="kw">new</span> <span class="va">THREE</span>.<span class="at">Vector3</span>()<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">headQuat</span> <span class="op">=</span> <span class="kw">new</span> <span class="va">THREE</span>.<span class="at">Quaternion</span>()<span class="op">;</span>
+
+    <span class="kw">var</span> that <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="kw">var</span> ws <span class="op">=</span> <span class="kw">new</span> <span class="at">WebSocket</span>(<span class="st">&quot;ws://localhost:3000/&quot;</span>)<span class="op">;</span>
+    <span class="va">ws</span>.<span class="at">onopen</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;### Connected ####&quot;</span>)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="va">ws</span>.<span class="at">onmessage</span> <span class="op">=</span> <span class="kw">function</span> (evt) <span class="op">{</span>
+        <span class="kw">var</span> message <span class="op">=</span> <span class="va">evt</span>.<span class="at">data</span><span class="op">;</span>
+        <span class="cf">try</span> <span class="op">{</span>
+            <span class="va">that</span>.<span class="at">sensorData</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(message)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">catch</span> (err) <span class="op">{</span>
+            <span class="va">console</span>.<span class="at">log</span>(message)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+
+    <span class="va">ws</span>.<span class="at">onclose</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;### Closed ####&quot;</span>)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="kw">this</span>.<span class="at">update</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+
+        <span class="kw">var</span> sensorData <span class="op">=</span> <span class="kw">this</span>.<span class="at">sensorData</span><span class="op">;</span>
+        <span class="cf">if</span> (sensorData) <span class="op">{</span>
+            <span class="kw">var</span> id <span class="op">=</span> <span class="va">sensorData</span>.<span class="at">id</span><span class="op">;</span>
+            <span class="cf">if</span> (id <span class="op">&gt;</span> <span class="kw">this</span>.<span class="at">lastId</span>) <span class="op">{</span>
+                <span class="kw">this</span>.<span class="va">headPos</span>.<span class="at">set</span>(<span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">x</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> <span class="fl">0.4</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="fl">1.75</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">position</span>.<span class="at">z</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="dv">10</span>)<span class="op">;</span>
+                <span class="kw">this</span>.<span class="va">headQuat</span>.<span class="at">set</span>(<span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">x</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">y</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">z</span><span class="op">,</span> <span class="va">sensorData</span>.<span class="va">quat</span>.<span class="at">w</span>)<span class="op">;</span>
+
+                <span class="kw">this</span>.<span class="va">camera</span>.<span class="at">setRotationFromQuaternion</span>(<span class="kw">this</span>.<span class="at">headQuat</span>)<span class="op">;</span>
+                <span class="kw">this</span>.<span class="va">controller</span>.<span class="at">setRotationFromMatrix</span>(<span class="kw">this</span>.<span class="va">camera</span>.<span class="at">matrix</span>)<span class="op">;</span>
+            <span class="op">}</span>
+            <span class="kw">this</span>.<span class="at">lastId</span> <span class="op">=</span> id<span class="op">;</span>
+        <span class="op">}</span>
+
+
+        <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">addVectors</span>(<span class="kw">this</span>.<span class="va">controller</span>.<span class="at">position</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">headPos</span>)<span class="op">;</span>
+        <span class="cf">if</span> (<span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">&lt;</span> <span class="op">-</span><span class="dv">10</span>) <span class="op">{</span>
+            <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
+        <span class="op">}</span>
+
+        <span class="cf">if</span> (ws) <span class="op">{</span>
+            <span class="cf">if</span> (<span class="va">ws</span>.<span class="at">readyState</span> <span class="op">===</span> <span class="dv">1</span>) <span class="op">{</span>
+                <span class="va">ws</span>.<span class="at">send</span>(<span class="st">&quot;get</span><span class="sc">\n</span><span class="st">&quot;</span>)<span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">}</span>
+
+    <span class="op">};</span>
+<span class="op">};</span></code></pre></div>
+<p>打开WebSocket的时候，不断地获取最新的传感器状态，然后update。谁在调用update方法？Three.js</p>
+<p>我们需要在我们的初始化代码里初始化我们的control：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> oculusControl<span class="op">;</span>
+
+<span class="kw">function</span> <span class="at">init</span>() <span class="op">{</span>
+        ...
+    oculusControl <span class="op">=</span> <span class="kw">new</span> <span class="va">THREE</span>.<span class="at">DK2Controls</span>( camera )<span class="op">;</span>
+    ...
+<span class="op">}</span></code></pre></div>
+<p>并且不断地调用update方法。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">animate</span>() <span class="op">{</span>
+    <span class="at">requestAnimationFrame</span>( animate )<span class="op">;</span>
+    <span class="at">render</span>()<span class="op">;</span>
+    <span class="va">stats</span>.<span class="at">update</span>()<span class="op">;</span>
+<span class="op">}</span>
+<span class="kw">function</span> <span class="at">render</span>() <span class="op">{</span>
+    <span class="va">oculusControl</span>.<span class="at">update</span>( <span class="va">clock</span>.<span class="at">getDelta</span>() )<span class="op">;</span>
+    <span class="va">THREE</span>.<span class="va">AnimationHandler</span>.<span class="at">update</span>( <span class="va">clock</span>.<span class="at">getDelta</span>() <span class="op">*</span> <span class="dv">100</span> )<span class="op">;</span>
+
+    <span class="va">camera</span>.<span class="at">useQuaternion</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+    <span class="va">camera</span>.<span class="at">matrixWorldNeedsUpdate</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+
+    <span class="va">effect</span>.<span class="at">render</span>(scene<span class="op">,</span> camera)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>最后，添加相应的KeyHandler就好了~~。</p>
+<h3 id="three.js-keyhandler">Three.js KeyHandler</h3>
+<p>KeyHandler对于习惯了Web开发的人来说就比较简单了:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">this</span>.<span class="at">onKeyDown</span> <span class="op">=</span> <span class="kw">function</span> (event) <span class="op">{</span>
+    <span class="cf">switch</span> (<span class="va">event</span>.<span class="at">keyCode</span>) <span class="op">{</span>
+        <span class="cf">case</span> <span class="dv">87</span><span class="op">:</span> <span class="co">//W</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">up</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">83</span><span class="op">:</span> <span class="co">//S</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">down</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">68</span><span class="op">:</span> <span class="co">//D</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">right</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">65</span><span class="op">:</span> <span class="co">//A</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">left</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
+
+<span class="kw">this</span>.<span class="at">onKeyUp</span> <span class="op">=</span> <span class="kw">function</span> (event) <span class="op">{</span>
+    <span class="cf">switch</span> (<span class="va">event</span>.<span class="at">keyCode</span>) <span class="op">{</span>
+        <span class="cf">case</span> <span class="dv">87</span><span class="op">:</span> <span class="co">//W</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">up</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">83</span><span class="op">:</span> <span class="co">//S</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">down</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">68</span><span class="op">:</span> <span class="co">//D</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">right</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+        <span class="cf">case</span> <span class="dv">65</span><span class="op">:</span> <span class="co">//A</span>
+            <span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">left</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="cf">break</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span></code></pre></div>
+<p>然后就是万恶的if语句了:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span> (<span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">up</span>) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">controller</span>.<span class="at">translateZ</span>(<span class="op">-</span><span class="kw">this</span>.<span class="at">translationSpeed</span> <span class="op">*</span> delta)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="cf">if</span> (<span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">down</span>) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">controller</span>.<span class="at">translateZ</span>(<span class="kw">this</span>.<span class="at">translationSpeed</span> <span class="op">*</span> delta)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="cf">if</span> (<span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">right</span>) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">controller</span>.<span class="at">translateX</span>(<span class="kw">this</span>.<span class="at">translationSpeed</span> <span class="op">*</span> delta)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="cf">if</span> (<span class="kw">this</span>.<span class="va">wasd</span>.<span class="at">left</span>) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">controller</span>.<span class="at">translateX</span>(<span class="op">-</span><span class="kw">this</span>.<span class="at">translationSpeed</span> <span class="op">*</span> delta)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">addVectors</span>(<span class="kw">this</span>.<span class="va">controller</span>.<span class="at">position</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">headPos</span>)<span class="op">;</span>
+
+<span class="cf">if</span> (<span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">&lt;</span> <span class="op">-</span><span class="dv">10</span>) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>快接上你的HMD试试吧~~</p>
+<h2 id="结语">结语</h2>
+<p>如我在<a href="https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md">《RePractise前端篇: 前端演进史》</a>一文中所说的，这似乎就是新的“前端”。</p>
+<p>最后效果可参见</p>
+<p><a href="/static/media/uploads/node.png">Phodal|cart db</a></p>
+<h2 id="exif">EXIF</h2>
+<blockquote>
+<p>可交换图像文件常被简称为EXIF（Exchangeable image file format），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。</p>
+</blockquote>
+<p>EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度。所以EXIF信息最大为64 kB，而内部采用TIFF格式。</p>
+<h3 id="exifread">ExifRead</h3>
+<p>来自官方的简述</p>
+<blockquote>
+<p><strong>Python library to extract EXIF data from tiff and jpeg files.</strong></p>
+</blockquote>
+<h3 id="exifread安装">ExifRead安装</h3>
+<pre><code>pip install exifread</code></pre>
+<h3 id="exifread-exif.py">ExifRead Exif.py</h3>
+<p>官方写了一个exif.py的command可直接查看照片信息</p>
+<pre><code> EXIF.py images.jpg</code></pre>
+<h2 id="cartodb">CartoDB</h2>
+<h3 id="简介">简介</h3>
+<p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
+<p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
+</figure>
+<h2 id="打造自己的照片地图">打造自己的照片地图</h2>
+<p>主要步骤如下</p>
+<ul>
+<li>需要遍历自己的全部图片文件，</li>
+<li>解析照片信息</li>
+<li>生成地理信息文件</li>
+<li>上传到cartodb</li>
+</ul>
+<h3 id="python-遍历文件">python 遍历文件</h3>
+<p>代码如下，来自于《python cookbook》</p>
+<pre><code>import os, fnmatch
+def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=False):
+    patterns = patterns.split(&#39;;&#39;)
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break</code></pre>
+<h3 id="python-解析照片信息">python 解析照片信息</h3>
+<p>由于直接从照片中提取的信息是</p>
+<pre><code>[34, 12, 51513/1000]</code></pre>
+<p>也就是</p>
+<pre><code>N 34� 13&#39; 12.718</code></pre>
+<p>几度几分几秒的形式，我们需要转换为</p>
+<pre><code>34.2143091667</code></pre>
+<p>具体的大致就是</p>
+<pre><code>def parse_gps(titude):
+    first_number = titude.split(&#39;,&#39;)[0]
+    second_number = titude.split(&#39;,&#39;)[1]
+    third_number = titude.split(&#39;,&#39;)[2]
+    third_number_parent = third_number.split(&#39;/&#39;)[0]
+    third_number_child = third_number.split(&#39;/&#39;)[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600</code></pre>
+<p>也就是我们需要将second/60，还有minutes/3600。</p>
+<h3 id="python-提取照片信息生成文件">python 提取照片信息生成文件</h3>
+<pre><code>import json
+import exifread
+import os, fnmatch
+from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
+from exifread import process_file, __version__
+
+def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=False):
+    patterns = patterns.split(&#39;;&#39;)
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break
+
+def parse_gps(titude):
+    first_number = titude.split(&#39;,&#39;)[0]
+    second_number = titude.split(&#39;,&#39;)[1]
+    third_number = titude.split(&#39;,&#39;)[2]
+    third_number_parent = third_number.split(&#39;/&#39;)[0]
+    third_number_child = third_number.split(&#39;/&#39;)[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600
+
+jsonFile = open(&quot;gps.geojson&quot;, &quot;w&quot;)
+jsonFile.writelines(&#39;{\n&quot;type&quot;: &quot;FeatureCollection&quot;,&quot;features&quot;: [\n&#39;)
+
+def write_data(paths):
+    index = 1
+    for path in all_files(&#39;./&#39; + paths, &#39;*.jpg&#39;):
+        f = open(path[2:], &#39;rb&#39;)
+        tags = exifread.process_file(f)
+        # jsonFile.writelines(&#39;&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39;+str(index)+&#39;&quot;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39;)
+        latitude = tags[&#39;GPS GPSLatitude&#39;].printable[1:-1]
+        longitude = tags[&#39;GPS GPSLongitude&#39;].printable[1:-1]
+        print latitude
+        print parse_gps(latitude)
+        # print tags[&#39;GPS GPSLongitudeRef&#39;]
+        # print tags[&#39;GPS GPSLatitudeRef&#39;]
+        jsonFile.writelines(&#39;{&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39; + str(index) + &#39;&quot;&#39;)
+        jsonFile.writelines(&#39;,&quot;OS&quot;:&quot;&#39; + str(tags[&#39;Image Software&#39;]) + &#39;&quot;,&quot;Model&quot;:&quot;&#39; + str(tags[&#39;Image Model&#39;]) + &#39;&quot;,&quot;Picture&quot;:&quot;&#39;+str(path[7:])+&#39;&quot;&#39;)
+        jsonFile.writelines(&#39;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39; + str(parse_gps(longitude)) + &#39;,&#39; + str(
+            parse_gps(latitude)) + &#39;]}},\n&#39;)
+        index += 1
+
+write_data(&#39;imgs&#39;)
+
+jsonFile.writelines(&#39;]}\n&#39;)
+jsonFile.close()</code></pre>
+<p>最终代码可见<a href="/static/media/uploads/tdd.png">python cartodb</a> <a href="/static/media/uploads/tdd.png">3</a>:https://github.com/gmszone/py_cartodb.git</p>
+<h3 id="上传到cartodb">上传到cartodb</h3>
+<h3 id="从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</h3>
+<p>在开始设计新的技能树——<a href="https://github.com/phodal/sherlock">Sherlock</a>的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Sherlock" /><figcaption>Sherlock</figcaption>
+</figure>
+<h2 id="graphviz">Graphviz</h2>
+<blockquote>
+<p>Graphviz （英文：Graph Visualization Software的缩写）是一个由AT&amp;T实验室启动的开源工具包，用于绘制DOT语言脚本描述的图形。它也提供了供其它软件使用的库。Graphviz是一个自由软件，其授权为Eclipse Public License。其Mac版本曾经获得2004年的苹果设计奖。</p>
+</blockquote>
+<p>一个简单的示例代码如下:</p>
+<pre><code>graph example1 {
+    Server1 -- Server2
+    Server2 -- Server3
+    Server3 -- Server1
+}</code></pre>
+<p>执行编译后:</p>
+<pre><code>dot -Tjpg lz.dot -o lz.jpg</code></pre>
+<p>就会生成下面的图片</p>
+<figure>
+<img src="/static/media/uploads/refactor.png" alt="lz" /><figcaption>lz</figcaption>
+</figure>
+<p>接着我们便可以建立一个简单的模型来构建我们的技能树。</p>
+<h2 id="简单的技能树">简单的技能树</h2>
+<p>先以JavaScript全栈作一个简单的示例，他们可能存在下面的依赖关系:</p>
+<ul>
+<li>“JavaScript” -&gt; “Web前端”</li>
+<li>“HTML” -&gt; “Web前端”</li>
+<li>“CSS” -&gt; “Web前端”</li>
+<li>“Web前端” -&gt; “Web开发”</li>
+<li>“JavaScript” -&gt; “Node.js” -&gt; “Web服务端”</li>
+<li>“SQL/NoSQL” -&gt; “Web服务端”</li>
+<li>“Web Server-Side” -&gt; “Web开发”</li>
+</ul>
+<p>即Web前端依赖于JavaScript、HTML、CSS，而Node.js依赖于JavaScript，当然我们也需要数据的支持，大部分的网站都是数据驱动型的开发。而构成完成的开发链的则是前端 + 服务端。</p>
+<p>于是我们有了这张图:</p>
+<figure>
+<img src="/static/media/uploads/tdd.png" alt="Tree" /><figcaption>Tree</figcaption>
+</figure>
+<p>而我们的代码是这样的:</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">    digraph tree
+    {
+        nodesep=<span class="fl">0.5</span>;
+        charset=<span class="st">&quot;UTF-8&quot;</span>;
+        rankdir=LR;
+        fixedsize=true;
+        node [style=<span class="st">&quot;rounded,filled&quot;</span>, width=<span class="dv">0</span>, height=<span class="dv">0</span>, shape=box, fillcolor=<span class="st">&quot;#E5E5E5&quot;</span>, concentrate=true]
+        <span class="st">&quot;JavaScript&quot;</span> -&gt;<span class="st">&quot;Web前端&quot;</span>
+        <span class="st">&quot;HTML&quot;</span> -&gt; <span class="st">&quot;Web前端&quot;</span>
+        <span class="st">&quot;CSS&quot;</span> -&gt; <span class="st">&quot;Web前端&quot;</span>
+        <span class="st">&quot;Web前端&quot;</span> -&gt; <span class="st">&quot;Web开发&quot;</span>
+        <span class="st">&quot;JavaScript&quot;</span> -&gt; <span class="st">&quot;Node.js&quot;</span> -&gt; <span class="st">&quot;Web服务端&quot;</span>
+        <span class="st">&quot;SQL/NoSQL&quot;</span> -&gt; <span class="st">&quot;Web服务端&quot;</span>
+        <span class="st">&quot;Web服务端&quot;</span> -&gt; <span class="st">&quot;Web开发&quot;</span>
+    }</code></pre></div>
+<p>上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。</p>
+<h1 id="技能树之旅-计算点数与从这开始">技能树之旅: 计算点数与从这开始</h1>
+<p>之前写了一篇<a href="http://www.phodal.com/blog/rebuild-skilltree-from-module-split-to-test/">技能树之旅: 从模块分离到测试</a>，现在来说说这其中发生了什么。</p>
+<h2 id="从这开始">从这开始</h2>
+<p>在我们没有点击任何技能的时候，显示的是“从这开始”，而当我们点下去时发生了什么?</p>
+<figure>
+<img src="http://www.phodal.com//static/media/uploads/start.jpg" alt="Start" /><figcaption>Start</figcaption>
+</figure>
+<p>明显变化如下:</p>
+<ul>
+<li>样式变了</li>
+<li>URL变成了<a href="http://skill.phodal.com/#_a2_1_Name" class="uri">http://skill.phodal.com/#_a2_1_Name</a></li>
+<li>点数 + 1</li>
+<li>点亮了箭头</li>
+</ul>
+<h3 id="从knockout开始">从Knockout开始</h3>
+<blockquote>
+<p>Knockout是一个轻量级的UI类库，通过应用MVVM模式使JavaScript前端UI简单化。</p>
+</blockquote>
+<p>据说有下面的一些特性。</p>
+<ul>
+<li>声明式绑定 (Declarative Bindings)：使用简明易读的语法很容易地将模型(model)数据关联到DOM元素上。</li>
+<li>UI界面自动刷新 (Automatic UI Refresh)：当您的模型状态(model state)改变时，您的UI界面将自动更新。</li>
+<li>依赖跟踪 (Dependency Tracking)：为转变和联合数据，在你的模型数据之间隐式建立关系。</li>
+<li>模板 (Templating)：为您的模型数据快速编写复杂的可嵌套的UI。</li>
+</ul>
+<p>在我们的html中的从这开始是这样一段HTML</p>
+<pre><code>&lt;h2 class=&quot;start-helper&quot; data-bind=&quot;css:{active:noPointsSpent}&quot;&gt;从这开始!&lt;/h2&gt; </code></pre>
+<p>这是对应的CSS:</p>
+<pre><code>.start-helper-avatar {
+  background: url(../images/red-arrow.png) no-repeat left center;
+  padding-left: 55px;
+  top: 80px;
+  position: relative;
+  left: 410px;
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  -webkit-opacity: 0;
+  opacity: 0;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  filter: alpha(opacity=0);
+}
+
+.start-helper-avatar.active {
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  -webkit-opacity: 1;
+  opacity: 1;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+  filter: alpha(opacity=100);
+}</code></pre>
+<p><code>.start-helper-avatar.active</code>与<code>.start-helper-avatar</code>的不同之处在于.actie将opacity设置为了1。</p>
+<p>而，我们对应的JS代码是这样子的:</p>
+<pre><code>self.noPointsSpent = ko.computed(function () {
+  return !Boolean(ko.utils.arrayFirst(self.skills(), function (skill) {
+    return (skill.points() &gt; 0);
+  }));
+});</code></pre>
+<p>当有一个技能点数大于0时，返回False。而当没有技能点数时，html是这样的。</p>
+<pre><code>&lt;h2 class=&quot;start-helper active&quot; data-bind=&quot;css:{active:noPointsSpent}&quot;&gt;从这开始!&lt;/h2&gt;</code></pre>
+<p>故而对于此，我们可以明白，Knockout的CSS绑定是这样子的:</p>
+<blockquote>
+<p>CSS绑定主要是给DOM元素对象添加或移除一个或多个css class类名。这非常有用，比如当值变成负数的时候用红色高亮显示。</p>
+</blockquote>
+<h2 id="点数计算">点数计算</h2>
+<p>对应的我们可以找到点数计算的HTML</p>
+<pre><code>&lt;div data-bind=&quot;css: { &#39;can-add-points&#39;: canAddPoints, &#39;has-points&#39;: hasPoints, &#39;has-max-points&#39;: hasMaxPoints }, attr: { &#39;data-skill-id&#39;: id }&quot; class=&quot;skill&quot;&gt;</code></pre>
+<p>当然还有:</p>
+<pre><code>&lt;div data-bind=&quot;click: addPoint, rightClick: removePoint&quot; class=&quot;hit-area&quot;&gt;&lt;/div&gt;</code></pre>
+<p>与CSS:</p>
+<pre><code>.skill.can-add-points .frame {
+  background-position: -80px top;
+}
+.skill.can-add-points .skill-dependency {
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  -webkit-opacity: 1;
+  opacity: 1;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+  filter: alpha(opacity=100);
+}</code></pre>
+<p>对应的，我们可以找到它的js函数:</p>
+<pre><code>  self.addPoint = function () {
+    if (self.canAddPoints()) {
+      self.points(self.points() + 1);
+    }
+  };
+  self.removePoint = function () {
+    if (self.canRemovePoints()) {
+      self.points(self.points() - 1);
+    }
+  };
+  </code></pre>
+<p>看上去通俗易懂，唯一需要理解的就是<code>click</code>。</p>
+<blockquote>
+<p>click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。</p>
+</blockquote>
+<h2 id="其他-8">其他</h2>
+<p>Sherlock:一个新的技能树:<a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a>。</p>
+<p>开发进行时，欢迎加入。</p>
+<p>使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。</p>
+<figure>
+<img src="/static/media/uploads/node.png" alt="Tooltips" /><figcaption>Tooltips</figcaption>
+</figure>
+<h2 id="tooltipster">Tooltipster</h2>
+<p>Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome, IE8+。</p>
+<p>简单示例<code>html</code>:</p>
+<pre><code>    &lt;section class=&quot;container tooltip&quot; title=&quot;Parent container&quot;&gt;
+    &lt;a href=&quot;http://google.com&quot; class=&quot;tooltip&quot; title=&quot;Get your Google on&quot;&gt;Google&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+<p>简单示例`<code>js</code>:</p>
+<pre><code>    $(document).ready(function() {
+        $(&#39;.tooltip&#39;).tooltipster();
+    });</code></pre>
+<h3 id="d3.js-tooltipster-require配置">D3.js Tooltipster Require配置</h3>
+<p>D3.js、Tooltipster与Requirejs的配置如下所示:</p>
+<pre><code>require.config({
+  baseUrl: &#39;app&#39;,
+  paths: {
+    jquery: &#39;lib/jquery-2.1.3&#39;,
+    d3: &#39;lib/d3.min&#39;,
+    text: &#39;lib/text&#39;,
+    &#39;jquery.tooltipster&#39;: &#39;lib/jquery.tooltipster.min&#39;
+  },
+  &#39;shim&#39;: {
+    &#39;jquery.tooltipster&#39;: {
+      deps: [&#39;jquery&#39;]
+    }
+  }
+});</code></pre>
+<h3 id="整合代码">整合代码</h3>
+<p>最后代码如下所示:</p>
+<pre><code>  inner.selectAll(&#39;g.node&#39;)
+    .each(function (v, id) {
+
+
+      g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
+      g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
+
+      var data = {
+        id: id,
+        name: v,
+        description: g.node(v).description,
+        books: g.node(v).books,
+        links: g.node(v).links
+      };
+      var results = lettuce.Template.tmpl(description_template, data);
+
+      $(this).tooltipster({
+        content: $(results),
+        contentAsHTML: true,
+        position: &#39;left&#39;,
+        animation: &#39;grow&#39;,
+        interactive: true});
+      $(this).find(&#39;rect&#39;).css(&#39;fill&#39;, &#39;#ecf0f1&#39;);
+    });</code></pre>
+<h2 id="结束">结束</h2>
+<p>代码见： <a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a></p>
+<p>在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:</p>
+<p><img src="/static/media/uploads/node.png" alt="Node" /> <img src="/static/media/uploads/refactor.png" alt="Refactor" /> <img src="/static/media/uploads/tdd.png" alt="TDD" /> <img src="/static/media/uploads/clean_code.png" alt="Clean Code" /></p>
+<h2 id="需求说明">需求说明</h2>
+<p>简单的说一些我们的附加需求</p>
+<ul>
+<li>圆角</li>
+<li>色彩(自动)</li>
+</ul>
+<h2 id="python-文字转logo实战">Python 文字转Logo实战</h2>
+<h3 id="基础代码">基础代码</h3>
+<p>一个简单的PIL生成图片的代码:</p>
+<pre><code># -*- coding: utf-8 -*-
+from PIL import Image, ImageDraw, ImageFont
+
+img = Image.new(&#39;L&#39;, (128, 128), 255)
+draw = ImageDraw.Draw(img)
+text_to_draw = unicode(&#39;xxs&#39;, &#39;utf-8&#39;)
+font = ImageFont.truetype(&#39;fonts/NotoSansCJKsc-Regular.otf&#39;, 12)
+draw.text((2, 2), text_to_draw, font=font)
+del draw
+
+img.save(&#39;build/image.png&#39;)</code></pre>
+<h3 id="圆角代码">圆角代码</h3>
+<p>我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数</p>
+<pre><code>def add_corners(im, rad):
+    circle = Image.new(&#39;L&#39;, (rad * 2, rad * 2), 0)
+    image = ImageDraw.Draw(circle)
+    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
+    alpha = Image.new(&#39;L&#39;, im.size, 255)
+    w, h = im.size
+    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
+    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
+    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
+    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
+    im.putalpha(alpha)
+    return im</code></pre>
+<h3 id="颜色配置">颜色配置</h3>
+<p>在Github上找到了一个配色还不错的CSS，将之改为color.Ini，在里面配置了不同色彩与文字、前景的有关系等等，如:</p>
+<pre><code>[Color]
+turqoise: #1abc9c,#ecf0f1
+greenSea: #16a085,#ecf0f1
+
+[Text]
+自动化测试: auto_test
+前端开发: web_front_develop</code></pre>
+<p>读取配置则用的是<code>ConfigParser</code>:</p>
+<pre><code>import ConfigParser
+
+ConfigColor = ConfigParser.ConfigParser()
+ConfigColor.read(&quot;./color.ini&quot;)
+
+bg_colors = []
+font_colors = []
+
+for color_name, color in ConfigColor.items(&#39;Color&#39;):
+    bg_colors.append(color.replace(&#39;#&#39;, &#39;&#39;).split(&#39;,&#39;)[0])
+    font_colors.append(color.replace(&#39;#&#39;, &#39;&#39;).split(&#39;,&#39;)[1])
+
+colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
+<p>最后我们就可以得到我们想要的图片了~~</p>
+<h2 id="结束-1">结束</h2>
+<p>代码见:<a href="https://github.com/phodal/text2logo" class="uri">https://github.com/phodal/text2logo</a></p>
+<p>或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：</p>
+<figure>
+<img src="/static/media/uploads/general-province-city-map.png" alt="一般的省市区与地图联动" /><figcaption>一般的省市区与地图联动</figcaption>
+</figure>
+<p>我们可以在这个应用里选择，相应的省市区然后地图会跳转到相应的地图。当我们在地图上漫游的时候，如果没有显示当前的省市区是不是变得很难使用。于是，我们就来创建一个吧：</p>
+<figure>
+<img src="/static/media/uploads/anti-map-action.jpg" alt="地图到省市区联动" /><figcaption>地图到省市区联动</figcaption>
+</figure>
+<p>相关技术栈：</p>
+<ul>
+<li>Bootstrap，UI显示~~，地球人都知道。</li>
+<li>jQuery，Bootstrap依赖。</li>
+<li>Require.js，模块化。</li>
+<li>Mustache，模板生成。</li>
+<li>Leaflet，交互地图库。</li>
+</ul>
+<h2 id="离线地图与搜索">离线地图与搜索</h2>
+<p>在GitHub上搜索数据的过程中，发现了一个名为<a href="https://github.com/ufoe/d3js-geojson">d3js-geojson</a>的项目里面放着中国详细省、市、县数据，并且还有及GeoJSON文件。</p>
+<p>这就意味着两件事：</p>
+<ul>
+<li>地图离线</li>
+<li>多边形搜索</li>
+</ul>
+<h3 id="地图离线">地图离线</h3>
+<p>首先，我们要知道GeoJSON是怎样的一个存在。</p>
+<blockquote>
+<p>GeoJSON是一种对各种地理数据结构进行编码的格式，基于Javascript对象表示法的地理空间信息数据交换格式。GeoJSON对象可以表示几何、特征或者特征集合。GeoJSON支持下面几何类型：点、线、面、多点、多线、多面和几何集合。GeoJSON里的特征包含一个几何对象和其他属性，特征集合表示一系列特征。</p>
+</blockquote>
+<p>换句话来说，根据这个文件里面的多边形，我们可以绘制出中国地图。由于上面的点是真实的地理位置信息，所以无论我们怎样的缩放这些点的位置都不会发生变化。如下图是GitHub对这个数据文件的解析：</p>
+<figure>
+<img src="/static/media/uploads/china-geojson.jpg" alt="中国GeoJSON文件" /><figcaption>中国GeoJSON文件</figcaption>
+</figure>
+<p>（PS: 预览可以打开这个页面：<a href="https://github.com/phodal/vmap/blob/gh-pages/static/data/china.json">Vmap GeoJSON</a></p>
+<p>当然这似乎不是一个专业人员维护的数据，所以存在一些偏差。但是这些数据意味着，我们不需要依靠于在线地图就可以完成大部分的功能了。在线地图一直都是一个缓慢的存在，并且Google Map在多数人那都是不可用的。</p>
+<p>接着问题来了，我们并没有把每个用户的数据存入到数据库中，那么我们怎么才能实现搜索？</p>
+<h3 id="多边形搜索">多边形搜索</h3>
+<p>所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：</p>
+<figure>
+<img src="/static/media/uploads/geopoly2d-small.png" alt="多边形搜索" /><figcaption>多边形搜索</figcaption>
+</figure>
+<p>而圈圈搜索依赖于圈圈上的连续的点构建的形状来进行搜索，上面的每个点都包含了相应的经纬度。因此，只要是在这个圈圈里的用户都是可以搜索得到的。</p>
+<p>这样实现的前提是：</p>
+<ul>
+<li>要有一个支持多边形搜索的搜索引擎，如ElasticSearch、Solr、MongoDB等等。</li>
+<li>要将用户的数据成功地存成GEO信息。</li>
+</ul>
+<p>详细信息可以见: <a href="https://github.com/phodal/vmap-bot">VMap Bot</a></p>
+<h2 id="从地点到地图上显示">从地点到地图上显示</h2>
+<p>拿Bootstrap实现一个Dropdown是一件很容易的事，我们只要动用一下相应的模板就好了。难就难在，如果去与地图交互。</p>
+<p>最初的时候要用Event的形式来实现，但是发现这样似乎会让其紧耦合。就改用了监听Hash Change的形式来实现，在总的地图上每一个省都有一个对应的ID，这个ID会对应相应的省的数据。如下图所示：</p>
+<figure>
+<img src="/static/media/uploads/province-hash-with-map.jpg" alt="Province Hash" /><figcaption>Province Hash</figcaption>
+</figure>
+<p>接着，我们就需要从这个Hash中判断它的级别和ID，随后转由相应的函数来处理这些逻辑即可。随后，我们要做两件事：</p>
+<ul>
+<li>创建对应省的市的Dropdown</li>
+<li>从地图上跳转到省</li>
+</ul>
+<p>创建对应省的市的Dropdown，我们只需要根据地点重新生成一个新的Menu再插入即可。</p>
+<p>从地图上跳转到对应的省的时候：</p>
+<ol type="1">
+<li>用Aajx请求获取这个省的GeoJSON文件</li>
+<li>获取这个市的中心位置，并对其进行缩放</li>
+<li>将上面的每个市绘制到地图上</li>
+</ol>
+<p>在这个过程中遇到的最大的坑是：中国有北京、上海、天津、重庆等直辖市，还有港、澳等自治区（PS：台湾是一个省）。对于这些特殊的地点，那么的缩放级别肯定会更高。</p>
+<p>同理，我们也可以对上面的市运行处理。但是因为这些市并不存在GEO信息，所以我只是从其多连形信息取了一个点，再将这个点放到data-geo中：</p>
+<figure>
+<img src="/static/media/uploads/city-with-geo.jpg" alt="Data GEO" /><figcaption>Data GEO</figcaption>
+</figure>
+<p>对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。</p>
+<h2 id="从地图到地点上显示">从地图到地点上显示</h2>
+<p>从地图上到地点就比较简单了，点击时修改对应的text即可。</p>
+<figure>
+<img src="/static/media/uploads/vmap-click-handler.jpg" alt="VMap Click" /><figcaption>VMap Click</figcaption>
+</figure>
+<h2 id="demo">Demo</h2>
+<p>在线Demo见： <a href="http://vmap.phodal.com/" class="uri">http://vmap.phodal.com/</a></p>
+</body>
+</html>
