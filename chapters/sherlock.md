@@ -1,4 +1,7 @@
-###从零开始设计技能树: 使用Graphviz建立模型
+D3.js 制作技能树
+===========
+
+### 从零开始设计技能树: 使用Graphviz建立模型
 
 在开始设计新的技能树——[Sherlock](https://github.com/phodal/sherlock)的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。
 

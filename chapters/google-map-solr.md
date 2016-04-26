@@ -1,3 +1,6 @@
+Google Map与Solr实现多连形搜索
+======================
+
 记录一下自己做的一个小东西，当然你也可以在github上找到它:[https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
 
 ##Solr
