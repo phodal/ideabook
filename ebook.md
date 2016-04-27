@@ -562,21 +562,6 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
-GitHub数据分析
-===
-
-概况
----
-
-### 背景
-
-### Showcase
-
-步骤
----
-
-### Step 1: 获取数据
-
 Google Map与Solr实现多连形搜索
 ======================
 
