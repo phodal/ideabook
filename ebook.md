@@ -937,8 +937,8 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
-Google Map与Solr实现多连形搜索
-======================
+Google Map与Solr实现多边形搜索
+===
 
 概况
 ---
