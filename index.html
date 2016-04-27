@@ -176,8 +176,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#three.js-keyhandler">Three.js KeyHandler</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#python制作照片地图">Python制作照片地图</a><ul>
-<li><a href="#cartodb">CartoDB</a></li>
+<li><a href="#制作照片地图">制作照片地图</a><ul>
+<li><a href="#基本知识">基本知识</a><ul>
+<li><a href="#background把照片放在地图上">Background:把照片放在地图上</a></li>
+<li><a href="#showcase">Showcase</a></li>
+<li><a href="#exif-exifread-cartodb">EXIF &amp; ExifRead &amp; CartoDB</a></li>
+</ul></li>
+<li><a href="#步骤">步骤</a><ul>
+<li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
+<li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
+<li><a href="#练习建议">练习建议</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
 <li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
@@ -2798,7 +2807,15 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h1 id="python制作照片地图">Python制作照片地图</h1>
+<h1 id="制作照片地图">制作照片地图</h1>
+<h2 id="基本知识">基本知识</h2>
+<h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
+<p>我使用的Nokia Lumia 920没有一个好的照片应用</p>
+<h3 id="showcase">Showcase</h3>
+<figure>
+<img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
+</figure>
+<h3 id="exif-exifread-cartodb">EXIF &amp; ExifRead &amp; CartoDB</h3>
 <p><strong>EXIF</strong></p>
 <blockquote>
 <p>可交换图像文件常被简称为EXIF（Exchangeable image file format），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。</p>
@@ -2814,16 +2831,16 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <p><strong>ExifRead Exif.py</strong></p>
 <p>官方写了一个exif.py的command可直接查看照片信息</p>
 <pre><code> EXIF.py images.jpg</code></pre>
-<h2 id="cartodb">CartoDB</h2>
+<p><strong>CartoDB</strong></p>
+<blockquote>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
+</blockquote>
+<h2 id="步骤">步骤</h2>
+<h3 id="step-1-解析读取照片信息">Step 1: 解析读取照片信息</h3>
 <p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
-<figure>
-<img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
-</figure>
-<p><strong>打造自己的照片地图</strong></p>
-<p>主要步骤如下</p>
+<p>主要步骤如下：</p>
 <ul>
-<li>需要遍历自己的全部图片文件，</li>
+<li>需要遍历自己的全部图片文件</li>
 <li>解析照片信息</li>
 <li>生成地理信息文件</li>
 <li>上传到cartodb</li>
@@ -2916,6 +2933,10 @@ write_data(&#39;imgs&#39;)
 
 jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
+<h3 id="step-2-上传数据">Step 2: 上传数据</h3>
+<p>注册CartoDB，然后上传数据。</p>
+<h3 id="练习建议">练习建议</h3>
+<p>无</p>
 <h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
 <h3 id="从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</h3>

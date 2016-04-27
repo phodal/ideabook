@@ -722,8 +722,6 @@ Ionic ElasticSearch打造O2O应用
 
 ![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
 
-
-
 ##构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
@@ -3270,8 +3268,21 @@ if (this.camera.position.y < -10) {
 
 快接上你的HMD试试吧~~
 
-Python制作照片地图
+制作照片地图
 ===
+
+基本知识
+---
+
+### Background:把照片放在地图上
+
+我使用的Nokia Lumia 920没有一个好的照片应用
+
+### Showcase
+
+![Phodal's Image](./images/onmap-demo.jpg)
+
+### EXIF & ExifRead & CartoDB
 
 **EXIF**
 
@@ -3296,22 +3307,23 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
      EXIF.py images.jpg
 
 
-##CartoDB##
+**CartoDB**
 
-Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.
+> Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.
+
+步骤
+---
+
+### Step 1: 解析读取照片信息
 
 简单的来说，就是我们可以创建包含位置信息的内容到上面去。
 
-![Phodal's Image](./images/onmap-demo.jpg)
+主要步骤如下：
 
-**打造自己的照片地图**
-
-主要步骤如下
-
- - 需要遍历自己的全部图片文件，
+ - 需要遍历自己的全部图片文件
  - 解析照片信息
  - 生成地理信息文件
- -  上传到cartodb
+ - 上传到cartodb
 
 **python 遍历文件**
 
@@ -3415,6 +3427,16 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
     jsonFile.writelines(']}\n')
     jsonFile.close()
+
+### Step 2: 上传数据
+
+注册CartoDB，然后上传数据。
+
+### 练习建议
+
+无
+
+
 
 React制作Markdown简历生成器
 ====================
