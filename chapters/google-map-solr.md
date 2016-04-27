@@ -1,9 +1,18 @@
 Google Map与Solr实现多连形搜索
 ======================
 
-记录一下自己做的一个小东西，当然你也可以在github上找到它:[https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
+概况
+---
 
-##Solr
+### 背景
+
+### Showcase
+
+![Google Map Solr](./images/gmap-solr.jpg)
+
+GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
+
+### Solr
 
 > Solr是一个高性能，采用Java5开发，基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。
 
@@ -17,13 +26,12 @@ Google Map与Solr实现多连形搜索
 
     brew install solr
 
-##Gmap Solr Polygon 搜索实战
-
-思路:
+步骤
+---
 
 用Flask搭建一个简单的servrices，接着在前台用google的api，对后台发出请求。
 
-###Solr Flask
+### Step 1: Solr Flask
 
 由于，直接调用的是Solr的接口，所以我们的代码显得比较简单:
 
@@ -41,7 +49,7 @@ Google Map与Solr实现多连形搜索
 
 我们在前台需要做的便是，组装geo query。
 
-###Google map Polygon
+###Step 2: Google map Polygon
 
 在Google Map的API是支持Polygon搜索的，有对应的一个
 
