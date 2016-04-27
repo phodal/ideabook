@@ -103,8 +103,6 @@ Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome
 			$('.tooltip').tooltipster();
 		});
 
-###D3.js Tooltipster Require配置
-
 D3.js、Tooltipster与Requirejs的配置如下所示:
 
 	require.config({

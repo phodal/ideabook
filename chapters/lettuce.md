@@ -10,7 +10,7 @@
 
 虽然js还不够expert，但是开始了。
 
-背景
+步骤
 ---
 
 ###Step 1: 注册npm和bower包
