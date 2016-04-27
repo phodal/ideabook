@@ -24,7 +24,7 @@
 步骤
 ---
 
-### Python 文字转Logo实战
+###Step 1: Python 文字转Logo实战
 
 一个简单的PIL生成图片的代码:
 
