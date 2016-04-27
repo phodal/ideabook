@@ -175,23 +175,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#three.js-dk2controls-1">Three.js DK2Controls</a></li>
 <li><a href="#three.js-keyhandler">Three.js KeyHandler</a></li>
 </ul></li>
-<li><a href="#结语">结语</a></li>
 </ul></li>
 <li><a href="#python制作照片地图">Python制作照片地图</a><ul>
-<li><a href="#exif">EXIF</a><ul>
-<li><a href="#exifread">ExifRead</a></li>
-<li><a href="#exifread安装">ExifRead安装</a></li>
-<li><a href="#exifread-exif.py">ExifRead Exif.py</a></li>
-</ul></li>
-<li><a href="#cartodb">CartoDB</a><ul>
-<li><a href="#简介">简介</a></li>
-</ul></li>
-<li><a href="#打造自己的照片地图">打造自己的照片地图</a><ul>
-<li><a href="#python-遍历文件">python 遍历文件</a></li>
-<li><a href="#python-解析照片信息">python 解析照片信息</a></li>
-<li><a href="#python-提取照片信息生成文件">python 提取照片信息生成文件</a></li>
-<li><a href="#上传到cartodb">上传到cartodb</a></li>
-</ul></li>
+<li><a href="#cartodb">CartoDB</a></li>
 </ul></li>
 <li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
 <li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
@@ -321,9 +307,7 @@ dwg.save()</code></pre></div>
 <h1 id="文本编辑器">文本编辑器</h1>
 <h1 id="javascript打造slide应用">JavaScript打造Slide应用</h1>
 <p>又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。</p>
-<figure>
-<img src="http://phodal.cartodb.com/viz/80484668-b165-11e3-be2e-0e73339ffa50/public_map" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
-</figure>
+<p>[EchoesWorks][1]</p>
 <p>如名字所言，我所需要的是一个<code>回声</code>工坊，即将博客、Slide重新回放。</p>
 <h2 id="需求">需求</h2>
 <p>当前我们有不同的方式可以记录我们的想法、博客、过程，如视频、音频、博客、幻灯片等等。</p>
@@ -2435,7 +2419,7 @@ require([&#39;../app&#39;], function(App){
 <p>在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。</p>
 <p>说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:</p>
 <figure>
-<img src="docs/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
+<img src="./images/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
 </figure>
 <p>效果：</p>
 <ol type="1">
@@ -2607,7 +2591,7 @@ node-hmd@0.2.1 node_modules/node-hmd</code></pre>
 <h2 id="three.js-oculus-effect-dk2-control">Three.js + Oculus Effect + DK2 Control</h2>
 <p>在最后我们需要如下的画面：</p>
 <figure>
-<img src="docs/oculus-vr.jpg" alt="Three.js Oculus Effect" /><figcaption>Three.js Oculus Effect</figcaption>
+<img src="./images/oculus-vr.jpg" alt="Three.js Oculus Effect" /><figcaption>Three.js Oculus Effect</figcaption>
 </figure>
 <p>当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。</p>
 <p>在之前的版本中，Three.js都提供了Oculus的Demo，当然只能用来看。并且交互的接口是HTTP，感觉很难玩~~。</p>
@@ -2654,7 +2638,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <p>就是，我们需要设置camera和controller的旋转。</p>
 <p>这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。</p>
 <figure>
-<img src="docs/mpu6050.jpg" alt="Oculus 6050" /><figcaption>Oculus 6050</figcaption>
+<img src="./images/mpu6050.jpg" alt="Oculus 6050" /><figcaption>Oculus 6050</figcaption>
 </figure>
 <h3 id="three.js-dk2controls-1">Three.js DK2Controls</h3>
 <p>虽然下面的代码不是我写的，但是还是简单地说一下。</p>
@@ -2814,34 +2798,29 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h2 id="结语">结语</h2>
-<p>如我在<a href="https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md">《RePractise前端篇: 前端演进史》</a>一文中所说的，这似乎就是新的“前端”。</p>
 <h1 id="python制作照片地图">Python制作照片地图</h1>
-<p>最后效果可参见</p>
-<p><a href="http://phodal.cartodb.com/viz/80484668-b165-11e3-be2e-0e73339ffa50/public_map">Phodal|cart db</a></p>
-<h2 id="exif">EXIF</h2>
+<p><strong>EXIF</strong></p>
 <blockquote>
 <p>可交换图像文件常被简称为EXIF（Exchangeable image file format），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。</p>
 </blockquote>
 <p>EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度。所以EXIF信息最大为64 kB，而内部采用TIFF格式。</p>
-<h3 id="exifread">ExifRead</h3>
+<p><strong>ExifRead</strong></p>
 <p>来自官方的简述</p>
 <blockquote>
 <p><strong>Python library to extract EXIF data from tiff and jpeg files.</strong></p>
 </blockquote>
-<h3 id="exifread安装">ExifRead安装</h3>
+<p><strong>ExifRead安装</strong></p>
 <pre><code>pip install exifread</code></pre>
-<h3 id="exifread-exif.py">ExifRead Exif.py</h3>
+<p><strong>ExifRead Exif.py</strong></p>
 <p>官方写了一个exif.py的command可直接查看照片信息</p>
 <pre><code> EXIF.py images.jpg</code></pre>
 <h2 id="cartodb">CartoDB</h2>
-<h3 id="简介">简介</h3>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
 <p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
 <figure>
 <img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
 </figure>
-<h2 id="打造自己的照片地图">打造自己的照片地图</h2>
+<p><strong>打造自己的照片地图</strong></p>
 <p>主要步骤如下</p>
 <ul>
 <li>需要遍历自己的全部图片文件，</li>
@@ -2849,7 +2828,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <li>生成地理信息文件</li>
 <li>上传到cartodb</li>
 </ul>
-<h3 id="python-遍历文件">python 遍历文件</h3>
+<p><strong>python 遍历文件</strong></p>
 <p>代码如下，来自于《python cookbook》</p>
 <pre><code>import os, fnmatch
 def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=False):
@@ -2865,7 +2844,7 @@ def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=Fals
                     break
                 if single_level:
                     break</code></pre>
-<h3 id="python-解析照片信息">python 解析照片信息</h3>
+<p><strong>python 解析照片信息</strong></p>
 <p>由于直接从照片中提取的信息是</p>
 <pre><code>[34, 12, 51513/1000]</code></pre>
 <p>也就是</p>
@@ -2882,7 +2861,7 @@ def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=Fals
     third_number_result = float(third_number_parent) / float(third_number_child)
     return float(first_number) + float(second_number)/60 + third_number_result/3600</code></pre>
 <p>也就是我们需要将second/60，还有minutes/3600。</p>
-<h3 id="python-提取照片信息生成文件">python 提取照片信息生成文件</h3>
+<p><strong>python 提取照片信息生成文件</strong></p>
 <pre><code>import json
 import exifread
 import os, fnmatch
@@ -2937,8 +2916,6 @@ write_data(&#39;imgs&#39;)
 
 jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
-<p>最终代码可见<a href="https://github.com/gmszone/py_cartodb.git">python cartodb</a></p>
-<h3 id="上传到cartodb">上传到cartodb</h3>
 <h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
 <h3 id="从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</h3>

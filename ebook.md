@@ -2797,7 +2797,7 @@ Oculus  + Node.js  + Three.js 打造VR世界
 
 说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:
 
-![最后效果图](docs/demo.jpg)
+![最后效果图](./images/demo.jpg)
 
 效果：
 
@@ -3014,7 +3014,7 @@ ws.send(data, function (error) {
 
 在最后我们需要如下的画面：
 
-![Three.js Oculus Effect](docs/oculus-vr.jpg)
+![Three.js Oculus Effect](./images/oculus-vr.jpg)
 
 当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。
 
@@ -3084,7 +3084,7 @@ this.controller.setRotationFromMatrix(this.camera.matrix);
 
 这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。
 
-![Oculus 6050](docs/mpu6050.jpg)
+![Oculus 6050](./images/mpu6050.jpg)
 
 
 ###Three.js  DK2Controls
@@ -3270,35 +3270,26 @@ if (this.camera.position.y < -10) {
 
 快接上你的HMD试试吧~~
 
-##结语
-
-如我在[《RePractise前端篇: 前端演进史》](https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md)一文中所说的，这似乎就是新的"前端"。
-
-
 Python制作照片地图
 ===
 
-最后效果可参见
-
-[Phodal|cart db][1]
-
-##EXIF##
+**EXIF**
 
 > 可交换图像文件常被简称为EXIF（Exchangeable image file format），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。
 
 EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度。所以EXIF信息最大为64 kB，而内部采用TIFF格式。
 
-###ExifRead###
+**ExifRead**
 
 来自官方的简述
 
 > **Python library to extract EXIF data from tiff and jpeg files.**
 
-###ExifRead安装###
+**ExifRead安装**
 
     pip install exifread
 
-###ExifRead Exif.py###
+**ExifRead Exif.py**
 
 官方写了一个exif.py的command可直接查看照片信息
 
@@ -3307,17 +3298,14 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
 
 ##CartoDB##
 
-###简介 ###
-
 Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.
 
 简单的来说，就是我们可以创建包含位置信息的内容到上面去。
 
 ![Phodal's Image](./images/onmap-demo.jpg)
 
-  [1]: http://phodal.cartodb.com/viz/80484668-b165-11e3-be2e-0e73339ffa50/public_map
+**打造自己的照片地图**
 
-##打造自己的照片地图##
 主要步骤如下
 
  - 需要遍历自己的全部图片文件，
@@ -3325,7 +3313,8 @@ Create dynamic maps, analyze and build location aware and geospatial application
  - 生成地理信息文件
  -  上传到cartodb
 
-###python 遍历文件###
+**python 遍历文件**
+
 代码如下，来自于《python cookbook》
 
     import os, fnmatch
@@ -3343,7 +3332,8 @@ Create dynamic maps, analyze and build location aware and geospatial application
                     if single_level:
                         break
 
-###python 解析照片信息###
+**python 解析照片信息**
+
 由于直接从照片中提取的信息是
 
     [34, 12, 51513/1000]
@@ -3369,7 +3359,7 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
 也就是我们需要将second/60，还有minutes/3600。
 
-###python 提取照片信息生成文件###
+**python 提取照片信息生成文件**
 
     import json
     import exifread
@@ -3425,12 +3415,6 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
     jsonFile.writelines(']}\n')
     jsonFile.close()
-
-最终代码可见[python cartodb][3]
-
-[3]:https://github.com/gmszone/py_cartodb.git
-
-###上传到cartodb###
 
 React制作Markdown简历生成器
 ====================

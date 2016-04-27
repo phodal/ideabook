@@ -7,8 +7,6 @@ Ionic ElasticSearch打造O2O应用
 
 ![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
 
-
-
 ##构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。

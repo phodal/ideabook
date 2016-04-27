@@ -9,7 +9,7 @@ Oculus  + Node.js  + Three.js 打造VR世界
 
 说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:
 
-![最后效果图](docs/demo.jpg)
+![最后效果图](./images/demo.jpg)
 
 效果：
 
@@ -226,7 +226,7 @@ ws.send(data, function (error) {
 
 在最后我们需要如下的画面：
 
-![Three.js Oculus Effect](docs/oculus-vr.jpg)
+![Three.js Oculus Effect](./images/oculus-vr.jpg)
 
 当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。
 
@@ -296,7 +296,7 @@ this.controller.setRotationFromMatrix(this.camera.matrix);
 
 这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。
 
-![Oculus 6050](docs/mpu6050.jpg)
+![Oculus 6050](./images/mpu6050.jpg)
 
 
 ###Three.js  DK2Controls
@@ -481,8 +481,3 @@ if (this.camera.position.y < -10) {
 ```
 
 快接上你的HMD试试吧~~
-
-##结语
-
-如我在[《RePractise前端篇: 前端演进史》](https://github.com/phodal/repractise/blob/gh-pages/chapters/frontend.md)一文中所说的，这似乎就是新的"前端"。
-
