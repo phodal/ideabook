@@ -3,14 +3,17 @@ Ionic ElasticSearch打造O2O应用
 
 搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图
 
-![elasticsearch_ionic_map][1] ![elasticsearch_ionic_info_page][2]
+![elasticsearch_ionic_map](./images/elasticsearch_ionic_map.jpg) 
+
+![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
+
 
 
 ##构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
 
-![Django ElasticSearch Ionic 架构][3]
+![Django ElasticSearch Ionic 架构](./images/struct.png)
 
 ###GIS架构说明 —— 服务端
 
@@ -89,10 +92,6 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 **Django REST Framework**
 
 与Django Tastypie相比，DRF的主要优势在于Web界面的调试。
-
-  [1]: /static/media/uploads/elasticsearch_ionic_map.jpg
-  [2]: /static/media/uploads/elasticsearch_ionic_info_page.jpg
-  [3]: /static/media/uploads/struct.png
 
 ##Django GIS准备
 
@@ -593,4 +592,5 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 当用户点击时，调用Bootstrap的Popover来显示信息。
 
-  [1]: /static/media/uploads/elasticsearch_ionit_map.jpg    
+![ElasticSearch Map](./images/elasticsearch_ionit_map.jpg)
+    
