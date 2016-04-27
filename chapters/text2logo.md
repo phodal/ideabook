@@ -1,20 +1,30 @@
 文本转化为Logo
 ===
 
+概况
+---
+
+### 背景
+
 在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:
 
+### ShowCase
+
 ![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
+
+代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
   
-##需求说明
+### 需求说明
 
 简单的说一些我们的附加需求
 
  - 圆角
  - 色彩(自动) 
 
-##Python 文字转Logo实战
+步骤
+---
 
-###基础代码
+### Python 文字转Logo实战
 
 一个简单的PIL生成图片的代码:
 
@@ -30,7 +40,7 @@
 
 	img.save('build/image.png')
 
-###圆角代码
+#### 圆角代码
 
 我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数
 
@@ -48,7 +58,7 @@
 	    im.putalpha(alpha)
 	    return im
 
-###颜色配置
+#### 颜色配置
 
 在Github上找到了一个配色还不错的CSS，将之改为color.Ini，在里面配置了不同色彩与文字、前景的有关系等等，如:
 
@@ -77,7 +87,3 @@
 	colors_length = ConfigColor.items('Color').__len__()
 
 最后我们就可以得到我们想要的图片了~~
-
-##结束
-
-代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)

@@ -1,6 +1,15 @@
 GEOJSON与ElasticSearch实现高级图形搜索
 ===
 
+概况
+---
+
+### 背景
+
+### Showcase
+
+在线Demo见： [http://vmap.phodal.com/](http://vmap.phodal.com/)
+
 或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：
 
 ![一般的省市区与地图联动](./images/general-province-city-map.png)
@@ -8,6 +17,8 @@ GEOJSON与ElasticSearch实现高级图形搜索
 我们可以在这个应用里选择，相应的省市区然后地图会跳转到相应的地图。当我们在地图上漫游的时候，如果没有显示当前的省市区是不是变得很难使用。于是，我们就来创建一个吧：
 
 ![地图到省市区联动](./images/anti-map-action.jpg)
+
+### jQuery + Mustache + Leaflet
 
 相关技术栈：
 
@@ -17,8 +28,10 @@ GEOJSON与ElasticSearch实现高级图形搜索
  - Mustache，模板生成。
  - Leaflet，交互地图库。
 
-离线地图与搜索
+步骤
 ---
+
+### Step 1: 离线地图与搜索
 
 在GitHub上搜索数据的过程中，发现了一个名为[d3js-geojson](https://github.com/ufoe/d3js-geojson)的项目里面放着中国详细省、市、县数据，并且还有及GeoJSON文件。
 
@@ -26,8 +39,6 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
  - 地图离线
  - 多边形搜索
-
-###地图离线 
 
 首先，我们要知道GeoJSON是怎样的一个存在。
 
@@ -43,7 +54,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 接着问题来了，我们并没有把每个用户的数据存入到数据库中，那么我们怎么才能实现搜索？
 
-###多边形搜索
+#### 多边形搜索
 
 所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：
 
@@ -59,8 +70,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 详细信息可以见: [VMap Bot](https://github.com/phodal/vmap-bot)
 
 
-从地点到地图上显示
----
+### Step 2: 从地点到地图上显示
 
 拿Bootstrap实现一个Dropdown是一件很容易的事，我们只要动用一下相应的模板就好了。难就难在，如果去与地图交互。
 
@@ -89,14 +99,9 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。
 
-从地图到地点上显示
----
+###Step 3: 从地图到地点上显示
 
 从地图上到地点就比较简单了，点击时修改对应的text即可。
 
 ![VMap Click ](./images/vmap-click-handler.jpg)
 
-Demo
----
-
-在线Demo见： [http://vmap.phodal.com/](http://vmap.phodal.com/)

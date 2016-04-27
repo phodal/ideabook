@@ -264,38 +264,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
 <li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
-<li><a href="#从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</a></li>
+<li><a href="#概况-15">概况</a><ul>
+<li><a href="#背景-14">背景</a></li>
+<li><a href="#showcase-12">Showcase</a></li>
 <li><a href="#graphviz">Graphviz</a></li>
-<li><a href="#简单的技能树">简单的技能树</a></li>
-<li><a href="#计算点数与star-here">计算点数与Star Here</a><ul>
-<li><a href="#从knockout开始">从Knockout开始</a></li>
 </ul></li>
-<li><a href="#点数计算">点数计算</a></li>
-<li><a href="#tooltipster">Tooltipster</a><ul>
+<li><a href="#步骤-13">步骤</a><ul>
+<li><a href="#step-1-打造简单的技能树">Step 1: 打造简单的技能树</a></li>
+<li><a href="#step-3-d3.js-tooltipster">Step 3: D3.js Tooltipster</a></li>
 <li><a href="#d3.js-tooltipster-require配置">D3.js Tooltipster Require配置</a></li>
-<li><a href="#整合代码">整合代码</a></li>
 </ul></li>
-<li><a href="#结束">结束</a></li>
 </ul></li>
-<li><a href="#d3.js-技术栈">D3.js 技术栈</a></li>
+<li><a href="#技术雷达趋势">技术雷达趋势</a></li>
 <li><a href="#文本转化为logo">文本转化为Logo</a><ul>
+<li><a href="#概况-16">概况</a><ul>
+<li><a href="#背景-15">背景</a></li>
+<li><a href="#showcase-13">ShowCase</a></li>
 <li><a href="#需求说明">需求说明</a></li>
-<li><a href="#python-文字转logo实战">Python 文字转Logo实战</a><ul>
-<li><a href="#基础代码">基础代码</a></li>
-<li><a href="#圆角代码">圆角代码</a></li>
-<li><a href="#颜色配置">颜色配置</a></li>
 </ul></li>
-<li><a href="#结束-1">结束</a></li>
+<li><a href="#步骤-14">步骤</a><ul>
+<li><a href="#python-文字转logo实战">Python 文字转Logo实战</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#游戏地图生成器">游戏地图生成器</a></li>
 <li><a href="#geojson与elasticsearch实现高级图形搜索">GEOJSON与ElasticSearch实现高级图形搜索</a><ul>
-<li><a href="#离线地图与搜索">离线地图与搜索</a><ul>
-<li><a href="#地图离线">地图离线</a></li>
-<li><a href="#多边形搜索">多边形搜索</a></li>
+<li><a href="#概况-17">概况</a><ul>
+<li><a href="#背景-16">背景</a></li>
+<li><a href="#showcase-14">Showcase</a></li>
+<li><a href="#jquery-mustache-leaflet">jQuery + Mustache + Leaflet</a></li>
 </ul></li>
-<li><a href="#从地点到地图上显示">从地点到地图上显示</a></li>
-<li><a href="#从地图到地点上显示">从地图到地点上显示</a></li>
-<li><a href="#demo">Demo</a></li>
+<li><a href="#步骤-15">步骤</a><ul>
+<li><a href="#step-1-离线地图与搜索">Step 1: 离线地图与搜索</a></li>
+<li><a href="#step-2-从地点到地图上显示">Step 2: 从地点到地图上显示</a></li>
+<li><a href="#step-3-从地图到地点上显示">Step 3: 从地图到地点上显示</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -3048,12 +3050,15 @@ jsonFile.close()</code></pre>
 <p>无</p>
 <h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
-<h3 id="从零开始设计技能树-使用graphviz建立模型">从零开始设计技能树: 使用Graphviz建立模型</h3>
+<h2 id="概况-15">概况</h2>
+<h3 id="背景-14">背景</h3>
 <p>在开始设计新的技能树——<a href="https://github.com/phodal/sherlock">Sherlock</a>的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。</p>
+<h3 id="showcase-12">Showcase</h3>
+<p>代码见： <a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a></p>
 <figure>
 <img src="./images/sherlock.png" alt="Sherlock" /><figcaption>Sherlock</figcaption>
 </figure>
-<h2 id="graphviz">Graphviz</h2>
+<h3 id="graphviz">Graphviz</h3>
 <blockquote>
 <p>Graphviz （英文：Graph Visualization Software的缩写）是一个由AT&amp;T实验室启动的开源工具包，用于绘制DOT语言脚本描述的图形。它也提供了供其它软件使用的库。Graphviz是一个自由软件，其授权为Eclipse Public License。其Mac版本曾经获得2004年的苹果设计奖。</p>
 </blockquote>
@@ -3070,7 +3075,8 @@ jsonFile.close()</code></pre>
 <img src="./images/lz.jpg" alt="lz" /><figcaption>lz</figcaption>
 </figure>
 <p>接着我们便可以建立一个简单的模型来构建我们的技能树。</p>
-<h2 id="简单的技能树">简单的技能树</h2>
+<h2 id="步骤-13">步骤</h2>
+<h3 id="step-1-打造简单的技能树">Step 1: 打造简单的技能树</h3>
 <p>先以JavaScript全栈作一个简单的示例，他们可能存在下面的依赖关系:</p>
 <ul>
 <li>“JavaScript” -&gt; “Web前端”</li>
@@ -3103,105 +3109,12 @@ jsonFile.close()</code></pre>
         <span class="st">&quot;Web服务端&quot;</span> -&gt; <span class="st">&quot;Web开发&quot;</span>
     }</code></pre></div>
 <p>上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。</p>
-<h2 id="计算点数与star-here">计算点数与Star Here</h2>
-<p>在我们没有点击任何技能的时候，显示的是“从这开始”，而当我们点下去时发生了什么?</p>
-<figure>
-<img src="./images/start.jpg" alt="Start" /><figcaption>Start</figcaption>
-</figure>
-<p>明显变化如下:</p>
-<ul>
-<li>样式变了</li>
-<li>URL变成了<a href="http://skill.phodal.com/#_a2_1_Name" class="uri">http://skill.phodal.com/#_a2_1_Name</a></li>
-<li>点数 + 1</li>
-<li>点亮了箭头</li>
-</ul>
-<h3 id="从knockout开始">从Knockout开始</h3>
-<blockquote>
-<p>Knockout是一个轻量级的UI类库，通过应用MVVM模式使JavaScript前端UI简单化。</p>
-</blockquote>
-<p>据说有下面的一些特性。</p>
-<ul>
-<li>声明式绑定 (Declarative Bindings)：使用简明易读的语法很容易地将模型(model)数据关联到DOM元素上。</li>
-<li>UI界面自动刷新 (Automatic UI Refresh)：当您的模型状态(model state)改变时，您的UI界面将自动更新。</li>
-<li>依赖跟踪 (Dependency Tracking)：为转变和联合数据，在你的模型数据之间隐式建立关系。</li>
-<li>模板 (Templating)：为您的模型数据快速编写复杂的可嵌套的UI。</li>
-</ul>
-<p>在我们的html中的从这开始是这样一段HTML</p>
-<pre><code>&lt;h2 class=&quot;start-helper&quot; data-bind=&quot;css:{active:noPointsSpent}&quot;&gt;从这开始!&lt;/h2&gt; </code></pre>
-<p>这是对应的CSS:</p>
-<pre><code>.start-helper-avatar {
-  background: url(../images/red-arrow.png) no-repeat left center;
-  padding-left: 55px;
-  top: 80px;
-  position: relative;
-  left: 410px;
-  -moz-opacity: 0;
-  -khtml-opacity: 0;
-  -webkit-opacity: 0;
-  opacity: 0;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-  filter: alpha(opacity=0);
-}
-
-.start-helper-avatar.active {
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  -webkit-opacity: 1;
-  opacity: 1;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
-  filter: alpha(opacity=100);
-}</code></pre>
-<p><code>.start-helper-avatar.active</code>与<code>.start-helper-avatar</code>的不同之处在于.actie将opacity设置为了1。</p>
-<p>而，我们对应的JS代码是这样子的:</p>
-<pre><code>self.noPointsSpent = ko.computed(function () {
-  return !Boolean(ko.utils.arrayFirst(self.skills(), function (skill) {
-    return (skill.points() &gt; 0);
-  }));
-});</code></pre>
-<p>当有一个技能点数大于0时，返回False。而当没有技能点数时，html是这样的。</p>
-<pre><code>&lt;h2 class=&quot;start-helper active&quot; data-bind=&quot;css:{active:noPointsSpent}&quot;&gt;从这开始!&lt;/h2&gt;</code></pre>
-<p>故而对于此，我们可以明白，Knockout的CSS绑定是这样子的:</p>
-<blockquote>
-<p>CSS绑定主要是给DOM元素对象添加或移除一个或多个css class类名。这非常有用，比如当值变成负数的时候用红色高亮显示。</p>
-</blockquote>
-<h2 id="点数计算">点数计算</h2>
-<p>对应的我们可以找到点数计算的HTML</p>
-<pre><code>&lt;div data-bind=&quot;css: { &#39;can-add-points&#39;: canAddPoints, &#39;has-points&#39;: hasPoints, &#39;has-max-points&#39;: hasMaxPoints }, attr: { &#39;data-skill-id&#39;: id }&quot; class=&quot;skill&quot;&gt;</code></pre>
-<p>当然还有:</p>
-<pre><code>&lt;div data-bind=&quot;click: addPoint, rightClick: removePoint&quot; class=&quot;hit-area&quot;&gt;&lt;/div&gt;</code></pre>
-<p>与CSS:</p>
-<pre><code>.skill.can-add-points .frame {
-  background-position: -80px top;
-}
-.skill.can-add-points .skill-dependency {
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  -webkit-opacity: 1;
-  opacity: 1;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
-  filter: alpha(opacity=100);
-}</code></pre>
-<p>对应的，我们可以找到它的js函数:</p>
-<pre><code>  self.addPoint = function () {
-    if (self.canAddPoints()) {
-      self.points(self.points() + 1);
-    }
-  };
-  self.removePoint = function () {
-    if (self.canRemovePoints()) {
-      self.points(self.points() - 1);
-    }
-  };
-  </code></pre>
-<p>看上去通俗易懂，唯一需要理解的就是<code>click</code>。</p>
-<blockquote>
-<p>click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。</p>
-</blockquote>
+<h3 id="step-3-d3.js-tooltipster">Step 3: D3.js Tooltipster</h3>
 <p>使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。</p>
 <figure>
 <img src="./images/tips.jpg" alt="Tooltips" /><figcaption>Tooltips</figcaption>
 </figure>
-<h2 id="tooltipster">Tooltipster</h2>
+<h4 id="tooltipster">Tooltipster</h4>
 <p>Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome, IE8+。</p>
 <p>简单示例<code>html</code>:</p>
 <pre><code>    &lt;section class=&quot;container tooltip&quot; title=&quot;Parent container&quot;&gt;
@@ -3227,7 +3140,7 @@ jsonFile.close()</code></pre>
     }
   }
 });</code></pre>
-<h3 id="整合代码">整合代码</h3>
+<h4 id="整合代码">整合代码</h4>
 <p>最后代码如下所示:</p>
 <pre><code>  inner.selectAll(&#39;g.node&#39;)
     .each(function (v, id) {
@@ -3253,20 +3166,22 @@ jsonFile.close()</code></pre>
         interactive: true});
       $(this).find(&#39;rect&#39;).css(&#39;fill&#39;, &#39;#ecf0f1&#39;);
     });</code></pre>
-<h2 id="结束">结束</h2>
-<p>代码见： <a href="https://github.com/phodal/sherlock" class="uri">https://github.com/phodal/sherlock</a></p>
-<h1 id="d3.js-技术栈">D3.js 技术栈</h1>
+<h1 id="技术雷达趋势">技术雷达趋势</h1>
 <h1 id="文本转化为logo">文本转化为Logo</h1>
+<h2 id="概况-16">概况</h2>
+<h3 id="背景-15">背景</h3>
 <p>在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:</p>
+<h3 id="showcase-13">ShowCase</h3>
 <p><img src="./images/node.png" alt="Node" /> <img src="./images/refactor.png" alt="Refactor" /> <img src="./images/tdd.png" alt="TDD" /> <img src="./images/clean_code.png" alt="Clean Code" /></p>
-<h2 id="需求说明">需求说明</h2>
+<p>代码见:<a href="https://github.com/phodal/text2logo" class="uri">https://github.com/phodal/text2logo</a></p>
+<h3 id="需求说明">需求说明</h3>
 <p>简单的说一些我们的附加需求</p>
 <ul>
 <li>圆角</li>
 <li>色彩(自动)</li>
 </ul>
-<h2 id="python-文字转logo实战">Python 文字转Logo实战</h2>
-<h3 id="基础代码">基础代码</h3>
+<h2 id="步骤-14">步骤</h2>
+<h3 id="python-文字转logo实战">Python 文字转Logo实战</h3>
 <p>一个简单的PIL生成图片的代码:</p>
 <pre><code># -*- coding: utf-8 -*-
 from PIL import Image, ImageDraw, ImageFont
@@ -3279,7 +3194,7 @@ draw.text((2, 2), text_to_draw, font=font)
 del draw
 
 img.save(&#39;build/image.png&#39;)</code></pre>
-<h3 id="圆角代码">圆角代码</h3>
+<h4 id="圆角代码">圆角代码</h4>
 <p>我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数</p>
 <pre><code>def add_corners(im, rad):
     circle = Image.new(&#39;L&#39;, (rad * 2, rad * 2), 0)
@@ -3293,7 +3208,7 @@ img.save(&#39;build/image.png&#39;)</code></pre>
     alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
     im.putalpha(alpha)
     return im</code></pre>
-<h3 id="颜色配置">颜色配置</h3>
+<h4 id="颜色配置">颜色配置</h4>
 <p>在Github上找到了一个配色还不错的CSS，将之改为color.Ini，在里面配置了不同色彩与文字、前景的有关系等等，如:</p>
 <pre><code>[Color]
 turqoise: #1abc9c,#ecf0f1
@@ -3317,10 +3232,12 @@ for color_name, color in ConfigColor.items(&#39;Color&#39;):
 
 colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <p>最后我们就可以得到我们想要的图片了~~</p>
-<h2 id="结束-1">结束</h2>
-<p>代码见:<a href="https://github.com/phodal/text2logo" class="uri">https://github.com/phodal/text2logo</a></p>
 <h1 id="游戏地图生成器">游戏地图生成器</h1>
 <h1 id="geojson与elasticsearch实现高级图形搜索">GEOJSON与ElasticSearch实现高级图形搜索</h1>
+<h2 id="概况-17">概况</h2>
+<h3 id="背景-16">背景</h3>
+<h3 id="showcase-14">Showcase</h3>
+<p>在线Demo见： <a href="http://vmap.phodal.com/" class="uri">http://vmap.phodal.com/</a></p>
 <p>或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：</p>
 <figure>
 <img src="./images/general-province-city-map.png" alt="一般的省市区与地图联动" /><figcaption>一般的省市区与地图联动</figcaption>
@@ -3329,6 +3246,7 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <figure>
 <img src="./images/anti-map-action.jpg" alt="地图到省市区联动" /><figcaption>地图到省市区联动</figcaption>
 </figure>
+<h3 id="jquery-mustache-leaflet">jQuery + Mustache + Leaflet</h3>
 <p>相关技术栈：</p>
 <ul>
 <li>Bootstrap，UI显示~~，地球人都知道。</li>
@@ -3337,14 +3255,14 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <li>Mustache，模板生成。</li>
 <li>Leaflet，交互地图库。</li>
 </ul>
-<h2 id="离线地图与搜索">离线地图与搜索</h2>
+<h2 id="步骤-15">步骤</h2>
+<h3 id="step-1-离线地图与搜索">Step 1: 离线地图与搜索</h3>
 <p>在GitHub上搜索数据的过程中，发现了一个名为<a href="https://github.com/ufoe/d3js-geojson">d3js-geojson</a>的项目里面放着中国详细省、市、县数据，并且还有及GeoJSON文件。</p>
 <p>这就意味着两件事：</p>
 <ul>
 <li>地图离线</li>
 <li>多边形搜索</li>
 </ul>
-<h3 id="地图离线">地图离线</h3>
 <p>首先，我们要知道GeoJSON是怎样的一个存在。</p>
 <blockquote>
 <p>GeoJSON是一种对各种地理数据结构进行编码的格式，基于Javascript对象表示法的地理空间信息数据交换格式。GeoJSON对象可以表示几何、特征或者特征集合。GeoJSON支持下面几何类型：点、线、面、多点、多线、多面和几何集合。GeoJSON里的特征包含一个几何对象和其他属性，特征集合表示一系列特征。</p>
@@ -3356,7 +3274,7 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <p>（PS: 预览可以打开这个页面：<a href="https://github.com/phodal/vmap/blob/gh-pages/static/data/china.json">Vmap GeoJSON</a></p>
 <p>当然这似乎不是一个专业人员维护的数据，所以存在一些偏差。但是这些数据意味着，我们不需要依靠于在线地图就可以完成大部分的功能了。在线地图一直都是一个缓慢的存在，并且Google Map在多数人那都是不可用的。</p>
 <p>接着问题来了，我们并没有把每个用户的数据存入到数据库中，那么我们怎么才能实现搜索？</p>
-<h3 id="多边形搜索">多边形搜索</h3>
+<h4 id="多边形搜索">多边形搜索</h4>
 <p>所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：</p>
 <figure>
 <img src="./images/geopoly2d-small.png" alt="多边形搜索" /><figcaption>多边形搜索</figcaption>
@@ -3368,7 +3286,7 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <li>要将用户的数据成功地存成GEO信息。</li>
 </ul>
 <p>详细信息可以见: <a href="https://github.com/phodal/vmap-bot">VMap Bot</a></p>
-<h2 id="从地点到地图上显示">从地点到地图上显示</h2>
+<h3 id="step-2-从地点到地图上显示">Step 2: 从地点到地图上显示</h3>
 <p>拿Bootstrap实现一个Dropdown是一件很容易的事，我们只要动用一下相应的模板就好了。难就难在，如果去与地图交互。</p>
 <p>最初的时候要用Event的形式来实现，但是发现这样似乎会让其紧耦合。就改用了监听Hash Change的形式来实现，在总的地图上每一个省都有一个对应的ID，这个ID会对应相应的省的数据。如下图所示：</p>
 <figure>
@@ -3392,12 +3310,10 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <img src="./images/city-with-geo.jpg" alt="Data GEO" /><figcaption>Data GEO</figcaption>
 </figure>
 <p>对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。</p>
-<h2 id="从地图到地点上显示">从地图到地点上显示</h2>
+<h3 id="step-3-从地图到地点上显示">Step 3: 从地图到地点上显示</h3>
 <p>从地图上到地点就比较简单了，点击时修改对应的text即可。</p>
 <figure>
 <img src="./images/vmap-click-handler.jpg" alt="VMap Click" /><figcaption>VMap Click</figcaption>
 </figure>
-<h2 id="demo">Demo</h2>
-<p>在线Demo见： <a href="http://vmap.phodal.com/" class="uri">http://vmap.phodal.com/</a></p>
 </body>
 </html>

@@ -3549,13 +3549,20 @@ React制作Markdown简历生成器
 D3.js 制作技能树
 ===========
 
-### 从零开始设计技能树: 使用Graphviz建立模型
+概况
+---
+
+### 背景
 
 在开始设计新的技能树——[Sherlock](https://github.com/phodal/sherlock)的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。
 
+### Showcase 
+
+代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
+
 ![Sherlock](./images/sherlock.png)
 
-##Graphviz
+###Graphviz
 
 >  Graphviz （英文：Graph Visualization Software的缩写）是一个由AT&T实验室启动的开源工具包，用于绘制DOT语言脚本描述的图形。它也提供了供其它软件使用的库。Graphviz是一个自由软件，其授权为Eclipse Public License。其Mac版本曾经获得2004年的苹果设计奖。
 
@@ -3577,7 +3584,10 @@ D3.js 制作技能树
 	
 接着我们便可以建立一个简单的模型来构建我们的技能树。
 
-##简单的技能树
+步骤
+---
+
+### Step 1: 打造简单的技能树
 
 先以JavaScript全栈作一个简单的示例，他们可能存在下面的依赖关系:
 
@@ -3619,125 +3629,13 @@ D3.js 制作技能树
     
 上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。
 
-
-##计算点数与Star Here
-
-在我们没有点击任何技能的时候，显示的是"从这开始"，而当我们点下去时发生了什么?
-
-![Start](./images/start.jpg)
-
-明显变化如下:
-
- - 样式变了
- - URL变成了[http://skill.phodal.com/#_a2_1_Name](http://skill.phodal.com/#_a2_1_Name)
- - 点数 + 1
- - 点亮了箭头
- 
-###从Knockout开始
-
-> Knockout是一个轻量级的UI类库，通过应用MVVM模式使JavaScript前端UI简单化。
-
-据说有下面的一些特性。
-
- - 声明式绑定 (Declarative Bindings)：使用简明易读的语法很容易地将模型(model)数据关联到DOM元素上。
- - UI界面自动刷新 (Automatic UI Refresh)：当您的模型状态(model state)改变时，您的UI界面将自动更新。
- - 依赖跟踪 (Dependency Tracking)：为转变和联合数据，在你的模型数据之间隐式建立关系。
- - 模板 (Templating)：为您的模型数据快速编写复杂的可嵌套的UI。
- 
-在我们的html中的从这开始是这样一段HTML
-
-    <h2 class="start-helper" data-bind="css:{active:noPointsSpent}">从这开始!</h2> 
-
-这是对应的CSS:
-
-    .start-helper-avatar {
-      background: url(../images/red-arrow.png) no-repeat left center;
-      padding-left: 55px;
-      top: 80px;
-      position: relative;
-      left: 410px;
-      -moz-opacity: 0;
-      -khtml-opacity: 0;
-      -webkit-opacity: 0;
-      opacity: 0;
-      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-      filter: alpha(opacity=0);
-    }
-    
-    .start-helper-avatar.active {
-      -moz-opacity: 1;
-      -khtml-opacity: 1;
-      -webkit-opacity: 1;
-      opacity: 1;
-      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
-      filter: alpha(opacity=100);
-    }
-
-``.start-helper-avatar.active``与``.start-helper-avatar``的不同之处在于.actie将opacity设置为了1。
-
-而，我们对应的JS代码是这样子的:
-
-    self.noPointsSpent = ko.computed(function () {
-      return !Boolean(ko.utils.arrayFirst(self.skills(), function (skill) {
-        return (skill.points() > 0);
-      }));
-    });
-    
-当有一个技能点数大于0时，返回False。而当没有技能点数时，html是这样的。    
-
-    <h2 class="start-helper active" data-bind="css:{active:noPointsSpent}">从这开始!</h2>
-    
-故而对于此，我们可以明白，Knockout的CSS绑定是这样子的:
-
-> CSS绑定主要是给DOM元素对象添加或移除一个或多个css class类名。这非常有用，比如当值变成负数的时候用红色高亮显示。
-
-##点数计算
-
-对应的我们可以找到点数计算的HTML
-
-    <div data-bind="css: { 'can-add-points': canAddPoints, 'has-points': hasPoints, 'has-max-points': hasMaxPoints }, attr: { 'data-skill-id': id }" class="skill">
-    
-当然还有:
-    
-    <div data-bind="click: addPoint, rightClick: removePoint" class="hit-area"></div>
-    
-
-与CSS:
-
-    .skill.can-add-points .frame {
-      background-position: -80px top;
-    }
-    .skill.can-add-points .skill-dependency {
-      -moz-opacity: 1;
-      -khtml-opacity: 1;
-      -webkit-opacity: 1;
-      opacity: 1;
-      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
-      filter: alpha(opacity=100);
-    }
-
-对应的，我们可以找到它的js函数:
-
-      self.addPoint = function () {
-        if (self.canAddPoints()) {
-          self.points(self.points() + 1);
-        }
-      };
-      self.removePoint = function () {
-        if (self.canRemovePoints()) {
-          self.points(self.points() - 1);
-        }
-      };
-      
-看上去通俗易懂，唯一需要理解的就是``click``。
-
-> click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。
+### Step 3: D3.js Tooltipster
   
 使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。
 
 ![Tooltips](./images/tips.jpg)
 
-##Tooltipster
+#### Tooltipster
 
 Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome, IE8+。
 
@@ -3772,7 +3670,7 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
 	  }
 	});
 
-###整合代码
+#### 整合代码
 
 最后代码如下所示:
 
@@ -3801,30 +3699,37 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
           $(this).find('rect').css('fill', '#ecf0f1');
         });
 
-##结束
 
-代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
-
-D3.js 技术栈
-=========
+技术雷达趋势
+===
 
 文本转化为Logo
 ===
 
+概况
+---
+
+### 背景
+
 在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:
 
+### ShowCase
+
 ![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
+
+代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
   
-##需求说明
+### 需求说明
 
 简单的说一些我们的附加需求
 
  - 圆角
  - 色彩(自动) 
 
-##Python 文字转Logo实战
+步骤
+---
 
-###基础代码
+### Python 文字转Logo实战
 
 一个简单的PIL生成图片的代码:
 
@@ -3840,7 +3745,7 @@ D3.js 技术栈
 
 	img.save('build/image.png')
 
-###圆角代码
+#### 圆角代码
 
 我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数
 
@@ -3858,7 +3763,7 @@ D3.js 技术栈
 	    im.putalpha(alpha)
 	    return im
 
-###颜色配置
+#### 颜色配置
 
 在Github上找到了一个配色还不错的CSS，将之改为color.Ini，在里面配置了不同色彩与文字、前景的有关系等等，如:
 
@@ -3888,15 +3793,21 @@ D3.js 技术栈
 
 最后我们就可以得到我们想要的图片了~~
 
-##结束
-
-代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
-
 游戏地图生成器
-=======
+===
+
 
 GEOJSON与ElasticSearch实现高级图形搜索
 ===
+
+概况
+---
+
+### 背景
+
+### Showcase
+
+在线Demo见： [http://vmap.phodal.com/](http://vmap.phodal.com/)
 
 或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：
 
@@ -3906,6 +3817,8 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 ![地图到省市区联动](./images/anti-map-action.jpg)
 
+### jQuery + Mustache + Leaflet
+
 相关技术栈：
 
  - Bootstrap，UI显示~~，地球人都知道。
@@ -3914,8 +3827,10 @@ GEOJSON与ElasticSearch实现高级图形搜索
  - Mustache，模板生成。
  - Leaflet，交互地图库。
 
-离线地图与搜索
+步骤
 ---
+
+### Step 1: 离线地图与搜索
 
 在GitHub上搜索数据的过程中，发现了一个名为[d3js-geojson](https://github.com/ufoe/d3js-geojson)的项目里面放着中国详细省、市、县数据，并且还有及GeoJSON文件。
 
@@ -3923,8 +3838,6 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
  - 地图离线
  - 多边形搜索
-
-###地图离线 
 
 首先，我们要知道GeoJSON是怎样的一个存在。
 
@@ -3940,7 +3853,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 接着问题来了，我们并没有把每个用户的数据存入到数据库中，那么我们怎么才能实现搜索？
 
-###多边形搜索
+#### 多边形搜索
 
 所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：
 
@@ -3956,8 +3869,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 详细信息可以见: [VMap Bot](https://github.com/phodal/vmap-bot)
 
 
-从地点到地图上显示
----
+### Step 2: 从地点到地图上显示
 
 拿Bootstrap实现一个Dropdown是一件很容易的事，我们只要动用一下相应的模板就好了。难就难在，如果去与地图交互。
 
@@ -3986,14 +3898,9 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。
 
-从地图到地点上显示
----
+###Step 3: 从地图到地点上显示
 
 从地图上到地点就比较简单了，点击时修改对应的text即可。
 
 ![VMap Click ](./images/vmap-click-handler.jpg)
 
-Demo
----
-
-在线Demo见： [http://vmap.phodal.com/](http://vmap.phodal.com/)
