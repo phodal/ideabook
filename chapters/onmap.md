@@ -1,7 +1,7 @@
 制作照片地图
 ===
 
-基本知识
+概况
 ---
 
 ### Background:把照片放在地图上
@@ -12,7 +12,7 @@
 
 ![Phodal's Image](./images/onmap-demo.jpg)
 
-### EXIF & ExifRead & CartoDB
+###框架： EXIF & ExifRead & CartoDB
 
 **EXIF**
 

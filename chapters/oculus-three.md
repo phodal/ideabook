@@ -1,15 +1,22 @@
 Oculus  + Node.js  + Three.js 打造VR世界
 ===
 
-> Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。
+概况
+---
 
-周五Hackday Showcase的时候，突然有了点小灵感，便将闲置在公司的Oculus DK2借回家了——已经都是灰尘了~~。
+### 背景
 
 在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。
 
-说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:
+说到底，还是Web的开发环境到底还是比较容易搭建的。
+
+### Showcase
+
+这个repo的最后效果图如下所示:
 
 ![最后效果图](./images/demo.jpg)
+
+![Three.js Oculus Effect](./images/oculus-vr.jpg)
 
 效果：
 
@@ -17,13 +24,20 @@ Oculus  + Node.js  + Three.js 打造VR世界
 2. 旋转头部 =  真实的世界。
 3. 附加效果： 看久了头晕。
 
+### 框架： Oculus Rift & Node NMD
+
+> Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。
+
+步骤
+---
+
 现在，让我们开始构建吧。
 
-##Node Oculus Services
+### Step 1: Node Oculus Services
 
 这里，我们所要做的事情便是将传感器返回来的四元数(Quaternions)与欧拉角(Euler angles)以API的形式返回到前端。
 
-###安装Node NMD
+#### 安装Node NMD
 
 Node.js上有一个Oculus的插件名为node-hmd，hmd即面向头戴式显示器。它就是Oculus SDK的Node接口，虽说年代已经有些久远了，但是似乎是可以用的——官方针对 Mac OS和Linux的SDK也已经很久没有更新了。
 
@@ -70,7 +84,7 @@ node-hmd@0.2.1 node_modules/node-hmd
 
 不过，有最后一行就够了。
 
-###Node.js Oculus Hello，World
+### Step 2: Node.js Oculus Hello，World
 
 现在，我们就可以写一个Hello，World了，直接来官方的示例~~。
 
@@ -123,7 +137,7 @@ manager.getDeviceOrientation(function(err, deviceOrientation) {
 
 接着，我们就可以实时返回这些数据了。
 
-###Node Oculus WebSocket
+### Step 3: Node Oculus WebSocket
 
 在网上看到[http://laht.info/WebGL/DK2Demo.html](http://laht.info/WebGL/DK2Demo.html)这个虚拟现实的电影，并且发现了它有一个WebSocket，然而是Java写的，只能拿来当参考代码。
 
@@ -222,17 +236,11 @@ ws.send(data, function (error) {
 
 上面有一行注释是我之前一直遇到的一个坑，总之需要callback就是了。
 
-##Three.js + Oculus Effect  + DK2 Control
-
-在最后我们需要如下的画面：
-
-![Three.js Oculus Effect](./images/oculus-vr.jpg)
-
-当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。
+### Step 4: Oculus Effect  + DK2 Control
 
 在之前的版本中，Three.js都提供了Oculus的Demo，当然只能用来看。并且交互的接口是HTTP，感觉很难玩~~。
 
-##Three.js DK2Controls
+**Three.js DK2Controls**
 
 这时，我们就需要根据上面传过来的``四元数``(Quaternions)与欧拉角(Euler angles)来作相应的处理。
 
@@ -252,7 +260,7 @@ ws.send(data, function (error) {
 }
 ```
 
-###欧拉角与四元数
+**欧拉角与四元数**
 
 （ps: 如果没copy好，麻烦提出正确的说法，原谅我这个挂过高数的人。我只在高中的时候，看到这些资料。）
 
@@ -299,7 +307,7 @@ this.controller.setRotationFromMatrix(this.camera.matrix);
 ![Oculus 6050](./images/mpu6050.jpg)
 
 
-###Three.js  DK2Controls
+**Three.js  DK2Controls**
 
 虽然下面的代码不是我写的，但是还是简单地说一下。
 
@@ -414,7 +422,7 @@ function render() {
 
 最后，添加相应的KeyHandler就好了~~。
 
-###Three.js KeyHandler
+### Step 5: Three.js KeyHandler
 
 KeyHandler对于习惯了Web开发的人来说就比较简单了:
 
@@ -481,3 +489,6 @@ if (this.camera.position.y < -10) {
 ```
 
 快接上你的HMD试试吧~~
+
+###练习建议
+

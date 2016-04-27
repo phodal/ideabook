@@ -164,28 +164,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
-<li><a href="#node-oculus-services">Node Oculus Services</a><ul>
-<li><a href="#安装node-nmd">安装Node NMD</a></li>
-<li><a href="#node.js-oculus-helloworld">Node.js Oculus Hello，World</a></li>
-<li><a href="#node-oculus-websocket">Node Oculus WebSocket</a></li>
+<li><a href="#概况">概况</a><ul>
+<li><a href="#背景">背景</a></li>
+<li><a href="#showcase">Showcase</a></li>
+<li><a href="#框架-oculus-rift-node-nmd">框架： Oculus Rift &amp; Node NMD</a></li>
 </ul></li>
-<li><a href="#three.js-oculus-effect-dk2-control">Three.js + Oculus Effect + DK2 Control</a></li>
-<li><a href="#three.js-dk2controls">Three.js DK2Controls</a><ul>
-<li><a href="#欧拉角与四元数">欧拉角与四元数</a></li>
-<li><a href="#three.js-dk2controls-1">Three.js DK2Controls</a></li>
-<li><a href="#three.js-keyhandler">Three.js KeyHandler</a></li>
+<li><a href="#步骤">步骤</a><ul>
+<li><a href="#step-1-node-oculus-services">Step 1: Node Oculus Services</a></li>
+<li><a href="#step-2-node.js-oculus-helloworld">Step 2: Node.js Oculus Hello，World</a></li>
+<li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
+<li><a href="#step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</a></li>
+<li><a href="#step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</a></li>
+<li><a href="#练习建议">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#制作照片地图">制作照片地图</a><ul>
-<li><a href="#基本知识">基本知识</a><ul>
+<li><a href="#概况-1">概况</a><ul>
 <li><a href="#background把照片放在地图上">Background:把照片放在地图上</a></li>
-<li><a href="#showcase">Showcase</a></li>
-<li><a href="#exif-exifread-cartodb">EXIF &amp; ExifRead &amp; CartoDB</a></li>
+<li><a href="#showcase-1">Showcase</a></li>
+<li><a href="#框架-exif-exifread-cartodb">框架： EXIF &amp; ExifRead &amp; CartoDB</a></li>
 </ul></li>
-<li><a href="#步骤">步骤</a><ul>
+<li><a href="#步骤-1">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
-<li><a href="#练习建议">练习建议</a></li>
+<li><a href="#练习建议-1">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
@@ -2421,14 +2423,17 @@ require([&#39;../app&#39;], function(App){
 <li>当用户向左滑动的时候，菜单应该关闭</li>
 </ul>
 <h1 id="oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</h1>
-<blockquote>
-<p>Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。</p>
-</blockquote>
-<p>周五Hackday Showcase的时候，突然有了点小灵感，便将闲置在公司的Oculus DK2借回家了——已经都是灰尘了~~。</p>
+<h2 id="概况">概况</h2>
+<h3 id="背景">背景</h3>
 <p>在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。</p>
-<p>说到底，还是Web的开发环境到底还是比较容易搭建的。这个repo的最后效果图如下所示:</p>
+<p>说到底，还是Web的开发环境到底还是比较容易搭建的。</p>
+<h3 id="showcase">Showcase</h3>
+<p>这个repo的最后效果图如下所示:</p>
 <figure>
 <img src="./images/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
+</figure>
+<figure>
+<img src="./images/oculus-vr.jpg" alt="Three.js Oculus Effect" /><figcaption>Three.js Oculus Effect</figcaption>
 </figure>
 <p>效果：</p>
 <ol type="1">
@@ -2436,10 +2441,15 @@ require([&#39;../app&#39;], function(App){
 <li>旋转头部 = 真实的世界。</li>
 <li>附加效果： 看久了头晕。</li>
 </ol>
+<h3 id="框架-oculus-rift-node-nmd">框架： Oculus Rift &amp; Node NMD</h3>
+<blockquote>
+<p>Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。</p>
+</blockquote>
+<h2 id="步骤">步骤</h2>
 <p>现在，让我们开始构建吧。</p>
-<h2 id="node-oculus-services">Node Oculus Services</h2>
+<h3 id="step-1-node-oculus-services">Step 1: Node Oculus Services</h3>
 <p>这里，我们所要做的事情便是将传感器返回来的四元数(Quaternions)与欧拉角(Euler angles)以API的形式返回到前端。</p>
-<h3 id="安装node-nmd">安装Node NMD</h3>
+<h4 id="安装node-nmd">安装Node NMD</h4>
 <p>Node.js上有一个Oculus的插件名为node-hmd，hmd即面向头戴式显示器。它就是Oculus SDK的Node接口，虽说年代已经有些久远了，但是似乎是可以用的——官方针对 Mac OS和Linux的SDK也已经很久没有更新了。</p>
 <p>在GNU/Linux系统下，你需要安装下面的这些东西的</p>
 <pre><code>freeglut3-dev
@@ -2467,7 +2477,7 @@ ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Uti
 ld: warning: object file (Release/obj.target/hmd/src/platform/mac/LibOVR/Src/Util/Util_Render_Stereo.o) was built for newer OSX version (10.7) than being linked (10.5)
 node-hmd@0.2.1 node_modules/node-hmd</code></pre>
 <p>不过，有最后一行就够了。</p>
-<h3 id="node.js-oculus-helloworld">Node.js Oculus Hello，World</h3>
+<h3 id="step-2-node.js-oculus-helloworld">Step 2: Node.js Oculus Hello，World</h3>
 <p>现在，我们就可以写一个Hello，World了，直接来官方的示例~~。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> hmd <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;node-hmd&#39;</span>)<span class="op">;</span>
 
@@ -2510,7 +2520,7 @@ node-hmd@0.2.1 node_modules/node-hmd</code></pre>
   <span class="dt">EyeRenderOrder</span><span class="op">:</span> [ <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> ]<span class="op">,</span>
   ...</code></pre></div>
 <p>接着，我们就可以实时返回这些数据了。</p>
-<h3 id="node-oculus-websocket">Node Oculus WebSocket</h3>
+<h3 id="step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</h3>
 <p>在网上看到<a href="http://laht.info/WebGL/DK2Demo.html" class="uri">http://laht.info/WebGL/DK2Demo.html</a>这个虚拟现实的电影，并且发现了它有一个WebSocket，然而是Java写的，只能拿来当参考代码。</p>
 <p>现在我们就可以写一个这样的Web Services，用的仍然是Express + Node.js + WS。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> hmd <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;node-hmd&quot;</span>)<span class="op">,</span>
@@ -2597,14 +2607,9 @@ node-hmd@0.2.1 node_modules/node-hmd</code></pre>
     <span class="co">//it&#39;s a bug of websocket, see in https://github.com/websockets/ws/issues/337</span>
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>上面有一行注释是我之前一直遇到的一个坑，总之需要callback就是了。</p>
-<h2 id="three.js-oculus-effect-dk2-control">Three.js + Oculus Effect + DK2 Control</h2>
-<p>在最后我们需要如下的画面：</p>
-<figure>
-<img src="./images/oculus-vr.jpg" alt="Three.js Oculus Effect" /><figcaption>Three.js Oculus Effect</figcaption>
-</figure>
-<p>当然，如果你已经安装了Web VR这一类的东西，你就不需要这样的效果了。如标题所说，你已经知道要用Oculus Effect，它是一个Three.js的插件。</p>
+<h3 id="step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</h3>
 <p>在之前的版本中，Three.js都提供了Oculus的Demo，当然只能用来看。并且交互的接口是HTTP，感觉很难玩~~。</p>
-<h2 id="three.js-dk2controls">Three.js DK2Controls</h2>
+<p><strong>Three.js DK2Controls</strong></p>
 <p>这时，我们就需要根据上面传过来的<code>四元数</code>(Quaternions)与欧拉角(Euler angles)来作相应的处理。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
     <span class="st">&quot;position&quot;</span><span class="op">:</span> <span class="op">{</span>
@@ -2619,7 +2624,7 @@ node-hmd@0.2.1 node_modules/node-hmd</code></pre>
         <span class="st">&quot;z&quot;</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.021934293210506439</span>
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
-<h3 id="欧拉角与四元数">欧拉角与四元数</h3>
+<p><strong>欧拉角与四元数</strong></p>
 <p>（ps: 如果没copy好，麻烦提出正确的说法，原谅我这个挂过高数的人。我只在高中的时候，看到这些资料。）</p>
 <blockquote>
 <p>欧拉角是一组用于描述刚体姿态的角度，欧拉提出，刚体在三维欧氏空间中的任意朝向可以由绕三个轴的转动复合生成。通常情况下，三个轴是相互正交的。</p>
@@ -2649,7 +2654,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <figure>
 <img src="./images/mpu6050.jpg" alt="Oculus 6050" /><figcaption>Oculus 6050</figcaption>
 </figure>
-<h3 id="three.js-dk2controls-1">Three.js DK2Controls</h3>
+<p><strong>Three.js DK2Controls</strong></p>
 <p>虽然下面的代码不是我写的，但是还是简单地说一下。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">/*</span>
 <span class="co"> Copyright 2014 Lars Ivar Hatledal</span>
@@ -2749,7 +2754,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="va">effect</span>.<span class="at">render</span>(scene<span class="op">,</span> camera)<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>最后，添加相应的KeyHandler就好了~~。</p>
-<h3 id="three.js-keyhandler">Three.js KeyHandler</h3>
+<h3 id="step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</h3>
 <p>KeyHandler对于习惯了Web开发的人来说就比较简单了:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">this</span>.<span class="at">onKeyDown</span> <span class="op">=</span> <span class="kw">function</span> (event) <span class="op">{</span>
     <span class="cf">switch</span> (<span class="va">event</span>.<span class="at">keyCode</span>) <span class="op">{</span>
@@ -2807,15 +2812,16 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
+<h3 id="练习建议">练习建议</h3>
 <h1 id="制作照片地图">制作照片地图</h1>
-<h2 id="基本知识">基本知识</h2>
+<h2 id="概况-1">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
 <p>我使用的Nokia Lumia 920没有一个好的照片应用</p>
-<h3 id="showcase">Showcase</h3>
+<h3 id="showcase-1">Showcase</h3>
 <figure>
 <img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
 </figure>
-<h3 id="exif-exifread-cartodb">EXIF &amp; ExifRead &amp; CartoDB</h3>
+<h3 id="框架-exif-exifread-cartodb">框架： EXIF &amp; ExifRead &amp; CartoDB</h3>
 <p><strong>EXIF</strong></p>
 <blockquote>
 <p>可交换图像文件常被简称为EXIF（Exchangeable image file format），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。</p>
@@ -2835,7 +2841,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <blockquote>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
 </blockquote>
-<h2 id="步骤">步骤</h2>
+<h2 id="步骤-1">步骤</h2>
 <h3 id="step-1-解析读取照片信息">Step 1: 解析读取照片信息</h3>
 <p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
 <p>主要步骤如下：</p>
@@ -2935,7 +2941,7 @@ jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
-<h3 id="练习建议">练习建议</h3>
+<h3 id="练习建议-1">练习建议</h3>
 <p>无</p>
 <h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
