@@ -1826,6 +1826,23 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。
   
+步骤
+---
+
+### Step 1: 架构设计
+
+### Step 2: 基本骨架
+
+### Step 3: 六边形架构
+
+### Step 4: 整合
+
+### Step 5: 练习建议
+
+
+
+
+
   
 
 一步步搭建JavaScript框架: Lettuce
