@@ -3,8 +3,8 @@
 
 在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:
 
-![Node][1] ![Refactor][2] ![TDD][3] ![Clean Code][4]
-
+![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
+  
 ##需求说明
 
 简单的说一些我们的附加需求
@@ -81,9 +81,3 @@
 ##结束
 
 代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
-
-  [1]: /static/media/uploads/node.png
-  [2]: /static/media/uploads/refactor.png
-  [3]: /static/media/uploads/tdd.png
-  [4]: /static/media/uploads/clean_code.png
-  

@@ -9,13 +9,13 @@
 
 通常，我们很容易在网上看到如下图所示的三层结构:
 
-![物联网三层结构][1]
+![物联网三层结构](./images/iot-3-layer.jpg)
 
 从理论上划分这样的层级结构是没有问题的，也是有各种理论依据。然而理论和现实往往是严重脱轨的，如上图所示，图中将网络层单独分为了一层，而并没有独立出应用程序相关的功能。
 
 从实践的角度上，我更愿意用如下的架构来构建我的物联网系统。
 
-![物联网层级结构][2]
+![物联网层级结构](./images/iot-layer.jpg)
 
 其功能可以用下表来表示。
 
@@ -34,12 +34,8 @@
 
 因而在设计[Lan](https://github.com/phodal/lan)物联网平台的时候，参考了之前的[物联网平台](https://github.com/phodal/diaonan)的设计，增加了用户授权以及模块化加载思想。
 
-![IoT Server Layer][3]
+![IoT Server Layer](./images/iot-server.jpg)
 
 上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。
-
-  [1]: /static/media/uploads/iot-3-layer.jpg
-  [2]: /static/media/uploads/iot-layer.jpg
-  [3]: /static/media/uploads/iot-server.jpg
   
   

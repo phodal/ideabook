@@ -5,7 +5,7 @@ D3.js 制作技能树
 
 在开始设计新的技能树——[Sherlock](https://github.com/phodal/sherlock)的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。
 
-![Sherlock][1]
+![Sherlock](./images/sherlock.png)
 
 ##Graphviz
 
@@ -25,7 +25,7 @@ D3.js 制作技能树
 
 就会生成下面的图片
 
-![lz][2]
+![lz](./images/lz.jpg)
 	
 接着我们便可以建立一个简单的模型来构建我们的技能树。
 
@@ -47,7 +47,7 @@ D3.js 制作技能树
 
 于是我们有了这张图:
 
-![Tree][3]
+![Tree](./images/tree.jpg)
 
 而我们的代码是这样的:
 
@@ -72,19 +72,11 @@ D3.js 制作技能树
 上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。
 
 
-  [1]: /static/media/uploads/sherlock.png
-  [2]: /static/media/uploads/lz.jpg
-  [3]: /static/media/uploads/tree.jpg
-
-#技能树之旅: 计算点数与从这开始
-
-之前写了一篇[技能树之旅: 从模块分离到测试](http://www.phodal.com/blog/rebuild-skilltree-from-module-split-to-test/)，现在来说说这其中发生了什么。
-
-##从这开始
+##计算点数与Star Here
 
 在我们没有点击任何技能的时候，显示的是"从这开始"，而当我们点下去时发生了什么?
 
-![Start](http://www.phodal.com//static/media/uploads/start.jpg)
+![Start](./images/start.jpg)
 
 明显变化如下:
 
@@ -192,18 +184,10 @@ D3.js 制作技能树
 看上去通俗易懂，唯一需要理解的就是``click``。
 
 > click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。
-
-##其他
-
-Sherlock:一个新的技能树:[https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)。
-
-开发进行时，欢迎加入。
-
-  [1]: /static/media/uploads/start.jpg  
   
 使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。
 
-![Tooltips][1]
+![Tooltips](./images/tips.jpg)
 
 ##Tooltipster
 
@@ -272,5 +256,3 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
 ##结束
 
 代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
-
-  [1]: /static/media/uploads/tips.jpg  

@@ -36,10 +36,7 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
 简单的来说，就是我们可以创建包含位置信息的内容到上面去。
 
-![Phodal's Image][2]
-
-  [1]: http://phodal.cartodb.com/viz/80484668-b165-11e3-be2e-0e73339ffa50/public_map
-  [2]: /static/media/uploads/screen_shot_2014-03-22_at_10.05.39_am.jpg
+![Phodal's Image](./images/onmap-demo.jpg)
 
 ##打造自己的照片地图##
 主要步骤如下
@@ -151,6 +148,7 @@ Create dynamic maps, analyze and build location aware and geospatial application
     jsonFile.close()
 
 最终代码可见[python cartodb][3]
+
 [3]:https://github.com/gmszone/py_cartodb.git
 
 ###上传到cartodb###

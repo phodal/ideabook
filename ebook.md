@@ -585,7 +585,7 @@ Web本身就是跨平台的，这意味着这中间存在着无限的可能性�
 
 截图合并如下：
 
-![growth-full-platforms.png](/static/media/uploads/growth-full-platforms.jpg)
+![growth-full-platforms.png](./images/growth-full-platforms.jpg)
 
 而更重要的是它们使用了同一份代码——除了对特定设备进行一些处理就没有其他修改。相信全栈的你已经看出来了：
 
@@ -611,7 +611,7 @@ Mobile = Cordova + Angular.js + Ionic
  
 接着我用Ionic创建了这个应用，这是一个再普通不过的过程。在这个过程里，我一直使用Chrome在调度我的代码。因为我是Android用户，我有Google Play的账号，便发布了Android版本。这时候遇到了一个问题，我并没有Apple Developer账号(现在在申请ing。。)，而主要的用户对象程序员，这是一群**不土**的土豪。
 
-![iPHONE](/static/media/uploads/iphone.jpg)
+![iPHONE](./images/iphone.jpg)
 
 偶然间我才想到，我只要上传Web版本的代码就可以暂时性实现这个需求了。接着找了个AWS S3的插件，直接上传到了AWS S3上托管成静态文件服务。
 
@@ -619,7 +619,7 @@ Mobile = Cordova + Angular.js + Ionic
 
 所以，最后我们的流程图就如下所示：
 
-![Growth Arch](/static/media/uploads/growth-arch.png)
+![Growth Arch](./images/growth-arch.png)
 
 除了显示到VR设备上，好像什么也不缺了。并且在我之前的文章《[Oculus + Node.js + Three.js 打造VR世界](https://github.com/phodal/oculus-nodejs-threejs-example)》，也展示了Web在VR世界的可能性。
 
@@ -632,11 +632,11 @@ Mobile = Cordova + Angular.js + Ionic
 
 响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：
 
-![full-platforms.jpg](/static/media/uploads/full-platforms.jpg)
+![full-platforms.jpg](./images/full-platforms.jpg)
 
 这也意味着，我们需要对不同的设备进行一些处理，如在大的屏幕下，我们需要展示菜单：
 
-![gnu-linux.png](/static/media/uploads/gnu-linux.jpg)
+![gnu-linux.png](./images/gnu-linux.jpg)
 
 而这可以依赖于Ionic的**expose-aside-when="large"**，而并非所有的情形都是这么简单的。如我最近遇到的问题就是图片缩放的问题，之前的图片针对的都是手机版——经过了一定的缩放。
 
@@ -705,7 +705,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 如果有一天，我有钱开放这个应用的应用号，那么我就会再次献上这个图：
 
-![六边形架构](/static/media/uploads/hexoarch.png)
+![六边形架构](./images/hexoarch.png)
 
 ##未来
 
@@ -718,14 +718,17 @@ Ionic ElasticSearch打造O2O应用
 
 搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图
 
-![elasticsearch_ionic_map][1] ![elasticsearch_ionic_info_page][2]
+![elasticsearch_ionic_map](./images/elasticsearch_ionic_map.jpg) 
+
+![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
+
 
 
 ##构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
 
-![Django ElasticSearch Ionic 架构][3]
+![Django ElasticSearch Ionic 架构](./images/struct.png)
 
 ###GIS架构说明 —— 服务端
 
@@ -804,10 +807,6 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 **Django REST Framework**
 
 与Django Tastypie相比，DRF的主要优势在于Web界面的调试。
-
-  [1]: /static/media/uploads/elasticsearch_ionic_map.jpg
-  [2]: /static/media/uploads/elasticsearch_ionic_info_page.jpg
-  [3]: /static/media/uploads/struct.png
 
 ##Django GIS准备
 
@@ -1308,7 +1307,8 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 当用户点击时，调用Bootstrap的Popover来显示信息。
 
-  [1]: /static/media/uploads/elasticsearch_ionit_map.jpg    
+![ElasticSearch Map](./images/elasticsearch_ionit_map.jpg)
+    
 
 跨协议的物联网平台设计
 ===
@@ -1321,13 +1321,13 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 通常，我们很容易在网上看到如下图所示的三层结构:
 
-![物联网三层结构][1]
+![物联网三层结构](./images/iot-3-layer.jpg)
 
 从理论上划分这样的层级结构是没有问题的，也是有各种理论依据。然而理论和现实往往是严重脱轨的，如上图所示，图中将网络层单独分为了一层，而并没有独立出应用程序相关的功能。
 
 从实践的角度上，我更愿意用如下的架构来构建我的物联网系统。
 
-![物联网层级结构][2]
+![物联网层级结构](./images/iot-layer.jpg)
 
 其功能可以用下表来表示。
 
@@ -1346,13 +1346,9 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 因而在设计[Lan](https://github.com/phodal/lan)物联网平台的时候，参考了之前的[物联网平台](https://github.com/phodal/diaonan)的设计，增加了用户授权以及模块化加载思想。
 
-![IoT Server Layer][3]
+![IoT Server Layer](./images/iot-server.jpg)
 
 上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。
-
-  [1]: /static/media/uploads/iot-3-layer.jpg
-  [2]: /static/media/uploads/iot-layer.jpg
-  [3]: /static/media/uploads/iot-server.jpg
   
   
 
@@ -3317,10 +3313,9 @@ Create dynamic maps, analyze and build location aware and geospatial application
 
 简单的来说，就是我们可以创建包含位置信息的内容到上面去。
 
-![Phodal's Image][2]
+![Phodal's Image](./images/onmap-demo.jpg)
 
   [1]: http://phodal.cartodb.com/viz/80484668-b165-11e3-be2e-0e73339ffa50/public_map
-  [2]: /static/media/uploads/screen_shot_2014-03-22_at_10.05.39_am.jpg
 
 ##打造自己的照片地图##
 主要步骤如下
@@ -3432,6 +3427,7 @@ Create dynamic maps, analyze and build location aware and geospatial application
     jsonFile.close()
 
 最终代码可见[python cartodb][3]
+
 [3]:https://github.com/gmszone/py_cartodb.git
 
 ###上传到cartodb###
@@ -3446,7 +3442,7 @@ D3.js 制作技能树
 
 在开始设计新的技能树——[Sherlock](https://github.com/phodal/sherlock)的同时，结合一下原有的技能树，说说如何去设计，新的技能树还很丑。
 
-![Sherlock][1]
+![Sherlock](./images/sherlock.png)
 
 ##Graphviz
 
@@ -3466,7 +3462,7 @@ D3.js 制作技能树
 
 就会生成下面的图片
 
-![lz][2]
+![lz](./images/lz.jpg)
 	
 接着我们便可以建立一个简单的模型来构建我们的技能树。
 
@@ -3488,7 +3484,7 @@ D3.js 制作技能树
 
 于是我们有了这张图:
 
-![Tree][3]
+![Tree](./images/tree.jpg)
 
 而我们的代码是这样的:
 
@@ -3513,19 +3509,11 @@ D3.js 制作技能树
 上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。
 
 
-  [1]: /static/media/uploads/sherlock.png
-  [2]: /static/media/uploads/lz.jpg
-  [3]: /static/media/uploads/tree.jpg
-
-#技能树之旅: 计算点数与从这开始
-
-之前写了一篇[技能树之旅: 从模块分离到测试](http://www.phodal.com/blog/rebuild-skilltree-from-module-split-to-test/)，现在来说说这其中发生了什么。
-
-##从这开始
+##计算点数与Star Here
 
 在我们没有点击任何技能的时候，显示的是"从这开始"，而当我们点下去时发生了什么?
 
-![Start](http://www.phodal.com//static/media/uploads/start.jpg)
+![Start](./images/start.jpg)
 
 明显变化如下:
 
@@ -3633,18 +3621,10 @@ D3.js 制作技能树
 看上去通俗易懂，唯一需要理解的就是``click``。
 
 > click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数。
-
-##其他
-
-Sherlock:一个新的技能树:[https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)。
-
-开发进行时，欢迎加入。
-
-  [1]: /static/media/uploads/start.jpg  
   
 使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。
 
-![Tooltips][1]
+![Tooltips](./images/tips.jpg)
 
 ##Tooltipster
 
@@ -3714,8 +3694,6 @@ D3.js、Tooltipster与Requirejs的配置如下所示:
 
 代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
 
-  [1]: /static/media/uploads/tips.jpg  
-
 D3.js 技术栈
 =========
 
@@ -3724,8 +3702,8 @@ D3.js 技术栈
 
 在设计技能树的时候需要做一些简单的Logo，方便我们来识别，这时候就想到了PIL。加上一些简单的圆角，以及特殊的字体，就可以构成一个简单的Logo。做成的图标看上去还不错:
 
-![Node][1] ![Refactor][2] ![TDD][3] ![Clean Code][4]
-
+![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
+  
 ##需求说明
 
 简单的说一些我们的附加需求
@@ -3803,12 +3781,6 @@ D3.js 技术栈
 
 代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
 
-  [1]: /static/media/uploads/node.png
-  [2]: /static/media/uploads/refactor.png
-  [3]: /static/media/uploads/tdd.png
-  [4]: /static/media/uploads/clean_code.png
-  
-
 游戏地图生成器
 =======
 
@@ -3817,11 +3789,11 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：
 
-![一般的省市区与地图联动](/static/media/uploads/general-province-city-map.png)
+![一般的省市区与地图联动](./images/general-province-city-map.png)
 
 我们可以在这个应用里选择，相应的省市区然后地图会跳转到相应的地图。当我们在地图上漫游的时候，如果没有显示当前的省市区是不是变得很难使用。于是，我们就来创建一个吧：
 
-![地图到省市区联动](/static/media/uploads/anti-map-action.jpg)
+![地图到省市区联动](./images/anti-map-action.jpg)
 
 相关技术栈：
 
@@ -3849,7 +3821,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 换句话来说，根据这个文件里面的多边形，我们可以绘制出中国地图。由于上面的点是真实的地理位置信息，所以无论我们怎样的缩放这些点的位置都不会发生变化。如下图是GitHub对这个数据文件的解析：
 
-![中国GeoJSON文件](/static/media/uploads/china-geojson.jpg)
+![中国GeoJSON文件](./images/china-geojson.jpg)
 
 （PS: 预览可以打开这个页面：[Vmap GeoJSON](https://github.com/phodal/vmap/blob/gh-pages/static/data/china.json)
 
@@ -3861,7 +3833,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：
 
-![多边形搜索](/static/media/uploads/geopoly2d-small.png)
+![多边形搜索](./images/geopoly2d-small.png)
 
 而圈圈搜索依赖于圈圈上的连续的点构建的形状来进行搜索，上面的每个点都包含了相应的经纬度。因此，只要是在这个圈圈里的用户都是可以搜索得到的。
 
@@ -3880,7 +3852,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 最初的时候要用Event的形式来实现，但是发现这样似乎会让其紧耦合。就改用了监听Hash Change的形式来实现，在总的地图上每一个省都有一个对应的ID，这个ID会对应相应的省的数据。如下图所示：
 
-![Province Hash](/static/media/uploads/province-hash-with-map.jpg)
+![Province Hash](./images/province-hash-with-map.jpg)
 
 接着，我们就需要从这个Hash中判断它的级别和ID，随后转由相应的函数来处理这些逻辑即可。随后，我们要做两件事：
 
@@ -3899,7 +3871,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 同理，我们也可以对上面的市运行处理。但是因为这些市并不存在GEO信息，所以我只是从其多连形信息取了一个点，再将这个点放到data-geo中：
 
-![Data GEO](/static/media/uploads/city-with-geo.jpg)
+![Data GEO](./images/city-with-geo.jpg)
 
 对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。
 
@@ -3908,7 +3880,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 从地图上到地点就比较简单了，点击时修改对应的text即可。
 
-![VMap Click ](/static/media/uploads/vmap-click-handler.jpg)
+![VMap Click ](./images/vmap-click-handler.jpg)
 
 Demo
 ---
