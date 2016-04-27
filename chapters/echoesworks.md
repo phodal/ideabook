@@ -34,25 +34,29 @@ JavaScript打造Slide应用
 
 **EchoesWorks功能**
 
-想了想需要的功能，便将EchoesWorks需要的feature列出来:
-
-- Slide展示(完成)
-- 代码展示(github， 部分完成)
-- 音频播放。将视频转为音频，然后就可以简单地配上字幕。
-- 字幕。谁说字幕只能用在视频上。
-
-blabla，这就是总的需求啦。
+ - 支持 Markdown
+ - Github代码显示
+ - 全屏背景图片
+ - 左/右侧图片支持
+ - 进度条
+ - 自动播放
+ - 字幕
+ - 分屏控制
 
 步骤
 ---
 
-### Step 1:
+### Step 1: 基本的Slide功能
 
-### Step 2:
+### Step 2: 解析Markdown
 
-### Step 3:
+### Step 3: 事件处理
 
-本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
+### Step 4: 解析时间
+
+### Step 5: 进度条
+
+### Step 6: 同步
 
 在这里并没有什么特别高级的用法，只是简单的事件监听
 
@@ -74,4 +78,6 @@ blabla，这就是总的需求啦。
     localStorage.setItem('echoesworks', index);
 
 这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
+
+### 练习建议
   

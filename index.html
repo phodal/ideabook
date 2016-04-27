@@ -97,8 +97,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#ionic-zxing">Ionic + Zxing</a></li>
 </ul></li>
 <li><a href="#步骤-1">步骤</a><ul>
-<li><a href="#step-1-zxing扫描">Step 1: ZXing扫描</a></li>
-<li><a href="#step-2-douban-api">Step 2: Douban API</a></li>
+<li><a href="#step-1-zxing扫描与douban-api">Step 1: ZXing扫描与Douban API</a></li>
+<li><a href="#step-2-存储数据库">Step 2: 存储数据库</a></li>
 <li><a href="#练习建议-1">练习建议</a></li>
 </ul></li>
 </ul></li>
@@ -133,9 +133,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#需求">需求</a></li>
 </ul></li>
 <li><a href="#步骤-4">步骤</a><ul>
-<li><a href="#step-1-1">Step 1:</a></li>
-<li><a href="#step-2-1">Step 2:</a></li>
-<li><a href="#step-3-1">Step 3:</a></li>
+<li><a href="#step-1-基本的slide功能">Step 1: 基本的Slide功能</a></li>
+<li><a href="#step-2-解析markdown">Step 2: 解析Markdown</a></li>
+<li><a href="#step-3-事件处理">Step 3: 事件处理</a></li>
+<li><a href="#step-4-解析时间">Step 4: 解析时间</a></li>
+<li><a href="#step-5-进度条">Step 5: 进度条</a></li>
+<li><a href="#step-6-同步">Step 6: 同步</a></li>
+<li><a href="#练习建议-3">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#编辑-发布-分离应用">编辑-发布-分离应用</a><ul>
@@ -245,7 +249,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
 <li><a href="#step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</a></li>
 <li><a href="#step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</a></li>
-<li><a href="#练习建议-3">练习建议</a></li>
+<li><a href="#练习建议-4">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#制作照片地图">制作照片地图</a><ul>
@@ -257,7 +261,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#步骤-13">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
-<li><a href="#练习建议-4">练习建议</a></li>
+<li><a href="#练习建议-5">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
@@ -592,10 +596,80 @@ def get_geo(ip):
 <h2 id="概况-1">概况</h2>
 <h3 id="背景-1">背景</h3>
 <h3 id="showcase-1">ShowCase</h3>
+<figure>
+<img src="./images/bookshelf.jpg" alt="Bookshelf" /><figcaption>Bookshelf</figcaption>
+</figure>
+<p>代码： <a href="https://github.com/phodal/bookshelf/" class="uri">https://github.com/phodal/bookshelf/</a></p>
 <h3 id="ionic-zxing">Ionic + Zxing</h3>
 <h2 id="步骤-1">步骤</h2>
-<h3 id="step-1-zxing扫描">Step 1: ZXing扫描</h3>
-<h3 id="step-2-douban-api">Step 2: Douban API</h3>
+<pre><code>phonegap plugin add phonegap-plugin-barcodescanner</code></pre>
+<h3 id="step-1-zxing扫描与douban-api">Step 1: ZXing扫描与Douban API</h3>
+<pre><code>$scope.scan = function () {
+  $cordovaBarcodeScanner
+    .scan()
+    .then(function (barcodeData) {
+      $scope.info = barcodeData.text;
+      $http.get(&quot;https://api.douban.com/v2/book/isbn/&quot; + barcodeData.text).success(function (data) {
+        $scope.detail = data;
+        saveToDatabase(data, barcodeData);
+      });
+    }, function (error) {
+      alert(error);
+    });
+}</code></pre>
+<h3 id="step-2-存储数据库">Step 2: 存储数据库</h3>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">saveToDatabase</span>(data<span class="op">,</span> barcodeData) <span class="op">{</span>
+  <span class="va">bookshelfDB</span>.<span class="at">add</span>(<span class="op">{</span>
+    <span class="dt">title</span><span class="op">:</span> <span class="va">data</span>.<span class="at">title</span><span class="op">,</span>
+    <span class="dt">image</span><span class="op">:</span> <span class="va">data</span>.<span class="at">image</span><span class="op">,</span>
+    <span class="dt">publisher</span><span class="op">:</span> <span class="va">data</span>.<span class="at">publisher</span><span class="op">,</span>
+    <span class="dt">author</span><span class="op">:</span> <span class="va">data</span>.<span class="at">author</span><span class="op">,</span>
+    <span class="dt">summary</span><span class="op">:</span> <span class="va">data</span>.<span class="at">summary</span><span class="op">,</span>
+    <span class="dt">isbn</span><span class="op">:</span> <span class="va">barcodeData</span>.<span class="at">text</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span>(<span class="va">window</span>.<span class="at">cordova</span>) <span class="op">{</span>
+  <span class="co">//$cordovaSQLite.deleteDB(&quot;my.db&quot;);</span>
+  db <span class="op">=</span> <span class="va">$cordovaSQLite</span>.<span class="at">openDB</span>(<span class="st">&quot;my.db&quot;</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+  db <span class="op">=</span> <span class="va">window</span>.<span class="at">openDatabase</span>(<span class="st">&quot;my.db&quot;</span><span class="op">,</span> <span class="st">&quot;1.0&quot;</span><span class="op">,</span> <span class="st">&quot;bookshelf&quot;</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>
+<span class="va">$cordovaSQLite</span>.<span class="at">execute</span>(db<span class="op">,</span> <span class="st">&quot;CREATE TABLE IF NOT EXISTS bookshelf (id integer primary key, title text, image text, publisher text, author text, isbn text, summary text)&quot;</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">.<span class="at">factory</span>(<span class="st">&#39;bookshelfDB&#39;</span><span class="op">,</span> <span class="kw">function</span>($cordovaSQLite<span class="op">,</span> DBA) <span class="op">{</span>
+    <span class="kw">var</span> self <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+
+    <span class="va">self</span>.<span class="at">all</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf&quot;</span>)
+            .<span class="at">then</span>(<span class="kw">function</span>(result)<span class="op">{</span>
+                <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">getAll</span>(result)<span class="op">;</span>
+            <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="va">self</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span>(memberId) <span class="op">{</span>
+        <span class="kw">var</span> parameters <span class="op">=</span> [memberId]<span class="op">;</span>
+        <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf WHERE id = (?)&quot;</span><span class="op">,</span> parameters)
+            .<span class="at">then</span>(<span class="kw">function</span>(result) <span class="op">{</span>
+                <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">getById</span>(result)<span class="op">;</span>
+            <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="va">self</span>.<span class="at">add</span> <span class="op">=</span> <span class="kw">function</span>(member) <span class="op">{</span>
+        <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">member</span>.<span class="at">id</span><span class="op">,</span> <span class="va">member</span>.<span class="at">title</span><span class="op">,</span> <span class="va">member</span>.<span class="at">image</span><span class="op">,</span> <span class="va">member</span>.<span class="at">publisher</span><span class="op">,</span> <span class="va">member</span>.<span class="at">author</span><span class="op">,</span> <span class="va">member</span>.<span class="at">isbn</span><span class="op">,</span> <span class="va">member</span>.<span class="at">summary</span>]<span class="op">;</span>
+        <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;INSERT INTO bookshelf (id, title, image, publisher, author, isbn, summary) VALUES (?,?,?,?,?,?,?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="va">self</span>.<span class="at">remove</span> <span class="op">=</span> <span class="kw">function</span>(member) <span class="op">{</span>
+        <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">member</span>.<span class="at">id</span>]<span class="op">;</span>
+        <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;DELETE FROM bookshelf WHERE id = (?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="va">self</span>.<span class="at">update</span> <span class="op">=</span> <span class="kw">function</span>(origMember<span class="op">,</span> editMember) <span class="op">{</span>
+        <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">editMember</span>.<span class="at">id</span><span class="op">,</span> <span class="va">editMember</span>.<span class="at">title</span><span class="op">,</span> <span class="va">origMember</span>.<span class="at">id</span>]<span class="op">;</span>
+        <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;UPDATE bookshelf SET id = (?), title = (?) WHERE id = (?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
+    <span class="op">};</span>
+
+    <span class="cf">return</span> self<span class="op">;</span>
+<span class="op">}</span>)</code></pre></div>
 <h3 id="练习建议-1">练习建议</h3>
 <h1 id="程序员专属badge制作">程序员专属Badge制作</h1>
 <h2 id="概况-2">概况</h2>
@@ -725,19 +799,23 @@ dwg.save()</code></pre></div>
 </ol>
 <p>于是，<code>EchoesWorks</code>出现了。</p>
 <p><strong>EchoesWorks功能</strong></p>
-<p>想了想需要的功能，便将EchoesWorks需要的feature列出来:</p>
 <ul>
-<li>Slide展示(完成)</li>
-<li>代码展示(github， 部分完成)</li>
-<li>音频播放。将视频转为音频，然后就可以简单地配上字幕。</li>
-<li>字幕。谁说字幕只能用在视频上。</li>
+<li>支持 Markdown</li>
+<li>Github代码显示</li>
+<li>全屏背景图片</li>
+<li>左/右侧图片支持</li>
+<li>进度条</li>
+<li>自动播放</li>
+<li>字幕</li>
+<li>分屏控制</li>
 </ul>
-<p>blabla，这就是总的需求啦。</p>
 <h2 id="步骤-4">步骤</h2>
-<h3 id="step-1-1">Step 1:</h3>
-<h3 id="step-2-1">Step 2:</h3>
-<h3 id="step-3-1">Step 3:</h3>
-<p>本来想着给<a href="https://github.com/phodal/echoesworks">EchoesWorks</a>做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。</p>
+<h3 id="step-1-基本的slide功能">Step 1: 基本的Slide功能</h3>
+<h3 id="step-2-解析markdown">Step 2: 解析Markdown</h3>
+<h3 id="step-3-事件处理">Step 3: 事件处理</h3>
+<h3 id="step-4-解析时间">Step 4: 解析时间</h3>
+<h3 id="step-5-进度条">Step 5: 进度条</h3>
+<h3 id="step-6-同步">Step 6: 同步</h3>
 <p>在这里并没有什么特别高级的用法，只是简单的事件监听</p>
 <pre><code>    function handler() {
         window.slide.slide(parseInt(localStorage.getItem(&#39;echoesworks&#39;), 10));
@@ -753,6 +831,7 @@ dwg.save()</code></pre></div>
 <p>正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。</p>
 <pre><code>localStorage.setItem(&#39;echoesworks&#39;, index);</code></pre>
 <p>这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。</p>
+<h3 id="练习建议-3">练习建议</h3>
 <h1 id="编辑-发布-分离应用">编辑-发布-分离应用</h1>
 <h2 id="概况-5">概况</h2>
 <h3 id="背景-编辑-发布-开发分离">背景: 编辑-发布-开发分离</h3>
@@ -3191,7 +3270,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h3 id="练习建议-3">练习建议</h3>
+<h3 id="练习建议-4">练习建议</h3>
 <h1 id="制作照片地图">制作照片地图</h1>
 <h2 id="概况-14">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
@@ -3320,7 +3399,7 @@ jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
-<h3 id="练习建议-4">练习建议</h3>
+<h3 id="练习建议-5">练习建议</h3>
 <p>无</p>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
 <h2 id="概况-15">概况</h2>

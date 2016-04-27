@@ -321,14 +321,98 @@ client.search(query).then(function(results){
 
 ### ShowCase
 
+![Bookshelf](./images/bookshelf.jpg)
+
+代码： [https://github.com/phodal/bookshelf/](https://github.com/phodal/bookshelf/)
+
 ### Ionic + Zxing
 
 步骤
 ---
 
-###Step 1: ZXing扫描
+    phonegap plugin add phonegap-plugin-barcodescanner
 
-###Step 2: Douban API
+
+###Step 1: ZXing扫描与Douban API
+
+```
+$scope.scan = function () {
+  $cordovaBarcodeScanner
+    .scan()
+    .then(function (barcodeData) {
+      $scope.info = barcodeData.text;
+      $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
+        $scope.detail = data;
+        saveToDatabase(data, barcodeData);
+      });
+    }, function (error) {
+      alert(error);
+    });
+}
+```    
+
+###Step 2: 存储数据库
+
+```javascript
+function saveToDatabase(data, barcodeData) {
+  bookshelfDB.add({
+    title: data.title,
+    image: data.image,
+    publisher: data.publisher,
+    author: data.author,
+    summary: data.summary,
+    isbn: barcodeData.text
+  });
+}
+```    
+
+```javascript
+if(window.cordova) {
+  //$cordovaSQLite.deleteDB("my.db");
+  db = $cordovaSQLite.openDB("my.db");
+} else {
+  db = window.openDatabase("my.db", "1.0", "bookshelf", -1);
+}
+$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS bookshelf (id integer primary key, title text, image text, publisher text, author text, isbn text, summary text)");
+```
+
+```javascript
+.factory('bookshelfDB', function($cordovaSQLite, DBA) {
+	var self = this;
+
+	self.all = function() {
+		return DBA.query("SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf")
+			.then(function(result){
+				return DBA.getAll(result);
+			});
+	};
+
+	self.get = function(memberId) {
+		var parameters = [memberId];
+		return DBA.query("SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf WHERE id = (?)", parameters)
+			.then(function(result) {
+				return DBA.getById(result);
+			});
+	};
+
+	self.add = function(member) {
+		var parameters = [member.id, member.title, member.image, member.publisher, member.author, member.isbn, member.summary];
+		return DBA.query("INSERT INTO bookshelf (id, title, image, publisher, author, isbn, summary) VALUES (?,?,?,?,?,?,?)", parameters);
+	};
+
+	self.remove = function(member) {
+		var parameters = [member.id];
+		return DBA.query("DELETE FROM bookshelf WHERE id = (?)", parameters);
+	};
+
+	self.update = function(origMember, editMember) {
+		var parameters = [editMember.id, editMember.title, origMember.id];
+		return DBA.query("UPDATE bookshelf SET id = (?), title = (?) WHERE id = (?)", parameters);
+	};
+
+	return self;
+})
+```	
 
 ###练习建议
 
@@ -520,25 +604,29 @@ JavaScript打造Slide应用
 
 **EchoesWorks功能**
 
-想了想需要的功能，便将EchoesWorks需要的feature列出来:
-
-- Slide展示(完成)
-- 代码展示(github， 部分完成)
-- 音频播放。将视频转为音频，然后就可以简单地配上字幕。
-- 字幕。谁说字幕只能用在视频上。
-
-blabla，这就是总的需求啦。
+ - 支持 Markdown
+ - Github代码显示
+ - 全屏背景图片
+ - 左/右侧图片支持
+ - 进度条
+ - 自动播放
+ - 字幕
+ - 分屏控制
 
 步骤
 ---
 
-### Step 1:
+### Step 1: 基本的Slide功能
 
-### Step 2:
+### Step 2: 解析Markdown
 
-### Step 3:
+### Step 3: 事件处理
 
-本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
+### Step 4: 解析时间
+
+### Step 5: 进度条
+
+### Step 6: 同步
 
 在这里并没有什么特别高级的用法，只是简单的事件监听
 
@@ -560,6 +648,8 @@ blabla，这就是总的需求啦。
     localStorage.setItem('echoesworks', index);
 
 这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
+
+### 练习建议
   
 
 编辑-发布-分离应用
