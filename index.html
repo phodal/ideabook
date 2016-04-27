@@ -180,13 +180,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#构架设计">构架设计</a></li>
 </ul></li>
 <li><a href="#步骤-8">步骤</a><ul>
-<li><a href="#django-gis">Django GIS</a></li>
-<li><a href="#配置haystack">配置Haystack</a></li>
-<li><a href="#django-haystack-model创建">Django Haystack Model创建</a></li>
-<li><a href="#创建search_index">创建search_index</a></li>
-<li><a href="#ionic-elasticsearch-创建页面">Ionic ElasticSearch 创建页面</a></li>
-<li><a href="#ionic-elasticsearch-service">Ionic ElasticSearch Service</a></li>
-<li><a href="#ionic-openlayer-地图显示">Ionic OpenLayer 地图显示</a></li>
+<li><a href="#step-1-django-gis-设置">Step 1: Django GIS 设置</a></li>
+<li><a href="#step-2-配置haystack">Step 2: 配置Haystack</a></li>
+<li><a href="#step-3-django-haystack-model创建">Step 3: Django Haystack Model创建</a></li>
+<li><a href="#step-4-创建search_index">Step 4: 创建search_index</a></li>
+<li><a href="#step-4-ionic-elasticsearch-创建页面">Step 4: Ionic ElasticSearch 创建页面</a></li>
+<li><a href="#step-5-ionic-elasticsearch-service">Step 5: Ionic ElasticSearch Service</a></li>
+<li><a href="#step-6-ionic-openlayer-地图显示">Step 6: Ionic OpenLayer 地图显示</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#跨协议的物联网平台设计">跨协议的物联网平台设计</a><ul>
@@ -946,7 +946,7 @@ if(isAndroid) {
 <p><strong>Django REST Framework</strong></p>
 <p>与Django Tastypie相比，DRF的主要优势在于Web界面的调试。</p>
 <h2 id="步骤-8">步骤</h2>
-<h3 id="django-gis">Django GIS</h3>
+<h3 id="step-1-django-gis-设置">Step 1: Django GIS 设置</h3>
 <p>1.创建虚拟环境</p>
 <pre><code> virtualenv -p /usr/bin/python2.67 django-elasticsearch</code></pre>
 <p>2.创建项目</p>
@@ -973,7 +973,7 @@ curl -XGET http://localhost:9200</code></pre>
 <p>5.Django Geo环境搭建</p>
 <p>CentOS等GNU/Linux系统: 可以参照<a href="http://www.phodal.com/blog/install-geo-django-in-centos/">CentOS Django Geo 环境搭建</a></p>
 <p>MacOS: <a href="http://www.phodal.com/blog/django-elasticsearch-geo-solution/">Mac OS Django Geo 环境搭建</a></p>
-<h3 id="配置haystack">配置Haystack</h3>
+<h3 id="step-2-配置haystack">Step 2: 配置Haystack</h3>
 <p><strong>配置Haystack</strong></p>
 <pre><code>HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
 
@@ -1008,7 +1008,7 @@ HAYSTACK_CONNECTIONS = {
 | | | |____nx
 | | | | |____note_text.txt</code></pre>
 <p>api.py是后面要用的。</p>
-<h3 id="django-haystack-model创建">Django Haystack Model创建</h3>
+<h3 id="step-3-django-haystack-model创建">Step 3: Django Haystack Model创建</h3>
 <p>而一般的model没有什么区别，除了修改了save方法</p>
 <pre><code>from django.contrib import admin
 
@@ -1040,7 +1040,7 @@ class Note(models.Model):
 
 admin.site.register(Note)</code></pre>
 <p>通过<code>Geocoder.geocode</code> 解析用户输入的地址，为了方便直接后台管理了。</p>
-<h3 id="创建search_index">创建search_index</h3>
+<h3 id="step-4-创建search_index">Step 4: 创建search_index</h3>
 <p>在源码的目录下有一个<code>search_indexes.py</code>的文件就是用于索引用的。</p>
 <pre><code>from haystack import indexes
 from .models import Note
@@ -1076,7 +1076,7 @@ class NoteIndex(indexes.SearchIndex, indexes.Indexable):
 </ul>
 <p>将他们添加到<code>bower.json</code>，然后 bower install</p>
 <p>吧</p>
-<h3 id="ionic-elasticsearch-创建页面">Ionic ElasticSearch 创建页面</h3>
+<h3 id="step-4-ionic-elasticsearch-创建页面">Step 4: Ionic ElasticSearch 创建页面</h3>
 <p>1.引入库</p>
 <p>在<code>index.html</code>中添加</p>
 <pre><code>&lt;script src=&quot;lib/elasticsearch/elasticsearch.angular.min.js&quot;&gt;&lt;/script&gt;
@@ -1119,7 +1119,7 @@ $scope.search = function(query) {
     doSearch(query);
 }</code></pre>
 <p>当我们点下搜索的时候，调用 ESService.</p>
-<h3 id="ionic-elasticsearch-service">Ionic ElasticSearch Service</h3>
+<h3 id="step-5-ionic-elasticsearch-service">Step 5: Ionic ElasticSearch Service</h3>
 <p>接着我们就来构建我们的ESService，下面的部分来自网上:</p>
 <pre><code>angular.module(&#39;starter.services&#39;, [&#39;ngCordova&#39;, &#39;elasticsearch&#39;])
 
@@ -1195,7 +1195,7 @@ $scope.search = function(query) {
 <blockquote>
 <p>OpenLayers是一个用于开发WebGIS客户端的JavaScript包。OpenLayers 支持的地图来源包括Google Maps、Yahoo、 Map、微软Virtual Earth 等，用户还可以用简单的图片地图作为背景图，与其他的图层在OpenLayers 中进行叠加，在这一方面OpenLayers提供了非常多的选择。除此之外，OpenLayers实现访问地理空间数据的方法都符合行业标准。OpenLayers 支持Open GIS 协会制定的WMS（Web Mapping Service）和WFS（Web Feature Service）等网络服务规范，可以通过远程服务的方式，将以OGC 服务形式发布的地图数据加载到基于浏览器的OpenLayers 客户端中进行显示。OpenLayers采用面向对象方式开发，并使用来自Prototype.js和Rico中的一些组件。</p>
 </blockquote>
-<h3 id="ionic-openlayer-地图显示">Ionic OpenLayer 地图显示</h3>
+<h3 id="step-6-ionic-openlayer-地图显示">Step 6: Ionic OpenLayer 地图显示</h3>
 <p>1.下载OpenLayer</p>
 <p>2.添加到<code>index.html</code>:</p>
 <pre><code>&lt;script src=&quot;js/ol.js&quot;&gt;&lt;/script&gt;</code></pre>
