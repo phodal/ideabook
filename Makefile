@@ -1,6 +1,6 @@
 include_dir=build
 source=chapters/*.md
-title='IdeaBook'
+title="Phodal's Idea实战指南"
 filename='ebook'
 
 
