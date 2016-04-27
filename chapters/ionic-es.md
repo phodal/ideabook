@@ -1,19 +1,28 @@
 Ionic ElasticSearch打造O2O应用
 ===
 
-搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。最后效果图
+概况
+---
+
+### 背景
+
+搜索引擎是个好东西，GIS也是个好东西。当前还有Django和Ionic。
+
+### Showcase
+
+最后效果图
 
 ![elasticsearch_ionic_map](./images/elasticsearch_ionic_map.jpg) 
 
 ![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
 
-##构架设计
+### 构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
 
 ![Django ElasticSearch Ionic 架构](./images/struct.png)
 
-###GIS架构说明 —— 服务端
+#### 服务端
 
 简单说明:
 
@@ -67,7 +76,7 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 
 至于为什么用的是ElasticSearch，是因为之前用Solr做过。。。
 
-###GIS架构说明 —— 客户端 
+#### 客户端 
 
 **简单说明  —— GET**
 
@@ -91,7 +100,10 @@ Haystack是为Django提供一个搜索模块blabla..，他的主要特性是可�
 
 与Django Tastypie相比，DRF的主要优势在于Web界面的调试。
 
-##Django GIS准备
+步骤
+---
+
+### Django GIS
 
 1.创建虚拟环境
 
@@ -136,7 +148,7 @@ CentOS等GNU/Linux系统: 可以参照[CentOS Django Geo 环境搭建](http://ww
 
 MacOS: [Mac OS Django Geo 环境搭建](http://www.phodal.com/blog/django-elasticsearch-geo-solution/)
 
-##配置Django 
+### 配置Haystack
 
 **配置Haystack**
 
@@ -226,7 +238,7 @@ api.py是后面要用的。
 
 通过``Geocoder.geocode`` 解析用户输入的地址，为了方便直接后台管理了。
 
-###创建search_index
+### 创建search_index
 
 在源码的目录下有一个``search_indexes.py``的文件就是用于索引用的。
 
@@ -283,7 +295,7 @@ run
 
 吧
 
-##Ionic ElasticSearch 创建页面
+### Ionic ElasticSearch 创建页面
 
 1.引入库
 
@@ -341,7 +353,7 @@ run
 
 当我们点下搜索的时候，调用 ESService.
 
-##Ionic ElasticSearch Service
+### Ionic ElasticSearch Service
 
 接着我们就来构建我们的ESService，下面的部分来自网上:
 
@@ -425,15 +437,13 @@ run
 
 > OpenLayers是一个用于开发WebGIS客户端的JavaScript包。OpenLayers 支持的地图来源包括Google Maps、Yahoo、 Map、微软Virtual Earth 等，用户还可以用简单的图片地图作为背景图，与其他的图层在OpenLayers 中进行叠加，在这一方面OpenLayers提供了非常多的选择。除此之外，OpenLayers实现访问地理空间数据的方法都符合行业标准。OpenLayers 支持Open GIS 协会制定的WMS（Web Mapping Service）和WFS（Web Feature Service）等网络服务规范，可以通过远程服务的方式，将以OGC 服务形式发布的地图数据加载到基于浏览器的OpenLayers 客户端中进行显示。OpenLayers采用面向对象方式开发，并使用来自Prototype.js和Rico中的一些组件。
 
-###添加OpenLayer 3
+### Ionic OpenLayer 地图显示
 
 1.下载OpenLayer
 
 2.添加到``index.html``:
 
     <script src="js/ol.js"></script>
-
-## Ionic OpenLayer 地图显示
 
 **创建NSService**
 
