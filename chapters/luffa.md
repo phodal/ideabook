@@ -6,15 +6,15 @@
 
 ### 背景
 
-> 尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。
-
 当我们在写一些UI测试的时候，我们总需要到浏览器去看一下一些DOM的变化。比如，我们点击了某个下拉菜单，会有另外一个联动的下拉菜单发生了变化。而如果这个事件更复杂的时候，有时我们可能就很难观察出来他们之间的变化。
 
 ### ShowCase
 
+![Luffa Screenshot](./images/luffa.jpg)
+
 源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
 
-### Virtual DOM
+### 基本原理
 
 尽管这里的例子是以Jasmine作为例子，但是我想对于React也会有同样的方法。
 
@@ -43,7 +43,7 @@
 步骤
 ---
 
-###Step 1: virtual-dom与HyperScript
+###Step 1: Virtual-dom与HyperScript
 
 在寻觅中发现了[virtual-dom](https://github.com/Matt-Esch/virtual-dom)这个库，一个可以支持创建元素、diff计算以及patch操作的库，并且它效率好像还不错。
 

@@ -206,16 +206,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#步骤-9">步骤</a><ul>
 <li><a href="#step-1-注册npm和bower包">Step 1: 注册npm和bower包</a></li>
 <li><a href="#step-2-生成javascript项目框架">Step 2: 生成Javascript项目框架</a></li>
+<li><a href="#step-3-寻找所需要的函数">Step 3: 寻找所需要的函数</a></li>
+<li><a href="#step-4-整合">Step 4: 整合</a></li>
+<li><a href="#step-5-测试">Step 5: 测试</a></li>
+<li><a href="#练习建议-4">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</a><ul>
 <li><a href="#概况-11">概况</a><ul>
 <li><a href="#背景-10">背景</a></li>
 <li><a href="#showcase-8">ShowCase</a></li>
-<li><a href="#virtual-dom">Virtual DOM</a></li>
+<li><a href="#基本原理">基本原理</a></li>
 </ul></li>
 <li><a href="#步骤-10">步骤</a><ul>
-<li><a href="#step-1-virtual-dom与hyperscript">Step 1: virtual-dom与HyperScript</a></li>
+<li><a href="#step-1-virtual-dom与hyperscript">Step 1: Virtual-dom与HyperScript</a></li>
 <li><a href="#step-2-标记dom变化">Step 2: 标记DOM变化</a></li>
 </ul></li>
 </ul></li>
@@ -249,7 +253,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
 <li><a href="#step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</a></li>
 <li><a href="#step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</a></li>
-<li><a href="#练习建议-4">练习建议</a></li>
+<li><a href="#练习建议-5">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#制作照片地图">制作照片地图</a><ul>
@@ -261,7 +265,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#步骤-13">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
-<li><a href="#练习建议-5">练习建议</a></li>
+<li><a href="#练习建议-6">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#d3.js-制作技能树">D3.js 制作技能树</a><ul>
@@ -1893,16 +1897,20 @@ root.Lettuce = Lettuce;
 <li>qunit 单元测试</li>
 </ul>
 <p>这样我们就可以轻松上路了。</p>
+<h3 id="step-3-寻找所需要的函数">Step 3: 寻找所需要的函数</h3>
+<h3 id="step-4-整合">Step 4: 整合</h3>
+<h3 id="step-5-测试">Step 5: 测试</h3>
+<h3 id="练习建议-4">练习建议</h3>
 <h1 id="基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</h1>
 <h2 id="概况-11">概况</h2>
 <h3 id="背景-10">背景</h3>
-<blockquote>
-<p>尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。</p>
-</blockquote>
 <p>当我们在写一些UI测试的时候，我们总需要到浏览器去看一下一些DOM的变化。比如，我们点击了某个下拉菜单，会有另外一个联动的下拉菜单发生了变化。而如果这个事件更复杂的时候，有时我们可能就很难观察出来他们之间的变化。</p>
 <h3 id="showcase-8">ShowCase</h3>
+<figure>
+<img src="./images/luffa.jpg" alt="Luffa Screenshot" /><figcaption>Luffa Screenshot</figcaption>
+</figure>
 <p>源码见：<a href="https://github.com/phodal/luffa" class="uri">https://github.com/phodal/luffa</a></p>
-<h3 id="virtual-dom">Virtual DOM</h3>
+<h3 id="基本原理">基本原理</h3>
 <p>尽管这里的例子是以Jasmine作为例子，但是我想对于React也会有同样的方法。</p>
 <p><strong>一个Jasmine jQuery测试</strong></p>
 <p>如下是一个简单的Jamine jQuery的测试示例：</p>
@@ -1920,7 +1928,7 @@ root.Lettuce = Lettuce;
 <p>在beforeEach的时候，我们设定了固定的DOM进去，按照用户的行为做一些相应的操作。接着依据这个DOM中的元素变化 ，来作一些断言。</p>
 <p>那么，即使我们已经有一个固定的DOM，想要监听这个DOM的变化就是一件容易的事。在我们断言之前，我们就会有一个新的DOM。我们只需要Diff一下这两个DOM的变化，就可以生成这部分测试代码。</p>
 <h2 id="步骤-10">步骤</h2>
-<h3 id="step-1-virtual-dom与hyperscript">Step 1: virtual-dom与HyperScript</h3>
+<h3 id="step-1-virtual-dom与hyperscript">Step 1: Virtual-dom与HyperScript</h3>
 <p>在寻觅中发现了<a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a>这个库，一个可以支持创建元素、diff计算以及patch操作的库，并且它效率好像还不错。</p>
 <p>virtual-dom可以说由下面几部分组成的：</p>
 <ol type="1">
@@ -3270,7 +3278,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h3 id="练习建议-4">练习建议</h3>
+<h3 id="练习建议-5">练习建议</h3>
 <h1 id="制作照片地图">制作照片地图</h1>
 <h2 id="概况-14">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
@@ -3399,7 +3407,7 @@ jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
-<h3 id="练习建议-5">练习建议</h3>
+<h3 id="练习建议-6">练习建议</h3>
 <p>无</p>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
 <h2 id="概况-15">概况</h2>
