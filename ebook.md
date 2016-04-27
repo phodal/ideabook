@@ -50,6 +50,11 @@
 程序员专属Badge制作
 ===
 
+概况
+---
+
+### 背景
+
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
 ![Badge](./images/badge.png)
@@ -82,8 +87,13 @@
 
 看了看代码很简单，我就想这可以用代码生成——我就可以生成出不同的样子了。
 
-SVG与SVGWrite
----
+### ShowCase
+
+![Finally](./images/finally-brand.jpg)
+
+代码： GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
+
+###SVG与SVGWrite
 
 SVG就是一个XML
 
@@ -92,6 +102,11 @@ SVG就是一个XML
 要对这个XML进行修改也是一件很容易的事。只是，先找了PIL发现不支持，就找到了一个名为SVGWrite的工具。
 
 > A Python library to create SVG drawings.
+
+步骤
+---
+
+### Step 1: 基本图形
 
 示例代码如下:
 
@@ -122,8 +137,7 @@ dwg.save()
 
 发现和上面的样式几乎是一样的，就顺手做了剩下的几个。然后想了想，我这样做都一样，一点都不好看。
 
-高级Badge
----
+### Step 2: 高级Badge
 
 第一眼看到
 
@@ -155,15 +169,35 @@ dwg.save()
 
 ![Finally](./images/finally-brand.jpg)
 
-最后代码
+
+
+
+Web文本编辑器
+=====
+
+概况
 ---
 
-GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
+### 背景
 
+### ShowCase
 
+![Screenshot](./images/congee.jpg)
 
-文本编辑器
-=====
+GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
+
+### CKEditor + Ractive
+
+步骤
+---
+
+###Step 1: 
+
+###Step 2: 
+
+###Step 3: 
+
+###练习建议
 
 JavaScript打造Slide应用
 ===================
@@ -3920,7 +3954,7 @@ GEOJSON与ElasticSearch实现高级图形搜索
 
 从地图上跳转到对应的省的时候：
 
- 1. 用Aajx请求获取这个省的GeoJSON文件
+ 1. 用Ajax请求获取这个省的GeoJSON文件
  2. 获取这个市的中心位置，并对其进行缩放
  3. 将上面的每个市绘制到地图上
 

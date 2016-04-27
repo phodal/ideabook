@@ -1,6 +1,11 @@
 程序员专属Badge制作
 ===
 
+概况
+---
+
+### 背景
+
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
 ![Badge](./images/badge.png)
@@ -33,8 +38,13 @@
 
 看了看代码很简单，我就想这可以用代码生成——我就可以生成出不同的样子了。
 
-SVG与SVGWrite
----
+### ShowCase
+
+![Finally](./images/finally-brand.jpg)
+
+代码： GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
+
+###SVG与SVGWrite
 
 SVG就是一个XML
 
@@ -43,6 +53,11 @@ SVG就是一个XML
 要对这个XML进行修改也是一件很容易的事。只是，先找了PIL发现不支持，就找到了一个名为SVGWrite的工具。
 
 > A Python library to create SVG drawings.
+
+步骤
+---
+
+### Step 1: 基本图形
 
 示例代码如下:
 
@@ -73,8 +88,7 @@ dwg.save()
 
 发现和上面的样式几乎是一样的，就顺手做了剩下的几个。然后想了想，我这样做都一样，一点都不好看。
 
-高级Badge
----
+### Step 2: 高级Badge
 
 第一眼看到
 
@@ -106,9 +120,5 @@ dwg.save()
 
 ![Finally](./images/finally-brand.jpg)
 
-最后代码
----
-
-GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
 
 

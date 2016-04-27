@@ -85,11 +85,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#程序员专属badge制作">程序员专属Badge制作</a><ul>
+<li><a href="#概况-2">概况</a><ul>
+<li><a href="#背景-2">背景</a></li>
+<li><a href="#showcase-2">ShowCase</a></li>
 <li><a href="#svg与svgwrite">SVG与SVGWrite</a></li>
-<li><a href="#高级badge">高级Badge</a></li>
-<li><a href="#最后代码">最后代码</a></li>
 </ul></li>
-<li><a href="#文本编辑器">文本编辑器</a></li>
+<li><a href="#步骤-2">步骤</a><ul>
+<li><a href="#step-1-基本图形">Step 1: 基本图形</a></li>
+<li><a href="#step-2-高级badge">Step 2: 高级Badge</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#web文本编辑器">Web文本编辑器</a><ul>
+<li><a href="#概况-3">概况</a><ul>
+<li><a href="#背景-3">背景</a></li>
+<li><a href="#showcase-3">ShowCase</a></li>
+<li><a href="#ckeditor-ractive">CKEditor + Ractive</a></li>
+</ul></li>
+<li><a href="#步骤-3">步骤</a><ul>
+<li><a href="#step-1">Step 1:</a></li>
+<li><a href="#step-2">Step 2:</a></li>
+<li><a href="#step-3">Step 3:</a></li>
+<li><a href="#练习建议-2">练习建议</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#javascript打造slide应用">JavaScript打造Slide应用</a><ul>
 <li><a href="#需求">需求</a></li>
 <li><a href="#echoesworks功能">EchoesWorks功能</a></li>
@@ -189,30 +207,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
-<li><a href="#概况-2">概况</a><ul>
-<li><a href="#背景-2">背景</a></li>
-<li><a href="#showcase-2">Showcase</a></li>
+<li><a href="#概况-4">概况</a><ul>
+<li><a href="#背景-4">背景</a></li>
+<li><a href="#showcase-4">Showcase</a></li>
 <li><a href="#框架-oculus-rift-node-nmd">框架： Oculus Rift &amp; Node NMD</a></li>
 </ul></li>
-<li><a href="#步骤-2">步骤</a><ul>
+<li><a href="#步骤-4">步骤</a><ul>
 <li><a href="#step-1-node-oculus-services">Step 1: Node Oculus Services</a></li>
 <li><a href="#step-2-node.js-oculus-helloworld">Step 2: Node.js Oculus Hello，World</a></li>
 <li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
 <li><a href="#step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</a></li>
 <li><a href="#step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</a></li>
-<li><a href="#练习建议-2">练习建议</a></li>
+<li><a href="#练习建议-3">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#制作照片地图">制作照片地图</a><ul>
-<li><a href="#概况-3">概况</a><ul>
+<li><a href="#概况-5">概况</a><ul>
 <li><a href="#background把照片放在地图上">Background:把照片放在地图上</a></li>
-<li><a href="#showcase-3">Showcase</a></li>
+<li><a href="#showcase-5">Showcase</a></li>
 <li><a href="#框架-exif-exifread-cartodb">框架： EXIF &amp; ExifRead &amp; CartoDB</a></li>
 </ul></li>
-<li><a href="#步骤-3">步骤</a><ul>
+<li><a href="#步骤-5">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
-<li><a href="#练习建议-3">练习建议</a></li>
+<li><a href="#练习建议-4">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#react制作markdown简历生成器">React制作Markdown简历生成器</a></li>
@@ -274,6 +292,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="step-2-douban-api">Step 2: Douban API</h3>
 <h3 id="练习建议-1">练习建议</h3>
 <h1 id="程序员专属badge制作">程序员专属Badge制作</h1>
+<h2 id="概况-2">概况</h2>
+<h3 id="背景-2">背景</h3>
 <p>前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:</p>
 <figure>
 <img src="./images/badge.png" alt="Badge" /><figcaption>Badge</figcaption>
@@ -301,7 +321,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">&lt;/g&gt;</span>
 <span class="kw">&lt;/svg&gt;</span></code></pre></div>
 <p>看了看代码很简单，我就想这可以用代码生成——我就可以生成出不同的样子了。</p>
-<h2 id="svg与svgwrite">SVG与SVGWrite</h2>
+<h3 id="showcase-2">ShowCase</h3>
+<figure>
+<img src="./images/finally-brand.jpg" alt="Finally" /><figcaption>Finally</figcaption>
+</figure>
+<p>代码： GitHub: <a href="https://github.com/phodal/brand" class="uri">https://github.com/phodal/brand</a></p>
+<h3 id="svg与svgwrite">SVG与SVGWrite</h3>
 <p>SVG就是一个XML</p>
 <blockquote>
 <p>可缩放矢量图形（Scalable Vector Graphics，SVG) ，是一种用来描述二维矢量图形的XML 标记语言。</p>
@@ -310,6 +335,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <blockquote>
 <p>A Python library to create SVG drawings.</p>
 </blockquote>
+<h2 id="步骤-2">步骤</h2>
+<h3 id="step-1-基本图形">Step 1: 基本图形</h3>
 <p>示例代码如下:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> svgwrite
 
@@ -330,7 +357,7 @@ shapes.add(dwg.text(<span class="st">&#39;idea&#39;</span>, insert<span class="o
 
 dwg.save()</code></pre></div>
 <p>发现和上面的样式几乎是一样的，就顺手做了剩下的几个。然后想了想，我这样做都一样，一点都不好看。</p>
-<h2 id="高级badge">高级Badge</h2>
+<h3 id="step-2-高级badge">Step 2: 高级Badge</h3>
 <p>第一眼看到</p>
 <figure>
 <img src="./images/brand-idea-prototype.jpg" alt="Idea Prototype" /><figcaption>Idea Prototype</figcaption>
@@ -357,9 +384,20 @@ dwg.save()</code></pre></div>
 <figure>
 <img src="./images/finally-brand.jpg" alt="Finally" /><figcaption>Finally</figcaption>
 </figure>
-<h2 id="最后代码">最后代码</h2>
-<p>GitHub: <a href="https://github.com/phodal/brand" class="uri">https://github.com/phodal/brand</a></p>
-<h1 id="文本编辑器">文本编辑器</h1>
+<h1 id="web文本编辑器">Web文本编辑器</h1>
+<h2 id="概况-3">概况</h2>
+<h3 id="背景-3">背景</h3>
+<h3 id="showcase-3">ShowCase</h3>
+<figure>
+<img src="./images/congee.jpg" alt="Screenshot" /><figcaption>Screenshot</figcaption>
+</figure>
+<p>GitHub: <a href="https://github.com/phodal/congee" class="uri">https://github.com/phodal/congee</a></p>
+<h3 id="ckeditor-ractive">CKEditor + Ractive</h3>
+<h2 id="步骤-3">步骤</h2>
+<h3 id="step-1">Step 1:</h3>
+<h3 id="step-2">Step 2:</h3>
+<h3 id="step-3">Step 3:</h3>
+<h3 id="练习建议-2">练习建议</h3>
 <h1 id="javascript打造slide应用">JavaScript打造Slide应用</h1>
 <p>又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。</p>
 <p>[EchoesWorks][1]</p>
@@ -2467,11 +2505,11 @@ require([&#39;../app&#39;], function(App){
 <li>当用户向左滑动的时候，菜单应该关闭</li>
 </ul>
 <h1 id="oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</h1>
-<h2 id="概况-2">概况</h2>
-<h3 id="背景-2">背景</h3>
+<h2 id="概况-4">概况</h2>
+<h3 id="背景-4">背景</h3>
 <p>在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。</p>
 <p>说到底，还是Web的开发环境到底还是比较容易搭建的。</p>
-<h3 id="showcase-2">Showcase</h3>
+<h3 id="showcase-4">Showcase</h3>
 <p>这个repo的最后效果图如下所示:</p>
 <figure>
 <img src="./images/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
@@ -2489,7 +2527,7 @@ require([&#39;../app&#39;], function(App){
 <blockquote>
 <p>Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。</p>
 </blockquote>
-<h2 id="步骤-2">步骤</h2>
+<h2 id="步骤-4">步骤</h2>
 <p>现在，让我们开始构建吧。</p>
 <h3 id="step-1-node-oculus-services">Step 1: Node Oculus Services</h3>
 <p>这里，我们所要做的事情便是将传感器返回来的四元数(Quaternions)与欧拉角(Euler angles)以API的形式返回到前端。</p>
@@ -2856,12 +2894,12 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h3 id="练习建议-2">练习建议</h3>
+<h3 id="练习建议-3">练习建议</h3>
 <h1 id="制作照片地图">制作照片地图</h1>
-<h2 id="概况-3">概况</h2>
+<h2 id="概况-5">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
 <p>我使用的Nokia Lumia 920没有一个好的照片应用</p>
-<h3 id="showcase-3">Showcase</h3>
+<h3 id="showcase-5">Showcase</h3>
 <figure>
 <img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
 </figure>
@@ -2885,7 +2923,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <blockquote>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
 </blockquote>
-<h2 id="步骤-3">步骤</h2>
+<h2 id="步骤-5">步骤</h2>
 <h3 id="step-1-解析读取照片信息">Step 1: 解析读取照片信息</h3>
 <p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
 <p>主要步骤如下：</p>
@@ -2985,7 +3023,7 @@ jsonFile.writelines(&#39;]}\n&#39;)
 jsonFile.close()</code></pre>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
-<h3 id="练习建议-3">练习建议</h3>
+<h3 id="练习建议-4">练习建议</h3>
 <p>无</p>
 <h1 id="react制作markdown简历生成器">React制作Markdown简历生成器</h1>
 <h1 id="d3.js-制作技能树">D3.js 制作技能树</h1>
@@ -3323,7 +3361,7 @@ colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
 <p>创建对应省的市的Dropdown，我们只需要根据地点重新生成一个新的Menu再插入即可。</p>
 <p>从地图上跳转到对应的省的时候：</p>
 <ol type="1">
-<li>用Aajx请求获取这个省的GeoJSON文件</li>
+<li>用Ajax请求获取这个省的GeoJSON文件</li>
 <li>获取这个市的中心位置，并对其进行缩放</li>
 <li>将上面的每个市绘制到地图上</li>
 </ol>
