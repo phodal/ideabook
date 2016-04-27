@@ -80,14 +80,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#概况">概况</a><ul>
 <li><a href="#背景">背景</a></li>
 <li><a href="#showcase">ShowCase</a></li>
-<li><a href="#hadoop-pig-jython">Hadoop + Pig + Jython</a></li>
+<li><a href="#hadoop-pig-jython-ammap">Hadoop + Pig + Jython + AmMap</a></li>
 </ul></li>
 <li><a href="#步骤">步骤</a><ul>
 <li><a href="#step-1-环境搭建">Step 1: 环境搭建</a></li>
 <li><a href="#step-2-解析-access.log">Step 2: 解析 access.log</a></li>
 <li><a href="#step-3-转换ip">Step 3: 转换IP</a></li>
-<li><a href="#step-4-存储elasticsearch">Step 4: 存储ElasticSearch</a></li>
-<li><a href="#step-5-展示">Step 5: 展示</a></li>
+<li><a href="#step-4-展示">Step 4: 展示</a></li>
 <li><a href="#练习建议">练习建议</a></li>
 </ul></li>
 </ul></li>
@@ -311,13 +310,283 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="概况">概况</h2>
 <h3 id="背景">背景</h3>
 <h3 id="showcase">ShowCase</h3>
-<h3 id="hadoop-pig-jython">Hadoop + Pig + Jython</h3>
+<figure>
+<img src="./images/map_with_bg.jpg" alt="Demo" /><figcaption>Demo</figcaption>
+</figure>
+<h3 id="hadoop-pig-jython-ammap">Hadoop + Pig + Jython + AmMap</h3>
 <h2 id="步骤">步骤</h2>
 <h3 id="step-1-环境搭建">Step 1: 环境搭建</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">brew</span> install hadoop
+<span class="kw">brew</span> install pig 
+<span class="kw">brew</span> install elasticsearch</code></pre></div>
+<p>Install pig-elasticsearch</p>
+<p><a href="https://github.com/elastic/elasticsearch-hadoop" class="uri">https://github.com/elastic/elasticsearch-hadoop</a></p>
 <h3 id="step-2-解析-access.log">Step 2: 解析 access.log</h3>
+<pre><code>register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
+register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/elasticsearch-hadoop-pig-2.1.0.Beta3.jar;
+
+RAW_LOGS = LOAD &#39;data/access.log&#39; USING TextLoader as (line:chararray);
+
+LOGS_BASE = FOREACH RAW_LOGS GENERATE
+    FLATTEN(
+      REGEX_EXTRACT_ALL(line, &#39;(\\S+) - - \\[([^\\[]+)\\]\\s+&quot;([^&quot;]+)&quot;\\s+(\\d+)\\s+(\\d+)\\s+&quot;([^&quot;]+)&quot;\\s+&quot;([^&quot;]+)&quot;\\s+-&#39;)
+    )
+    AS (
+        ip: chararray,
+        timestamp: chararray,
+        url: chararray,
+        status: chararray,
+        bytes: chararray,
+        referrer: chararray,
+        useragent: chararray
+    );
+
+A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39;) as date, ip, url,(int)status,(int)bytes,referrer,useragent;
+--B = GROUP A BY (timestamp);
+--C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
+--D = ORDER C BY timestamp,count desc;
+STORE A INTO &#39;nginx/log&#39; USING org.elasticsearch.hadoop.pig.EsStorage();</code></pre>
 <h3 id="step-3-转换ip">Step 3: 转换IP</h3>
-<h3 id="step-4-存储elasticsearch">Step 4: 存储ElasticSearch</h3>
-<h3 id="step-5-展示">Step 5: 展示</h3>
+<pre><code>register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
+register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/elasticsearch-hadoop-pig-2.1.0.Beta3.jar;
+register utils.py using jython as utils;
+
+RAW_LOGS = LOAD &#39;data/access.log&#39; USING TextLoader as (line:chararray);
+
+LOGS_BASE = FOREACH RAW_LOGS GENERATE
+    FLATTEN(
+      REGEX_EXTRACT_ALL(line, &#39;(\\S+) - - \\[([^\\[]+)\\]\\s+&quot;([^&quot;]+)&quot;\\s+(\\d+)\\s+(\\d+)\\s+&quot;([^&quot;]+)&quot;\\s+&quot;([^&quot;]+)&quot;\\s+-&#39;)
+    )
+    AS (
+        ip: chararray,
+        timestamp: chararray,
+        url: chararray,
+        status: chararray,
+        bytes: chararray,
+        referrer: chararray,
+        useragent: chararray
+    );
+
+A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39;) as date, utils.get_country(ip) as country,
+    utils.get_city(ip) as city, utils.get_geo(ip) as location,ip,
+    utils.query(url) as url,(int)status,(int)bytes,referrer,useragent;
+
+STORE A INTO &#39;nginx/log&#39; USING org.elasticsearch.hadoop.pig.EsStorage();</code></pre>
+<pre><code>#!/usr/bin/python
+
+import sys
+sys.path.append(&#39;/Users/fdhuang/test/lib/python2.7/site-packages/&#39;)
+import pygeoip
+gi = pygeoip.GeoIP(&quot;data/GeoLiteCity.dat&quot;)
+
+@outputSchema(&#39;everything:chararray&#39;)
+def query(url):
+    try:
+        return url
+    except:
+        pass
+
+@outputSchema(&#39;city:chararray&#39;)
+def get_city(ip):
+    try:
+        city = gi.record_by_name(ip)[&quot;city&quot;]
+        return city
+    except:
+        pass
+
+
+@outputSchema(&#39;country:chararray&#39;)
+def get_country(ip):
+    try:
+        city = gi.record_by_name(ip)[&quot;country_name&quot;]
+        return city
+    except:
+        pass
+
+@outputSchema(&#39;location:chararray&#39;)
+def get_geo(ip):
+    try:
+        geo = str(gi.record_by_name(ip)[&quot;longitude&quot;]) + &quot;,&quot; + str(gi.record_by_name(ip)[&quot;latitude&quot;])
+        return geo
+    except:
+        pass</code></pre>
+<h3 id="step-4-展示">Step 4: 展示</h3>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> exampleNS <span class="op">=</span> <span class="op">{};</span>
+
+<span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> obj <span class="op">=</span> <span class="op">{},</span> queryString <span class="op">=</span> <span class="va">location</span>.<span class="va">search</span>.<span class="at">slice</span>(<span class="dv">1</span>)<span class="op">,</span>
+        re <span class="op">=</span> <span class="ss">/</span><span class="sc">([^&amp;=]+)</span><span class="ss">=</span><span class="sc">([^&amp;]*)</span><span class="ss">/g</span><span class="op">,</span> m<span class="op">;</span>
+
+    <span class="cf">while</span> (m <span class="op">=</span> <span class="va">re</span>.<span class="at">exec</span>(queryString)) <span class="op">{</span>
+        obj[<span class="at">decodeURIComponent</span>(m[<span class="dv">1</span>])] <span class="op">=</span> <span class="at">decodeURIComponent</span>(m[<span class="dv">2</span>])<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">if</span> (<span class="st">&#39;renderers&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
+        <span class="cf">return</span> obj[<span class="st">&#39;renderers&#39;</span>].<span class="at">split</span>(<span class="st">&#39;,&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="st">&#39;renderer&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
+        <span class="cf">return</span> [obj[<span class="st">&#39;renderer&#39;</span>]]<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">undefined</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
+
+<span class="kw">var</span> view <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">View</span>(<span class="op">{</span>
+    <span class="dt">center</span><span class="op">:</span> [<span class="fl">12119653.781323666</span><span class="op">,</span><span class="fl">4054689.6824535457</span>]<span class="op">,</span>
+    <span class="dt">zoom</span><span class="op">:</span> <span class="dv">4</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> controls <span class="op">=</span> <span class="va">ol</span>.<span class="va">control</span>.<span class="at">defaults</span>(<span class="op">{</span><span class="dt">rotate</span><span class="op">:</span> <span class="kw">false</span><span class="op">}</span>)<span class="op">;</span>
+<span class="kw">var</span> interactions <span class="op">=</span> <span class="va">ol</span>.<span class="va">interaction</span>.<span class="at">defaults</span>(<span class="op">{</span><span class="dt">altShiftDragRotate</span><span class="op">:</span><span class="kw">false</span><span class="op">,</span> <span class="dt">pinchRotate</span><span class="op">:</span><span class="kw">false</span><span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> map <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Map</span>(<span class="op">{</span>
+    <span class="dt">controls</span><span class="op">:</span> controls<span class="op">,</span>
+    <span class="dt">interactions</span><span class="op">:</span> interactions<span class="op">,</span>
+    <span class="dt">layers</span><span class="op">:</span> [
+        <span class="kw">new</span> <span class="va">ol</span>.<span class="va">layer</span>.<span class="at">Tile</span>(<span class="op">{</span>
+            <span class="dt">source</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">source</span>.<span class="at">BingMaps</span>(<span class="op">{</span>
+                <span class="dt">key</span><span class="op">:</span> <span class="st">&#39;Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3&#39;</span><span class="op">,</span>
+                <span class="dt">culture</span><span class="op">:</span> <span class="st">&#39;zh-CN&#39;</span><span class="op">,</span>
+                <span class="dt">imagerySet</span><span class="op">:</span> <span class="st">&#39;Road&#39;</span>
+            <span class="op">}</span>)
+        <span class="op">}</span>)
+    ]<span class="op">,</span>
+    <span class="dt">renderer</span><span class="op">:</span> <span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span>()<span class="op">,</span>
+    <span class="dt">target</span><span class="op">:</span> <span class="st">&#39;map&#39;</span><span class="op">,</span>
+    <span class="dt">view</span><span class="op">:</span> view
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="va">$</span>.<span class="va">es</span>.<span class="at">Client</span>(<span class="op">{</span>
+    <span class="dt">hosts</span><span class="op">:</span> <span class="st">&#39;localhost:9200&#39;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> query <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">index</span><span class="op">:</span> <span class="st">&#39;nginx&#39;</span><span class="op">,</span>
+    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;log&#39;</span><span class="op">,</span>
+    <span class="dt">size</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span>
+    <span class="dt">body</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">query</span><span class="op">:</span> <span class="op">{</span>
+            <span class="dt">query_string</span><span class="op">:</span> <span class="op">{</span>
+                <span class="dt">query</span><span class="op">:</span> <span class="st">&quot;*&quot;</span>
+            <span class="op">}</span>
+        <span class="op">},</span>
+        <span class="dt">aggs</span><span class="op">:</span> <span class="op">{</span>
+            <span class="dv">2</span><span class="op">:</span> <span class="op">{</span>
+                <span class="dt">terms</span><span class="op">:</span> <span class="op">{</span>
+                    <span class="dt">field</span><span class="op">:</span> <span class="st">&quot;city&quot;</span><span class="op">,</span>
+                    <span class="dt">size</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span>
+                    <span class="dt">order</span><span class="op">:</span> <span class="op">{</span>
+                        <span class="dt">_count</span><span class="op">:</span> <span class="st">&quot;desc&quot;</span>
+                    <span class="op">}</span>
+                <span class="op">}</span>
+            <span class="op">}</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
+<span class="op">};</span>
+
+<span class="va">client</span>.<span class="at">search</span>(query).<span class="at">then</span>(<span class="kw">function</span>(results)<span class="op">{</span>
+    <span class="kw">var</span> vectorSource <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">source</span>.<span class="at">Vector</span>(<span class="op">{</span> <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">$</span>.<span class="at">each</span>(<span class="va">results</span>.<span class="va">hits</span>.<span class="at">hits</span><span class="op">,</span> <span class="kw">function</span>(index<span class="op">,</span> result)<span class="op">{</span>
+        result <span class="op">=</span> <span class="va">result</span>.<span class="at">_source</span><span class="op">;</span>
+        <span class="cf">if</span>(<span class="va">result</span>.<span class="at">location</span> <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            <span class="cf">return</span><span class="op">;</span>
+        <span class="op">}</span>
+        <span class="kw">var</span> position <span class="op">=</span> <span class="va">result</span>.<span class="va">location</span>.<span class="at">split</span>(<span class="st">&quot;,&quot;</span>)<span class="op">;</span>
+        <span class="kw">var</span> pos <span class="op">=</span> <span class="va">ol</span>.<span class="va">proj</span>.<span class="at">transform</span>([<span class="at">parseFloat</span>(position[<span class="dv">0</span>])<span class="op">,</span> <span class="at">parseFloat</span>(position[<span class="dv">1</span>])]<span class="op">,</span> <span class="st">&#39;EPSG:4326&#39;</span><span class="op">,</span> <span class="st">&#39;EPSG:3857&#39;</span>)<span class="op">;</span>
+
+        <span class="kw">var</span> iconFeature <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Feature</span>(<span class="op">{</span>
+            <span class="dt">geometry</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">geom</span>.<span class="at">Point</span>(pos)<span class="op">,</span>
+            <span class="dt">city</span><span class="op">:</span> <span class="va">result</span>.<span class="at">city</span>
+        <span class="op">}</span>)<span class="op">;</span>
+        <span class="va">vectorSource</span>.<span class="at">addFeature</span>(iconFeature)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> iconStyle <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Style</span>(<span class="op">{</span>
+        <span class="dt">image</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Icon</span>((<span class="op">{</span>
+            <span class="dt">anchor</span><span class="op">:</span> [<span class="fl">0.5</span><span class="op">,</span> <span class="dv">46</span>]<span class="op">,</span>
+            <span class="dt">anchorXUnits</span><span class="op">:</span> <span class="st">&#39;fraction&#39;</span><span class="op">,</span>
+            <span class="dt">anchorYUnits</span><span class="op">:</span> <span class="st">&#39;pixels&#39;</span><span class="op">,</span>
+            <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span>
+            <span class="dt">src</span><span class="op">:</span> <span class="st">&#39;img/icon.png&#39;</span>
+        <span class="op">}</span>))
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> vectorLayer <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">layer</span>.<span class="at">Vector</span>(<span class="op">{</span>
+        <span class="dt">source</span><span class="op">:</span> vectorSource<span class="op">,</span>
+        <span class="dt">style</span><span class="op">:</span> iconStyle
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">addLayer</span>(vectorLayer)<span class="op">;</span>
+
+    <span class="kw">var</span> element <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;popup&#39;</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> popup <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Overlay</span>(<span class="op">{</span>
+        <span class="dt">element</span><span class="op">:</span> element<span class="op">,</span>
+        <span class="dt">positioning</span><span class="op">:</span> <span class="st">&#39;bottom-center&#39;</span><span class="op">,</span>
+        <span class="dt">stopEvent</span><span class="op">:</span> <span class="kw">false</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">addOverlay</span>(popup)<span class="op">;</span>
+
+    <span class="va">map</span>.<span class="at">on</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="kw">function</span>(evt) <span class="op">{</span>
+        <span class="kw">var</span> feature <span class="op">=</span> <span class="va">map</span>.<span class="at">forEachFeatureAtPixel</span>(<span class="va">evt</span>.<span class="at">pixel</span><span class="op">,</span>
+            <span class="kw">function</span>(feature<span class="op">,</span> layer) <span class="op">{</span>
+                <span class="cf">return</span> feature<span class="op">;</span>
+            <span class="op">}</span>)<span class="op">;</span>
+
+        <span class="cf">if</span> (feature) <span class="op">{</span>
+            <span class="kw">var</span> geometry <span class="op">=</span> <span class="va">feature</span>.<span class="at">getGeometry</span>()<span class="op">;</span>
+            <span class="kw">var</span> coord <span class="op">=</span> <span class="va">geometry</span>.<span class="at">getCoordinates</span>()<span class="op">;</span>
+            <span class="va">popup</span>.<span class="at">setPosition</span>(coord)<span class="op">;</span>
+            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="op">{</span>
+                <span class="st">&#39;placement&#39;</span><span class="op">:</span> <span class="st">&#39;top&#39;</span><span class="op">,</span>
+                <span class="st">&#39;html&#39;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+                <span class="st">&#39;content&#39;</span><span class="op">:</span> <span class="st">&quot;&lt;h4&gt;&quot;</span> <span class="op">+</span> <span class="va">feature</span>.<span class="at">get</span>(<span class="st">&#39;city&#39;</span>) <span class="op">+</span> <span class="st">&quot;&lt;/h4&gt;&quot;</span>
+            <span class="op">}</span>)<span class="op">;</span>
+            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;show&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;destroy&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> width <span class="op">=</span> <span class="dv">300</span><span class="op">,</span>
+        height <span class="op">=</span> <span class="dv">300</span><span class="op">,</span>
+        radius <span class="op">=</span> <span class="va">Math</span>.<span class="at">min</span>(width<span class="op">,</span> height) / <span class="dv">2</span><span class="op">;</span>
+
+    <span class="kw">var</span> color <span class="op">=</span> <span class="va">d3</span>.<span class="va">scale</span>.<span class="at">ordinal</span>()
+        .<span class="at">range</span>([<span class="st">&quot;#1abc9c&quot;</span><span class="op">,</span> <span class="st">&quot;#16a085&quot;</span><span class="op">,</span> <span class="st">&quot;#2ecc71&quot;</span><span class="op">,</span> <span class="st">&quot;#27ae60&quot;</span><span class="op">,</span> <span class="st">&quot;#4caf50&quot;</span><span class="op">,</span> <span class="st">&quot;#8bc34a&quot;</span><span class="op">,</span> <span class="st">&quot;#cddc39&quot;</span><span class="op">,</span> <span class="st">&quot;#3498db&quot;</span><span class="op">,</span> <span class="st">&quot;#2980b9&quot;</span><span class="op">,</span> <span class="st">&quot;#34495e&quot;</span><span class="op">,</span> <span class="st">&quot;#2c3e50&quot;</span><span class="op">,</span> <span class="st">&quot;#2196f3&quot;</span><span class="op">,</span> <span class="st">&quot;#03a9f4&quot;</span><span class="op">,</span> <span class="st">&quot;#00bcd4&quot;</span><span class="op">,</span> <span class="st">&quot;#009688&quot;</span><span class="op">,</span> <span class="st">&quot;#e74c3c&quot;</span><span class="op">,</span> <span class="st">&quot;#c0392b&quot;</span><span class="op">,</span> <span class="st">&quot;#f44336&quot;</span><span class="op">,</span> <span class="st">&quot;#e67e22&quot;</span><span class="op">,</span> <span class="st">&quot;#d35400&quot;</span><span class="op">,</span> <span class="st">&quot;#f39c12&quot;</span><span class="op">,</span> <span class="st">&quot;#ff9800&quot;</span><span class="op">,</span> <span class="st">&quot;#ff5722&quot;</span><span class="op">,</span> <span class="st">&quot;#ffc107&quot;</span><span class="op">,</span> <span class="st">&quot;#f1c40f&quot;</span><span class="op">,</span> <span class="st">&quot;#ffeb3b&quot;</span><span class="op">,</span> <span class="st">&quot;#9b59b6&quot;</span><span class="op">,</span> <span class="st">&quot;#8e44ad&quot;</span><span class="op">,</span> <span class="st">&quot;#9c27b0&quot;</span><span class="op">,</span> <span class="st">&quot;#673ab7&quot;</span><span class="op">,</span> <span class="st">&quot;#e91e63&quot;</span><span class="op">,</span> <span class="st">&quot;#3f51b5&quot;</span><span class="op">,</span> <span class="st">&quot;#795548&quot;</span><span class="op">,</span> <span class="st">&quot;#9e9e9e&quot;</span><span class="op">,</span> <span class="st">&quot;#607d8b&quot;</span><span class="op">,</span> <span class="st">&quot;#7f8c8d&quot;</span><span class="op">,</span> <span class="st">&quot;#95a5a6&quot;</span><span class="op">,</span> <span class="st">&quot;#bdc3c7&quot;</span><span class="op">,</span> <span class="st">&quot;#ecf0f1&quot;</span><span class="op">,</span> <span class="st">&quot;#efefef&quot;</span>])<span class="op">;</span>
+
+    <span class="kw">var</span> arc <span class="op">=</span> <span class="va">d3</span>.<span class="va">svg</span>.<span class="at">arc</span>()
+        .<span class="at">outerRadius</span>(radius <span class="op">-</span> <span class="dv">10</span>)
+        .<span class="at">innerRadius</span>(<span class="dv">0</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> pie <span class="op">=</span> <span class="va">d3</span>.<span class="va">layout</span>.<span class="at">pie</span>()
+        .<span class="at">sort</span>(<span class="kw">null</span>)
+        .<span class="at">value</span>(<span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="va">d</span>.<span class="at">doc_count</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>).<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> width)
+        .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> height)
+        .<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(&quot;</span> <span class="op">+</span> width / <span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;,&quot;</span> <span class="op">+</span> height / <span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;)&quot;</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> citys <span class="op">=</span> <span class="va">results</span>.<span class="at">aggregations</span>[<span class="dv">2</span>].<span class="at">buckets</span><span class="op">;</span>
+    <span class="va">citys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(city) <span class="op">{</span>
+        <span class="va">city</span>.<span class="at">doc_count</span> <span class="op">=</span> <span class="op">+</span><span class="va">city</span>.<span class="at">doc_count</span><span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="kw">var</span> g <span class="op">=</span> <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;.arc&quot;</span>)
+        .<span class="at">data</span>(<span class="at">pie</span>(citys))
+        .<span class="at">enter</span>().<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;class&quot;</span><span class="op">,</span> <span class="st">&quot;arc&quot;</span>)<span class="op">;</span>
+
+    <span class="va">g</span>.<span class="at">append</span>(<span class="st">&quot;path&quot;</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;d&quot;</span><span class="op">,</span> arc)
+        .<span class="at">style</span>(<span class="st">&quot;fill&quot;</span><span class="op">,</span> <span class="kw">function</span>(city) <span class="op">{</span> <span class="cf">return</span> <span class="at">color</span>(<span class="va">city</span>.<span class="va">data</span>.<span class="at">key</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="va">g</span>.<span class="at">append</span>(<span class="st">&quot;text&quot;</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="st">&quot;translate(&quot;</span> <span class="op">+</span> <span class="va">arc</span>.<span class="at">centroid</span>(d) <span class="op">+</span> <span class="st">&quot;)&quot;</span><span class="op">;</span> <span class="op">}</span>)
+        .<span class="at">attr</span>(<span class="st">&quot;dy&quot;</span><span class="op">,</span> <span class="st">&quot;.35em&quot;</span>)
+        .<span class="at">style</span>(<span class="st">&quot;text-anchor&quot;</span><span class="op">,</span> <span class="st">&quot;middle&quot;</span>)
+        .<span class="at">text</span>(<span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="va">d</span>.<span class="va">data</span>.<span class="at">key</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <h3 id="练习建议">练习建议</h3>
 <h1 id="书籍录入程序">书籍录入程序</h1>
 <h2 id="概况-1">概况</h2>
