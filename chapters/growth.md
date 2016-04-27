@@ -1,5 +1,10 @@
-Growth
+一份代码打造跨平台应用
 ===
+
+概况
+---
+
+### 背景
 
 Web本身就是跨平台的，这意味着这中间存在着无限的可能性。
 
@@ -11,9 +16,13 @@ Web本身就是跨平台的，这意味着这中间存在着无限的可能性�
  - Web版
  - 桌面版：Mac OS、Windows、GNU/Linux
 
+### ShowCase
+
 截图合并如下：
 
 ![growth-full-platforms.png](./images/growth-full-platforms.jpg)
+
+### Ionic & Electron & Cordova
 
 而更重要的是它们使用了同一份代码——除了对特定设备进行一些处理就没有其他修改。相信全栈的你已经看出来了：
 
@@ -25,7 +34,10 @@ Mobile = Cordova + Angular.js + Ionic
 
 除了前面的WebView不一样，后面都是Angular.js + Ionic。
 
-##从Web到混合应用，再到桌面应用
+步骤
+---
+
+###Step 1: 从Web到混合应用，再到桌面应用
 
 在最打开的时候它只是一个单纯的混合应用，我想总结一下我的学习经验，分享一下学习的心得，如：
 
@@ -56,7 +68,7 @@ Mobile = Cordova + Angular.js + Ionic
 1. 响应式设计
 2. 平台/设备特定代码
 
-##响应式设计
+### Step 2: 响应式设计
 
 响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：
 
@@ -72,17 +84,17 @@ Mobile = Cordova + Angular.js + Ionic
 
 而这个问题相比于平台特定问题则更容易解决。
 
-##平台特定代码
+### Step 3: 平台特定代码
 
 对于特定平台才有的问题就不是一件容易解决的事，分享一下：
 
-###存储
+#### 存储
 
 我遇到的第一个问题是**数据存储**的问题。最开始的时候，我只需要开始混合应用。因此我可以用**Preferences**、或者**SQLite**来存储数据。
 
 后来，我扩展到了Web版，我只好用LocalStoarge。于是，我就开始抽象出一个**$storageServices**来做相应的事。接着遇到一系列的问题，我舍弃了原有的方案，直接使用LocalStoarge。
 
-###数据分析
+#### 数据分析
 
 为了开发方便，我使用Google Analytics来分析用户的行为——毕竟数据对我来说也不是特别重要，只要可以看到有人使用就可以了。
 
@@ -105,7 +117,7 @@ Mobile = Cordova + Angular.js + Ionic
 
 这样在我调试的时候我只需要打个Log，在产品环境时就会Track。
 
-###更新
+#### 自动更新
 
 同样的，对于Android用户来说，他们可以选择自行下载更新，所以我需要针对Android用户有一个自动更新：
 
@@ -116,7 +128,7 @@ if(isAndroid) {
 }
 ```    
 
-###桌面应用
+#### 桌面应用
 
 对于桌面应用来说也会有类似的问题，我遇到的第一个问题是Electron默认开启了AMD。于是，直接删之：
 
@@ -135,7 +147,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 ![六边形架构](./images/hexoarch.png)
 
-##未来
+### 未来
 
 我就开始思索这个问题，未来的趋势是合并到一起，而这一个趋势在现在就已经是完成时了。
 

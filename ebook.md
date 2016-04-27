@@ -650,8 +650,13 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 对应的去解析数据，并显示在地图上
    
 
-Growth
+一份代码打造跨平台应用
 ===
+
+概况
+---
+
+### 背景
 
 Web本身就是跨平台的，这意味着这中间存在着无限的可能性。
 
@@ -663,9 +668,13 @@ Web本身就是跨平台的，这意味着这中间存在着无限的可能性�
  - Web版
  - 桌面版：Mac OS、Windows、GNU/Linux
 
+### ShowCase
+
 截图合并如下：
 
 ![growth-full-platforms.png](./images/growth-full-platforms.jpg)
+
+### Ionic & Electron & Cordova
 
 而更重要的是它们使用了同一份代码——除了对特定设备进行一些处理就没有其他修改。相信全栈的你已经看出来了：
 
@@ -677,7 +686,10 @@ Mobile = Cordova + Angular.js + Ionic
 
 除了前面的WebView不一样，后面都是Angular.js + Ionic。
 
-##从Web到混合应用，再到桌面应用
+步骤
+---
+
+###Step 1: 从Web到混合应用，再到桌面应用
 
 在最打开的时候它只是一个单纯的混合应用，我想总结一下我的学习经验，分享一下学习的心得，如：
 
@@ -708,7 +720,7 @@ Mobile = Cordova + Angular.js + Ionic
 1. 响应式设计
 2. 平台/设备特定代码
 
-##响应式设计
+### Step 2: 响应式设计
 
 响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：
 
@@ -724,17 +736,17 @@ Mobile = Cordova + Angular.js + Ionic
 
 而这个问题相比于平台特定问题则更容易解决。
 
-##平台特定代码
+### Step 3: 平台特定代码
 
 对于特定平台才有的问题就不是一件容易解决的事，分享一下：
 
-###存储
+#### 存储
 
 我遇到的第一个问题是**数据存储**的问题。最开始的时候，我只需要开始混合应用。因此我可以用**Preferences**、或者**SQLite**来存储数据。
 
 后来，我扩展到了Web版，我只好用LocalStoarge。于是，我就开始抽象出一个**$storageServices**来做相应的事。接着遇到一系列的问题，我舍弃了原有的方案，直接使用LocalStoarge。
 
-###数据分析
+#### 数据分析
 
 为了开发方便，我使用Google Analytics来分析用户的行为——毕竟数据对我来说也不是特别重要，只要可以看到有人使用就可以了。
 
@@ -757,7 +769,7 @@ Mobile = Cordova + Angular.js + Ionic
 
 这样在我调试的时候我只需要打个Log，在产品环境时就会Track。
 
-###更新
+#### 自动更新
 
 同样的，对于Android用户来说，他们可以选择自行下载更新，所以我需要针对Android用户有一个自动更新：
 
@@ -768,7 +780,7 @@ if(isAndroid) {
 }
 ```    
 
-###桌面应用
+#### 桌面应用
 
 对于桌面应用来说也会有类似的问题，我遇到的第一个问题是Electron默认开启了AMD。于是，直接删之：
 
@@ -787,7 +799,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 ![六边形架构](./images/hexoarch.png)
 
-##未来
+### 未来
 
 我就开始思索这个问题，未来的趋势是合并到一起，而这一个趋势在现在就已经是完成时了。
 
@@ -1401,11 +1413,16 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 跨协议的物联网平台设计
 ===
 
+概况
+---
+
+### 背景 
+
 在设计 lan (Github: [https://github.com/phodal/lan](https://github.com/phodal/lan)) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。
 
 然后像[lan](https://github.com/phodal/lan)这样的应用，在里面刚属于服务层。
 
-##物联网层级结构
+### 物联网层级结构
 
 通常，我们很容易在网上看到如下图所示的三层结构:
 
@@ -1428,7 +1445,7 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 硬件层包含了数据众多的传感器、控制器、以及执行器，通常这部份会由硬件人员与硬件开发人员一起协作和开发。而协调层则是充当硬件与服务层通信的桥梁，这是在系统中需要**特别考虑**的部份，一个物联网系统的设计主要**取决于这个层级**。
 
-##物联网服务层
+### 物联网服务层
 
 而服务层的核心是传统的Web应用程序的结构，只是协议层变成了一些适配器，我们需要支持不同的协议，这导致了我们在这个层需要有一个更好的结构，故而我们建议使用**六边形架构**。而在实际中，用户最后接触到的便是应用程序层，在这一层中需要有很好的用户体验设计及流畅度。
 
@@ -1441,13 +1458,21 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
   
 
 一步步搭建JavaScript框架: Lettuce
-==========================
+===
+
+概况
+---
+
+### 背景
 
 从开始打算写一个MV*，到一个简单的demo，花了几天的时间，虽然很多代码都是复制/改造过来的，然而**It Works**(nginx的那句话会让人激动有木有)。现在他叫lettuce，代码 [https://github.com/phodal/lettuce](https://github.com/phodal/lettuce)，如果有兴趣可以加入我们。
 
 虽然js还不够expert，但是开始了。
 
-##JavaScript项目名称
+背景
+---
+
+###Step 1: 注册npm和bower包
 
 一开始我做的3次commits是:
 
@@ -1502,11 +1527,11 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 是的，我们的代码已经``Coming soon``了。
 
-##生成Javascript项目框架
+### Step 2: 生成Javascript项目框架
 
 为了简化这一个痛苦的过程，我们还是用yeoman。
 
-###安装Yeoman lib生成器
+#### 安装Yeoman lib生成器
 
 1.安装yeoman
 
@@ -1576,7 +1601,7 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 这么多的文件。
 
-##Build JavaScript项目
+#### Build JavaScript项目
 
 于是我们执行了一下
 
@@ -1629,15 +1654,24 @@ grunt里的任务包含了:
 基于Virtual DOM的测试代码生成
 ===
 
+概况
+---
+
+### 背景
+
 > 尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。
 
 当我们在写一些UI测试的时候，我们总需要到浏览器去看一下一些DOM的变化。比如，我们点击了某个下拉菜单，会有另外一个联动的下拉菜单发生了变化。而如果这个事件更复杂的时候，有时我们可能就很难观察出来他们之间的变化。
 
-##Virtual DOM
+### ShowCase
+
+源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
+
+### Virtual DOM
 
 尽管这里的例子是以Jasmine作为例子，但是我想对于React也会有同样的方法。
 
-###一个Jasmine jQuery测试
+**一个Jasmine jQuery测试**
 
 如下是一个简单的Jamine jQuery的测试示例：
 
@@ -1659,7 +1693,10 @@ grunt里的任务包含了:
 
 那么，即使我们已经有一个固定的DOM，想要监听这个DOM的变化就是一件容易的事。在我们断言之前，我们就会有一个新的DOM。我们只需要Diff一下这两个DOM的变化，就可以生成这部分测试代码。
 
-###virtual-dom与HyperScript
+步骤
+---
+
+###Step 1: virtual-dom与HyperScript
 
 在寻觅中发现了[virtual-dom](https://github.com/Matt-Esch/virtual-dom)这个库，一个可以支持创建元素、diff计算以及patch操作的库，并且它效率好像还不错。
 
@@ -1753,7 +1790,7 @@ virtualDom.diff(render(2), render(1))
 
 第一个对象，即0中包含了一些属性的变化。而第二个则是文本的变化——从2变成了1。我们所要做的测试生成便是标记这些变化，并记录之。
 
-##标记DOM变化
+### Step 2: 标记DOM变化
 
 由于virtual-dom依赖于虚拟节点vNode，我们需要将fixtures转换为hyperscript。这里我们就需要一个名为html2hyperscript的插件，来解析html。接着，我们就可以diff转换完后的DOM：
 
@@ -1823,10 +1860,6 @@ function printNode(applyNode, originRootNodeHTML, patchIndex) {
 用Chrome的console来标记修改的部分，及添加的部分。
 
 最后，我们似乎就可以生成相应的测试代码了。。。
-
-###其他
-
-源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
 
 移动框架
 ===

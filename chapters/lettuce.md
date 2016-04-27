@@ -1,11 +1,19 @@
 一步步搭建JavaScript框架: Lettuce
-==========================
+===
+
+概况
+---
+
+### 背景
 
 从开始打算写一个MV*，到一个简单的demo，花了几天的时间，虽然很多代码都是复制/改造过来的，然而**It Works**(nginx的那句话会让人激动有木有)。现在他叫lettuce，代码 [https://github.com/phodal/lettuce](https://github.com/phodal/lettuce)，如果有兴趣可以加入我们。
 
 虽然js还不够expert，但是开始了。
 
-##JavaScript项目名称
+背景
+---
+
+###Step 1: 注册npm和bower包
 
 一开始我做的3次commits是:
 
@@ -60,11 +68,11 @@
 
 是的，我们的代码已经``Coming soon``了。
 
-##生成Javascript项目框架
+### Step 2: 生成Javascript项目框架
 
 为了简化这一个痛苦的过程，我们还是用yeoman。
 
-###安装Yeoman lib生成器
+#### 安装Yeoman lib生成器
 
 1.安装yeoman
 
@@ -134,7 +142,7 @@
 
 这么多的文件。
 
-##Build JavaScript项目
+#### Build JavaScript项目
 
 于是我们执行了一下
 

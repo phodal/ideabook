@@ -1,15 +1,24 @@
 基于Virtual DOM的测试代码生成
 ===
 
+概况
+---
+
+### 背景
+
 > 尽管是在年末，并且也还没把书翻译完，也还没写完书的第一稿。但是，我还是觉得这是一个非常不错的话题——测试代码生成。
 
 当我们在写一些UI测试的时候，我们总需要到浏览器去看一下一些DOM的变化。比如，我们点击了某个下拉菜单，会有另外一个联动的下拉菜单发生了变化。而如果这个事件更复杂的时候，有时我们可能就很难观察出来他们之间的变化。
 
-##Virtual DOM
+### ShowCase
+
+源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
+
+### Virtual DOM
 
 尽管这里的例子是以Jasmine作为例子，但是我想对于React也会有同样的方法。
 
-###一个Jasmine jQuery测试
+**一个Jasmine jQuery测试**
 
 如下是一个简单的Jamine jQuery的测试示例：
 
@@ -31,7 +40,10 @@
 
 那么，即使我们已经有一个固定的DOM，想要监听这个DOM的变化就是一件容易的事。在我们断言之前，我们就会有一个新的DOM。我们只需要Diff一下这两个DOM的变化，就可以生成这部分测试代码。
 
-###virtual-dom与HyperScript
+步骤
+---
+
+###Step 1: virtual-dom与HyperScript
 
 在寻觅中发现了[virtual-dom](https://github.com/Matt-Esch/virtual-dom)这个库，一个可以支持创建元素、diff计算以及patch操作的库，并且它效率好像还不错。
 
@@ -125,7 +137,7 @@ virtualDom.diff(render(2), render(1))
 
 第一个对象，即0中包含了一些属性的变化。而第二个则是文本的变化——从2变成了1。我们所要做的测试生成便是标记这些变化，并记录之。
 
-##标记DOM变化
+### Step 2: 标记DOM变化
 
 由于virtual-dom依赖于虚拟节点vNode，我们需要将fixtures转换为hyperscript。这里我们就需要一个名为html2hyperscript的插件，来解析html。接着，我们就可以diff转换完后的DOM：
 
@@ -195,7 +207,3 @@ function printNode(applyNode, originRootNodeHTML, patchIndex) {
 用Chrome的console来标记修改的部分，及添加的部分。
 
 最后，我们似乎就可以生成相应的测试代码了。。。
-
-###其他
-
-源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
