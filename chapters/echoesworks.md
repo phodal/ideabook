@@ -1,13 +1,20 @@
 JavaScript打造Slide应用
 ===================
 
+概况
+---
+
+### 背景
+
 又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。
 
-![EchoesWorks][1]
+###Showcase
+
+![EchoesWorks](./images/echoesworks.jpg)
 
 如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
 
-##需求
+### 需求
 
 当前我们有不同的方式可以记录我们的想法、博客、过程，如视频、音频、博客、幻灯片等等。
 
@@ -25,7 +32,7 @@ JavaScript打造Slide应用
 
 于是，``EchoesWorks``出现了。
 
-##EchoesWorks功能
+**EchoesWorks功能**
 
 想了想需要的功能，便将EchoesWorks需要的feature列出来:
 
@@ -36,25 +43,16 @@ JavaScript打造Slide应用
 
 blabla，这就是总的需求啦。
 
-##现状
+步骤
+---
 
-接着，在过去的两个星期里，完成了简单的第一个版本，即一个简单的PPT功能。
+### Step 1:
 
-- ``Markdown`` Presentation
-- Integrate Github Code/Gist Code
-- ``Full Screen`` Background Image
-- Left/Right Images Support
-- Process Bar
+### Step 2:
 
-###idea
-
-1. Chrome插件。用于在一个tab里，控制另外一个tab，即类似于keynote的分屏功能。
+### Step 3:
 
 本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
-
-![EchoesWorks](./images/echoesworks.jpg)
-
-##实现机制
 
 在这里并没有什么特别高级的用法，只是简单的事件监听
 
