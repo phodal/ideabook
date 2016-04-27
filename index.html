@@ -218,35 +218,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#移动框架">移动框架</a><ul>
-<li><a href="#构建框架">构建框架</a></li>
-<li><a href="#requirejs-使用">RequireJS 使用</a><ul>
-<li><a href="#使用requirejs">使用RequireJS</a></li>
-<li><a href="#环境准备">环境准备</a></li>
-<li><a href="#添加路由">添加路由</a></li>
-<li><a href="#创建主页view">创建主页View</a></li>
-<li><a href="#jquery-sidr">jQuery Sidr</a></li>
-<li><a href="#django-tastypie示例">Django Tastypie示例</a></li>
-<li><a href="#跨域支持">跨域支持</a></li>
-<li><a href="#整合">整合</a></li>
-<li><a href="#requirejs-plugins">RequireJS Plugins</a></li>
-</ul></li>
-<li><a href="#简单的博客构成">简单的博客构成</a><ul>
-<li><a href="#获取在线数据">获取在线数据</a></li>
-</ul></li>
-<li><a href="#获取每篇博客">获取每篇博客</a></li>
-<li><a href="#添加博文的路由">添加博文的路由</a></li>
-<li><a href="#重构">重构</a><ul>
-<li><a href="#构建函数">构建函数</a></li>
-<li><a href="#移动cms滑动">移动CMS滑动</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
 <li><a href="#概况-12">概况</a><ul>
 <li><a href="#背景-12">背景</a></li>
 <li><a href="#showcase-9">Showcase</a></li>
-<li><a href="#框架-oculus-rift-node-nmd">框架： Oculus Rift &amp; Node NMD</a></li>
+<li><a href="#jquery-backbone-underscore-require.js">jQuery + Backbone + UnderScore + Require.JS</a></li>
 </ul></li>
 <li><a href="#步骤-10">步骤</a><ul>
+<li><a href="#step-1-使用require.js管理依赖">Step 1: 使用Require.js管理依赖</a></li>
+<li><a href="#step-2-添加路由">Step 2: 添加路由</a></li>
+<li><a href="#step-3-创建主页view">Step 3: 创建主页View</a></li>
+<li><a href="#step-4-jquery-sidr">Step 4: jQuery Sidr</a></li>
+<li><a href="#step-4-django-tastypie示例">Step 4: Django Tastypie示例</a></li>
+<li><a href="#step-5-requirejs-plugins">Step 5: RequireJS Plugins</a></li>
+<li><a href="#step-5-简单的博客">Step 5: 简单的博客</a></li>
+<li><a href="#step-6-重构">Step 6: 重构</a></li>
+<li><a href="#step-7-移动cms滑动">Step 7: 移动CMS滑动</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</a><ul>
+<li><a href="#概况-13">概况</a><ul>
+<li><a href="#背景-13">背景</a></li>
+<li><a href="#showcase-10">Showcase</a></li>
+<li><a href="#框架-oculus-rift-node-nmd">框架： Oculus Rift &amp; Node NMD</a></li>
+</ul></li>
+<li><a href="#步骤-11">步骤</a><ul>
 <li><a href="#step-1-node-oculus-services">Step 1: Node Oculus Services</a></li>
 <li><a href="#step-2-node.js-oculus-helloworld">Step 2: Node.js Oculus Hello，World</a></li>
 <li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
@@ -256,12 +251,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#制作照片地图">制作照片地图</a><ul>
-<li><a href="#概况-13">概况</a><ul>
+<li><a href="#概况-14">概况</a><ul>
 <li><a href="#background把照片放在地图上">Background:把照片放在地图上</a></li>
-<li><a href="#showcase-10">Showcase</a></li>
+<li><a href="#showcase-11">Showcase</a></li>
 <li><a href="#框架-exif-exifread-cartodb">框架： EXIF &amp; ExifRead &amp; CartoDB</a></li>
 </ul></li>
-<li><a href="#步骤-11">步骤</a><ul>
+<li><a href="#步骤-12">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
 <li><a href="#练习建议-4">练习建议</a></li>
@@ -1697,8 +1692,11 @@ root.Lettuce = Lettuce;
 <p>用Chrome的console来标记修改的部分，及添加的部分。</p>
 <p>最后，我们似乎就可以生成相应的测试代码了。。。</p>
 <h1 id="移动框架">移动框架</h1>
+<h2 id="概况-12">概况</h2>
+<h3 id="背景-12">背景</h3>
 <p>看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——<a href="http://cms.moqi.mobi">墨颀 CMS</a>，方便项目深入理解的同时，也可以自己维护一个CMS系统。</p>
-<h2 id="构建框架">构建框架</h2>
+<h3 id="showcase-9">Showcase</h3>
+<h3 id="jquery-backbone-underscore-require.js">jQuery + Backbone + UnderScore + Require.JS</h3>
 <p>尝试过用AngularJS和EmberJS，发现对于使用AngluarJS以及EmberJS来说，主要的问题是要使用自己熟悉的东西没那么容易引入。而且考虑到谷歌向来对自己的项目的支持不是很好~~，所以便放弃了AngluarJS的想法。</p>
 <p>于是开始寻找一些方案，但是最后还是选择了一个比较通用的方案。</p>
 <ul>
@@ -1743,7 +1741,8 @@ root.Lettuce = Lettuce;
 <li><a href="http://ozkatz.github.io/converting-an-existing-backbonejs-project-to-requirejs.html">Converting an existing Backbone.js project to Require.js</a></li>
 </ul>
 <p>在一篇<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">构建基于Javascript的移动web CMS入门——简介</a>中简单的介绍了关于<a href="http://cms.moqi.mobi">墨颀CMS</a>的一些原理，其极框架组成，于是开始接着应该说明一下这个CMS是如何一步步搭建起来。</p>
-<h2 id="requirejs-使用">RequireJS 使用</h2>
+<h2 id="步骤-10">步骤</h2>
+<h3 id="step-1-使用require.js管理依赖">Step 1: 使用Require.js管理依赖</h3>
 <p><strong>库及依赖</strong></p>
 <p>这里用的是bower的JS来下载库，详细可以参考一下<a href="http://www.phodal.com/blog/use-bower-to-install-js-plugins/">bower install js使用bower管理js</a> 这篇文章。</p>
 <p>需要下载的库有</p>
@@ -1754,7 +1753,6 @@ root.Lettuce = Lettuce;
 <li>Mustache</li>
 <li>jQuery</li>
 </ul>
-<h3 id="使用requirejs">使用RequireJS</h3>
 <p>引用官网的示例</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -1794,30 +1792,7 @@ require([&#39;../app&#39;], function(App){
         initialize: initialize
     };
 });</code></pre>
-<p>当打开index.html的时候便会在console中输出<code>Hello World</code>。这样我们就完成一个基本的框架，只是还没有HTML，这个将会在下次继续。</p>
-<p>在上一篇<a href="www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/">《构建基于Javascript的移动CMS——Hello,World》</a>讲述了<a href="http://cms.moqi.mobi/">墨颀 CMS</a>的大概组成，并进行了一个简单的示例，即Hello,World。这一次，我们将把CMS简单的放到一个可以运行的服务器环境中，也就是说我们需要一个简单的运行环境，以便于进行更有意思的东西——添加模板。</p>
-<h3 id="环境准备">环境准备</h3>
-<p><strong>类Unix系统</strong></p>
-<p>因为电脑上已经装有python了，这里便用python起一个简单的server，对于GNU/Linux、Mac OS等类unix系统来说，都可以这样运行:</p>
-<pre><code>python -m SimpleHTTPServer 8000</code></pre>
-<p><strong>Windows</strong></p>
-<p>对于Windows来说，如果你已经装有python的话，那自然是可以用上面的方式运行。如果没有的话，可以试一下<code>mongoose</code>，下载一个安装之。</p>
-<p><strong>JS库准备</strong></p>
-<p>需要准备的JS库有</p>
-<ul>
-<li>Backbone</li>
-<li>RequireJs的插件text.js</li>
-<li>Mustache</li>
-</ul>
-<p>那么就这样子吧</p>
-<pre><code> git@github.com:gmszone/moqi.mobi.git
- </code></pre>
-<p>接着切换到learing分支</p>
-<pre><code> git checkout learning     
- </code></pre>
-<p>checkout到这个版本</p>
-<pre><code>git checkout 62fbdaf</code></pre>
-<p>文件列表如下所示</p>
+<p>当打开index.html的时候便会在console中输出<code>Hello World</code>。这样我们就完成一个基本的框架，只是还没有HTML， 文件列表如下所示</p>
 <pre><code>.
 |____app.js
 |____backbone.js
@@ -1831,7 +1806,7 @@ require([&#39;../app&#39;], function(App){
 |____text.js
 |____underscore.js</code></pre>
 <p>在这里有些混乱，但是为了少去其中的一些配置的麻烦，就先这样讲述。</p>
-<h3 id="添加路由">添加路由</h3>
+<h3 id="step-2-添加路由">Step 2: 添加路由</h3>
 <p>用Backbone的一个目的就在于其的路由功能，于是便添加这样一个js——<code>router.js</code>,内容如下所示:</p>
 <pre><code>define([
     &#39;jquery&#39;,
@@ -1876,7 +1851,7 @@ require([&#39;../app&#39;], function(App){
     };
 });</code></pre>
 <p>也就是初始化一下路由。</p>
-<h3 id="创建主页view">创建主页View</h3>
+<h3 id="step-3-创建主页view">Step 3: 创建主页View</h3>
 <p>使用Mustache的优点在于，后台仅仅只需要提供数据，并在前台提供一个位置。因此我们修改了下HTML</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -1925,7 +1900,7 @@ require([&#39;../app&#39;], function(App){
            //添加函数
 });</code></pre>
 <p>这样我们就可以完成一个简单的插件的添加。</p>
-<h3 id="jquery-sidr">jQuery Sidr</h3>
+<h3 id="step-4-jquery-sidr">Step 4: jQuery Sidr</h3>
 <blockquote>
 <p>The best jQuery plugin for creating side menus and the easiest way for doing your menu responsive</p>
 </blockquote>
@@ -1981,7 +1956,7 @@ require([&#39;../app&#39;], function(App){
 });</code></pre>
 <p>这样打开<a href="http://cms.moqi.mobi">墨颀 CMS</a>便可以看到最后的效果。</p>
 <p>正在一步步完善<a href="http://cms.moqi.mobi/">墨颀 CMS</a>，在暂时不考虑其他新的功能的时候，先和<a href="http://www.phodal.com">自己的博客</a>整合一下。</p>
-<h3 id="django-tastypie示例">Django Tastypie示例</h3>
+<h3 id="step-4-django-tastypie示例">Step 4: Django Tastypie示例</h3>
 <p>之前用AngluarJS做的全部文章的时候是Tastypie做的API，只是用来生成的是博客的内容。只是打开的速度好快，可以在1秒内打开，献上URL:</p>
 <p><a href="http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json" class="uri">http://www.phodal.com/api/v1/url/?offset=0&amp;limit=20&amp;format=json</a></p>
 <p>之前只是拿Tastypie生成一些简单的JSON数据，如keywords_string,slug,title这些简单的数据。</p>
@@ -2022,7 +1997,7 @@ class BlogResource(ModelResource):
     }
   ]
 }</code></pre>
-<h3 id="跨域支持">跨域支持</h3>
+<h4 id="跨域支持">跨域支持</h4>
 <p>于是网上搜索了一下，有了下面的代码:</p>
 <pre><code>from tastypie.resources import Resource, ModelResource
 from mezzanine.blog.models import BlogPost, BlogCategory
@@ -2085,7 +2060,7 @@ class BlogResource(BaseCorsResource, ModelResource):
         allowed_methods = [&#39;get&#39;]
         serializer = Serializer()</code></pre>
 <p>接着便可以很愉快地、危险地跨域。</p>
-<h3 id="整合">整合</h3>
+<h4 id="整合">整合</h4>
 <p>接着修改了一下代码中configure.json的blogListUrl，以及模块</p>
 <pre><code>    &lt;div class=&quot;l-box blogPosts&quot;&gt;
         &lt;h2&gt;动 态&lt;/h2&gt;
@@ -2098,8 +2073,7 @@ class BlogResource(BaseCorsResource, ModelResource):
     &lt;/div&gt;</code></pre>
 <p>便可以请求到结果了。</p>
 <p>一开始对于可配置的选择是正确的.</p>
-<p>在上一篇中说到了如何创建一个<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-work-with-django/">Django Tastypie API</a>给<a href="http://cms.moqi.mobi">移动CMS</a>用，接着我们似乎也应该有一个本地的配置文件用于一些简单的配置，如“获取API的URL”、“产品列表”、“SEO”(在一开始的时候发现这是不好的，后面又发现Google的爬虫可以运行Javascript，不过也是不推荐的。)这些东西是不太需要修改的，直接写在代码中似乎又不好，于是放到了一个叫作<code>configure.json</code>的文件里。</p>
-<h3 id="requirejs-plugins">RequireJS Plugins</h3>
+<h3 id="step-5-requirejs-plugins">Step 5: RequireJS Plugins</h3>
 <p>网上搜索到一个叫RequireJS Plugins的repo。</p>
 <p>里面有这样的几个插件:</p>
 <ul>
@@ -2156,7 +2130,7 @@ require([&#39;app&#39;], function(App) {
 <p>最后实现的效果和模板结束是一样的，只会在页面上显示</p>
 <pre><code> My Sample Project</code></pre>
 <p>在<a href="http://cms.moqi.mobi">墨颀 CMS</a>中的动态的文章是从我博客的API加载过来的，因为当前没有其他好的CMS当接口。之前直接拿博客的DB文件+Nodejs+RESTify生成了一个博客的API，而且可以支持跨域请求。</p>
-<h2 id="简单的博客构成">简单的博客构成</h2>
+<h3 id="step-5-简单的博客">Step 5: 简单的博客</h3>
 <p>这次我们可以简单的做一个可以供移动平台阅读的博客，除了不能写作以外(ps:不能写作还能叫博客么)。对于写博客的人来说更多的只是写，而对于读者来说，他们只需要读，所以在某种意义上可以将博客的写和读分离开来。</p>
 <p>对于用户来说，博客是由两个页面构建的:</p>
 <ul>
@@ -2188,7 +2162,7 @@ require([&#39;app&#39;], function(App) {
     &quot;created&quot;: &quot;2014-07-17 14:16:18.035763&quot;
 }]</code></pre>
 <p>这里基本上也就有了上面的要素，除了作者，当然因为作者只有一个，所以在里面写作者就是在浪费流量和钱啊。接着我们就是要把上面的内容读取出来放到CMS里。和之前不同的是，虽然我们可以用和<a href="http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms-json-configure/">墨颀CMS文件 JSON文件</a>一样的方法，但是显然这种方法很快就会不适用。</p>
-<h3 id="获取在线数据">获取在线数据</h3>
+<h4 id="获取在线数据">获取在线数据</h4>
 <p>这里会用到Backbone的Model，我们先创建一个Model</p>
 <pre><code>var BlogPostModel = Backbone.Model.extend({
     name: &#39;Blog Posts&#39;,
@@ -2286,7 +2260,7 @@ Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: X-Requested-With
 Cache-Control: max-age=600</code></pre>
 <p>在有了上部分的基础之后，我们就可以生成一个博客的内容——BlogPosts Detail。这样就完成了我们这个<a href="http://cms.moqi.mobi">移动CMS</a>的几乎主要的功能了，有了上节想必对于我们来说要获取一个文章已经不是一件难的事情了。</p>
-<h2 id="获取每篇博客">获取每篇博客</h2>
+<h4 id="获取每篇博客">获取每篇博客</h4>
 <p>于是我们照猫画虎地写了一个<code>BlogDetail.js</code></p>
 <pre><code>define([
     &#39;jquery&#39;,
@@ -2353,7 +2327,7 @@ Cache-Control: max-age=600</code></pre>
 &lt;p&gt;{{description}}&lt;/p&gt;
 {{/.}}</code></pre>
 <p>问题出现了，我们怎样才能进入最后的页面？</p>
-<h2 id="添加博文的路由">添加博文的路由</h2>
+<h4 id="添加博文的路由">添加博文的路由</h4>
 <p>在上一篇结束之后，每个博文都有对应的URL，即有对应的slug。而我们的博客的获取就是根据这个URL，获取的，换句话说，这些事情都是由API在做的。这里所要做的便是，获取博客的内容，再render。这其中又有一个问题是ajax执行的数据无法从外部取出，于是就有了上面的getBlog()调用render的方法。</p>
 <p>我们需要传进一个参数，以便告诉BlogDetail需要获取哪一篇博文。</p>
 <pre><code>    routes: {
@@ -2404,7 +2378,7 @@ Cache-Control: max-age=600</code></pre>
 });        </code></pre>
 <p>接着我们便可以很愉快地打开每一篇博客查看里面的内容了。</p>
 <p>当前<a href="http://cms.moqi.mobi/">墨颀CMS</a>的一些基础功能设计已经接近尾声了，在完成博客的前两部分之后，我们需要对此进行一个简单的重构。为的是提取出其中的获取Blog内容的逻辑，于是经过一番努力之后，终于有了点小成果。</p>
-<h2 id="重构">重构</h2>
+<h3 id="step-6-重构">Step 6: 重构</h3>
 <p>我们想要的结果，便是可以直接初始化及渲染，即如下的结果:</p>
 <pre><code>    initialize: function(){
         this.getBlog();
@@ -2429,7 +2403,7 @@ Cache-Control: max-age=600</code></pre>
         blogView.renderBlog(about);
     }</code></pre>
 <p>我们只需要将id、url、template传进去，便可以返回结果，再用getBlog部分传进参数。再渲染结果，这样我们就可以提取出两个不同View里面的相同的部分。</p>
-<h3 id="构建函数">构建函数</h3>
+<h4 id="构建函数">构建函数</h4>
 <p>于是，我们就需要构建一个函数RenderBlog，只需要将id,url,template等传进去就可以了。</p>
 <pre><code>var RenderBlog = function (params, url, template) {
     this.params = params;
@@ -2460,7 +2434,7 @@ RenderBlog.prototype.render = function(params, template, response) {
 <p>大致便是将原来的函数中的功能抽取出来，再调用自己的方法。于是就这样可以继续进行下一步了，只是暂时没有一个明确的方向。</p>
 <p>在和几个有兴趣做<strong>移动CMS</strong>的小伙伴讨论了一番之后，我们觉得当前比较重要的便是统一一下RESTful API。然而最近持续断网中，又遭遇了一次停电，暂停了对API的思考。在周末无聊的时光了看了《人间失格》，又看了会《一个人流浪，不必去远方》。开始思考所谓的技术以外的事情，或许这将是下一篇讨论的话题。</p>
 <p>正在我对这个<a href="http://cms.moqi.mobi/">移动CMS</a>的功能一筹莫展的时候，帮小伙伴在做一个图片滑动的时候，便想着将这个功能加进去，很顺利地找到了一个库。</p>
-<h3 id="移动cms滑动">移动CMS滑动</h3>
+<h3 id="step-7-移动cms滑动">Step 7: 移动CMS滑动</h3>
 <p>我们所需要的两个功能很简单</p>
 <ul>
 <li>当用户向右滑动的时候，菜单应该展开</li>
@@ -2552,11 +2526,11 @@ require([&#39;../app&#39;], function(App){
 <li>当用户向左滑动的时候，菜单应该关闭</li>
 </ul>
 <h1 id="oculus-node.js-three.js-打造vr世界">Oculus + Node.js + Three.js 打造VR世界</h1>
-<h2 id="概况-12">概况</h2>
-<h3 id="背景-12">背景</h3>
+<h2 id="概况-13">概况</h2>
+<h3 id="背景-13">背景</h3>
 <p>在尝试一个晚上的开发环境搭建后，我放弃了开发原生应用的想法。一是没有属于自己的电脑（如果Raspberry Pi II不算的话）——没有Windows、没有GNU/Linux，二是公司配的电脑是Mac OS。对于嵌入式开发和游戏开发来说，Mac OS简直是手机中的Windows Phone——坑爹的LLVM、GCC(Mac OS )、OpenGL、OGLPlus、C++11。并且官方对Mac OS和Linux的SDK的支持已经落后了好几个世纪。</p>
 <p>说到底，还是Web的开发环境到底还是比较容易搭建的。</p>
-<h3 id="showcase-9">Showcase</h3>
+<h3 id="showcase-10">Showcase</h3>
 <p>这个repo的最后效果图如下所示:</p>
 <figure>
 <img src="./images/demo.jpg" alt="最后效果图" /><figcaption>最后效果图</figcaption>
@@ -2574,7 +2548,7 @@ require([&#39;../app&#39;], function(App){
 <blockquote>
 <p>Oculus Rift 是一款为电子游戏设计的头戴式显示器。这是一款虚拟现实设备。这款设备很可能改变未来人们游戏的方式。</p>
 </blockquote>
-<h2 id="步骤-10">步骤</h2>
+<h2 id="步骤-11">步骤</h2>
 <p>现在，让我们开始构建吧。</p>
 <h3 id="step-1-node-oculus-services">Step 1: Node Oculus Services</h3>
 <p>这里，我们所要做的事情便是将传感器返回来的四元数(Quaternions)与欧拉角(Euler angles)以API的形式返回到前端。</p>
@@ -2943,10 +2917,10 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <p>快接上你的HMD试试吧~~</p>
 <h3 id="练习建议-3">练习建议</h3>
 <h1 id="制作照片地图">制作照片地图</h1>
-<h2 id="概况-13">概况</h2>
+<h2 id="概况-14">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
 <p>我使用的Nokia Lumia 920没有一个好的照片应用</p>
-<h3 id="showcase-10">Showcase</h3>
+<h3 id="showcase-11">Showcase</h3>
 <figure>
 <img src="./images/onmap-demo.jpg" alt="Phodal’s Image" /><figcaption>Phodal’s Image</figcaption>
 </figure>
@@ -2970,7 +2944,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <blockquote>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
 </blockquote>
-<h2 id="步骤-11">步骤</h2>
+<h2 id="步骤-12">步骤</h2>
 <h3 id="step-1-解析读取照片信息">Step 1: 解析读取照片信息</h3>
 <p>简单的来说，就是我们可以创建包含位置信息的内容到上面去。</p>
 <p>主要步骤如下：</p>
