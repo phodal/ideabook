@@ -1,7 +1,32 @@
-我的应用创意书
-=======
+Phodal's Idea实战指南
+===
 
-[Idea Lists](https://github.com/phodal/ideas)
+虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
+
+我的其他电子书：
+
+ - 《[一步步搭建物联网系统](https://github.com/phodal/designiot)》
+ - 《[GitHub 漫游指南](https://github.com/phodal/github-roam)》
+ - 《[RePractise](https://github.com/phodal/repractise)》
+ - 《[Growth: 全栈增长工程师指南](https://github.com/phodal/growth-ebook)》
+
+Idea指南的格式：
+
+ * 概况
+    * 背景
+    * Showcase
+    * 技术栈等介绍
+ * 步骤
+    * Step *
+    * 练习建议          
+
+欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
+
+![QRCode](https://raw.githubusercontent.com/phodal/growth/master/www/img/wechat.jpg)
+
+有钱捧个钱场:
+
+![Alipay](https://raw.githubusercontent.com/phodal/growth/master/docs/alipay.png)![Wechat](https://raw.githubusercontent.com/phodal/growth/master/docs/wechat.png)
 
 目录
 ---
