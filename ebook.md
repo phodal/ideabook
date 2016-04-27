@@ -12,11 +12,11 @@ Hadoop + Pig 分析Nginx日志
 
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
-![Badge][1]
+![Badge](./images/badge.png)
 
 接着，我就找了个图形工具简单地先设计了下面的一个Badge:
 
-![Demo][2]
+![Demo](./images/demo.png)
 
 生成的格式是SVG，接着我就打开SVG看看里面发现了什么。
 
@@ -87,7 +87,7 @@ dwg.save()
 
 第一眼看到
 
-![Idea Prototype][4]
+![Idea Prototype](./images/brand-idea-prototype.jpg)
 
 我就想着要不和这个一样好了，不就是画几条线的事么。
 
@@ -113,18 +113,13 @@ dwg.save()
 
 就有了下面的图，于是我又按照这种感觉来了好几下
 
-![Finally][3]
+![Finally](./images/finally-brand.jpg)
 
 最后代码
 ---
 
 GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
 
-
-  [1]: /static/media/uploads/badge.png
-  [2]: /static/media/uploads/demo.png
-  [3]: /static/media/uploads/finally-brand.jpg
-  [4]: /static/media/uploads/brand-idea-prototype.jpg
 
 
 文本编辑器
@@ -184,7 +179,7 @@ blabla，这就是总的需求啦。
 
 本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
 
-![EchoesWorks][1]
+![EchoesWorks](./images/echoesworks.jpg)
 
 ##实现机制
 
@@ -208,10 +203,6 @@ blabla，这就是总的需求啦。
     localStorage.setItem('echoesworks', index);
 
 这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
-
-
-  [1]: /static/media/uploads/echoesworks.jpg
-  
   
 
 编辑-发布-分离应用
@@ -223,11 +214,11 @@ blabla，这就是总的需求啦。
 
 如先前提到的，Carrot使用了下面的方案来搭建他们的静态内容的CMS。
 
-![Carrot][1]
+![Carrot](./images/carrot.png)
 
 在这个方案里内容是用Contentful来发布他们的内容。而在我司[ThoughtWorks](https://www.thoughtworks.com/)的官网里则采用了Github来管理这些内容。于是如果让我们写一个基于Github的CMS，那么架构变成了这样：
 
-![Github 编辑-发布-开发][2]
+![Github 编辑-发布-开发](./images/travis-edit-publish-code.png)
 
 或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
 
@@ -406,15 +397,12 @@ So，你可能会担心如果这时候修改的东西有问题了怎么办。
 
 最后，重新放上之前的静态文件。
 
-
-  [1]: /static/media/uploads/carrot.png
-  [2]: /static/media/uploads/travis-edit-publish-code.png
   
  > 动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
-![Echeveria Editor][1]
+![Echeveria Editor](./images/eche-editor-screenshot.png)
 
 作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
 
@@ -473,7 +461,7 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
 
 在控制台中运行一下 ``man git``你会得到下面的结果:
 
-![Man Git][2]
+![Man Git](./images/man-git.png)
 
 这个答案看起来很有意思——不过这看上去似乎无关主题。
 
@@ -501,10 +489,6 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 1. git commit
 2. git push
-
-
-  [1]: /static/media/uploads/eche-editor-screenshot.png
-  [2]: /static/media/uploads/man-git.png  
 
 GitHub数据分析
 ==========

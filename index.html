@@ -238,11 +238,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 id="程序员专属badge制作">程序员专属Badge制作</h1>
 <p>前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:</p>
 <figure>
-<img src="/static/media/uploads/node.png" alt="Badge" /><figcaption>Badge</figcaption>
+<img src="./images/badge.png" alt="Badge" /><figcaption>Badge</figcaption>
 </figure>
 <p>接着，我就找了个图形工具简单地先设计了下面的一个Badge:</p>
 <figure>
-<img src="/static/media/uploads/refactor.png" alt="Demo" /><figcaption>Demo</figcaption>
+<img src="./images/demo.png" alt="Demo" /><figcaption>Demo</figcaption>
 </figure>
 <p>生成的格式是SVG，接着我就打开SVG看看里面发现了什么。</p>
 <div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;?xml</span> version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;<span class="kw">?&gt;</span>
@@ -295,7 +295,7 @@ dwg.save()</code></pre></div>
 <h2 id="高级badge">高级Badge</h2>
 <p>第一眼看到</p>
 <figure>
-<img src="/static/media/uploads/clean_code.png" alt="Idea Prototype" /><figcaption>Idea Prototype</figcaption>
+<img src="./images/brand-idea-prototype.jpg" alt="Idea Prototype" /><figcaption>Idea Prototype</figcaption>
 </figure>
 <p>我就想着要不和这个一样好了，不就是画几条线的事么。</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">
@@ -317,7 +317,7 @@ dwg.save()</code></pre></div>
     draw_for_bg_plus()</code></pre></div>
 <p>就有了下面的图，于是我又按照这种感觉来了好几下</p>
 <figure>
-<img src="/static/media/uploads/tdd.png" alt="Finally" /><figcaption>Finally</figcaption>
+<img src="./images/finally-brand.jpg" alt="Finally" /><figcaption>Finally</figcaption>
 </figure>
 <h2 id="最后代码">最后代码</h2>
 <p>GitHub: <a href="https://github.com/phodal/brand" class="uri">https://github.com/phodal/brand</a></p>
@@ -363,7 +363,7 @@ dwg.save()</code></pre></div>
 </ol>
 <p>本来想着给<a href="https://github.com/phodal/echoesworks">EchoesWorks</a>做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。</p>
 <figure>
-<img src="/static/media/uploads/node.png" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
+<img src="./images/echoesworks.jpg" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
 </figure>
 <h2 id="实现机制">实现机制</h2>
 <p>在这里并没有什么特别高级的用法，只是简单的事件监听</p>
@@ -386,11 +386,11 @@ dwg.save()</code></pre></div>
 <h2 id="系统架构">系统架构</h2>
 <p>如先前提到的，Carrot使用了下面的方案来搭建他们的静态内容的CMS。</p>
 <figure>
-<img src="/static/media/uploads/node.png" alt="Carrot" /><figcaption>Carrot</figcaption>
+<img src="./images/carrot.png" alt="Carrot" /><figcaption>Carrot</figcaption>
 </figure>
 <p>在这个方案里内容是用Contentful来发布他们的内容。而在我司<a href="https://www.thoughtworks.com/">ThoughtWorks</a>的官网里则采用了Github来管理这些内容。于是如果让我们写一个基于Github的CMS，那么架构变成了这样：</p>
 <figure>
-<img src="/static/media/uploads/refactor.png" alt="Github 编辑-发布-开发" /><figcaption>Github 编辑-发布-开发</figcaption>
+<img src="./images/travis-edit-publish-code.png" alt="Github 编辑-发布-开发" /><figcaption>Github 编辑-发布-开发</figcaption>
 </figure>
 <p>或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。</p>
 <p>从我们设计系统的角度来说，我们会在Github上有三个代码库：</p>
@@ -529,7 +529,7 @@ git push -q upstream HEAD:gh-pages</code></pre>
 </blockquote>
 <p>为了实现之前说到的<code>编辑-发布-开发分离</code>的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：</p>
 <figure>
-<img src="/static/media/uploads/node.png" alt="Echeveria Editor" /><figcaption>Echeveria Editor</figcaption>
+<img src="./images/eche-editor-screenshot.png" alt="Echeveria Editor" /><figcaption>Echeveria Editor</figcaption>
 </figure>
 <p>作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。</p>
 <p>尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？</p>
@@ -570,7 +570,7 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <h2 id="git作为nosql数据库">git作为NoSQL数据库</h2>
 <p>在控制台中运行一下 <code>man git</code>你会得到下面的结果:</p>
 <figure>
-<img src="/static/media/uploads/refactor.png" alt="Man Git" /><figcaption>Man Git</figcaption>
+<img src="./images/man-git.png" alt="Man Git" /><figcaption>Man Git</figcaption>
 </figure>
 <p>这个答案看起来很有意思——不过这看上去似乎无关主题。</p>
 <p>不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。</p>

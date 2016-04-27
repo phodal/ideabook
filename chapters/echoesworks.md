@@ -52,7 +52,7 @@ blabla，这就是总的需求啦。
 
 本来想着给[EchoesWorks](https://github.com/phodal/echoesworks)做一个Chrome插件来控制Slide，后来发现了一种更简单的方法 —— 用LocalStorage实现跨tab通信。
 
-![EchoesWorks][1]
+![EchoesWorks](./images/echoesworks.jpg)
 
 ##实现机制
 
@@ -76,8 +76,4 @@ blabla，这就是总的需求啦。
     localStorage.setItem('echoesworks', index);
 
 这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
-
-
-  [1]: /static/media/uploads/echoesworks.jpg
-  
   
