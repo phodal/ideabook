@@ -6,11 +6,21 @@
 
 ### 背景 
 
-在设计 lan (Github: [https://github.com/phodal/lan](https://github.com/phodal/lan)) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。
+在设计物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。
 
 然后像[lan](https://github.com/phodal/lan)这样的应用，在里面刚属于服务层。
 
-### 物联网层级结构
+### Showcase
+
+![Lan Struct](./images/lan-struct.png)
+
+Github: [https://github.com/phodal/lan](https://github.com/phodal/lan)
+  
+步骤
+---
+
+### Step 1: 架构设计
+
 
 通常，我们很容易在网上看到如下图所示的三层结构:
 
@@ -42,11 +52,7 @@
 ![IoT Server Layer](./images/iot-server.jpg)
 
 上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。
-  
-步骤
----
 
-### Step 1: 架构设计
 
 ### Step 2: 基本骨架
 
