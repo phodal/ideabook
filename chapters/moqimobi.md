@@ -8,12 +8,15 @@
 
 看到项目上的移动框架，网上寻找了一下，发现原来这些一开始都有。于是，找了个示例开始构建一个移动平台的CMS——[墨颀 CMS](http://cms.moqi.mobi)，方便项目深入理解的同时，也可以自己维护一个CMS系统。
 
-###Showcase
+### Showcase
 
+GitHub: [http://github.com/phodal/moqi.mobi](http://github.com/phodal/moqi.mobi)
+
+Demo: [墨颀 CMS](http://cms.moqi.mobi)
 
 ### jQuery + Backbone + UnderScore + Require.JS
 
-尝试过用AngularJS和EmberJS，发现对于使用AngluarJS以及EmberJS来说，主要的问题是要使用自己熟悉的东西没那么容易引入。而且考虑到谷歌向来对自己的项目的支持不是很好~~，所以便放弃了AngluarJS的想法。
+尝试过用AngularJS和EmberJS，发现对于使用AngularJS以及EmberJS来说，主要的问题是要使用自己熟悉的东西没那么容易引入。而且考虑到谷歌向来对自己的项目的支持不是很好~~，所以便放弃了AngluarJS的想法。
 
 于是开始寻找一些方案，但是最后还是选择了一个比较通用的方案。
 
@@ -52,27 +55,6 @@
 代码依然是放在Github上，基本功能已经可以Works了。
 
 [https://github.com/gmszone/moqi.mobi](https://github.com/gmszone/moqi.mobi)
-
-**进展及目的**
-
-最后目标:构建一个移动平台的CMS系统。
-
-当前:对于这样一个项目来说，目前会考虑优先支持下面的两个框架，
-
- - Django+Tastypie API
- - Wordpress
-
-现在：可以从后台读取到数据。
-
-**其他**
-
-一些比较好的资料有
-
-- [Organizing your application using Modules](http://backbonetutorials.com/organizing-backbone-using-modules/)
- - [Converting an existing Backbone.js project to Require.js](http://ozkatz.github.io/converting-an-existing-backbonejs-project-to-requirejs.html)
-
-
-在一篇[构建基于Javascript的移动web CMS入门——简介](http://www.phodal.com/blog/use-jquery-backbone-mustache-build-mobile-app-cms/)中简单的介绍了关于[墨颀CMS](http://cms.moqi.mobi)的一些原理，其极框架组成，于是开始接着应该说明一下这个CMS是如何一步步搭建起来。
 
 步骤
 ---
@@ -336,7 +318,7 @@
 
 正在一步步完善[墨颀 CMS](http://cms.moqi.mobi/)，在暂时不考虑其他新的功能的时候，先和[自己的博客](http://www.phodal.com)整合一下。
 
-### Step 4: Django Tastypie示例
+### Step 5: Django Tastypie示例
 
 之前用AngluarJS做的全部文章的时候是Tastypie做的API，只是用来生成的是博客的内容。只是打开的速度好快，可以在1秒内打开，献上URL:
 
@@ -471,7 +453,7 @@
 
 一开始对于可配置的选择是正确的.
 
-### Step 5: RequireJS Plugins
+### Step 6: RequireJS Plugins
 
 网上搜索到一个叫RequireJS Plugins的repo。
 
@@ -547,7 +529,7 @@
 在[墨颀 CMS](http://cms.moqi.mobi)中的动态的文章是从我博客的API加载过来的，因为当前没有其他好的CMS当接口。之前直接拿博客的DB文件+Nodejs+RESTify生成了一个博客的API，而且可以支持跨域请求。
 
 
-### Step 5: 简单的博客
+### Step 6: 简单的博客
 
 这次我们可以简单的做一个可以供移动平台阅读的博客，除了不能写作以外(ps:不能写作还能叫博客么)。对于写博客的人来说更多的只是写，而对于读者来说，他们只需要读，所以在某种意义上可以将博客的写和读分离开来。
 
@@ -843,7 +825,7 @@
 
 当前[墨颀CMS](http://cms.moqi.mobi/)的一些基础功能设计已经接近尾声了，在完成博客的前两部分之后，我们需要对此进行一个简单的重构。为的是提取出其中的获取Blog内容的逻辑，于是经过一番努力之后，终于有了点小成果。
 
-### Step 6: 重构
+### Step 7: 重构
 
 我们想要的结果，便是可以直接初始化及渲染，即如下的结果:
 
@@ -913,7 +895,7 @@
 
 正在我对这个[移动CMS](http://cms.moqi.mobi/)的功能一筹莫展的时候，帮小伙伴在做一个图片滑动的时候，便想着将这个功能加进去，很顺利地找到了一个库。
 
-### Step 7: 移动CMS滑动
+### Step 8: 移动CMS滑动
 
 我们所需要的两个功能很简单
 
