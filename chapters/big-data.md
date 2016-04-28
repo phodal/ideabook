@@ -110,6 +110,10 @@ A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as da
 STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 ```
 
+在第1~2行里，我们使用了自定义的jar文件。接着在第4行，载入了log文件，并其值赋予RAW_LOGS。随后的第6行里，我们取出RAW_LOGS中的每一个值 ，根据下面的正则表达式，取出其对应的值到对象里，如``- -``前面的(\\S+)对应的是ip，最后将这些值赋给LOGS_BASE。
+
+接着，我们就可以对值进行一些特殊的处理，如A是转化时间戳后的结果。B是按时间戳排序后的结果。最后，我们再将这些值存储到ElasticSearch对应的索引``nginx/log``中。
+
 ###Step 3: 转换IP
 
 ```
