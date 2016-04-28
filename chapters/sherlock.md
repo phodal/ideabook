@@ -20,15 +20,19 @@ D3.js 制作技能树
 
 一个简单的示例代码如下:
 
-	graph example1 {
-	    Server1 -- Server2
-	    Server2 -- Server3
-	    Server3 -- Server1
-	}
+```dot
+graph example1 {
+    Server1 -- Server2
+    Server2 -- Server3
+    Server3 -- Server1
+}
+```
 
 执行编译后:
 
-    dot -Tjpg lz.dot -o lz.jpg
+```bash
+dot -Tjpg lz.dot -o lz.jpg
+```
 
 就会生成下面的图片
 
@@ -61,22 +65,22 @@ D3.js 制作技能树
 
 而我们的代码是这样的:
 
-```c
-    digraph tree
-    {
-        nodesep=0.5;
-        charset="UTF-8";
-        rankdir=LR;
-        fixedsize=true;
-        node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
-        "JavaScript" ->"Web前端"
-        "HTML" -> "Web前端"
-        "CSS" -> "Web前端"
-        "Web前端" -> "Web开发"
-        "JavaScript" -> "Node.js" -> "Web服务端"
-        "SQL/NoSQL" -> "Web服务端"
-        "Web服务端" -> "Web开发"
-    }
+```dot
+digraph tree
+{
+    nodesep=0.5;
+    charset="UTF-8";
+    rankdir=LR;
+    fixedsize=true;
+    node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
+    "JavaScript" ->"Web前端"
+    "HTML" -> "Web前端"
+    "CSS" -> "Web前端"
+    "Web前端" -> "Web开发"
+    "JavaScript" -> "Node.js" -> "Web服务端"
+    "SQL/NoSQL" -> "Web服务端"
+    "Web服务端" -> "Web开发"
+}
 ```
     
 上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。
@@ -93,59 +97,65 @@ Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome
 
 简单示例``html``:
 
-        <section class="container tooltip" title="Parent container">
-		<a href="http://google.com" class="tooltip" title="Get your Google on">Google</a>
-	</section>
+```html
+<section class="container tooltip" title="Parent container">
+	<a href="http://google.com" class="tooltip" title="Get your Google on">Google</a>
+</section>
+```
 
 简单示例``js`:
 
-		$(document).ready(function() {
-			$('.tooltip').tooltipster();
-		});
+```javascript
+$(document).ready(function() {
+	$('.tooltip').tooltipster();
+});
+```
 
 D3.js、Tooltipster与Requirejs的配置如下所示:
 
-	require.config({
-	  baseUrl: 'app',
-	  paths: {
-	    jquery: 'lib/jquery-2.1.3',
-	    d3: 'lib/d3.min',
-	    text: 'lib/text',
-	    'jquery.tooltipster': 'lib/jquery.tooltipster.min'
-	  },
-	  'shim': {
-	    'jquery.tooltipster': {
-	      deps: ['jquery']
-	    }
-	  }
-	});
+```javascript
+require.config({
+  baseUrl: 'app',
+  paths: {
+    jquery: 'lib/jquery-2.1.3',
+    d3: 'lib/d3.min',
+    text: 'lib/text',
+    'jquery.tooltipster': 'lib/jquery.tooltipster.min'
+  },
+  'shim': {
+    'jquery.tooltipster': {
+      deps: ['jquery']
+    }
+  }
+});
+```
 
 #### 整合代码
 
 最后代码如下所示:
 
-      inner.selectAll('g.node')
-        .each(function (v, id) {
+```javascript
+inner.selectAll('g.node')
+  .each(function (v, id) {
+    g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
+    g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
 
+    var data = {
+      id: id,
+      name: v,
+      description: g.node(v).description,
+      books: g.node(v).books,
+      links: g.node(v).links
+    };
+    var results = lettuce.Template.tmpl(description_template, data);
 
-          g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
-          g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
-
-          var data = {
-            id: id,
-            name: v,
-            description: g.node(v).description,
-            books: g.node(v).books,
-            links: g.node(v).links
-          };
-          var results = lettuce.Template.tmpl(description_template, data);
-
-          $(this).tooltipster({
-            content: $(results),
-            contentAsHTML: true,
-            position: 'left',
-            animation: 'grow',
-            interactive: true});
-          $(this).find('rect').css('fill', '#ecf0f1');
-        });
+    $(this).tooltipster({
+      content: $(results),
+      contentAsHTML: true,
+      position: 'left',
+      animation: 'grow',
+      interactive: true});
+    $(this).find('rect').css('fill', '#ecf0f1');
+  });
+```
 

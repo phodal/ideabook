@@ -28,13 +28,17 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
 
 **ExifRead安装**
 
-    pip install exifread
+```bash
+pip install exifread
+```
 
 **ExifRead Exif.py**
 
 官方写了一个exif.py的command可直接查看照片信息
 
-     EXIF.py images.jpg
+```bash
+EXIF.py images.jpg
+```
 
 
 **CartoDB**
@@ -59,104 +63,116 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
 
 代码如下，来自于《python cookbook》
 
-    import os, fnmatch
-    def all_files(root, patterns='*', single_level=False, yield_folders=False):
-        patterns = patterns.split(';')
-        for path, subdirs, files in os.walk(root):
-            if yield_folders:
-                files.extend(subdirs)
-            files.sort()
-            for name in files:
-                for pattern in patterns:
-                    if fnmatch.fnmatch(name, pattern):
-                        yield os.path.join(path, name)
-                        break
-                    if single_level:
-                        break
+```python
+import os, fnmatch
+def all_files(root, patterns='*', single_level=False, yield_folders=False):
+    patterns = patterns.split(';')
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break
+```
 
 **python 解析照片信息**
 
 由于直接从照片中提取的信息是
 
-    [34, 12, 51513/1000]
+```
+[34, 12, 51513/1000]
+```
 
 也就是
 
-    N 34� 13' 12.718
+```
+N 34� 13' 12.718
+```
 
 几度几分几秒的形式，我们需要转换为
 
-    34.2143091667
+```
+34.2143091667
+```
 
 具体的大致就是
 
-    def parse_gps(titude):
-        first_number = titude.split(',')[0]
-        second_number = titude.split(',')[1]
-        third_number = titude.split(',')[2]
-        third_number_parent = third_number.split('/')[0]
-        third_number_child = third_number.split('/')[1]
-        third_number_result = float(third_number_parent) / float(third_number_child)
-        return float(first_number) + float(second_number)/60 + third_number_result/3600
+```python    
+def parse_gps(titude):
+    first_number = titude.split(',')[0]
+    second_number = titude.split(',')[1]
+    third_number = titude.split(',')[2]
+    third_number_parent = third_number.split('/')[0]
+    third_number_child = third_number.split('/')[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600
+```
 
 也就是我们需要将second/60，还有minutes/3600。
 
 **python 提取照片信息生成文件**
 
-    import json
-    import exifread
-    import os, fnmatch
-    from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
-    from exifread import process_file, __version__
+```python
+import json
+import exifread
+import os, fnmatch
+from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
+from exifread import process_file, __version__
 
-    def all_files(root, patterns='*', single_level=False, yield_folders=False):
-        patterns = patterns.split(';')
-        for path, subdirs, files in os.walk(root):
-            if yield_folders:
-                files.extend(subdirs)
-            files.sort()
-            for name in files:
-                for pattern in patterns:
-                    if fnmatch.fnmatch(name, pattern):
-                        yield os.path.join(path, name)
-                        break
-                    if single_level:
-                        break
+def all_files(root, patterns='*', single_level=False, yield_folders=False):
+    patterns = patterns.split(';')
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break
 
-    def parse_gps(titude):
-        first_number = titude.split(',')[0]
-        second_number = titude.split(',')[1]
-        third_number = titude.split(',')[2]
-        third_number_parent = third_number.split('/')[0]
-        third_number_child = third_number.split('/')[1]
-        third_number_result = float(third_number_parent) / float(third_number_child)
-        return float(first_number) + float(second_number)/60 + third_number_result/3600
+def parse_gps(titude):
+    first_number = titude.split(',')[0]
+    second_number = titude.split(',')[1]
+    third_number = titude.split(',')[2]
+    third_number_parent = third_number.split('/')[0]
+    third_number_child = third_number.split('/')[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600
 
-    jsonFile = open("gps.geojson", "w")
-    jsonFile.writelines('{\n"type": "FeatureCollection","features": [\n')
+jsonFile = open("gps.geojson", "w")
+jsonFile.writelines('{\n"type": "FeatureCollection","features": [\n')
 
-    def write_data(paths):
-        index = 1
-        for path in all_files('./' + paths, '*.jpg'):
-            f = open(path[2:], 'rb')
-            tags = exifread.process_file(f)
-            # jsonFile.writelines('"type": "Feature","properties": {"cartodb_id":"'+str(index)+'"},"geometry": {"type": "Point","coordinates": [')
-            latitude = tags['GPS GPSLatitude'].printable[1:-1]
-            longitude = tags['GPS GPSLongitude'].printable[1:-1]
-            print latitude
-            print parse_gps(latitude)
-            # print tags['GPS GPSLongitudeRef']
-            # print tags['GPS GPSLatitudeRef']
-            jsonFile.writelines('{"type": "Feature","properties": {"cartodb_id":"' + str(index) + '"')
-            jsonFile.writelines(',"OS":"' + str(tags['Image Software']) + '","Model":"' + str(tags['Image Model']) + '","Picture":"'+str(path[7:])+'"')
-            jsonFile.writelines('},"geometry": {"type": "Point","coordinates": [' + str(parse_gps(longitude)) + ',' + str(
-                parse_gps(latitude)) + ']}},\n')
-            index += 1
+def write_data(paths):
+    index = 1
+    for path in all_files('./' + paths, '*.jpg'):
+        f = open(path[2:], 'rb')
+        tags = exifread.process_file(f)
+        # jsonFile.writelines('"type": "Feature","properties": {"cartodb_id":"'+str(index)+'"},"geometry": {"type": "Point","coordinates": [')
+        latitude = tags['GPS GPSLatitude'].printable[1:-1]
+        longitude = tags['GPS GPSLongitude'].printable[1:-1]
+        print latitude
+        print parse_gps(latitude)
+        # print tags['GPS GPSLongitudeRef']
+        # print tags['GPS GPSLatitudeRef']
+        jsonFile.writelines('{"type": "Feature","properties": {"cartodb_id":"' + str(index) + '"')
+        jsonFile.writelines(',"OS":"' + str(tags['Image Software']) + '","Model":"' + str(tags['Image Model']) + '","Picture":"'+str(path[7:])+'"')
+        jsonFile.writelines('},"geometry": {"type": "Point","coordinates": [' + str(parse_gps(longitude)) + ',' + str(
+            parse_gps(latitude)) + ']}},\n')
+        index += 1
 
-    write_data('imgs')
+write_data('imgs')
 
-    jsonFile.writelines(']}\n')
-    jsonFile.close()
+jsonFile.writelines(']}\n')
+jsonFile.close()
+```
 
 ### Step 2: 上传数据
 

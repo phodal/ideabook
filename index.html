@@ -1774,33 +1774,33 @@ $cordovaGeolocation
 * 37411d7 - publish bower (3 weeks ago) &lt;Fengda HUANG&gt;
 * aabf278 - init project (3 weeks ago) &lt;Fengda HUANG&gt;</code></pre>
 <p>是的一开始什么也没做，除了从<code>bower</code>和<code>npm</code>上注册了一个叫做<code>lettuce</code>的库:</p>
-<pre><code>{
-  &quot;name&quot;: &quot;lettuce&quot;,
-  &quot;version&quot;: &quot;0.0.2&quot;,
-  &quot;authors&quot;: [
-    &quot;Fengda HUANG &lt;h@phodal.com&gt;&quot;
-  ],
-  &quot;description&quot;: &quot;A Mobile JavaScript Framework&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;moduleType&quot;: [
-    &quot;amd&quot;,
-    &quot;node&quot;
-  ],
-  &quot;keywords&quot;: [
-    &quot;lettuce&quot;,
-    &quot;mobile&quot;
-  ],
-  &quot;license&quot;: &quot;MIT&quot;,
-  &quot;homepage&quot;: &quot;http://lettuce.phodal.com&quot;,
-  &quot;private&quot;: false,
-  &quot;ignore&quot;: [
-    &quot;**/.*&quot;,
-    &quot;node_modules&quot;,
-    &quot;bower_components&quot;,
-    &quot;test&quot;,
-    &quot;tests&quot;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="st">&quot;lettuce&quot;</span><span class="op">,</span>
+  <span class="st">&quot;version&quot;</span><span class="op">:</span> <span class="st">&quot;0.0.2&quot;</span><span class="op">,</span>
+  <span class="st">&quot;authors&quot;</span><span class="op">:</span> [
+    <span class="st">&quot;Fengda HUANG &lt;h@phodal.com&gt;&quot;</span>
+  ]<span class="op">,</span>
+  <span class="st">&quot;description&quot;</span><span class="op">:</span> <span class="st">&quot;A Mobile JavaScript Framework&quot;</span><span class="op">,</span>
+  <span class="st">&quot;main&quot;</span><span class="op">:</span> <span class="st">&quot;index.js&quot;</span><span class="op">,</span>
+  <span class="st">&quot;moduleType&quot;</span><span class="op">:</span> [
+    <span class="st">&quot;amd&quot;</span><span class="op">,</span>
+    <span class="st">&quot;node&quot;</span>
+  ]<span class="op">,</span>
+  <span class="st">&quot;keywords&quot;</span><span class="op">:</span> [
+    <span class="st">&quot;lettuce&quot;</span><span class="op">,</span>
+    <span class="st">&quot;mobile&quot;</span>
+  ]<span class="op">,</span>
+  <span class="st">&quot;license&quot;</span><span class="op">:</span> <span class="st">&quot;MIT&quot;</span><span class="op">,</span>
+  <span class="st">&quot;homepage&quot;</span><span class="op">:</span> <span class="st">&quot;http://lettuce.phodal.com&quot;</span><span class="op">,</span>
+  <span class="st">&quot;private&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+  <span class="st">&quot;ignore&quot;</span><span class="op">:</span> [
+    <span class="st">&quot;**/.*&quot;</span><span class="op">,</span>
+    <span class="st">&quot;node_modules&quot;</span><span class="op">,</span>
+    <span class="st">&quot;bower_components&quot;</span><span class="op">,</span>
+    <span class="st">&quot;test&quot;</span><span class="op">,</span>
+    <span class="st">&quot;tests&quot;</span>
   ]
-}</code></pre>
+<span class="op">}</span></code></pre></div>
 <p>然后在我们还没有开始写代码的时候版本就已经是<code>0.0.2</code>这个速度好快。。总结如下:</p>
 <ul>
 <li>取一个好的名字</li>
@@ -1818,12 +1818,12 @@ Coming soon</code></pre>
 <p>为了简化这一个痛苦的过程，我们还是用yeoman。</p>
 <h4 id="安装yeoman-lib生成器">安装Yeoman lib生成器</h4>
 <p>1.安装yeoman</p>
-<pre><code>npm install -g yo</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">npm</span> install -g yo</code></pre></div>
 <p>2.安装generator-lib</p>
-<pre><code> npm install -g generator-lib</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">npm</span> install -g generator-lib</code></pre></div>
 <p>3.创建项目</p>
-<pre><code> mkdir ~/lettuce &amp;&amp; cd $_
- yo lib</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> ~/lettuce <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span>
+<span class="kw">yo</span> lib</code></pre></div>
 <p>接着我们就迎来了</p>
 <pre><code>     _-----_
     |       |
@@ -3316,10 +3316,10 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 <p><strong>Python library to extract EXIF data from tiff and jpeg files.</strong></p>
 </blockquote>
 <p><strong>ExifRead安装</strong></p>
-<pre><code>pip install exifread</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install exifread</code></pre></div>
 <p><strong>ExifRead Exif.py</strong></p>
 <p>官方写了一个exif.py的command可直接查看照片信息</p>
-<pre><code> EXIF.py images.jpg</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">EXIF.py</span> images.jpg</code></pre></div>
 <p><strong>CartoDB</strong></p>
 <blockquote>
 <p>Create dynamic maps, analyze and build location aware and geospatial applications with your data using the power using the power of PostGIS in the cloud.</p>
@@ -3336,20 +3336,20 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
 </ul>
 <p><strong>python 遍历文件</strong></p>
 <p>代码如下，来自于《python cookbook》</p>
-<pre><code>import os, fnmatch
-def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=False):
-    patterns = patterns.split(&#39;;&#39;)
-    for path, subdirs, files in os.walk(root):
-        if yield_folders:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> os, fnmatch
+<span class="kw">def</span> all_files(root, patterns<span class="op">=</span><span class="st">&#39;*&#39;</span>, single_level<span class="op">=</span><span class="va">False</span>, yield_folders<span class="op">=</span><span class="va">False</span>):
+    patterns <span class="op">=</span> patterns.split(<span class="st">&#39;;&#39;</span>)
+    <span class="cf">for</span> path, subdirs, files <span class="op">in</span> os.walk(root):
+        <span class="cf">if</span> yield_folders:
             files.extend(subdirs)
         files.sort()
-        for name in files:
-            for pattern in patterns:
-                if fnmatch.fnmatch(name, pattern):
-                    yield os.path.join(path, name)
-                    break
-                if single_level:
-                    break</code></pre>
+        <span class="cf">for</span> name <span class="op">in</span> files:
+            <span class="cf">for</span> pattern <span class="op">in</span> patterns:
+                <span class="cf">if</span> fnmatch.fnmatch(name, pattern):
+                    <span class="cf">yield</span> os.path.join(path, name)
+                    <span class="cf">break</span>
+                <span class="cf">if</span> single_level:
+                    <span class="cf">break</span></code></pre></div>
 <p><strong>python 解析照片信息</strong></p>
 <p>由于直接从照片中提取的信息是</p>
 <pre><code>[34, 12, 51513/1000]</code></pre>
@@ -3358,70 +3358,70 @@ def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=Fals
 <p>几度几分几秒的形式，我们需要转换为</p>
 <pre><code>34.2143091667</code></pre>
 <p>具体的大致就是</p>
-<pre><code>def parse_gps(titude):
-    first_number = titude.split(&#39;,&#39;)[0]
-    second_number = titude.split(&#39;,&#39;)[1]
-    third_number = titude.split(&#39;,&#39;)[2]
-    third_number_parent = third_number.split(&#39;/&#39;)[0]
-    third_number_child = third_number.split(&#39;/&#39;)[1]
-    third_number_result = float(third_number_parent) / float(third_number_child)
-    return float(first_number) + float(second_number)/60 + third_number_result/3600</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> parse_gps(titude):
+    first_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">0</span>]
+    second_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">1</span>]
+    third_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">2</span>]
+    third_number_parent <span class="op">=</span> third_number.split(<span class="st">&#39;/&#39;</span>)[<span class="dv">0</span>]
+    third_number_child <span class="op">=</span> third_number.split(<span class="st">&#39;/&#39;</span>)[<span class="dv">1</span>]
+    third_number_result <span class="op">=</span> <span class="bu">float</span>(third_number_parent) <span class="op">/</span> <span class="bu">float</span>(third_number_child)
+    <span class="cf">return</span> <span class="bu">float</span>(first_number) <span class="op">+</span> <span class="bu">float</span>(second_number)<span class="op">/</span><span class="dv">60</span> <span class="op">+</span> third_number_result<span class="op">/</span><span class="dv">3600</span></code></pre></div>
 <p>也就是我们需要将second/60，还有minutes/3600。</p>
 <p><strong>python 提取照片信息生成文件</strong></p>
-<pre><code>import json
-import exifread
-import os, fnmatch
-from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
-from exifread import process_file, __version__
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> json
+<span class="im">import</span> exifread
+<span class="im">import</span> os, fnmatch
+<span class="im">from</span> exifread.tags <span class="im">import</span> DEFAULT_STOP_TAG, FIELD_TYPES
+<span class="im">from</span> exifread <span class="im">import</span> process_file, __version__
 
-def all_files(root, patterns=&#39;*&#39;, single_level=False, yield_folders=False):
-    patterns = patterns.split(&#39;;&#39;)
-    for path, subdirs, files in os.walk(root):
-        if yield_folders:
+<span class="kw">def</span> all_files(root, patterns<span class="op">=</span><span class="st">&#39;*&#39;</span>, single_level<span class="op">=</span><span class="va">False</span>, yield_folders<span class="op">=</span><span class="va">False</span>):
+    patterns <span class="op">=</span> patterns.split(<span class="st">&#39;;&#39;</span>)
+    <span class="cf">for</span> path, subdirs, files <span class="op">in</span> os.walk(root):
+        <span class="cf">if</span> yield_folders:
             files.extend(subdirs)
         files.sort()
-        for name in files:
-            for pattern in patterns:
-                if fnmatch.fnmatch(name, pattern):
-                    yield os.path.join(path, name)
-                    break
-                if single_level:
-                    break
+        <span class="cf">for</span> name <span class="op">in</span> files:
+            <span class="cf">for</span> pattern <span class="op">in</span> patterns:
+                <span class="cf">if</span> fnmatch.fnmatch(name, pattern):
+                    <span class="cf">yield</span> os.path.join(path, name)
+                    <span class="cf">break</span>
+                <span class="cf">if</span> single_level:
+                    <span class="cf">break</span>
 
-def parse_gps(titude):
-    first_number = titude.split(&#39;,&#39;)[0]
-    second_number = titude.split(&#39;,&#39;)[1]
-    third_number = titude.split(&#39;,&#39;)[2]
-    third_number_parent = third_number.split(&#39;/&#39;)[0]
-    third_number_child = third_number.split(&#39;/&#39;)[1]
-    third_number_result = float(third_number_parent) / float(third_number_child)
-    return float(first_number) + float(second_number)/60 + third_number_result/3600
+<span class="kw">def</span> parse_gps(titude):
+    first_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">0</span>]
+    second_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">1</span>]
+    third_number <span class="op">=</span> titude.split(<span class="st">&#39;,&#39;</span>)[<span class="dv">2</span>]
+    third_number_parent <span class="op">=</span> third_number.split(<span class="st">&#39;/&#39;</span>)[<span class="dv">0</span>]
+    third_number_child <span class="op">=</span> third_number.split(<span class="st">&#39;/&#39;</span>)[<span class="dv">1</span>]
+    third_number_result <span class="op">=</span> <span class="bu">float</span>(third_number_parent) <span class="op">/</span> <span class="bu">float</span>(third_number_child)
+    <span class="cf">return</span> <span class="bu">float</span>(first_number) <span class="op">+</span> <span class="bu">float</span>(second_number)<span class="op">/</span><span class="dv">60</span> <span class="op">+</span> third_number_result<span class="op">/</span><span class="dv">3600</span>
 
-jsonFile = open(&quot;gps.geojson&quot;, &quot;w&quot;)
-jsonFile.writelines(&#39;{\n&quot;type&quot;: &quot;FeatureCollection&quot;,&quot;features&quot;: [\n&#39;)
+jsonFile <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;gps.geojson&quot;</span>, <span class="st">&quot;w&quot;</span>)
+jsonFile.writelines(<span class="st">&#39;{</span><span class="ch">\n</span><span class="st">&quot;type&quot;: &quot;FeatureCollection&quot;,&quot;features&quot;: [</span><span class="ch">\n</span><span class="st">&#39;</span>)
 
-def write_data(paths):
-    index = 1
-    for path in all_files(&#39;./&#39; + paths, &#39;*.jpg&#39;):
-        f = open(path[2:], &#39;rb&#39;)
-        tags = exifread.process_file(f)
-        # jsonFile.writelines(&#39;&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39;+str(index)+&#39;&quot;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39;)
-        latitude = tags[&#39;GPS GPSLatitude&#39;].printable[1:-1]
-        longitude = tags[&#39;GPS GPSLongitude&#39;].printable[1:-1]
-        print latitude
-        print parse_gps(latitude)
-        # print tags[&#39;GPS GPSLongitudeRef&#39;]
-        # print tags[&#39;GPS GPSLatitudeRef&#39;]
-        jsonFile.writelines(&#39;{&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39; + str(index) + &#39;&quot;&#39;)
-        jsonFile.writelines(&#39;,&quot;OS&quot;:&quot;&#39; + str(tags[&#39;Image Software&#39;]) + &#39;&quot;,&quot;Model&quot;:&quot;&#39; + str(tags[&#39;Image Model&#39;]) + &#39;&quot;,&quot;Picture&quot;:&quot;&#39;+str(path[7:])+&#39;&quot;&#39;)
-        jsonFile.writelines(&#39;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39; + str(parse_gps(longitude)) + &#39;,&#39; + str(
-            parse_gps(latitude)) + &#39;]}},\n&#39;)
-        index += 1
+<span class="kw">def</span> write_data(paths):
+    index <span class="op">=</span> <span class="dv">1</span>
+    <span class="cf">for</span> path <span class="op">in</span> all_files(<span class="st">&#39;./&#39;</span> <span class="op">+</span> paths, <span class="st">&#39;*.jpg&#39;</span>):
+        f <span class="op">=</span> <span class="bu">open</span>(path[<span class="dv">2</span>:], <span class="st">&#39;rb&#39;</span>)
+        tags <span class="op">=</span> exifread.process_file(f)
+        <span class="co"># jsonFile.writelines(&#39;&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39;+str(index)+&#39;&quot;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39;)</span>
+        latitude <span class="op">=</span> tags[<span class="st">&#39;GPS GPSLatitude&#39;</span>].printable[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>]
+        longitude <span class="op">=</span> tags[<span class="st">&#39;GPS GPSLongitude&#39;</span>].printable[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>]
+        <span class="bu">print</span> latitude
+        <span class="bu">print</span> parse_gps(latitude)
+        <span class="co"># print tags[&#39;GPS GPSLongitudeRef&#39;]</span>
+        <span class="co"># print tags[&#39;GPS GPSLatitudeRef&#39;]</span>
+        jsonFile.writelines(<span class="st">&#39;{&quot;type&quot;: &quot;Feature&quot;,&quot;properties&quot;: {&quot;cartodb_id&quot;:&quot;&#39;</span> <span class="op">+</span> <span class="bu">str</span>(index) <span class="op">+</span> <span class="st">&#39;&quot;&#39;</span>)
+        jsonFile.writelines(<span class="st">&#39;,&quot;OS&quot;:&quot;&#39;</span> <span class="op">+</span> <span class="bu">str</span>(tags[<span class="st">&#39;Image Software&#39;</span>]) <span class="op">+</span> <span class="st">&#39;&quot;,&quot;Model&quot;:&quot;&#39;</span> <span class="op">+</span> <span class="bu">str</span>(tags[<span class="st">&#39;Image Model&#39;</span>]) <span class="op">+</span> <span class="st">&#39;&quot;,&quot;Picture&quot;:&quot;&#39;</span><span class="op">+</span><span class="bu">str</span>(path[<span class="dv">7</span>:])<span class="op">+</span><span class="st">&#39;&quot;&#39;</span>)
+        jsonFile.writelines(<span class="st">&#39;},&quot;geometry&quot;: {&quot;type&quot;: &quot;Point&quot;,&quot;coordinates&quot;: [&#39;</span> <span class="op">+</span> <span class="bu">str</span>(parse_gps(longitude)) <span class="op">+</span> <span class="st">&#39;,&#39;</span> <span class="op">+</span> <span class="bu">str</span>(
+            parse_gps(latitude)) <span class="op">+</span> <span class="st">&#39;]</span><span class="sc">}}</span><span class="st">,</span><span class="ch">\n</span><span class="st">&#39;</span>)
+        index <span class="op">+=</span> <span class="dv">1</span>
 
-write_data(&#39;imgs&#39;)
+write_data(<span class="st">&#39;imgs&#39;</span>)
 
-jsonFile.writelines(&#39;]}\n&#39;)
-jsonFile.close()</code></pre>
+jsonFile.writelines(<span class="st">&#39;]}</span><span class="ch">\n</span><span class="st">&#39;</span>)
+jsonFile.close()</code></pre></div>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
 <h3 id="练习建议-6">练习建议</h3>
@@ -3440,13 +3440,13 @@ jsonFile.close()</code></pre>
 <p>Graphviz （英文：Graph Visualization Software的缩写）是一个由AT&amp;T实验室启动的开源工具包，用于绘制DOT语言脚本描述的图形。它也提供了供其它软件使用的库。Graphviz是一个自由软件，其授权为Eclipse Public License。其Mac版本曾经获得2004年的苹果设计奖。</p>
 </blockquote>
 <p>一个简单的示例代码如下:</p>
-<pre><code>graph example1 {
-    Server1 -- Server2
-    Server2 -- Server3
-    Server3 -- Server1
-}</code></pre>
+<div class="sourceCode"><pre class="sourceCode dot"><code class="sourceCode dot"><span class="fu">graph</span> <span class="fu">example1</span> <span class="ot">{</span>
+<span class="co">    </span><span class="fu">Server1</span><span class="co"> -- </span><span class="fu">Server2</span>
+<span class="co">    </span><span class="fu">Server2</span><span class="co"> -- </span><span class="fu">Server3</span>
+<span class="co">    </span><span class="fu">Server3</span><span class="co"> -- </span><span class="fu">Server1</span>
+<span class="ot">}</span></code></pre></div>
 <p>执行编译后:</p>
-<pre><code>dot -Tjpg lz.dot -o lz.jpg</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">dot</span> -Tjpg lz.dot -o lz.jpg</code></pre></div>
 <p>就会生成下面的图片</p>
 <figure>
 <img src="./images/lz.jpg" alt="lz" /><figcaption>lz</figcaption>
@@ -3470,21 +3470,21 @@ jsonFile.close()</code></pre>
 <img src="./images/tree.jpg" alt="Tree" /><figcaption>Tree</figcaption>
 </figure>
 <p>而我们的代码是这样的:</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">    digraph tree
-    {
-        nodesep=<span class="fl">0.5</span>;
-        charset=<span class="st">&quot;UTF-8&quot;</span>;
-        rankdir=LR;
-        fixedsize=true;
-        node [style=<span class="st">&quot;rounded,filled&quot;</span>, width=<span class="dv">0</span>, height=<span class="dv">0</span>, shape=box, fillcolor=<span class="st">&quot;#E5E5E5&quot;</span>, concentrate=true]
-        <span class="st">&quot;JavaScript&quot;</span> -&gt;<span class="st">&quot;Web前端&quot;</span>
-        <span class="st">&quot;HTML&quot;</span> -&gt; <span class="st">&quot;Web前端&quot;</span>
-        <span class="st">&quot;CSS&quot;</span> -&gt; <span class="st">&quot;Web前端&quot;</span>
-        <span class="st">&quot;Web前端&quot;</span> -&gt; <span class="st">&quot;Web开发&quot;</span>
-        <span class="st">&quot;JavaScript&quot;</span> -&gt; <span class="st">&quot;Node.js&quot;</span> -&gt; <span class="st">&quot;Web服务端&quot;</span>
-        <span class="st">&quot;SQL/NoSQL&quot;</span> -&gt; <span class="st">&quot;Web服务端&quot;</span>
-        <span class="st">&quot;Web服务端&quot;</span> -&gt; <span class="st">&quot;Web开发&quot;</span>
-    }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode dot"><code class="sourceCode dot"><span class="kw">digraph</span> <span class="fu">tree</span>
+<span class="ot">{</span>
+<span class="co">    </span><span class="dt">nodesep</span><span class="ot">=</span><span class="dv">0.5</span><span class="ot">;</span>
+<span class="co">    </span><span class="fu">charset</span><span class="ot">=</span><span class="st">&quot;UTF-8&quot;</span><span class="ot">;</span>
+<span class="co">    </span><span class="dt">rankdir</span><span class="ot">=</span><span class="fu">LR</span><span class="ot">;</span>
+<span class="co">    </span><span class="fu">fixedsize</span><span class="ot">=</span><span class="fu">true</span><span class="ot">;</span>
+<span class="co">    </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="dt">style</span><span class="ot">=</span><span class="st">&quot;rounded,filled&quot;</span><span class="co">, </span><span class="dt">width</span><span class="ot">=</span><span class="dv">0</span><span class="co">, </span><span class="dt">height</span><span class="ot">=</span><span class="dv">0</span><span class="co">, </span><span class="dt">shape</span><span class="ot">=</span><span class="fu">box</span><span class="co">, </span><span class="dt">fillcolor</span><span class="ot">=</span><span class="st">&quot;#E5E5E5&quot;</span><span class="co">, </span><span class="fu">concentrate</span><span class="ot">=</span><span class="fu">true</span><span class="ot">]</span>
+<span class="co">    </span><span class="st">&quot;JavaScript&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="st">&quot;Web前端&quot;</span>
+<span class="co">    </span><span class="st">&quot;HTML&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web前端&quot;</span>
+<span class="co">    </span><span class="st">&quot;CSS&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web前端&quot;</span>
+<span class="co">    </span><span class="st">&quot;Web前端&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web开发&quot;</span>
+<span class="co">    </span><span class="st">&quot;JavaScript&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Node.js&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web服务端&quot;</span>
+<span class="co">    </span><span class="st">&quot;SQL/NoSQL&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web服务端&quot;</span>
+<span class="co">    </span><span class="st">&quot;Web服务端&quot;</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="st">&quot;Web开发&quot;</span>
+<span class="ot">}</span></code></pre></div>
 <p>上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。</p>
 <h3 id="step-3-d3.js-tooltipster">Step 3: D3.js Tooltipster</h3>
 <p>使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。</p>
@@ -3494,54 +3494,52 @@ jsonFile.close()</code></pre>
 <h4 id="tooltipster">Tooltipster</h4>
 <p>Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome, IE8+。</p>
 <p>简单示例<code>html</code>:</p>
-<pre><code>    &lt;section class=&quot;container tooltip&quot; title=&quot;Parent container&quot;&gt;
-    &lt;a href=&quot;http://google.com&quot; class=&quot;tooltip&quot; title=&quot;Get your Google on&quot;&gt;Google&lt;/a&gt;
-&lt;/section&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;container tooltip&quot;</span><span class="ot"> title=</span><span class="st">&quot;Parent container&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://google.com&quot;</span><span class="ot"> class=</span><span class="st">&quot;tooltip&quot;</span><span class="ot"> title=</span><span class="st">&quot;Get your Google on&quot;</span><span class="kw">&gt;</span>Google<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
 <p>简单示例`<code>js</code>:</p>
-<pre><code>    $(document).ready(function() {
-        $(&#39;.tooltip&#39;).tooltipster();
-    });</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(document).<span class="at">ready</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(<span class="st">&#39;.tooltip&#39;</span>).<span class="at">tooltipster</span>()<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>D3.js、Tooltipster与Requirejs的配置如下所示:</p>
-<pre><code>require.config({
-  baseUrl: &#39;app&#39;,
-  paths: {
-    jquery: &#39;lib/jquery-2.1.3&#39;,
-    d3: &#39;lib/d3.min&#39;,
-    text: &#39;lib/text&#39;,
-    &#39;jquery.tooltipster&#39;: &#39;lib/jquery.tooltipster.min&#39;
-  },
-  &#39;shim&#39;: {
-    &#39;jquery.tooltipster&#39;: {
-      deps: [&#39;jquery&#39;]
-    }
-  }
-});</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">require</span>.<span class="at">config</span>(<span class="op">{</span>
+  <span class="dt">baseUrl</span><span class="op">:</span> <span class="st">&#39;app&#39;</span><span class="op">,</span>
+  <span class="dt">paths</span><span class="op">:</span> <span class="op">{</span>
+    <span class="dt">jquery</span><span class="op">:</span> <span class="st">&#39;lib/jquery-2.1.3&#39;</span><span class="op">,</span>
+    <span class="dt">d3</span><span class="op">:</span> <span class="st">&#39;lib/d3.min&#39;</span><span class="op">,</span>
+    <span class="dt">text</span><span class="op">:</span> <span class="st">&#39;lib/text&#39;</span><span class="op">,</span>
+    <span class="st">&#39;jquery.tooltipster&#39;</span><span class="op">:</span> <span class="st">&#39;lib/jquery.tooltipster.min&#39;</span>
+  <span class="op">},</span>
+  <span class="st">&#39;shim&#39;</span><span class="op">:</span> <span class="op">{</span>
+    <span class="st">&#39;jquery.tooltipster&#39;</span><span class="op">:</span> <span class="op">{</span>
+      <span class="dt">deps</span><span class="op">:</span> [<span class="st">&#39;jquery&#39;</span>]
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <h4 id="整合代码">整合代码</h4>
 <p>最后代码如下所示:</p>
-<pre><code>  inner.selectAll(&#39;g.node&#39;)
-    .each(function (v, id) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">inner</span>.<span class="at">selectAll</span>(<span class="st">&#39;g.node&#39;</span>)
+  .<span class="at">each</span>(<span class="kw">function</span> (v<span class="op">,</span> id) <span class="op">{</span>
+    <span class="va">g</span>.<span class="at">node</span>(v).<span class="at">books</span> <span class="op">=</span> <span class="va">Utils</span>.<span class="at">handleEmptyDocs</span>(<span class="va">g</span>.<span class="at">node</span>(v).<span class="at">books</span>)<span class="op">;</span>
+    <span class="va">g</span>.<span class="at">node</span>(v).<span class="at">links</span> <span class="op">=</span> <span class="va">Utils</span>.<span class="at">handleEmptyDocs</span>(<span class="va">g</span>.<span class="at">node</span>(v).<span class="at">links</span>)<span class="op">;</span>
 
+    <span class="kw">var</span> data <span class="op">=</span> <span class="op">{</span>
+      <span class="dt">id</span><span class="op">:</span> id<span class="op">,</span>
+      <span class="dt">name</span><span class="op">:</span> v<span class="op">,</span>
+      <span class="dt">description</span><span class="op">:</span> <span class="va">g</span>.<span class="at">node</span>(v).<span class="at">description</span><span class="op">,</span>
+      <span class="dt">books</span><span class="op">:</span> <span class="va">g</span>.<span class="at">node</span>(v).<span class="at">books</span><span class="op">,</span>
+      <span class="dt">links</span><span class="op">:</span> <span class="va">g</span>.<span class="at">node</span>(v).<span class="at">links</span>
+    <span class="op">};</span>
+    <span class="kw">var</span> results <span class="op">=</span> <span class="va">lettuce</span>.<span class="va">Template</span>.<span class="at">tmpl</span>(description_template<span class="op">,</span> data)<span class="op">;</span>
 
-      g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
-      g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
-
-      var data = {
-        id: id,
-        name: v,
-        description: g.node(v).description,
-        books: g.node(v).books,
-        links: g.node(v).links
-      };
-      var results = lettuce.Template.tmpl(description_template, data);
-
-      $(this).tooltipster({
-        content: $(results),
-        contentAsHTML: true,
-        position: &#39;left&#39;,
-        animation: &#39;grow&#39;,
-        interactive: true});
-      $(this).find(&#39;rect&#39;).css(&#39;fill&#39;, &#39;#ecf0f1&#39;);
-    });</code></pre>
+    <span class="at">$</span>(<span class="kw">this</span>).<span class="at">tooltipster</span>(<span class="op">{</span>
+      <span class="dt">content</span><span class="op">:</span> <span class="at">$</span>(results)<span class="op">,</span>
+      <span class="dt">contentAsHTML</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+      <span class="dt">position</span><span class="op">:</span> <span class="st">&#39;left&#39;</span><span class="op">,</span>
+      <span class="dt">animation</span><span class="op">:</span> <span class="st">&#39;grow&#39;</span><span class="op">,</span>
+      <span class="dt">interactive</span><span class="op">:</span> <span class="kw">true</span><span class="op">}</span>)<span class="op">;</span>
+    <span class="at">$</span>(<span class="kw">this</span>).<span class="at">find</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">css</span>(<span class="st">&#39;fill&#39;</span><span class="op">,</span> <span class="st">&#39;#ecf0f1&#39;</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <h1 id="技术雷达趋势">技术雷达趋势</h1>
 <h2 id="概况-16">概况</h2>
 <h3 id="背景-14">背景</h3>
@@ -3640,31 +3638,31 @@ jsonFile.close()</code></pre>
 <h2 id="步骤-17">步骤</h2>
 <h3 id="step-1-python-文字转logo实战">Step 1: Python 文字转Logo实战</h3>
 <p>一个简单的PIL生成图片的代码:</p>
-<pre><code># -*- coding: utf-8 -*-
-from PIL import Image, ImageDraw, ImageFont
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">from</span> PIL <span class="im">import</span> Image, ImageDraw, ImageFont
 
-img = Image.new(&#39;L&#39;, (128, 128), 255)
-draw = ImageDraw.Draw(img)
-text_to_draw = unicode(&#39;xxs&#39;, &#39;utf-8&#39;)
-font = ImageFont.truetype(&#39;fonts/NotoSansCJKsc-Regular.otf&#39;, 12)
-draw.text((2, 2), text_to_draw, font=font)
-del draw
+img <span class="op">=</span> Image.new(<span class="st">&#39;L&#39;</span>, (<span class="dv">128</span>, <span class="dv">128</span>), <span class="dv">255</span>)
+draw <span class="op">=</span> ImageDraw.Draw(img)
+text_to_draw <span class="op">=</span> <span class="bu">unicode</span>(<span class="st">&#39;xxs&#39;</span>, <span class="st">&#39;utf-8&#39;</span>)
+font <span class="op">=</span> ImageFont.truetype(<span class="st">&#39;fonts/NotoSansCJKsc-Regular.otf&#39;</span>, <span class="dv">12</span>)
+draw.text((<span class="dv">2</span>, <span class="dv">2</span>), text_to_draw, font<span class="op">=</span>font)
+<span class="kw">del</span> draw
 
-img.save(&#39;build/image.png&#39;)</code></pre>
+img.save(<span class="st">&#39;build/image.png&#39;</span>)</code></pre></div>
 <h4 id="圆角代码">圆角代码</h4>
 <p>我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数</p>
-<pre><code>def add_corners(im, rad):
-    circle = Image.new(&#39;L&#39;, (rad * 2, rad * 2), 0)
-    image = ImageDraw.Draw(circle)
-    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
-    alpha = Image.new(&#39;L&#39;, im.size, 255)
-    w, h = im.size
-    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
-    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
-    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
-    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
-    im.putalpha(alpha)
-    return im</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">def <span class="at">add_corners</span>(im<span class="op">,</span> rad)<span class="op">:</span>
+    circle <span class="op">=</span> <span class="va">Image</span>.<span class="at">new</span>(<span class="st">&#39;L&#39;</span><span class="op">,</span> (rad <span class="op">*</span> <span class="dv">2</span><span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span>)<span class="op">,</span> <span class="dv">0</span>)
+    image <span class="op">=</span> <span class="va">ImageDraw</span>.<span class="at">Draw</span>(circle)
+    <span class="va">image</span>.<span class="at">ellipse</span>((<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span><span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span>)<span class="op">,</span> fill<span class="op">=</span><span class="dv">255</span>)
+    alpha <span class="op">=</span> <span class="va">Image</span>.<span class="at">new</span>(<span class="st">&#39;L&#39;</span><span class="op">,</span> <span class="va">im</span>.<span class="at">size</span><span class="op">,</span> <span class="dv">255</span>)
+    w<span class="op">,</span> h <span class="op">=</span> <span class="va">im</span>.<span class="at">size</span>
+    <span class="va">alpha</span>.<span class="at">paste</span>(<span class="va">circle</span>.<span class="at">crop</span>((<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> rad<span class="op">,</span> rad))<span class="op">,</span> (<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>))
+    <span class="va">alpha</span>.<span class="at">paste</span>(<span class="va">circle</span>.<span class="at">crop</span>((<span class="dv">0</span><span class="op">,</span> rad<span class="op">,</span> rad<span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span>))<span class="op">,</span> (<span class="dv">0</span><span class="op">,</span> h <span class="op">-</span> rad))
+    <span class="va">alpha</span>.<span class="at">paste</span>(<span class="va">circle</span>.<span class="at">crop</span>((rad<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span><span class="op">,</span> rad))<span class="op">,</span> (w <span class="op">-</span> rad<span class="op">,</span> <span class="dv">0</span>))
+    <span class="va">alpha</span>.<span class="at">paste</span>(<span class="va">circle</span>.<span class="at">crop</span>((rad<span class="op">,</span> rad<span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span><span class="op">,</span> rad <span class="op">*</span> <span class="dv">2</span>))<span class="op">,</span> (w <span class="op">-</span> rad<span class="op">,</span> h <span class="op">-</span> rad))
+    <span class="va">im</span>.<span class="at">putalpha</span>(alpha)
+    <span class="cf">return</span> im</code></pre></div>
 <h4 id="颜色配置">颜色配置</h4>
 <p>在Github上找到了一个配色还不错的CSS，将之改为color.Ini，在里面配置了不同色彩与文字、前景的有关系等等，如:</p>
 <pre><code>[Color]
@@ -3675,19 +3673,19 @@ greenSea: #16a085,#ecf0f1
 自动化测试: auto_test
 前端开发: web_front_develop</code></pre>
 <p>读取配置则用的是<code>ConfigParser</code>:</p>
-<pre><code>import ConfigParser
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> ConfigParser
 
-ConfigColor = ConfigParser.ConfigParser()
-ConfigColor.read(&quot;./color.ini&quot;)
+ConfigColor <span class="op">=</span> ConfigParser.ConfigParser()
+ConfigColor.read(<span class="st">&quot;./color.ini&quot;</span>)
 
-bg_colors = []
-font_colors = []
+bg_colors <span class="op">=</span> []
+font_colors <span class="op">=</span> []
 
-for color_name, color in ConfigColor.items(&#39;Color&#39;):
-    bg_colors.append(color.replace(&#39;#&#39;, &#39;&#39;).split(&#39;,&#39;)[0])
-    font_colors.append(color.replace(&#39;#&#39;, &#39;&#39;).split(&#39;,&#39;)[1])
+<span class="cf">for</span> color_name, color <span class="op">in</span> ConfigColor.items(<span class="st">&#39;Color&#39;</span>):
+    bg_colors.append(color.replace(<span class="st">&#39;#&#39;</span>, <span class="st">&#39;&#39;</span>).split(<span class="st">&#39;,&#39;</span>)[<span class="dv">0</span>])
+    font_colors.append(color.replace(<span class="st">&#39;#&#39;</span>, <span class="st">&#39;&#39;</span>).split(<span class="st">&#39;,&#39;</span>)[<span class="dv">1</span>])
 
-colors_length = ConfigColor.items(&#39;Color&#39;).__len__()</code></pre>
+colors_length <span class="op">=</span> ConfigColor.items(<span class="st">&#39;Color&#39;</span>).<span class="fu">__len__</span>()</code></pre></div>
 <p>最后我们就可以得到我们想要的图片了~~</p>
 <h1 id="geojson与elasticsearch实现高级图形搜索">GEOJSON与ElasticSearch实现高级图形搜索</h1>
 <h2 id="概况-18">概况</h2>

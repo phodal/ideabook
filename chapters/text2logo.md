@@ -28,35 +28,38 @@
 
 一个简单的PIL生成图片的代码:
 
-	# -*- coding: utf-8 -*-
-	from PIL import Image, ImageDraw, ImageFont
+```python
+# -*- coding: utf-8 -*-
+from PIL import Image, ImageDraw, ImageFont
 
-	img = Image.new('L', (128, 128), 255)
-	draw = ImageDraw.Draw(img)
-	text_to_draw = unicode('xxs', 'utf-8')
-	font = ImageFont.truetype('fonts/NotoSansCJKsc-Regular.otf', 12)
-	draw.text((2, 2), text_to_draw, font=font)
-	del draw
+img = Image.new('L', (128, 128), 255)
+draw = ImageDraw.Draw(img)
+text_to_draw = unicode('xxs', 'utf-8')
+font = ImageFont.truetype('fonts/NotoSansCJKsc-Regular.otf', 12)
+draw.text((2, 2), text_to_draw, font=font)
+del draw
 
-	img.save('build/image.png')
+img.save('build/image.png')
+```
 
 #### 圆角代码
 
 我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数
 
-
-	def add_corners(im, rad):
-	    circle = Image.new('L', (rad * 2, rad * 2), 0)
-	    image = ImageDraw.Draw(circle)
-	    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
-	    alpha = Image.new('L', im.size, 255)
-	    w, h = im.size
-	    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
-	    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
-	    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
-	    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
-	    im.putalpha(alpha)
-	    return im
+```javascript
+def add_corners(im, rad):
+    circle = Image.new('L', (rad * 2, rad * 2), 0)
+    image = ImageDraw.Draw(circle)
+    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
+    alpha = Image.new('L', im.size, 255)
+    w, h = im.size
+    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
+    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
+    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
+    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
+    im.putalpha(alpha)
+    return im
+```
 
 #### 颜色配置
 
@@ -72,18 +75,20 @@
 
 读取配置则用的是``ConfigParser``:
 
-	import ConfigParser
+```python
+import ConfigParser
 
-	ConfigColor = ConfigParser.ConfigParser()
-	ConfigColor.read("./color.ini")
+ConfigColor = ConfigParser.ConfigParser()
+ConfigColor.read("./color.ini")
 
-	bg_colors = []
-	font_colors = []
+bg_colors = []
+font_colors = []
 
-	for color_name, color in ConfigColor.items('Color'):
-	    bg_colors.append(color.replace('#', '').split(',')[0])
-	    font_colors.append(color.replace('#', '').split(',')[1])
+for color_name, color in ConfigColor.items('Color'):
+    bg_colors.append(color.replace('#', '').split(',')[0])
+    font_colors.append(color.replace('#', '').split(',')[1])
 
-	colors_length = ConfigColor.items('Color').__len__()
+colors_length = ConfigColor.items('Color').__len__()
+```
 
 最后我们就可以得到我们想要的图片了~~

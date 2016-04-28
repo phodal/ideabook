@@ -1870,34 +1870,35 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 是的一开始什么也没做，除了从``bower``和``npm``上注册了一个叫做``lettuce``的库:
 
-    {
-      "name": "lettuce",
-      "version": "0.0.2",
-      "authors": [
-        "Fengda HUANG <h@phodal.com>"
-      ],
-      "description": "A Mobile JavaScript Framework",
-      "main": "index.js",
-      "moduleType": [
-        "amd",
-        "node"
-      ],
-      "keywords": [
-        "lettuce",
-        "mobile"
-      ],
-      "license": "MIT",
-      "homepage": "http://lettuce.phodal.com",
-      "private": false,
-      "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-      ]
-    }
-
+```javascript
+{
+  "name": "lettuce",
+  "version": "0.0.2",
+  "authors": [
+    "Fengda HUANG <h@phodal.com>"
+  ],
+  "description": "A Mobile JavaScript Framework",
+  "main": "index.js",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "keywords": [
+    "lettuce",
+    "mobile"
+  ],
+  "license": "MIT",
+  "homepage": "http://lettuce.phodal.com",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+```
 
 然后在我们还没有开始写代码的时候版本就已经是``0.0.2``这个速度好快。。总结如下:
 
@@ -1907,11 +1908,13 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 所以我的``README.md``是这样子的
 
-    #Lettuce
+```
+#Lettuce
 
-    > A is Mobile JavaScript Framework
+> A is Mobile JavaScript Framework
 
-    Coming soon
+Coming soon
+```
 
 是的，我们的代码已经``Coming soon``了。
 
@@ -1923,69 +1926,78 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 1.安装yeoman
 
-    npm install -g yo
+```bash
+npm install -g yo
+```
 
 2.安装generator-lib
 
-     npm install -g generator-lib
+```bash
+npm install -g generator-lib
+```
 
 3.创建项目
- 
-     mkdir ~/lettuce && cd $_
-     yo lib
+
+```bash 
+mkdir ~/lettuce && cd $_
+yo lib
+```
 
 接着我们就迎来了
 
-         _-----_
-        |       |
-        |--(o)--|   .--------------------------.
-       `---------´  |    Welcome to Yeoman,    |
-        ( _´U`_ )   |   ladies and gentlemen!  |
-        /___A___\   '__________________________'
-         |  ~  |
-       __'.___.'__
-     ´   `  |° ´ Y `
+```
+     _-----_
+    |       |
+    |--(o)--|   .--------------------------.
+   `---------´  |    Welcome to Yeoman,    |
+    ( _´U`_ )   |   ladies and gentlemen!  |
+    /___A___\   '__________________________'
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
 
-    [?] What do you want to call your lib? Lettuce
-    [?] Describe your lib: A Framework for Romantic
-    [?] What is your GitHub username? phodal
-    [?] What is your full name? Fengda Huang
-    [?] What year for the copyright? 2015
-
+[?] What do you want to call your lib? Lettuce
+[?] Describe your lib: A Framework for Romantic
+[?] What is your GitHub username? phodal
+[?] What is your full name? Fengda Huang
+[?] What year for the copyright? 2015
+```
 
 省略上百字，你的目录里就会有
 
-    .
-    |____.editorconfig
-    |____.gitattributes
-    |____.gitignore
-    |____.jshintrc
-    |____bower.json
-    |____demo
-    | |____assets
-    | | |____main.css
-    | | |____normalize.css
-    | |____index.html
-    |____dist
-    | |____Lettuce.js
-    | |____Lettuce.min.js
-    |____docs
-    | |____MAIN.md
-    |____Gruntfile.js
-    |____index.html
-    |____LICENSE.txt
-    |____package.json
-    |____README.md
-    |____src
-    | |_____intro.js
-    | |_____outro.js
-    | |____main.js
-    |____test
-    | |____all.html
-    | |____all.js
-    | |____lib
-    | | |____qunit.css
-    | | |____qunit.js
+```
+.
+|____.editorconfig
+|____.gitattributes
+|____.gitignore
+|____.jshintrc
+|____bower.json
+|____demo
+| |____assets
+| | |____main.css
+| | |____normalize.css
+| |____index.html
+|____dist
+| |____Lettuce.js
+| |____Lettuce.min.js
+|____docs
+| |____MAIN.md
+|____Gruntfile.js
+|____index.html
+|____LICENSE.txt
+|____package.json
+|____README.md
+|____src
+| |_____intro.js
+| |_____outro.js
+| |____main.js
+|____test
+| |____all.html
+| |____all.js
+| |____lib
+| | |____qunit.css
+| | |____qunit.js
+```
 
 这么多的文件。
 
@@ -1997,36 +2009,40 @@ ngCordova有一个插件是``$cordovaGeolocation``，用于获取当前的位置
 
 就有了这么多的log:
 
-    Running "concat:dist" (concat) task
-    File "dist/Lettuce.js" created.
+```
+Running "concat:dist" (concat) task
+File "dist/Lettuce.js" created.
 
-    Running "jshint:files" (jshint) task
-    >> 1 file lint free.
+Running "jshint:files" (jshint) task
+>> 1 file lint free.
 
-    Running "qunit:files" (qunit) task
-    Testing test/all.html .OK
-    >> 1 assertions passed (20ms)
+Running "qunit:files" (qunit) task
+Testing test/all.html .OK
+>> 1 assertions passed (20ms)
 
-    Running "uglify:dist" (uglify) task
-    File "dist/Lettuce.min.js" created.
+Running "uglify:dist" (uglify) task
+File "dist/Lettuce.min.js" created.
 
-    Done, without errors.
+Done, without errors.
+```
 
 看看我们的Lettuce.js里面有什么
 
-    (function(root, undefined) {
-      "use strict";
-    /* Lettuce main */
-    // Base function.
-    var Lettuce = function() {
-      // Add functionality here.
-      return true;
-    };
-    // Version.
-    Lettuce.VERSION = '0.0.1';
-    // Export to the root, which is probably `window`.
-    root.Lettuce = Lettuce;
-    }(this));
+```
+(function(root, undefined) {
+  "use strict";
+/* Lettuce main */
+// Base function.
+var Lettuce = function() {
+  // Add functionality here.
+  return true;
+};
+// Version.
+Lettuce.VERSION = '0.0.1';
+// Export to the root, which is probably `window`.
+root.Lettuce = Lettuce;
+}(this));
+```
 
 我们的库写在[立即执行函数表达式](https://www.phodal.com/blog/javascript-immediately-invoked-function-expression)里面。这样便是和jQuery等库一样了。
 
@@ -3799,13 +3815,17 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
 
 **ExifRead安装**
 
-    pip install exifread
+```bash
+pip install exifread
+```
 
 **ExifRead Exif.py**
 
 官方写了一个exif.py的command可直接查看照片信息
 
-     EXIF.py images.jpg
+```bash
+EXIF.py images.jpg
+```
 
 
 **CartoDB**
@@ -3830,104 +3850,116 @@ EXIF信息以0xFFE1作为开头标记，后两个字节表示EXIF信息的长度
 
 代码如下，来自于《python cookbook》
 
-    import os, fnmatch
-    def all_files(root, patterns='*', single_level=False, yield_folders=False):
-        patterns = patterns.split(';')
-        for path, subdirs, files in os.walk(root):
-            if yield_folders:
-                files.extend(subdirs)
-            files.sort()
-            for name in files:
-                for pattern in patterns:
-                    if fnmatch.fnmatch(name, pattern):
-                        yield os.path.join(path, name)
-                        break
-                    if single_level:
-                        break
+```python
+import os, fnmatch
+def all_files(root, patterns='*', single_level=False, yield_folders=False):
+    patterns = patterns.split(';')
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break
+```
 
 **python 解析照片信息**
 
 由于直接从照片中提取的信息是
 
-    [34, 12, 51513/1000]
+```
+[34, 12, 51513/1000]
+```
 
 也就是
 
-    N 34� 13' 12.718
+```
+N 34� 13' 12.718
+```
 
 几度几分几秒的形式，我们需要转换为
 
-    34.2143091667
+```
+34.2143091667
+```
 
 具体的大致就是
 
-    def parse_gps(titude):
-        first_number = titude.split(',')[0]
-        second_number = titude.split(',')[1]
-        third_number = titude.split(',')[2]
-        third_number_parent = third_number.split('/')[0]
-        third_number_child = third_number.split('/')[1]
-        third_number_result = float(third_number_parent) / float(third_number_child)
-        return float(first_number) + float(second_number)/60 + third_number_result/3600
+```python    
+def parse_gps(titude):
+    first_number = titude.split(',')[0]
+    second_number = titude.split(',')[1]
+    third_number = titude.split(',')[2]
+    third_number_parent = third_number.split('/')[0]
+    third_number_child = third_number.split('/')[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600
+```
 
 也就是我们需要将second/60，还有minutes/3600。
 
 **python 提取照片信息生成文件**
 
-    import json
-    import exifread
-    import os, fnmatch
-    from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
-    from exifread import process_file, __version__
+```python
+import json
+import exifread
+import os, fnmatch
+from exifread.tags import DEFAULT_STOP_TAG, FIELD_TYPES
+from exifread import process_file, __version__
 
-    def all_files(root, patterns='*', single_level=False, yield_folders=False):
-        patterns = patterns.split(';')
-        for path, subdirs, files in os.walk(root):
-            if yield_folders:
-                files.extend(subdirs)
-            files.sort()
-            for name in files:
-                for pattern in patterns:
-                    if fnmatch.fnmatch(name, pattern):
-                        yield os.path.join(path, name)
-                        break
-                    if single_level:
-                        break
+def all_files(root, patterns='*', single_level=False, yield_folders=False):
+    patterns = patterns.split(';')
+    for path, subdirs, files in os.walk(root):
+        if yield_folders:
+            files.extend(subdirs)
+        files.sort()
+        for name in files:
+            for pattern in patterns:
+                if fnmatch.fnmatch(name, pattern):
+                    yield os.path.join(path, name)
+                    break
+                if single_level:
+                    break
 
-    def parse_gps(titude):
-        first_number = titude.split(',')[0]
-        second_number = titude.split(',')[1]
-        third_number = titude.split(',')[2]
-        third_number_parent = third_number.split('/')[0]
-        third_number_child = third_number.split('/')[1]
-        third_number_result = float(third_number_parent) / float(third_number_child)
-        return float(first_number) + float(second_number)/60 + third_number_result/3600
+def parse_gps(titude):
+    first_number = titude.split(',')[0]
+    second_number = titude.split(',')[1]
+    third_number = titude.split(',')[2]
+    third_number_parent = third_number.split('/')[0]
+    third_number_child = third_number.split('/')[1]
+    third_number_result = float(third_number_parent) / float(third_number_child)
+    return float(first_number) + float(second_number)/60 + third_number_result/3600
 
-    jsonFile = open("gps.geojson", "w")
-    jsonFile.writelines('{\n"type": "FeatureCollection","features": [\n')
+jsonFile = open("gps.geojson", "w")
+jsonFile.writelines('{\n"type": "FeatureCollection","features": [\n')
 
-    def write_data(paths):
-        index = 1
-        for path in all_files('./' + paths, '*.jpg'):
-            f = open(path[2:], 'rb')
-            tags = exifread.process_file(f)
-            # jsonFile.writelines('"type": "Feature","properties": {"cartodb_id":"'+str(index)+'"},"geometry": {"type": "Point","coordinates": [')
-            latitude = tags['GPS GPSLatitude'].printable[1:-1]
-            longitude = tags['GPS GPSLongitude'].printable[1:-1]
-            print latitude
-            print parse_gps(latitude)
-            # print tags['GPS GPSLongitudeRef']
-            # print tags['GPS GPSLatitudeRef']
-            jsonFile.writelines('{"type": "Feature","properties": {"cartodb_id":"' + str(index) + '"')
-            jsonFile.writelines(',"OS":"' + str(tags['Image Software']) + '","Model":"' + str(tags['Image Model']) + '","Picture":"'+str(path[7:])+'"')
-            jsonFile.writelines('},"geometry": {"type": "Point","coordinates": [' + str(parse_gps(longitude)) + ',' + str(
-                parse_gps(latitude)) + ']}},\n')
-            index += 1
+def write_data(paths):
+    index = 1
+    for path in all_files('./' + paths, '*.jpg'):
+        f = open(path[2:], 'rb')
+        tags = exifread.process_file(f)
+        # jsonFile.writelines('"type": "Feature","properties": {"cartodb_id":"'+str(index)+'"},"geometry": {"type": "Point","coordinates": [')
+        latitude = tags['GPS GPSLatitude'].printable[1:-1]
+        longitude = tags['GPS GPSLongitude'].printable[1:-1]
+        print latitude
+        print parse_gps(latitude)
+        # print tags['GPS GPSLongitudeRef']
+        # print tags['GPS GPSLatitudeRef']
+        jsonFile.writelines('{"type": "Feature","properties": {"cartodb_id":"' + str(index) + '"')
+        jsonFile.writelines(',"OS":"' + str(tags['Image Software']) + '","Model":"' + str(tags['Image Model']) + '","Picture":"'+str(path[7:])+'"')
+        jsonFile.writelines('},"geometry": {"type": "Point","coordinates": [' + str(parse_gps(longitude)) + ',' + str(
+            parse_gps(latitude)) + ']}},\n')
+        index += 1
 
-    write_data('imgs')
+write_data('imgs')
 
-    jsonFile.writelines(']}\n')
-    jsonFile.close()
+jsonFile.writelines(']}\n')
+jsonFile.close()
+```
 
 ### Step 2: 上传数据
 
@@ -3961,15 +3993,19 @@ D3.js 制作技能树
 
 一个简单的示例代码如下:
 
-	graph example1 {
-	    Server1 -- Server2
-	    Server2 -- Server3
-	    Server3 -- Server1
-	}
+```dot
+graph example1 {
+    Server1 -- Server2
+    Server2 -- Server3
+    Server3 -- Server1
+}
+```
 
 执行编译后:
 
-    dot -Tjpg lz.dot -o lz.jpg
+```bash
+dot -Tjpg lz.dot -o lz.jpg
+```
 
 就会生成下面的图片
 
@@ -4002,22 +4038,22 @@ D3.js 制作技能树
 
 而我们的代码是这样的:
 
-```c
-    digraph tree
-    {
-        nodesep=0.5;
-        charset="UTF-8";
-        rankdir=LR;
-        fixedsize=true;
-        node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
-        "JavaScript" ->"Web前端"
-        "HTML" -> "Web前端"
-        "CSS" -> "Web前端"
-        "Web前端" -> "Web开发"
-        "JavaScript" -> "Node.js" -> "Web服务端"
-        "SQL/NoSQL" -> "Web服务端"
-        "Web服务端" -> "Web开发"
-    }
+```dot
+digraph tree
+{
+    nodesep=0.5;
+    charset="UTF-8";
+    rankdir=LR;
+    fixedsize=true;
+    node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
+    "JavaScript" ->"Web前端"
+    "HTML" -> "Web前端"
+    "CSS" -> "Web前端"
+    "Web前端" -> "Web开发"
+    "JavaScript" -> "Node.js" -> "Web服务端"
+    "SQL/NoSQL" -> "Web服务端"
+    "Web服务端" -> "Web开发"
+}
 ```
     
 上面举出的是一个简单的例子，对应的我们可以做一些更有意思的东西，比如将dot放到Web上，详情见下一篇。
@@ -4034,61 +4070,67 @@ Tooltipster是一个jQuery tooltip 插件，兼容Mozilla Firefox, Google Chrome
 
 简单示例``html``:
 
-        <section class="container tooltip" title="Parent container">
-		<a href="http://google.com" class="tooltip" title="Get your Google on">Google</a>
-	</section>
+```html
+<section class="container tooltip" title="Parent container">
+	<a href="http://google.com" class="tooltip" title="Get your Google on">Google</a>
+</section>
+```
 
 简单示例``js`:
 
-		$(document).ready(function() {
-			$('.tooltip').tooltipster();
-		});
+```javascript
+$(document).ready(function() {
+	$('.tooltip').tooltipster();
+});
+```
 
 D3.js、Tooltipster与Requirejs的配置如下所示:
 
-	require.config({
-	  baseUrl: 'app',
-	  paths: {
-	    jquery: 'lib/jquery-2.1.3',
-	    d3: 'lib/d3.min',
-	    text: 'lib/text',
-	    'jquery.tooltipster': 'lib/jquery.tooltipster.min'
-	  },
-	  'shim': {
-	    'jquery.tooltipster': {
-	      deps: ['jquery']
-	    }
-	  }
-	});
+```javascript
+require.config({
+  baseUrl: 'app',
+  paths: {
+    jquery: 'lib/jquery-2.1.3',
+    d3: 'lib/d3.min',
+    text: 'lib/text',
+    'jquery.tooltipster': 'lib/jquery.tooltipster.min'
+  },
+  'shim': {
+    'jquery.tooltipster': {
+      deps: ['jquery']
+    }
+  }
+});
+```
 
 #### 整合代码
 
 最后代码如下所示:
 
-      inner.selectAll('g.node')
-        .each(function (v, id) {
+```javascript
+inner.selectAll('g.node')
+  .each(function (v, id) {
+    g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
+    g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
 
+    var data = {
+      id: id,
+      name: v,
+      description: g.node(v).description,
+      books: g.node(v).books,
+      links: g.node(v).links
+    };
+    var results = lettuce.Template.tmpl(description_template, data);
 
-          g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
-          g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
-
-          var data = {
-            id: id,
-            name: v,
-            description: g.node(v).description,
-            books: g.node(v).books,
-            links: g.node(v).links
-          };
-          var results = lettuce.Template.tmpl(description_template, data);
-
-          $(this).tooltipster({
-            content: $(results),
-            contentAsHTML: true,
-            position: 'left',
-            animation: 'grow',
-            interactive: true});
-          $(this).find('rect').css('fill', '#ecf0f1');
-        });
+    $(this).tooltipster({
+      content: $(results),
+      contentAsHTML: true,
+      position: 'left',
+      animation: 'grow',
+      interactive: true});
+    $(this).find('rect').css('fill', '#ecf0f1');
+  });
+```
 
 
 技术雷达趋势
@@ -4233,35 +4275,38 @@ for (var quadrant in data) {
 
 一个简单的PIL生成图片的代码:
 
-	# -*- coding: utf-8 -*-
-	from PIL import Image, ImageDraw, ImageFont
+```python
+# -*- coding: utf-8 -*-
+from PIL import Image, ImageDraw, ImageFont
 
-	img = Image.new('L', (128, 128), 255)
-	draw = ImageDraw.Draw(img)
-	text_to_draw = unicode('xxs', 'utf-8')
-	font = ImageFont.truetype('fonts/NotoSansCJKsc-Regular.otf', 12)
-	draw.text((2, 2), text_to_draw, font=font)
-	del draw
+img = Image.new('L', (128, 128), 255)
+draw = ImageDraw.Draw(img)
+text_to_draw = unicode('xxs', 'utf-8')
+font = ImageFont.truetype('fonts/NotoSansCJKsc-Regular.otf', 12)
+draw.text((2, 2), text_to_draw, font=font)
+del draw
 
-	img.save('build/image.png')
+img.save('build/image.png')
+```
 
 #### 圆角代码
 
 我们需要的是在上面的代码上加上一个圆角的功能，于是Google到了这个函数
 
-
-	def add_corners(im, rad):
-	    circle = Image.new('L', (rad * 2, rad * 2), 0)
-	    image = ImageDraw.Draw(circle)
-	    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
-	    alpha = Image.new('L', im.size, 255)
-	    w, h = im.size
-	    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
-	    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
-	    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
-	    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
-	    im.putalpha(alpha)
-	    return im
+```javascript
+def add_corners(im, rad):
+    circle = Image.new('L', (rad * 2, rad * 2), 0)
+    image = ImageDraw.Draw(circle)
+    image.ellipse((0, 0, rad * 2, rad * 2), fill=255)
+    alpha = Image.new('L', im.size, 255)
+    w, h = im.size
+    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
+    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
+    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
+    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
+    im.putalpha(alpha)
+    return im
+```
 
 #### 颜色配置
 
@@ -4277,19 +4322,21 @@ for (var quadrant in data) {
 
 读取配置则用的是``ConfigParser``:
 
-	import ConfigParser
+```python
+import ConfigParser
 
-	ConfigColor = ConfigParser.ConfigParser()
-	ConfigColor.read("./color.ini")
+ConfigColor = ConfigParser.ConfigParser()
+ConfigColor.read("./color.ini")
 
-	bg_colors = []
-	font_colors = []
+bg_colors = []
+font_colors = []
 
-	for color_name, color in ConfigColor.items('Color'):
-	    bg_colors.append(color.replace('#', '').split(',')[0])
-	    font_colors.append(color.replace('#', '').split(',')[1])
+for color_name, color in ConfigColor.items('Color'):
+    bg_colors.append(color.replace('#', '').split(',')[0])
+    font_colors.append(color.replace('#', '').split(',')[1])
 
-	colors_length = ConfigColor.items('Color').__len__()
+colors_length = ConfigColor.items('Color').__len__()
+```
 
 最后我们就可以得到我们想要的图片了~~
 

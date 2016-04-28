@@ -23,34 +23,35 @@
 
 是的一开始什么也没做，除了从``bower``和``npm``上注册了一个叫做``lettuce``的库:
 
-    {
-      "name": "lettuce",
-      "version": "0.0.2",
-      "authors": [
-        "Fengda HUANG <h@phodal.com>"
-      ],
-      "description": "A Mobile JavaScript Framework",
-      "main": "index.js",
-      "moduleType": [
-        "amd",
-        "node"
-      ],
-      "keywords": [
-        "lettuce",
-        "mobile"
-      ],
-      "license": "MIT",
-      "homepage": "http://lettuce.phodal.com",
-      "private": false,
-      "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-      ]
-    }
-
+```javascript
+{
+  "name": "lettuce",
+  "version": "0.0.2",
+  "authors": [
+    "Fengda HUANG <h@phodal.com>"
+  ],
+  "description": "A Mobile JavaScript Framework",
+  "main": "index.js",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "keywords": [
+    "lettuce",
+    "mobile"
+  ],
+  "license": "MIT",
+  "homepage": "http://lettuce.phodal.com",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+```
 
 然后在我们还没有开始写代码的时候版本就已经是``0.0.2``这个速度好快。。总结如下:
 
@@ -60,11 +61,13 @@
 
 所以我的``README.md``是这样子的
 
-    #Lettuce
+```
+#Lettuce
 
-    > A is Mobile JavaScript Framework
+> A is Mobile JavaScript Framework
 
-    Coming soon
+Coming soon
+```
 
 是的，我们的代码已经``Coming soon``了。
 
@@ -76,69 +79,78 @@
 
 1.安装yeoman
 
-    npm install -g yo
+```bash
+npm install -g yo
+```
 
 2.安装generator-lib
 
-     npm install -g generator-lib
+```bash
+npm install -g generator-lib
+```
 
 3.创建项目
- 
-     mkdir ~/lettuce && cd $_
-     yo lib
+
+```bash 
+mkdir ~/lettuce && cd $_
+yo lib
+```
 
 接着我们就迎来了
 
-         _-----_
-        |       |
-        |--(o)--|   .--------------------------.
-       `---------´  |    Welcome to Yeoman,    |
-        ( _´U`_ )   |   ladies and gentlemen!  |
-        /___A___\   '__________________________'
-         |  ~  |
-       __'.___.'__
-     ´   `  |° ´ Y `
+```
+     _-----_
+    |       |
+    |--(o)--|   .--------------------------.
+   `---------´  |    Welcome to Yeoman,    |
+    ( _´U`_ )   |   ladies and gentlemen!  |
+    /___A___\   '__________________________'
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
 
-    [?] What do you want to call your lib? Lettuce
-    [?] Describe your lib: A Framework for Romantic
-    [?] What is your GitHub username? phodal
-    [?] What is your full name? Fengda Huang
-    [?] What year for the copyright? 2015
-
+[?] What do you want to call your lib? Lettuce
+[?] Describe your lib: A Framework for Romantic
+[?] What is your GitHub username? phodal
+[?] What is your full name? Fengda Huang
+[?] What year for the copyright? 2015
+```
 
 省略上百字，你的目录里就会有
 
-    .
-    |____.editorconfig
-    |____.gitattributes
-    |____.gitignore
-    |____.jshintrc
-    |____bower.json
-    |____demo
-    | |____assets
-    | | |____main.css
-    | | |____normalize.css
-    | |____index.html
-    |____dist
-    | |____Lettuce.js
-    | |____Lettuce.min.js
-    |____docs
-    | |____MAIN.md
-    |____Gruntfile.js
-    |____index.html
-    |____LICENSE.txt
-    |____package.json
-    |____README.md
-    |____src
-    | |_____intro.js
-    | |_____outro.js
-    | |____main.js
-    |____test
-    | |____all.html
-    | |____all.js
-    | |____lib
-    | | |____qunit.css
-    | | |____qunit.js
+```
+.
+|____.editorconfig
+|____.gitattributes
+|____.gitignore
+|____.jshintrc
+|____bower.json
+|____demo
+| |____assets
+| | |____main.css
+| | |____normalize.css
+| |____index.html
+|____dist
+| |____Lettuce.js
+| |____Lettuce.min.js
+|____docs
+| |____MAIN.md
+|____Gruntfile.js
+|____index.html
+|____LICENSE.txt
+|____package.json
+|____README.md
+|____src
+| |_____intro.js
+| |_____outro.js
+| |____main.js
+|____test
+| |____all.html
+| |____all.js
+| |____lib
+| | |____qunit.css
+| | |____qunit.js
+```
 
 这么多的文件。
 
@@ -150,36 +162,40 @@
 
 就有了这么多的log:
 
-    Running "concat:dist" (concat) task
-    File "dist/Lettuce.js" created.
+```
+Running "concat:dist" (concat) task
+File "dist/Lettuce.js" created.
 
-    Running "jshint:files" (jshint) task
-    >> 1 file lint free.
+Running "jshint:files" (jshint) task
+>> 1 file lint free.
 
-    Running "qunit:files" (qunit) task
-    Testing test/all.html .OK
-    >> 1 assertions passed (20ms)
+Running "qunit:files" (qunit) task
+Testing test/all.html .OK
+>> 1 assertions passed (20ms)
 
-    Running "uglify:dist" (uglify) task
-    File "dist/Lettuce.min.js" created.
+Running "uglify:dist" (uglify) task
+File "dist/Lettuce.min.js" created.
 
-    Done, without errors.
+Done, without errors.
+```
 
 看看我们的Lettuce.js里面有什么
 
-    (function(root, undefined) {
-      "use strict";
-    /* Lettuce main */
-    // Base function.
-    var Lettuce = function() {
-      // Add functionality here.
-      return true;
-    };
-    // Version.
-    Lettuce.VERSION = '0.0.1';
-    // Export to the root, which is probably `window`.
-    root.Lettuce = Lettuce;
-    }(this));
+```
+(function(root, undefined) {
+  "use strict";
+/* Lettuce main */
+// Base function.
+var Lettuce = function() {
+  // Add functionality here.
+  return true;
+};
+// Version.
+Lettuce.VERSION = '0.0.1';
+// Export to the root, which is probably `window`.
+root.Lettuce = Lettuce;
+}(this));
+```
 
 我们的库写在[立即执行函数表达式](https://www.phodal.com/blog/javascript-immediately-invoked-function-expression)里面。这样便是和jQuery等库一样了。
 
