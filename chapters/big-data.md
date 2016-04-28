@@ -6,26 +6,63 @@
 
 ### 背景
 
+这个项目的背景是起源于，我有一个2G左右的网站访问日志。我想看看访问网站的人都来自哪里，于是我想开始想办法来分析这日志。当时正值大数据火热的时候，便想拿着Hadoop来做这样一件事。
+
 ### ShowCase
+
+最后的效果如下图如示：
 
 ![Demo](./images/map_with_bg.jpg)
 
-### Hadoop + Pig + Jython + AmMap
+这是一个Web生成的界面，通过Elastic.js向搜索引擎查询数据，将再这些数据渲染到地图上。
+
+###Hadoop + Pig + Jython + AmMap + ElasticSearch
+
+我们使用的技术栈有上面这些，他们的简介如下：
+
+ - Hadoop是一个由Apache基金会所开发的分布式系统基础架构。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力进行高速运算和存储。
+ - Pig 是一个基于Hadoop的大规模数据分析平台，它提供的SQL-LIKE语言叫Pig Latin，该语言的编译器会把类SQL的数据分析请求转换为一系列经过优化处理的MapReduce运算。
+ - Jython是一种完整的语言，而不是一个Java翻译器或仅仅是一个Python编译器，它是一个Python语言在Java中的完全实现。Jython也有很多从CPython中继承的模块库。
+ - AmMap是用于创建交互式Flash地图的工具。您可以使用此工具来显示您的办公室地点，您的行程路线，创建您的经销商地图等。
+ - ElasticSearch是一个基于Lucene 构建的开源，分布式，RESTful 搜索引擎。 设计用于云计算中，能够达到搜索实时、稳定、可靠和快速，并且安装使用方便。
 
 步骤
 ---
 
+总的步骤并不是很复杂，可以分为：
+
+ - 搭建基础设施
+ - 解析access.log
+ - 转换IP为GEO信息
+ - 展示数据到地图上
+
 ###Step 1: 环境搭建
+
+在这一些系列的实战中，比较麻烦的就是安装这些工具，我们需要安装上面提到的一系列工具。对于不同的系统来说，都有相似的安装工具：
+
+ - Windows上可以使用Chocolatey
+ - Ubuntu / Mint上可以使用aptitude
+ - CentOS / OpenSUSE上可以使用yum安装
+ - Mac OS上可以使用brew安装
+
+如下是Mac OS下安装Hadoop、Pig、Elasticsearch、Jython的方式
 
 ```bash
 brew install hadoop
 brew install pig 
 brew install elasticsearch
+brew install jython
 ```
 
-Install pig-elasticsearch
+对于其他操作系统也可以使用相似的方法来安装。接着我们还需要安装一个Hadoop的插件，用于连接Hadoop和ElasticSearch。
 
-[https://github.com/elastic/elasticsearch-hadoop](https://github.com/elastic/elasticsearch-hadoop)
+下载地址：[https://github.com/elastic/elasticsearch-hadoop](https://github.com/elastic/elasticsearch-hadoop)
+
+复制其中的``elasticsearch-hadoop-*.jar``、``elasticsearch-hadoop-pig-*.jar``到你的pig库的目录，如我的是：``/usr/local/Cellar/pig/0.14.0``。
+
+由于我使用提早期的版本，所以这里我的文件名是：``elasticsearch-hadoop-2.1.0.Beta3.jar``、``elasticsearch-hadoop-pig-2.1.0.Beta3.jar``。
+
+下面我们就可以尝试去解析我们的日志了。
 
 ###Step 2: 解析 access.log
 
