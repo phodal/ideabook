@@ -1,5 +1,5 @@
-分析Nginx日志
-======================
+分析网站日志，打造访问地图
+===
 
 概况
 ---
@@ -65,6 +65,23 @@ brew install jython
 下面我们就可以尝试去解析我们的日志了。
 
 ###Step 2: 解析 access.log
+
+在开始解析之前，先让我们来看看几条Nginx的日志：
+
+```
+106.39.113.203 - - [28/Apr/2016:10:40:31 +0000] "GET / HTTP/2.0" 200 0 "https://www.phodal.com/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36" -
+66.249.65.119 - - [28/Apr/2016:10:40:51 +0000] "GET /set_device/default/?next=/blog/use-falcon-peewee-build-high-performance-restful-services-wordpress/ HTTP/1.1" 302 5 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" -
+```
+
+而上面的日志实际上是有对应的格式的，这个格式写在我们的Nginx配置文件中。如下是上面的日志的格式：
+
+```
+log_format  access $remote_addr - $remote_user [$time_local] "$request" '
+		'$status $body_bytes_sent "$http_referer" '
+		'"$http_user_agent" $http_x_forwarded_for';
+```		
+
+在最前面的是访问者的IP地址，然后是访问者的当地时间、请求的类型、状态码、访问的URL、用户的User Agent等等。随后，我们就可以针对上面的格式编写相应的程序，这些代码如下所示：
 
 ```
 register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
