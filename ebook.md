@@ -111,7 +111,15 @@ A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as da
 STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 ```
 
+在第1~2行里，我们使用了自定义的jar文件。接着在第4行，载入了log文件，并其值赋予RAW_LOGS。随后的第6行里，我们取出RAW_LOGS中的每一个值 ，根据下面的正则表达式，取出其对应的值到对象里，如``- -``前面的(\\S+)对应的是ip，最后将这些值赋给LOGS_BASE。
+
+接着，我们就可以对值进行一些特殊的处理，如A是转化时间戳后的结果。B是按时间戳排序后的结果。最后，我们再将这些值存储到ElasticSearch对应的索引``nginx/log``中。
+
 ###Step 3: 转换IP
+
+在简单地完成了一个Demo之后，我们就可以将IP转换为GEO信息了，这里我们需要用到一个名为pygeoip的库。GeoIP是一个根据IP地址查询位置的API的集成。它支持对国家、地区、城市、纬度和经度的查询。实际上，就是在一个数据库中有对应的国家和地区的IP段，根据这个IP段，我们就可以获取对应的地理位置。
+
+由于使用Java来实现这个功能比较麻烦，这里我们就使用Jython来实现。大部分的过程和上面都是一样的，除了注册了一个自定义的库，并在这个库里使用了解析GEO的方法，代码如下所示：
 
 ```
 register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
@@ -136,10 +144,18 @@ LOGS_BASE = FOREACH RAW_LOGS GENERATE
 
 A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, utils.get_country(ip) as country,
     utils.get_city(ip) as city, utils.get_geo(ip) as location,ip,
-    utils.query(url) as url,(int)status,(int)bytes,referrer,useragent;
+    url, (int)status,(int)bytes,referrer,useragent;
 
 STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 ```
+
+在第三行里，我们注册了``utils.py``并将其中的函数作为utils。接着在倒数第二行里，我们执行了四个utils函数。即:
+
+ - get_country从IP中解析出国家
+ - get_city从IP中解析出城市
+ - get_geo从IP中解析出经纬度信息
+
+其对应的Python代码如下所示: 
 
 ```
 #!/usr/bin/python
@@ -148,13 +164,6 @@ import sys
 sys.path.append('/Users/fdhuang/test/lib/python2.7/site-packages/')
 import pygeoip
 gi = pygeoip.GeoIP("data/GeoLiteCity.dat")
-
-@outputSchema('everything:chararray')
-def query(url):
-    try:
-        return url
-    except:
-        pass
 
 @outputSchema('city:chararray')
 def get_city(ip):
@@ -182,7 +191,30 @@ def get_geo(ip):
         pass
 ```        
 
+代码相应的简单，和一般的Python代码也没有啥区别。这里一些用户自定义函数，在函数的最前面有一个``outputSchema``，用于返回输出的结果。
+
 ###Step 4: 展示
+
+现在，我们终于可以将数据转化到可视化界面了。开始之前，我们需要几个库
+
+ - jquery 地球人都知道
+ - elasticsearch.jquery即用于搜索功能
+ - ammap用于制作交互地图。
+
+ 添加这些库到html文件里:
+
+```html
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/elasticsearch/elasticsearch.jquery.js"></script>
+
+<script src="bower_components/ammap/dist/ammap/ammap.js" type="text/javascript"></script>
+<script src="bower_components/ammap/dist/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+<script src="bower_components/ammap/dist/ammap/themes/black.js" type="text/javascript"></script>
+<script src="scripts/latlng.js"></script>
+<script src="scripts/main_ammap.js"></script>
+```
+
+对应的main文件如下所示：
 
 ```javascript
 var exampleNS = {};
@@ -228,9 +260,13 @@ var map = new ol.Map({
 	view: view
 });
 
+// 创建ElasticSearch对象
+
 var client = new $.es.Client({
 	hosts: 'localhost:9200'
 });
+
+// 自定义搜索的query
 
 var query = {
 	index: 'nginx',

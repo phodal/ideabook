@@ -403,7 +403,11 @@ A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39
 --C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
 --D = ORDER C BY timestamp,count desc;
 STORE A INTO &#39;nginx/log&#39; USING org.elasticsearch.hadoop.pig.EsStorage();</code></pre>
+<p>在第1~2行里，我们使用了自定义的jar文件。接着在第4行，载入了log文件，并其值赋予RAW_LOGS。随后的第6行里，我们取出RAW_LOGS中的每一个值 ，根据下面的正则表达式，取出其对应的值到对象里，如<code>- -</code>前面的(\S+)对应的是ip，最后将这些值赋给LOGS_BASE。</p>
+<p>接着，我们就可以对值进行一些特殊的处理，如A是转化时间戳后的结果。B是按时间戳排序后的结果。最后，我们再将这些值存储到ElasticSearch对应的索引<code>nginx/log</code>中。</p>
 <h3 id="step-3-转换ip">Step 3: 转换IP</h3>
+<p>在简单地完成了一个Demo之后，我们就可以将IP转换为GEO信息了，这里我们需要用到一个名为pygeoip的库。GeoIP是一个根据IP地址查询位置的API的集成。它支持对国家、地区、城市、纬度和经度的查询。实际上，就是在一个数据库中有对应的国家和地区的IP段，根据这个IP段，我们就可以获取对应的地理位置。</p>
+<p>由于使用Java来实现这个功能比较麻烦，这里我们就使用Jython来实现。大部分的过程和上面都是一样的，除了注册了一个自定义的库，并在这个库里使用了解析GEO的方法，代码如下所示：</p>
 <pre><code>register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
 register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/elasticsearch-hadoop-pig-2.1.0.Beta3.jar;
 register utils.py using jython as utils;
@@ -426,22 +430,22 @@ LOGS_BASE = FOREACH RAW_LOGS GENERATE
 
 A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39;) as date, utils.get_country(ip) as country,
     utils.get_city(ip) as city, utils.get_geo(ip) as location,ip,
-    utils.query(url) as url,(int)status,(int)bytes,referrer,useragent;
+    url, (int)status,(int)bytes,referrer,useragent;
 
 STORE A INTO &#39;nginx/log&#39; USING org.elasticsearch.hadoop.pig.EsStorage();</code></pre>
+<p>在第三行里，我们注册了<code>utils.py</code>并将其中的函数作为utils。接着在倒数第二行里，我们执行了四个utils函数。即:</p>
+<ul>
+<li>get_country从IP中解析出国家</li>
+<li>get_city从IP中解析出城市</li>
+<li>get_geo从IP中解析出经纬度信息</li>
+</ul>
+<p>其对应的Python代码如下所示:</p>
 <pre><code>#!/usr/bin/python
 
 import sys
 sys.path.append(&#39;/Users/fdhuang/test/lib/python2.7/site-packages/&#39;)
 import pygeoip
 gi = pygeoip.GeoIP(&quot;data/GeoLiteCity.dat&quot;)
-
-@outputSchema(&#39;everything:chararray&#39;)
-def query(url):
-    try:
-        return url
-    except:
-        pass
 
 @outputSchema(&#39;city:chararray&#39;)
 def get_city(ip):
@@ -467,7 +471,24 @@ def get_geo(ip):
         return geo
     except:
         pass</code></pre>
+<p>代码相应的简单，和一般的Python代码也没有啥区别。这里一些用户自定义函数，在函数的最前面有一个<code>outputSchema</code>，用于返回输出的结果。</p>
 <h3 id="step-4-展示">Step 4: 展示</h3>
+<p>现在，我们终于可以将数据转化到可视化界面了。开始之前，我们需要几个库</p>
+<ul>
+<li>jquery 地球人都知道</li>
+<li>elasticsearch.jquery即用于搜索功能</li>
+<li>ammap用于制作交互地图。</li>
+</ul>
+<p>添加这些库到html文件里:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/jquery/dist/jquery.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/elasticsearch/elasticsearch.jquery.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/ammap/dist/ammap/ammap.js&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/ammap/dist/ammap/maps/js/worldLow.js&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/ammap/dist/ammap/themes/black.js&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;scripts/latlng.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;scripts/main_ammap.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<p>对应的main文件如下所示：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> exampleNS <span class="op">=</span> <span class="op">{};</span>
 
 <span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
@@ -511,9 +532,13 @@ def get_geo(ip):
     <span class="dt">view</span><span class="op">:</span> view
 <span class="op">}</span>)<span class="op">;</span>
 
+<span class="co">// 创建ElasticSearch对象</span>
+
 <span class="kw">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="va">$</span>.<span class="va">es</span>.<span class="at">Client</span>(<span class="op">{</span>
     <span class="dt">hosts</span><span class="op">:</span> <span class="st">&#39;localhost:9200&#39;</span>
 <span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// 自定义搜索的query</span>
 
 <span class="kw">var</span> query <span class="op">=</span> <span class="op">{</span>
     <span class="dt">index</span><span class="op">:</span> <span class="st">&#39;nginx&#39;</span><span class="op">,</span>

@@ -194,6 +194,27 @@ def get_geo(ip):
 
 ###Step 4: 展示
 
+现在，我们终于可以将数据转化到可视化界面了。开始之前，我们需要几个库
+
+ - jquery 地球人都知道
+ - elasticsearch.jquery即用于搜索功能
+ - ammap用于制作交互地图。
+
+ 添加这些库到html文件里:
+
+```html
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/elasticsearch/elasticsearch.jquery.js"></script>
+
+<script src="bower_components/ammap/dist/ammap/ammap.js" type="text/javascript"></script>
+<script src="bower_components/ammap/dist/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+<script src="bower_components/ammap/dist/ammap/themes/black.js" type="text/javascript"></script>
+<script src="scripts/latlng.js"></script>
+<script src="scripts/main_ammap.js"></script>
+```
+
+对应的main文件如下所示：
+
 ```javascript
 var exampleNS = {};
 
@@ -238,9 +259,13 @@ var map = new ol.Map({
 	view: view
 });
 
+// 创建ElasticSearch对象
+
 var client = new $.es.Client({
 	hosts: 'localhost:9200'
 });
+
+// 自定义搜索的query
 
 var query = {
 	index: 'nginx',
