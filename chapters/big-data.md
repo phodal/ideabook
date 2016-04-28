@@ -116,6 +116,10 @@ STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 
 ###Step 3: 转换IP
 
+在简单地完成了一个Demo之后，我们就可以将IP转换为GEO信息了，这里我们需要用到一个名为pygeoip的库。GeoIP是一个根据IP地址查询位置的API的集成。它支持对国家、地区、城市、纬度和经度的查询。实际上，就是在一个数据库中有对应的国家和地区的IP段，根据这个IP段，我们就可以获取对应的地理位置。
+
+由于使用Java来实现这个功能比较麻烦，这里我们就使用Jython来实现。大部分的过程和上面都是一样的，除了注册了一个自定义的库，并在这个库里使用了解析GEO的方法，代码如下所示：
+
 ```
 register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
 register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/elasticsearch-hadoop-pig-2.1.0.Beta3.jar;
@@ -139,10 +143,18 @@ LOGS_BASE = FOREACH RAW_LOGS GENERATE
 
 A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, utils.get_country(ip) as country,
     utils.get_city(ip) as city, utils.get_geo(ip) as location,ip,
-    utils.query(url) as url,(int)status,(int)bytes,referrer,useragent;
+    url, (int)status,(int)bytes,referrer,useragent;
 
 STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 ```
+
+在第三行里，我们注册了``utils.py``并将其中的函数作为utils。接着在倒数第二行里，我们执行了四个utils函数。即:
+
+ - get_country从IP中解析出国家
+ - get_city从IP中解析出城市
+ - get_geo从IP中解析出经纬度信息
+
+其对应的Python代码如下所示: 
 
 ```
 #!/usr/bin/python
@@ -151,13 +163,6 @@ import sys
 sys.path.append('/Users/fdhuang/test/lib/python2.7/site-packages/')
 import pygeoip
 gi = pygeoip.GeoIP("data/GeoLiteCity.dat")
-
-@outputSchema('everything:chararray')
-def query(url):
-    try:
-        return url
-    except:
-        pass
 
 @outputSchema('city:chararray')
 def get_city(ip):
@@ -184,6 +189,8 @@ def get_geo(ip):
     except:
         pass
 ```        
+
+代码相应的简单，和一般的Python代码也没有啥区别。这里一些用户自定义函数，在函数的最前面有一个``outputSchema``，用于返回输出的结果。
 
 ###Step 4: 展示
 
