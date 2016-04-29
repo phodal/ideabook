@@ -87,10 +87,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#hadoop-pig-jython-ammap-elasticsearch">Hadoop + Pig + Jython + AmMap + ElasticSearch</a></li>
 </ul></li>
 <li><a href="#步骤">步骤</a><ul>
-<li><a href="#step-1-环境搭建">Step 1: 环境搭建</a></li>
-<li><a href="#step-2-解析-access.log">Step 2: 解析 access.log</a></li>
-<li><a href="#step-3-转换ip">Step 3: 转换IP</a></li>
-<li><a href="#step-4-展示">Step 4: 展示</a></li>
+<li><a href="#step-1-搭建基础设施">Step 1: 搭建基础设施</a></li>
+<li><a href="#step-2-解析access.log">Step 2: 解析access.log</a></li>
+<li><a href="#step-3-转换ip为geo信息">Step 3: 转换IP为GEO信息</a></li>
+<li><a href="#step-4-展示数据到地图上">Step 4: 展示数据到地图上</a></li>
 <li><a href="#练习建议">练习建议</a></li>
 </ul></li>
 </ul></li>
@@ -352,7 +352,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>转换IP为GEO信息</li>
 <li>展示数据到地图上</li>
 </ul>
-<h3 id="step-1-环境搭建">Step 1: 环境搭建</h3>
+<h3 id="step-1-搭建基础设施">Step 1: 搭建基础设施</h3>
 <p>在这一些系列的实战中，比较麻烦的就是安装这些工具，我们需要安装上面提到的一系列工具。对于不同的系统来说，都有相似的安装工具：</p>
 <ul>
 <li>Windows上可以使用Chocolatey</li>
@@ -370,7 +370,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>复制其中的<code>elasticsearch-hadoop-*.jar</code>、<code>elasticsearch-hadoop-pig-*.jar</code>到你的pig库的目录，如我的是：<code>/usr/local/Cellar/pig/0.14.0</code>。</p>
 <p>由于我使用提早期的版本，所以这里我的文件名是：<code>elasticsearch-hadoop-2.1.0.Beta3.jar</code>、<code>elasticsearch-hadoop-pig-2.1.0.Beta3.jar</code>。</p>
 <p>下面我们就可以尝试去解析我们的日志了。</p>
-<h3 id="step-2-解析-access.log">Step 2: 解析 access.log</h3>
+<h3 id="step-2-解析access.log">Step 2: 解析access.log</h3>
 <p>在开始解析之前，先让我们来看看几条Nginx的日志：</p>
 <pre><code>106.39.113.203 - - [28/Apr/2016:10:40:31 +0000] &quot;GET / HTTP/2.0&quot; 200 0 &quot;https://www.phodal.com/&quot; &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36&quot; -
 66.249.65.119 - - [28/Apr/2016:10:40:51 +0000] &quot;GET /set_device/default/?next=/blog/use-falcon-peewee-build-high-performance-restful-services-wordpress/ HTTP/1.1&quot; 302 5 &quot;-&quot; &quot;Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)&quot; -</code></pre>
@@ -405,7 +405,7 @@ A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39
 STORE A INTO &#39;nginx/log&#39; USING org.elasticsearch.hadoop.pig.EsStorage();</code></pre>
 <p>在第1~2行里，我们使用了自定义的jar文件。接着在第4行，载入了log文件，并其值赋予RAW_LOGS。随后的第6行里，我们取出RAW_LOGS中的每一个值 ，根据下面的正则表达式，取出其对应的值到对象里，如<code>- -</code>前面的(\S+)对应的是ip，最后将这些值赋给LOGS_BASE。</p>
 <p>接着，我们就可以对值进行一些特殊的处理，如A是转化时间戳后的结果。B是按时间戳排序后的结果。最后，我们再将这些值存储到ElasticSearch对应的索引<code>nginx/log</code>中。</p>
-<h3 id="step-3-转换ip">Step 3: 转换IP</h3>
+<h3 id="step-3-转换ip为geo信息">Step 3: 转换IP为GEO信息</h3>
 <p>在简单地完成了一个Demo之后，我们就可以将IP转换为GEO信息了，这里我们需要用到一个名为pygeoip的库。GeoIP是一个根据IP地址查询位置的API的集成。它支持对国家、地区、城市、纬度和经度的查询。实际上，就是在一个数据库中有对应的国家和地区的IP段，根据这个IP段，我们就可以获取对应的地理位置。</p>
 <p>由于使用Java来实现这个功能比较麻烦，这里我们就使用Jython来实现。大部分的过程和上面都是一样的，除了注册了一个自定义的库，并在这个库里使用了解析GEO的方法，代码如下所示：</p>
 <pre><code>register file:/usr/local/Cellar/pig/0.14.0/libexec/lib/piggybank.jar;
@@ -472,7 +472,7 @@ def get_geo(ip):
     except:
         pass</code></pre>
 <p>代码相应的简单，和一般的Python代码也没有啥区别。这里一些用户自定义函数，在函数的最前面有一个<code>outputSchema</code>，用于返回输出的结果。</p>
-<h3 id="step-4-展示">Step 4: 展示</h3>
+<h3 id="step-4-展示数据到地图上">Step 4: 展示数据到地图上</h3>
 <p>现在，我们终于可以将数据转化到可视化界面了。开始之前，我们需要几个库</p>
 <ul>
 <li>jquery 地球人都知道</li>
