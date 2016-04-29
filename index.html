@@ -634,15 +634,23 @@ def get_geo(ip):
 <h1 id="书籍录入程序">书籍录入程序</h1>
 <h2 id="概况-1">概况</h2>
 <h3 id="背景-1">背景</h3>
+<p>这个项目的起源是我想录入我的书架上的书籍——当时，大概有近四百本左右。由于大部分的手机软件都是收费的，或封闭的，因此我便想着自己写一个app来完成书籍的录入。</p>
 <h3 id="showcase-1">ShowCase</h3>
+<p>最后的效果如下图所示：</p>
 <figure>
 <img src="./images/bookshelf.jpg" alt="Bookshelf" /><figcaption>Bookshelf</figcaption>
 </figure>
-<p>代码： <a href="https://github.com/phodal/bookshelf/" class="uri">https://github.com/phodal/bookshelf/</a></p>
+<p>代码见： <a href="https://github.com/phodal/bookshelf/" class="uri">https://github.com/phodal/bookshelf/</a></p>
 <h3 id="ionic-zxing">Ionic + Zxing</h3>
+<p>所需要的移动框架还是Ionic，用于扫描条形码的库是ZXing。</p>
 <h2 id="步骤-1">步骤</h2>
+<p>开始之前，我们需要先安装Ionic，并且使用它来创建一个APP。然后我们还需要添加对应的二维码扫描库，代码如下所示：</p>
 <pre><code>phonegap plugin add phonegap-plugin-barcodescanner</code></pre>
+<p>接着我们就可以开始制作我们的APP了。</p>
 <h3 id="step-1-zxing扫描与douban-api">Step 1: ZXing扫描与Douban API</h3>
+<p>我们需要在我们的模板里，添加一个ICON或者按钮来触发程序调用相应的函数：</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;i</span><span class="ot"> class=</span><span class="st">&quot;icon icon-right ion-qr-scanner&quot;</span><span class="ot"> ng-click=</span><span class="st">&quot;scan()&quot;</span><span class="kw">&gt;&lt;/i&gt;</span></code></pre></div>
+<p>在我们的函数里，我们只需要调用cordovaBarcodeScanner的scan方法就可以获取到二维码的值。再用$http.get去获取豆瓣API的相应的结果，并且将这个结果存储到数据库中。代码如下所示：</p>
 <pre><code>$scope.scan = function () {
   $cordovaBarcodeScanner
     .scan()
@@ -656,7 +664,19 @@ def get_geo(ip):
       alert(error);
     });
 }</code></pre>
+<p>随后，我们就可以创建我们的代码来保存数据到数据库中。</p>
 <h3 id="step-2-存储数据库">Step 2: 存储数据库</h3>
+<p>开始之前，我们需要添加Cordova的SQLite插件：</p>
+<pre><code>cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git</code></pre>
+<p>在系统初始化的时候，创建对应的数据库及其表。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span>(<span class="va">window</span>.<span class="at">cordova</span>) <span class="op">{</span>
+  <span class="co">//$cordovaSQLite.deleteDB(&quot;my.db&quot;);</span>
+  db <span class="op">=</span> <span class="va">$cordovaSQLite</span>.<span class="at">openDB</span>(<span class="st">&quot;my.db&quot;</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+  db <span class="op">=</span> <span class="va">window</span>.<span class="at">openDatabase</span>(<span class="st">&quot;my.db&quot;</span><span class="op">,</span> <span class="st">&quot;1.0&quot;</span><span class="op">,</span> <span class="st">&quot;bookshelf&quot;</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>
+<span class="va">$cordovaSQLite</span>.<span class="at">execute</span>(db<span class="op">,</span> <span class="st">&quot;CREATE TABLE IF NOT EXISTS bookshelf (id integer primary key, title text, image text, publisher text, author text, isbn text, summary text)&quot;</span>)<span class="op">;</span></code></pre></div>
+<p>接着，我们就可以上一步获取的数据取出相应的字段，调用bookshelfDB服务将其存储到数据库中。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">saveToDatabase</span>(data<span class="op">,</span> barcodeData) <span class="op">{</span>
   <span class="va">bookshelfDB</span>.<span class="at">add</span>(<span class="op">{</span>
     <span class="dt">title</span><span class="op">:</span> <span class="va">data</span>.<span class="at">title</span><span class="op">,</span>
@@ -667,23 +687,15 @@ def get_geo(ip):
     <span class="dt">isbn</span><span class="op">:</span> <span class="va">barcodeData</span>.<span class="at">text</span>
   <span class="op">}</span>)<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span>(<span class="va">window</span>.<span class="at">cordova</span>) <span class="op">{</span>
-  <span class="co">//$cordovaSQLite.deleteDB(&quot;my.db&quot;);</span>
-  db <span class="op">=</span> <span class="va">$cordovaSQLite</span>.<span class="at">openDB</span>(<span class="st">&quot;my.db&quot;</span>)<span class="op">;</span>
-<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
-  db <span class="op">=</span> <span class="va">window</span>.<span class="at">openDatabase</span>(<span class="st">&quot;my.db&quot;</span><span class="op">,</span> <span class="st">&quot;1.0&quot;</span><span class="op">,</span> <span class="st">&quot;bookshelf&quot;</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">;</span>
-<span class="op">}</span>
-<span class="va">$cordovaSQLite</span>.<span class="at">execute</span>(db<span class="op">,</span> <span class="st">&quot;CREATE TABLE IF NOT EXISTS bookshelf (id integer primary key, title text, image text, publisher text, author text, isbn text, summary text)&quot;</span>)<span class="op">;</span></code></pre></div>
+<p>下面就是我们的bookshelfDB服务</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">.<span class="at">factory</span>(<span class="st">&#39;bookshelfDB&#39;</span><span class="op">,</span> <span class="kw">function</span>($cordovaSQLite<span class="op">,</span> DBA) <span class="op">{</span>
     <span class="kw">var</span> self <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
-
     <span class="va">self</span>.<span class="at">all</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
         <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf&quot;</span>)
             .<span class="at">then</span>(<span class="kw">function</span>(result)<span class="op">{</span>
                 <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">getAll</span>(result)<span class="op">;</span>
             <span class="op">}</span>)<span class="op">;</span>
     <span class="op">};</span>
-
     <span class="va">self</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span>(memberId) <span class="op">{</span>
         <span class="kw">var</span> parameters <span class="op">=</span> [memberId]<span class="op">;</span>
         <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf WHERE id = (?)&quot;</span><span class="op">,</span> parameters)
@@ -691,22 +703,18 @@ def get_geo(ip):
                 <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">getById</span>(result)<span class="op">;</span>
             <span class="op">}</span>)<span class="op">;</span>
     <span class="op">};</span>
-
     <span class="va">self</span>.<span class="at">add</span> <span class="op">=</span> <span class="kw">function</span>(member) <span class="op">{</span>
         <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">member</span>.<span class="at">id</span><span class="op">,</span> <span class="va">member</span>.<span class="at">title</span><span class="op">,</span> <span class="va">member</span>.<span class="at">image</span><span class="op">,</span> <span class="va">member</span>.<span class="at">publisher</span><span class="op">,</span> <span class="va">member</span>.<span class="at">author</span><span class="op">,</span> <span class="va">member</span>.<span class="at">isbn</span><span class="op">,</span> <span class="va">member</span>.<span class="at">summary</span>]<span class="op">;</span>
         <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;INSERT INTO bookshelf (id, title, image, publisher, author, isbn, summary) VALUES (?,?,?,?,?,?,?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
     <span class="op">};</span>
-
     <span class="va">self</span>.<span class="at">remove</span> <span class="op">=</span> <span class="kw">function</span>(member) <span class="op">{</span>
         <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">member</span>.<span class="at">id</span>]<span class="op">;</span>
         <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;DELETE FROM bookshelf WHERE id = (?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
     <span class="op">};</span>
-
     <span class="va">self</span>.<span class="at">update</span> <span class="op">=</span> <span class="kw">function</span>(origMember<span class="op">,</span> editMember) <span class="op">{</span>
         <span class="kw">var</span> parameters <span class="op">=</span> [<span class="va">editMember</span>.<span class="at">id</span><span class="op">,</span> <span class="va">editMember</span>.<span class="at">title</span><span class="op">,</span> <span class="va">origMember</span>.<span class="at">id</span>]<span class="op">;</span>
         <span class="cf">return</span> <span class="va">DBA</span>.<span class="at">query</span>(<span class="st">&quot;UPDATE bookshelf SET id = (?), title = (?) WHERE id = (?)&quot;</span><span class="op">,</span> parameters)<span class="op">;</span>
     <span class="op">};</span>
-
     <span class="cf">return</span> self<span class="op">;</span>
 <span class="op">}</span>)</code></pre></div>
 <h3 id="练习建议-1">练习建议</h3>
