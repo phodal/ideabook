@@ -488,57 +488,18 @@ def get_geo(ip):
 <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;bower_components/ammap/dist/ammap/themes/black.js&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
 <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;scripts/latlng.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
 <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;scripts/main_ammap.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<p>生成过程大致如下所示：</p>
+<ul>
+<li>获取不同国家的全名，用于解析出全名，如US -&gt; “United States”</li>
+<li>查找ElasticSearch搜索引擎中的数据，并计算访问量</li>
+<li>再将数据渲染到地图上</li>
+</ul>
 <p>对应的main文件如下所示：</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> exampleNS <span class="op">=</span> <span class="op">{};</span>
-
-<span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="kw">var</span> obj <span class="op">=</span> <span class="op">{},</span> queryString <span class="op">=</span> <span class="va">location</span>.<span class="va">search</span>.<span class="at">slice</span>(<span class="dv">1</span>)<span class="op">,</span>
-        re <span class="op">=</span> <span class="ss">/</span><span class="sc">([^&amp;=]+)</span><span class="ss">=</span><span class="sc">([^&amp;]*)</span><span class="ss">/g</span><span class="op">,</span> m<span class="op">;</span>
-
-    <span class="cf">while</span> (m <span class="op">=</span> <span class="va">re</span>.<span class="at">exec</span>(queryString)) <span class="op">{</span>
-        obj[<span class="at">decodeURIComponent</span>(m[<span class="dv">1</span>])] <span class="op">=</span> <span class="at">decodeURIComponent</span>(m[<span class="dv">2</span>])<span class="op">;</span>
-    <span class="op">}</span>
-    <span class="cf">if</span> (<span class="st">&#39;renderers&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
-        <span class="cf">return</span> obj[<span class="st">&#39;renderers&#39;</span>].<span class="at">split</span>(<span class="st">&#39;,&#39;</span>)<span class="op">;</span>
-    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="st">&#39;renderer&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
-        <span class="cf">return</span> [obj[<span class="st">&#39;renderer&#39;</span>]]<span class="op">;</span>
-    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
-        <span class="cf">return</span> <span class="kw">undefined</span><span class="op">;</span>
-    <span class="op">}</span>
-<span class="op">};</span>
-
-<span class="kw">var</span> view <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">View</span>(<span class="op">{</span>
-    <span class="dt">center</span><span class="op">:</span> [<span class="fl">12119653.781323666</span><span class="op">,</span><span class="fl">4054689.6824535457</span>]<span class="op">,</span>
-    <span class="dt">zoom</span><span class="op">:</span> <span class="dv">4</span>
-<span class="op">}</span>)<span class="op">;</span>
-
-<span class="kw">var</span> controls <span class="op">=</span> <span class="va">ol</span>.<span class="va">control</span>.<span class="at">defaults</span>(<span class="op">{</span><span class="dt">rotate</span><span class="op">:</span> <span class="kw">false</span><span class="op">}</span>)<span class="op">;</span>
-<span class="kw">var</span> interactions <span class="op">=</span> <span class="va">ol</span>.<span class="va">interaction</span>.<span class="at">defaults</span>(<span class="op">{</span><span class="dt">altShiftDragRotate</span><span class="op">:</span><span class="kw">false</span><span class="op">,</span> <span class="dt">pinchRotate</span><span class="op">:</span><span class="kw">false</span><span class="op">}</span>)<span class="op">;</span>
-
-<span class="kw">var</span> map <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Map</span>(<span class="op">{</span>
-    <span class="dt">controls</span><span class="op">:</span> controls<span class="op">,</span>
-    <span class="dt">interactions</span><span class="op">:</span> interactions<span class="op">,</span>
-    <span class="dt">layers</span><span class="op">:</span> [
-        <span class="kw">new</span> <span class="va">ol</span>.<span class="va">layer</span>.<span class="at">Tile</span>(<span class="op">{</span>
-            <span class="dt">source</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">source</span>.<span class="at">BingMaps</span>(<span class="op">{</span>
-                <span class="dt">key</span><span class="op">:</span> <span class="st">&#39;Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3&#39;</span><span class="op">,</span>
-                <span class="dt">culture</span><span class="op">:</span> <span class="st">&#39;zh-CN&#39;</span><span class="op">,</span>
-                <span class="dt">imagerySet</span><span class="op">:</span> <span class="st">&#39;Road&#39;</span>
-            <span class="op">}</span>)
-        <span class="op">}</span>)
-    ]<span class="op">,</span>
-    <span class="dt">renderer</span><span class="op">:</span> <span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span>()<span class="op">,</span>
-    <span class="dt">target</span><span class="op">:</span> <span class="st">&#39;map&#39;</span><span class="op">,</span>
-    <span class="dt">view</span><span class="op">:</span> view
-<span class="op">}</span>)<span class="op">;</span>
-
-<span class="co">// 创建ElasticSearch对象</span>
-
-<span class="kw">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="va">$</span>.<span class="va">es</span>.<span class="at">Client</span>(<span class="op">{</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="va">$</span>.<span class="va">es</span>.<span class="at">Client</span>(<span class="op">{</span>
     <span class="dt">hosts</span><span class="op">:</span> <span class="st">&#39;localhost:9200&#39;</span>
 <span class="op">}</span>)<span class="op">;</span>
 
-<span class="co">// 自定义搜索的query</span>
+<span class="co">// 创建ElasticSearch搜索条件</span>
 
 <span class="kw">var</span> query <span class="op">=</span> <span class="op">{</span>
     <span class="dt">index</span><span class="op">:</span> <span class="st">&#39;nginx&#39;</span><span class="op">,</span>
@@ -553,8 +514,8 @@ def get_geo(ip):
         <span class="dt">aggs</span><span class="op">:</span> <span class="op">{</span>
             <span class="dv">2</span><span class="op">:</span> <span class="op">{</span>
                 <span class="dt">terms</span><span class="op">:</span> <span class="op">{</span>
-                    <span class="dt">field</span><span class="op">:</span> <span class="st">&quot;city&quot;</span><span class="op">,</span>
-                    <span class="dt">size</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span>
+                    <span class="dt">field</span><span class="op">:</span> <span class="st">&quot;country&quot;</span><span class="op">,</span>
+                    <span class="dt">size</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span>
                     <span class="dt">order</span><span class="op">:</span> <span class="op">{</span>
                         <span class="dt">_count</span><span class="op">:</span> <span class="st">&quot;desc&quot;</span>
                     <span class="op">}</span>
@@ -564,111 +525,111 @@ def get_geo(ip):
     <span class="op">}</span>
 <span class="op">};</span>
 
-<span class="va">client</span>.<span class="at">search</span>(query).<span class="at">then</span>(<span class="kw">function</span>(results)<span class="op">{</span>
-    <span class="kw">var</span> vectorSource <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">source</span>.<span class="at">Vector</span>(<span class="op">{</span> <span class="op">}</span>)<span class="op">;</span>
-    <span class="va">$</span>.<span class="at">each</span>(<span class="va">results</span>.<span class="va">hits</span>.<span class="at">hits</span><span class="op">,</span> <span class="kw">function</span>(index<span class="op">,</span> result)<span class="op">{</span>
-        result <span class="op">=</span> <span class="va">result</span>.<span class="at">_source</span><span class="op">;</span>
-        <span class="cf">if</span>(<span class="va">result</span>.<span class="at">location</span> <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
-            <span class="cf">return</span><span class="op">;</span>
-        <span class="op">}</span>
-        <span class="kw">var</span> position <span class="op">=</span> <span class="va">result</span>.<span class="va">location</span>.<span class="at">split</span>(<span class="st">&quot;,&quot;</span>)<span class="op">;</span>
-        <span class="kw">var</span> pos <span class="op">=</span> <span class="va">ol</span>.<span class="va">proj</span>.<span class="at">transform</span>([<span class="at">parseFloat</span>(position[<span class="dv">0</span>])<span class="op">,</span> <span class="at">parseFloat</span>(position[<span class="dv">1</span>])]<span class="op">,</span> <span class="st">&#39;EPSG:4326&#39;</span><span class="op">,</span> <span class="st">&#39;EPSG:3857&#39;</span>)<span class="op">;</span>
+<span class="co">// 获取到country.json后生成数据</span>
 
-        <span class="kw">var</span> iconFeature <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Feature</span>(<span class="op">{</span>
-            <span class="dt">geometry</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">geom</span>.<span class="at">Point</span>(pos)<span class="op">,</span>
-            <span class="dt">city</span><span class="op">:</span> <span class="va">result</span>.<span class="at">city</span>
+<span class="at">$</span>(document).<span class="at">ready</span>(<span class="kw">function</span> () <span class="op">{</span>
+    <span class="va">$</span>.<span class="at">ajax</span>(<span class="op">{</span>
+        <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;GET&quot;</span><span class="op">,</span>
+        <span class="dt">url</span><span class="op">:</span> <span class="st">&quot;country.json&quot;</span><span class="op">,</span>
+        <span class="dt">success</span><span class="op">:</span> <span class="kw">function</span> (data) <span class="op">{</span>
+            <span class="at">generate_info</span>(data)
+        <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// 根据数据中的国家名，来计算不同国家的访问量大小。</span>
+
+<span class="kw">var</span> generate_info <span class="op">=</span> <span class="kw">function</span>(data)<span class="op">{</span>
+    <span class="kw">var</span> mapDatas <span class="op">=</span> []<span class="op">;</span>
+    <span class="va">client</span>.<span class="at">search</span>(query).<span class="at">then</span>(<span class="kw">function</span> (results) <span class="op">{</span>
+        <span class="va">$</span>.<span class="at">each</span>(<span class="va">results</span>.<span class="at">aggregations</span>[<span class="dv">2</span>].<span class="at">buckets</span><span class="op">,</span> <span class="kw">function</span>(index<span class="op">,</span> bucket)<span class="op">{</span>
+            <span class="kw">var</span> mapData<span class="op">;</span>
+            <span class="va">$</span>.<span class="at">each</span>(data<span class="op">,</span> <span class="kw">function</span>(index<span class="op">,</span> country)<span class="op">{</span>
+                <span class="cf">if</span>(<span class="va">country</span>.<span class="va">name</span>.<span class="at">toLowerCase</span>() <span class="op">===</span> <span class="va">bucket</span>.<span class="at">key</span>) <span class="op">{</span>
+                    mapData <span class="op">=</span> <span class="op">{</span>
+                        <span class="dt">code</span><span class="op">:</span> <span class="va">country</span>.<span class="at">code</span><span class="op">,</span>
+                        <span class="dt">name</span><span class="op">:</span> <span class="va">country</span>.<span class="at">name</span><span class="op">,</span>
+                        <span class="dt">value</span><span class="op">:</span> <span class="va">bucket</span>.<span class="at">doc_count</span><span class="op">,</span>
+                        <span class="dt">color</span><span class="op">:</span> <span class="st">&quot;#eea638&quot;</span>
+                    <span class="op">};</span>
+                <span class="op">}</span>
+            <span class="op">}</span>)<span class="op">;</span>
+            <span class="cf">if</span>(mapData <span class="op">!==</span> <span class="kw">undefined</span>)<span class="op">{</span>
+                <span class="va">mapDatas</span>.<span class="at">push</span>(mapData)<span class="op">;</span>
+            <span class="op">}</span>
         <span class="op">}</span>)<span class="op">;</span>
-        <span class="va">vectorSource</span>.<span class="at">addFeature</span>(iconFeature)<span class="op">;</span>
+        <span class="at">create_map</span>(mapDatas)<span class="op">;</span>
     <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span>
 
-    <span class="kw">var</span> iconStyle <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Style</span>(<span class="op">{</span>
-        <span class="dt">image</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Icon</span>((<span class="op">{</span>
-            <span class="dt">anchor</span><span class="op">:</span> [<span class="fl">0.5</span><span class="op">,</span> <span class="dv">46</span>]<span class="op">,</span>
-            <span class="dt">anchorXUnits</span><span class="op">:</span> <span class="st">&#39;fraction&#39;</span><span class="op">,</span>
-            <span class="dt">anchorYUnits</span><span class="op">:</span> <span class="st">&#39;pixels&#39;</span><span class="op">,</span>
-            <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span>
-            <span class="dt">src</span><span class="op">:</span> <span class="st">&#39;img/icon.png&#39;</span>
-        <span class="op">}</span>))
-    <span class="op">}</span>)<span class="op">;</span>
+<span class="kw">var</span> create_map <span class="op">=</span> <span class="kw">function</span>(mapData)<span class="op">{</span>
+    <span class="kw">var</span> map<span class="op">;</span>
+    <span class="kw">var</span> minBulletSize <span class="op">=</span> <span class="dv">3</span><span class="op">;</span>
+    <span class="kw">var</span> maxBulletSize <span class="op">=</span> <span class="dv">70</span><span class="op">;</span>
+    <span class="kw">var</span> min <span class="op">=</span> <span class="kw">Infinity</span><span class="op">;</span>
+    <span class="kw">var</span> max <span class="op">=</span> <span class="op">-</span><span class="kw">Infinity</span><span class="op">;</span>
 
-    <span class="kw">var</span> vectorLayer <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">layer</span>.<span class="at">Vector</span>(<span class="op">{</span>
-        <span class="dt">source</span><span class="op">:</span> vectorSource<span class="op">,</span>
-        <span class="dt">style</span><span class="op">:</span> iconStyle
-    <span class="op">}</span>)<span class="op">;</span>
-    <span class="va">map</span>.<span class="at">addLayer</span>(vectorLayer)<span class="op">;</span>
+    <span class="va">AmCharts</span>.<span class="at">theme</span> <span class="op">=</span> <span class="va">AmCharts</span>.<span class="va">themes</span>.<span class="at">black</span><span class="op">;</span>
 
-    <span class="kw">var</span> element <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;popup&#39;</span>)<span class="op">;</span>
-
-    <span class="kw">var</span> popup <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Overlay</span>(<span class="op">{</span>
-        <span class="dt">element</span><span class="op">:</span> element<span class="op">,</span>
-        <span class="dt">positioning</span><span class="op">:</span> <span class="st">&#39;bottom-center&#39;</span><span class="op">,</span>
-        <span class="dt">stopEvent</span><span class="op">:</span> <span class="kw">false</span>
-    <span class="op">}</span>)<span class="op">;</span>
-    <span class="va">map</span>.<span class="at">addOverlay</span>(popup)<span class="op">;</span>
-
-    <span class="va">map</span>.<span class="at">on</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="kw">function</span>(evt) <span class="op">{</span>
-        <span class="kw">var</span> feature <span class="op">=</span> <span class="va">map</span>.<span class="at">forEachFeatureAtPixel</span>(<span class="va">evt</span>.<span class="at">pixel</span><span class="op">,</span>
-            <span class="kw">function</span>(feature<span class="op">,</span> layer) <span class="op">{</span>
-                <span class="cf">return</span> feature<span class="op">;</span>
-            <span class="op">}</span>)<span class="op">;</span>
-
-        <span class="cf">if</span> (feature) <span class="op">{</span>
-            <span class="kw">var</span> geometry <span class="op">=</span> <span class="va">feature</span>.<span class="at">getGeometry</span>()<span class="op">;</span>
-            <span class="kw">var</span> coord <span class="op">=</span> <span class="va">geometry</span>.<span class="at">getCoordinates</span>()<span class="op">;</span>
-            <span class="va">popup</span>.<span class="at">setPosition</span>(coord)<span class="op">;</span>
-            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="op">{</span>
-                <span class="st">&#39;placement&#39;</span><span class="op">:</span> <span class="st">&#39;top&#39;</span><span class="op">,</span>
-                <span class="st">&#39;html&#39;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
-                <span class="st">&#39;content&#39;</span><span class="op">:</span> <span class="st">&quot;&lt;h4&gt;&quot;</span> <span class="op">+</span> <span class="va">feature</span>.<span class="at">get</span>(<span class="st">&#39;city&#39;</span>) <span class="op">+</span> <span class="st">&quot;&lt;/h4&gt;&quot;</span>
-            <span class="op">}</span>)<span class="op">;</span>
-            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;show&#39;</span>)<span class="op">;</span>
-        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
-            <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;destroy&#39;</span>)<span class="op">;</span>
+    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">mapData</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+        <span class="kw">var</span> value <span class="op">=</span> mapData[i].<span class="at">value</span><span class="op">;</span>
+        <span class="cf">if</span> (value <span class="op">&lt;</span> min) <span class="op">{</span>
+            min <span class="op">=</span> value<span class="op">;</span>
         <span class="op">}</span>
-    <span class="op">}</span>)<span class="op">;</span>
+        <span class="cf">if</span> (value <span class="op">&gt;</span> max) <span class="op">{</span>
+            max <span class="op">=</span> value<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
 
-    <span class="kw">var</span> width <span class="op">=</span> <span class="dv">300</span><span class="op">,</span>
-        height <span class="op">=</span> <span class="dv">300</span><span class="op">,</span>
-        radius <span class="op">=</span> <span class="va">Math</span>.<span class="at">min</span>(width<span class="op">,</span> height) / <span class="dv">2</span><span class="op">;</span>
+    map <span class="op">=</span> <span class="kw">new</span> <span class="va">AmCharts</span>.<span class="at">AmMap</span>()<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">pathToImages</span> <span class="op">=</span> <span class="st">&quot;bower_components/ammap/dist/ammap/images/&quot;</span><span class="op">;</span>
 
-    <span class="kw">var</span> color <span class="op">=</span> <span class="va">d3</span>.<span class="va">scale</span>.<span class="at">ordinal</span>()
-        .<span class="at">range</span>([<span class="st">&quot;#1abc9c&quot;</span><span class="op">,</span> <span class="st">&quot;#16a085&quot;</span><span class="op">,</span> <span class="st">&quot;#2ecc71&quot;</span><span class="op">,</span> <span class="st">&quot;#27ae60&quot;</span><span class="op">,</span> <span class="st">&quot;#4caf50&quot;</span><span class="op">,</span> <span class="st">&quot;#8bc34a&quot;</span><span class="op">,</span> <span class="st">&quot;#cddc39&quot;</span><span class="op">,</span> <span class="st">&quot;#3498db&quot;</span><span class="op">,</span> <span class="st">&quot;#2980b9&quot;</span><span class="op">,</span> <span class="st">&quot;#34495e&quot;</span><span class="op">,</span> <span class="st">&quot;#2c3e50&quot;</span><span class="op">,</span> <span class="st">&quot;#2196f3&quot;</span><span class="op">,</span> <span class="st">&quot;#03a9f4&quot;</span><span class="op">,</span> <span class="st">&quot;#00bcd4&quot;</span><span class="op">,</span> <span class="st">&quot;#009688&quot;</span><span class="op">,</span> <span class="st">&quot;#e74c3c&quot;</span><span class="op">,</span> <span class="st">&quot;#c0392b&quot;</span><span class="op">,</span> <span class="st">&quot;#f44336&quot;</span><span class="op">,</span> <span class="st">&quot;#e67e22&quot;</span><span class="op">,</span> <span class="st">&quot;#d35400&quot;</span><span class="op">,</span> <span class="st">&quot;#f39c12&quot;</span><span class="op">,</span> <span class="st">&quot;#ff9800&quot;</span><span class="op">,</span> <span class="st">&quot;#ff5722&quot;</span><span class="op">,</span> <span class="st">&quot;#ffc107&quot;</span><span class="op">,</span> <span class="st">&quot;#f1c40f&quot;</span><span class="op">,</span> <span class="st">&quot;#ffeb3b&quot;</span><span class="op">,</span> <span class="st">&quot;#9b59b6&quot;</span><span class="op">,</span> <span class="st">&quot;#8e44ad&quot;</span><span class="op">,</span> <span class="st">&quot;#9c27b0&quot;</span><span class="op">,</span> <span class="st">&quot;#673ab7&quot;</span><span class="op">,</span> <span class="st">&quot;#e91e63&quot;</span><span class="op">,</span> <span class="st">&quot;#3f51b5&quot;</span><span class="op">,</span> <span class="st">&quot;#795548&quot;</span><span class="op">,</span> <span class="st">&quot;#9e9e9e&quot;</span><span class="op">,</span> <span class="st">&quot;#607d8b&quot;</span><span class="op">,</span> <span class="st">&quot;#7f8c8d&quot;</span><span class="op">,</span> <span class="st">&quot;#95a5a6&quot;</span><span class="op">,</span> <span class="st">&quot;#bdc3c7&quot;</span><span class="op">,</span> <span class="st">&quot;#ecf0f1&quot;</span><span class="op">,</span> <span class="st">&quot;#efefef&quot;</span>])<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">areasSettings</span> <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">unlistedAreasColor</span><span class="op">:</span> <span class="st">&quot;#FFFFFF&quot;</span><span class="op">,</span>
+        <span class="dt">unlistedAreasAlpha</span><span class="op">:</span> <span class="fl">0.1</span>
+    <span class="op">};</span>
 
-    <span class="kw">var</span> arc <span class="op">=</span> <span class="va">d3</span>.<span class="va">svg</span>.<span class="at">arc</span>()
-        .<span class="at">outerRadius</span>(radius <span class="op">-</span> <span class="dv">10</span>)
-        .<span class="at">innerRadius</span>(<span class="dv">0</span>)<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">imagesSettings</span> <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">balloonText</span><span class="op">:</span> <span class="st">&quot;&lt;span style=&#39;font-size:14px;&#39;&gt;&lt;b&gt;[[title]]&lt;/b&gt;: [[value]]&lt;/span&gt;&quot;</span><span class="op">,</span>
+        <span class="dt">alpha</span><span class="op">:</span> <span class="fl">0.6</span>
+    <span class="op">};</span>
 
-    <span class="kw">var</span> pie <span class="op">=</span> <span class="va">d3</span>.<span class="va">layout</span>.<span class="at">pie</span>()
-        .<span class="at">sort</span>(<span class="kw">null</span>)
-        .<span class="at">value</span>(<span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="va">d</span>.<span class="at">doc_count</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+    <span class="kw">var</span> dataProvider <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">mapVar</span><span class="op">:</span> <span class="va">AmCharts</span>.<span class="va">maps</span>.<span class="at">worldLow</span><span class="op">,</span>
+        <span class="dt">images</span><span class="op">:</span> []
+    <span class="op">};</span>
 
-    <span class="kw">var</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>).<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> width)
-        .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> height)
-        .<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(&quot;</span> <span class="op">+</span> width / <span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;,&quot;</span> <span class="op">+</span> height / <span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;)&quot;</span>)<span class="op">;</span>
+    <span class="kw">var</span> maxSquare <span class="op">=</span> maxBulletSize <span class="op">*</span> maxBulletSize <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span><span class="op">;</span>
+    <span class="kw">var</span> minSquare <span class="op">=</span> minBulletSize <span class="op">*</span> minBulletSize <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span><span class="op">;</span>
 
-    <span class="kw">var</span> citys <span class="op">=</span> <span class="va">results</span>.<span class="at">aggregations</span>[<span class="dv">2</span>].<span class="at">buckets</span><span class="op">;</span>
-    <span class="va">citys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(city) <span class="op">{</span>
-        <span class="va">city</span>.<span class="at">doc_count</span> <span class="op">=</span> <span class="op">+</span><span class="va">city</span>.<span class="at">doc_count</span><span class="op">;</span>
-    <span class="op">}</span>)<span class="op">;</span>
+    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">mapData</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+        <span class="kw">var</span> dataItem <span class="op">=</span> mapData[i]<span class="op">;</span>
+        <span class="kw">var</span> value <span class="op">=</span> <span class="va">dataItem</span>.<span class="at">value</span><span class="op">;</span>
+        <span class="co">// calculate size of a bubble</span>
+        <span class="kw">var</span> square <span class="op">=</span> (value <span class="op">-</span> min) / (max <span class="op">-</span> min) <span class="op">*</span> (maxSquare <span class="op">-</span> minSquare) <span class="op">+</span> minSquare<span class="op">;</span>
+        <span class="cf">if</span> (square <span class="op">&lt;</span> minSquare) <span class="op">{</span>
+            square <span class="op">=</span> minSquare<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="kw">var</span> size <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>(square / (<span class="va">Math</span>.<span class="at">PI</span> <span class="op">*</span> <span class="dv">2</span>))<span class="op">;</span>
+        <span class="kw">var</span> id <span class="op">=</span> <span class="va">dataItem</span>.<span class="at">code</span><span class="op">;</span>
 
-    <span class="kw">var</span> g <span class="op">=</span> <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;.arc&quot;</span>)
-        .<span class="at">data</span>(<span class="at">pie</span>(citys))
-        .<span class="at">enter</span>().<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;class&quot;</span><span class="op">,</span> <span class="st">&quot;arc&quot;</span>)<span class="op">;</span>
+        <span class="va">dataProvider</span>.<span class="va">images</span>.<span class="at">push</span>(<span class="op">{</span>
+            <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;circle&quot;</span><span class="op">,</span>
+            <span class="dt">width</span><span class="op">:</span> size<span class="op">,</span>
+            <span class="dt">height</span><span class="op">:</span> size<span class="op">,</span>
+            <span class="dt">color</span><span class="op">:</span> <span class="va">dataItem</span>.<span class="at">color</span><span class="op">,</span>
+            <span class="dt">longitude</span><span class="op">:</span> latlong[id].<span class="at">longitude</span><span class="op">,</span>
+            <span class="dt">latitude</span><span class="op">:</span> latlong[id].<span class="at">latitude</span><span class="op">,</span>
+            <span class="dt">title</span><span class="op">:</span> <span class="va">dataItem</span>.<span class="at">name</span><span class="op">,</span>
+            <span class="dt">value</span><span class="op">:</span> value
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>
 
-    <span class="va">g</span>.<span class="at">append</span>(<span class="st">&quot;path&quot;</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;d&quot;</span><span class="op">,</span> arc)
-        .<span class="at">style</span>(<span class="st">&quot;fill&quot;</span><span class="op">,</span> <span class="kw">function</span>(city) <span class="op">{</span> <span class="cf">return</span> <span class="at">color</span>(<span class="va">city</span>.<span class="va">data</span>.<span class="at">key</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">dataProvider</span> <span class="op">=</span> dataProvider<span class="op">;</span>
 
-    <span class="va">g</span>.<span class="at">append</span>(<span class="st">&quot;text&quot;</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="st">&quot;translate(&quot;</span> <span class="op">+</span> <span class="va">arc</span>.<span class="at">centroid</span>(d) <span class="op">+</span> <span class="st">&quot;)&quot;</span><span class="op">;</span> <span class="op">}</span>)
-        .<span class="at">attr</span>(<span class="st">&quot;dy&quot;</span><span class="op">,</span> <span class="st">&quot;.35em&quot;</span>)
-        .<span class="at">style</span>(<span class="st">&quot;text-anchor&quot;</span><span class="op">,</span> <span class="st">&quot;middle&quot;</span>)
-        .<span class="at">text</span>(<span class="kw">function</span>(d) <span class="op">{</span> <span class="cf">return</span> <span class="va">d</span>.<span class="va">data</span>.<span class="at">key</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
-
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+    <span class="va">map</span>.<span class="at">write</span>(<span class="st">&quot;mapdiv&quot;</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>我们可以看到比较麻烦的地方就是生成地图上的数量点，也就是create_map函数。</p>
 <h3 id="练习建议">练习建议</h3>
 <h1 id="书籍录入程序">书籍录入程序</h1>
 <h2 id="概况-1">概况</h2>
