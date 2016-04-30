@@ -124,9 +124,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#ckeditor-ractive">CKEditor + Ractive</a></li>
 </ul></li>
 <li><a href="#步骤-3">步骤</a><ul>
-<li><a href="#step-1">Step 1:</a></li>
-<li><a href="#step-2">Step 2:</a></li>
-<li><a href="#step-3">Step 3:</a></li>
+<li><a href="#step-1-helloworld">Step 1: hello,world</a></li>
+<li><a href="#step-2-require.js模块化">Step 2: Require.js模块化</a></li>
+<li><a href="#step-3-初始化">Step 3: 初始化</a></li>
+<li><a href="#step-4">Step 4:</a></li>
 <li><a href="#练习建议-2">练习建议</a></li>
 </ul></li>
 </ul></li>
@@ -820,10 +821,186 @@ dwg.save()</code></pre></div>
 </figure>
 <p>GitHub: <a href="https://github.com/phodal/congee" class="uri">https://github.com/phodal/congee</a></p>
 <h3 id="ckeditor-ractive">CKEditor + Ractive</h3>
+<p>选用怎样的前端框架是一个有趣的话题，我需要一个数据绑定和模板。首先，我排除了React这个框架，我觉得他的模板会给我带来一堆麻烦事。Angluar是一个不错的选择，但是考虑Angluar 2.0就放弃了，Backbone也用了那么久。Knockout.js又进入了我的视野，但是后来我发现数据绑定到模板有点难。最后选了Ractive，后来发现果然上手很轻松。</p>
+<p>补充一句，这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。</p>
 <h2 id="步骤-3">步骤</h2>
-<h3 id="step-1">Step 1:</h3>
-<h3 id="step-2">Step 2:</h3>
-<h3 id="step-3">Step 3:</h3>
+<h3 id="step-1-helloworld">Step 1: hello,world</h3>
+<p>起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。</p>
+<p>下面是一个简单的Hello，World。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">  <span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">&#39;template&#39;</span><span class="ot"> type=</span><span class="st">&#39;text/ractive&#39;</span><span class="kw">&gt;</span>
+    <span class="op">&lt;</span>p<span class="op">&gt;</span>Hello<span class="op">,</span> <span class="op">{{</span>name<span class="op">}}!&lt;</span><span class="ss">/p&gt;</span>
+<span class="ss">  &lt;/script</span><span class="op">&gt;</span>
+  
+    <span class="op">&lt;</span>script<span class="op">&gt;</span>
+    <span class="kw">var</span> ractive <span class="op">=</span> <span class="kw">new</span> <span class="at">Ractive</span>(<span class="op">{</span>
+      <span class="dt">template</span><span class="op">:</span> <span class="st">&#39;#template&#39;</span><span class="op">,</span>
+      <span class="dt">data</span><span class="op">:</span> <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;world&#39;</span> <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">&lt;</span><span class="ss">/script&gt;</span></code></pre></div>
+<p>这个Hello，World和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。</p>
+<p>然后，让我们来看一个事件的例子：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">listView <span class="op">=</span> <span class="kw">new</span> <span class="at">Ractive</span>(<span class="op">{</span>
+    <span class="dt">el</span><span class="op">:</span> <span class="st">&#39;sandboxTitle&#39;</span><span class="op">,</span>
+    <span class="dt">template</span><span class="op">:</span> listTemplate<span class="op">,</span>
+    <span class="dt">data</span><span class="op">:</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">config</span>.<span class="at">defaultColor</span><span class="op">,</span> <span class="st">&#39;fontSize&#39;</span><span class="op">:</span> <span class="va">config</span>.<span class="at">defaultFontSize</span><span class="op">}</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="va">listView</span>.<span class="at">on</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="kw">function</span> (args) <span class="op">{</span>
+    <span class="va">listView</span>.<span class="at">set</span>(<span class="st">&#39;color&#39;</span><span class="op">,</span> <span class="va">args</span>.<span class="at">color</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>这是的on，需要你在某个地方Fire：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">titleView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>接着，问题来了，这和我们jQuery的on，或者React的handleClick似乎没有太大的区别。接着Component来了：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="kw">var</span> Grid <span class="op">=</span> <span class="va">Ractive</span>.<span class="at">extend</span>(<span class="op">{</span>
+    <span class="dt">isolated</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+    <span class="dt">template</span><span class="op">:</span> parasTemplate<span class="op">,</span>
+    <span class="dt">data</span><span class="op">:</span> <span class="op">{</span>
+    <span class="op">}</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="kw">var</span> dataValue <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>
+  <span class="kw">var</span> category <span class="op">=</span> <span class="st">&#39;category-3&#39;</span><span class="op">;</span>
+
+  <span class="kw">var</span> color <span class="op">=</span> <span class="va">config</span>.<span class="at">defaultColor</span><span class="op">;</span>
+
+  parasView <span class="op">=</span> <span class="kw">new</span> <span class="at">Ractive</span>(<span class="op">{</span>
+    <span class="dt">el</span><span class="op">:</span> <span class="st">&#39;parasSanbox&#39;</span><span class="op">,</span>
+    <span class="dt">template</span><span class="op">:</span> <span class="st">&#39;&lt;Grid Style=&quot;{{styles}}&quot; /&gt;&#39;</span><span class="op">,</span>
+    <span class="dt">components</span><span class="op">:</span> <span class="op">{</span><span class="dt">Grid</span><span class="op">:</span> Grid<span class="op">},</span>
+    <span class="dt">data</span><span class="op">:</span> <span class="op">{</span>
+      <span class="dt">styles</span><span class="op">:</span> [
+        <span class="op">{</span><span class="dt">section_style</span><span class="op">:</span> <span class="st">&#39;border: 2px dotted #4caf50; margin: 8px 14px; padding: 10px; border-radius: 14px;&#39;</span><span class="op">,</span> <span class="dt">p_style</span><span class="op">:</span> <span class="st">&#39;font-size: 14px;&#39;</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> color<span class="op">,</span>  <span class="dt">data_value</span><span class="op">:</span> dataValue<span class="op">,</span> <span class="dt">category</span><span class="op">:</span> category<span class="op">},</span>
+      ]
+    <span class="op">}</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="va">parasView</span>.<span class="at">on</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="kw">function</span>(args) <span class="op">{</span>
+    <span class="va">parasView</span>.<span class="at">findComponent</span>(<span class="st">&#39;Grid&#39;</span>).<span class="at">set</span>(<span class="st">&#39;Style.*.color&#39;</span><span class="op">,</span> <span class="va">args</span>.<span class="at">color</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>上面是在<a href="https://github.com/phodal/congee" class="uri">https://github.com/phodal/congee</a>中用到的多个模板的View，他们用了同一个component。</p>
+<h3 id="step-2-require.js模块化">Step 2: Require.js模块化</h3>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">require</span>([<span class="st">&#39;scripts/app&#39;</span><span class="op">,</span> <span class="st">&#39;ractive&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/titleView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/hrView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/parasView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/followView&#39;</span><span class="op">,</span> <span class="st">&#39;jquery&#39;</span><span class="op">,</span> <span class="st">&#39;spectrum&#39;</span>]<span class="op">,</span>
+  <span class="kw">function</span> (App<span class="op">,</span> Ractive<span class="op">,</span> TitleView<span class="op">,</span> ParasView<span class="op">,</span> HRView<span class="op">,</span> FollowView<span class="op">,</span> $) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+
+    <span class="va">App</span>.<span class="at">init</span>()<span class="op">;</span>
+    <span class="va">Ractive</span>.<span class="at">DEBUG</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+    <span class="kw">var</span> config <span class="op">=</span> <span class="va">App</span>.<span class="at">config</span><span class="op">;</span>
+
+    <span class="kw">var</span> titleView <span class="op">=</span> <span class="va">TitleView</span>.<span class="at">init</span>(config)<span class="op">;</span>
+    <span class="kw">var</span> hrView <span class="op">=</span> <span class="va">HRView</span>.<span class="at">init</span>(config)<span class="op">;</span>
+    <span class="kw">var</span> parasView <span class="op">=</span> <span class="va">ParasView</span>.<span class="at">init</span>(config)<span class="op">;</span>
+    <span class="kw">var</span> followView <span class="op">=</span> <span class="va">FollowView</span>.<span class="at">init</span>(config)<span class="op">;</span>
+
+    <span class="va">App</span>.<span class="at">colorPicker</span>(<span class="kw">function</span> (color) <span class="op">{</span>
+      <span class="va">hrView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span>
+      <span class="va">titleView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span>
+      <span class="va">parasView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span>
+      <span class="va">followView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="at">$</span>(<span class="st">&#39;input#mpName&#39;</span>).<span class="at">keyup</span>(<span class="kw">function</span> () <span class="op">{</span>
+      <span class="va">followView</span>.<span class="at">fire</span>(<span class="st">&#39;changeName&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">mpName</span><span class="op">:</span> <span class="at">$</span>(<span class="kw">this</span>).<span class="at">val</span>()<span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<h3 id="step-3-初始化">Step 3: 初始化</h3>
+<h4 id="ckeditor初始化">CKEditor初始化</h4>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">var</span> init <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+    <span class="co">/**</span>
+<span class="co">     * </span>@license<span class="co"> Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.</span>
+<span class="co">     * For licensing, see LICENSE.md or http://ckeditor.com/license</span>
+<span class="co">     */</span>
+
+    <span class="va">CKEDITOR</span>.<span class="at">editorConfig</span> <span class="op">=</span> <span class="kw">function</span> (config) <span class="op">{</span>
+      <span class="va">config</span>.<span class="at">allowedContent</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">language</span> <span class="op">=</span> <span class="st">&#39;zh-cn&#39;</span><span class="op">;</span>
+      <span class="co">//config.skin = &#39;minimalist&#39;;</span>
+      <span class="va">config</span>.<span class="at">pasteFilter</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">forcePasteAsPlainText</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">allowedContent</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">pasteFromWordRemoveFontStyles</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">pasteFromWordRemoveStyles</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">extraPlugins</span> <span class="op">=</span> <span class="st">&#39;floating-tools,notification,autosave,templates,wordcount,&#39;</span> <span class="op">+</span>
+        <span class="st">&#39;clipboard,pastefromword,smiley,dialog,music,preview,selectall,clearall&#39;</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">height</span> <span class="op">=</span> <span class="dv">637</span><span class="op">;</span>
+      <span class="va">config</span>.<span class="at">enterMode</span> <span class="op">=</span> <span class="va">CKEDITOR</span>.<span class="at">ENTER_DIV</span><span class="op">;</span>
+
+      <span class="va">config</span>.<span class="at">wordcount</span> <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">showParagraphs</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+        <span class="dt">showWordCount</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+        <span class="dt">showCharCount</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+        <span class="dt">countSpacesAsChars</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+        <span class="dt">countHTML</span><span class="op">:</span> <span class="kw">true</span>
+      <span class="op">};</span>
+
+      <span class="va">config</span>.<span class="at">toolbar</span> <span class="op">=</span> [
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;document&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Music&#39;</span><span class="op">,</span> <span class="st">&#39;Copy&#39;</span><span class="op">,</span> <span class="st">&#39;SelectAll&#39;</span><span class="op">,</span> <span class="st">&#39;ClearAll&#39;</span><span class="op">,</span> <span class="st">&#39;Preview&#39;</span>]<span class="op">},</span>
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;super&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Smiley&#39;</span><span class="op">,</span> <span class="st">&#39;RemoveFormat&#39;</span>]<span class="op">},</span>
+        <span class="op">{</span>
+          <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;basicstyles&#39;</span><span class="op">,</span>
+          <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Bold&#39;</span><span class="op">,</span> <span class="st">&#39;Italic&#39;</span><span class="op">,</span> <span class="st">&#39;Underline&#39;</span><span class="op">,</span> <span class="st">&#39;Strike&#39;</span><span class="op">,</span> <span class="st">&#39;Subscript&#39;</span><span class="op">,</span> <span class="st">&#39;Superscript&#39;</span><span class="op">,</span> <span class="st">&#39;CreateDiv&#39;</span>]
+        <span class="op">},</span>
+        <span class="op">{</span>
+          <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;paragraph&#39;</span><span class="op">,</span>
+          <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;NumberedList&#39;</span><span class="op">,</span> <span class="st">&#39;BulletedList&#39;</span><span class="op">,</span> <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;Outdent&#39;</span><span class="op">,</span> <span class="st">&#39;Indent&#39;</span><span class="op">,</span> <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;Blockquote&#39;</span><span class="op">,</span>
+            <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyLeft&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyCenter&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyRight&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyBlock&#39;</span>]
+        <span class="op">},</span>
+        <span class="st">&#39;/&#39;</span><span class="op">,</span>
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;clipboard&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Undo&#39;</span><span class="op">,</span> <span class="st">&#39;Redo&#39;</span>]<span class="op">},</span>
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;styles&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Format&#39;</span><span class="op">,</span> <span class="st">&#39;Font&#39;</span><span class="op">,</span> <span class="st">&#39;FontSize&#39;</span>]<span class="op">},</span>
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;colors&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;TextColor&#39;</span><span class="op">,</span> <span class="st">&#39;BGColor&#39;</span>]<span class="op">},</span>
+        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;tools&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Maximize&#39;</span><span class="op">,</span> <span class="st">&#39;ShowBlocks&#39;</span><span class="op">,</span> <span class="st">&#39;Source&#39;</span>]<span class="op">}</span>
+      ]<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="kw">var</span> congee <span class="op">=</span> <span class="va">CKEDITOR</span>.<span class="at">replace</span>(<span class="st">&#39;congee&#39;</span><span class="op">,</span> <span class="op">{</span>
+      <span class="dt">uiColor</span><span class="op">:</span> <span class="st">&#39;#fafafa&#39;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="va">congee</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="kw">function</span> (evt) <span class="op">{</span>
+
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="va">congee</span>.<span class="at">on</span>(<span class="st">&#39;instanceReady&#39;</span><span class="op">,</span> <span class="kw">function</span> (ev) <span class="op">{</span>
+      <span class="at">$</span>(<span class="st">&#39;.tabset8&#39;</span>).<span class="at">pwstabs</span>(<span class="op">{</span>
+        <span class="dt">effect</span><span class="op">:</span> <span class="st">&#39;slideleft&#39;</span><span class="op">,</span>
+        <span class="dt">defaultTab</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>
+        <span class="dt">tabsPosition</span><span class="op">:</span> <span class="st">&#39;vertical&#39;</span><span class="op">,</span>
+        <span class="dt">verticalPosition</span><span class="op">:</span> <span class="st">&#39;left&#39;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+      <span class="at">$</span>(<span class="st">&#39;#Container&#39;</span>).<span class="at">mixItUp</span>().<span class="at">on</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="st">&#39;.mix&#39;</span><span class="op">,</span> <span class="kw">function</span> (event) <span class="op">{</span>
+        <span class="kw">var</span> template <span class="op">=</span> <span class="at">$</span>(<span class="va">event</span>.<span class="at">currentTarget</span>).<span class="at">html</span>()<span class="op">;</span>
+        <span class="va">congee</span>.<span class="at">insertHtml</span>(template)<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="at">$</span>(document).<span class="at">ready</span>(<span class="kw">function</span> () <span class="op">{</span>
+      <span class="at">$</span>(<span class="st">&#39;#Container&#39;</span>).<span class="at">niceScroll</span>(<span class="op">{</span>
+        <span class="dt">mousescrollstep</span><span class="op">:</span> <span class="dv">40</span>
+      <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<h4 id="colorpicker初始化">ColorPicker初始化</h4>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> colorPicker <span class="op">=</span> <span class="kw">function</span> (changeCB) <span class="op">{</span>
+    <span class="at">$</span>(<span class="st">&#39;#colorpicker&#39;</span>).<span class="at">spectrum</span>(<span class="op">{</span>
+      <span class="dt">showPaletteOnly</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+      <span class="dt">togglePaletteOnly</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+      <span class="dt">togglePaletteMoreText</span><span class="op">:</span> <span class="st">&#39;more&#39;</span><span class="op">,</span>
+      <span class="dt">togglePaletteLessText</span><span class="op">:</span> <span class="st">&#39;less&#39;</span><span class="op">,</span>
+      <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;#4caf50&#39;</span><span class="op">,</span>
+      <span class="dt">palette</span><span class="op">:</span> [
+        [<span class="st">&#39;#1abc9c&#39;</span><span class="op">,</span> <span class="st">&#39;#16a085&#39;</span><span class="op">,</span> <span class="st">&#39;#2ecc71&#39;</span><span class="op">,</span> <span class="st">&#39;#27ae60&#39;</span><span class="op">,</span> <span class="st">&#39;#4caf50&#39;</span><span class="op">,</span> <span class="st">&#39;#8bc34a&#39;</span><span class="op">,</span> <span class="st">&#39;#cddc39&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#3498db&#39;</span><span class="op">,</span> <span class="st">&#39;#2980b9&#39;</span><span class="op">,</span> <span class="st">&#39;#34495e&#39;</span><span class="op">,</span> <span class="st">&#39;#2c3e50&#39;</span><span class="op">,</span> <span class="st">&#39;#2196f3&#39;</span><span class="op">,</span> <span class="st">&#39;#03a9f4&#39;</span><span class="op">,</span> <span class="st">&#39;#00bcd4&#39;</span><span class="op">,</span> <span class="st">&#39;#009688&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#e74c3c&#39;</span><span class="op">,</span> <span class="st">&#39;#c0392b&#39;</span><span class="op">,</span> <span class="st">&#39;#f44336&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#e67e22&#39;</span><span class="op">,</span> <span class="st">&#39;#d35400&#39;</span><span class="op">,</span> <span class="st">&#39;#f39c12&#39;</span><span class="op">,</span> <span class="st">&#39;#ff9800&#39;</span><span class="op">,</span> <span class="st">&#39;#ff5722&#39;</span><span class="op">,</span> <span class="st">&#39;#ffc107&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#f1c40f&#39;</span><span class="op">,</span> <span class="st">&#39;#ffeb3b&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#9b59b6&#39;</span><span class="op">,</span> <span class="st">&#39;#8e44ad&#39;</span><span class="op">,</span> <span class="st">&#39;#9c27b0&#39;</span><span class="op">,</span> <span class="st">&#39;#673ab7&#39;</span><span class="op">,</span> <span class="st">&#39;#e91e63&#39;</span><span class="op">,</span> <span class="st">&#39;#3f51b5&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#795548&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#9e9e9e&#39;</span><span class="op">,</span> <span class="st">&#39;#607d8b&#39;</span><span class="op">,</span> <span class="st">&#39;#7f8c8d&#39;</span><span class="op">,</span> <span class="st">&#39;#95a5a6&#39;</span><span class="op">,</span> <span class="st">&#39;#bdc3c7&#39;</span>]<span class="op">,</span>
+        [<span class="st">&#39;#ecf0f1&#39;</span><span class="op">,</span> <span class="st">&#39;efefef&#39;</span>]
+      ]<span class="op">,</span>
+      <span class="dt">change</span><span class="op">:</span> changeCB
+    <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">};</span></code></pre></div>
+<h3 id="step-4">Step 4:</h3>
 <h3 id="练习建议-2">练习建议</h3>
 <h1 id="javascript打造slide应用">JavaScript打造Slide应用</h1>
 <h2 id="概况-4">概况</h2>
