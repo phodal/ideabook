@@ -1,4 +1,4 @@
-Phodal's Idea实战指南
+一个全栈增长工程师的创意集(Phodal's Idea实战指南)
 ===
 
 虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。

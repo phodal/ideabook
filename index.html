@@ -687,7 +687,7 @@ def get_geo(ip):
     <span class="dt">isbn</span><span class="op">:</span> <span class="va">barcodeData</span>.<span class="at">text</span>
   <span class="op">}</span>)<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<p>下面就是我们的bookshelfDB服务</p>
+<p>下面就是我们的bookshelfDB服务，我们实现了get、add、remove、update，即CRUD。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">.<span class="at">factory</span>(<span class="st">&#39;bookshelfDB&#39;</span><span class="op">,</span> <span class="kw">function</span>($cordovaSQLite<span class="op">,</span> DBA) <span class="op">{</span>
     <span class="kw">var</span> self <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
     <span class="va">self</span>.<span class="at">all</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
