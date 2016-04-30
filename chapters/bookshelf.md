@@ -91,7 +91,7 @@ function saveToDatabase(data, barcodeData) {
 }
 ```    
 
-下面就是我们的bookshelfDB服务
+下面就是我们的bookshelfDB服务，我们实现了get、add、remove、update，即CRUD。
 
 ```javascript
 .factory('bookshelfDB', function($cordovaSQLite, DBA) {
