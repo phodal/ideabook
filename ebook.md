@@ -492,7 +492,7 @@ function saveToDatabase(data, barcodeData) {
 
 ###练习建议
 
-程序员专属Badge制作
+制作专属Badge制作
 ===
 
 概况
@@ -2355,7 +2355,7 @@ function printNode(applyNode, originRootNodeHTML, patchIndex) {
 
 最后，我们似乎就可以生成相应的测试代码了。。。
 
-移动框架
+单页面移动应用
 ===
 
 概况
