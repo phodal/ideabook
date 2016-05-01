@@ -28,6 +28,40 @@ Idea指南的格式：
 
 ![Alipay](https://raw.githubusercontent.com/phodal/growth/master/docs/alipay.png)![Wechat](https://raw.githubusercontent.com/phodal/growth/master/docs/wechat.png)
 
+截图集：
+
+将GitHub用户显示到地图上：
+
+![GitHub User In Map](./images/anti-map-action.jpg)
+
+书籍录入程序：
+
+![书籍录入程序](./images/bookshelf.jpg)
+
+Web文本编辑器：
+
+![Web文本编辑器](./images/congee.jpg)
+
+O2O地图搜索：
+
+![O2O地图搜索](./images/elasticsearch_ionit_map.jpg)
+
+全平台应用：
+
+![全平台应用](./images/full-platforms.jpg)
+
+技能树：
+
+![技能树](./images/tips.jpg)
+
+编辑-发布-开发分离的文本编辑器：
+
+![编辑-发布-开发分离的文本编辑器](./imags/eche-editor-screenshot.png)
+
+测试代码生成器：
+
+![测试代码生成器](./images/luffa.jpg)
+
 目录
 ---
 
