@@ -56,7 +56,7 @@ O2O地图搜索：
 
 编辑-发布-开发分离的文本编辑器：
 
-![编辑-发布-开发分离的文本编辑器](./imags/eche-editor-screenshot.png)
+![编辑-发布-开发分离的文本编辑器](./images/eche-editor-screenshot.png)
 
 测试代码生成器：
 
