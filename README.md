@@ -12,13 +12,6 @@
 
 > 虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
 
-我的其他电子书：
-
- - 《[一步步搭建物联网系统](https://github.com/phodal/designiot)》
- - 《[GitHub 漫游指南](https://github.com/phodal/github-roam)》
- - 《[RePractise](https://github.com/phodal/repractise)》
- - 《[Growth: 全栈增长工程师指南](https://github.com/phodal/growth-ebook)》
-
 Idea指南的格式：
 
  * 概况
@@ -28,6 +21,15 @@ Idea指南的格式：
  * 步骤
     * Step *
     * 练习建议          
+
+**PS: 当前为预览版，在使用的过程中遇到任何遇到请及时与我联系**
+
+我的其他电子书：
+
+ - 《[一步步搭建物联网系统](https://github.com/phodal/designiot)》
+ - 《[GitHub 漫游指南](https://github.com/phodal/github-roam)》
+ - 《[RePractise](https://github.com/phodal/repractise)》
+ - 《[Growth: 全栈增长工程师指南](https://github.com/phodal/growth-ebook)》
 
 欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
 
