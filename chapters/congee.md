@@ -16,17 +16,16 @@ GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
 
 选用怎样的前端框架是一个有趣的话题，我需要一个数据绑定和模板。首先，我排除了React这个框架，我觉得他的模板会给我带来一堆麻烦事。Angluar是一个不错的选择，但是考虑Angluar 2.0就放弃了，Backbone也用了那么久。Knockout.js又进入了我的视野，但是后来我发现数据绑定到模板有点难。最后选了Ractive，后来发现果然上手很轻松。
 
-补充一句，这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。
+Ractive这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。 
 
+起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。
 
 步骤
 ---
 
 ###Step 1: hello,world
 
-起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。
-
-下面是一个简单的Hello，World。
+下面是一个简单的hello，world。
 
 ```html
   <script id='template' type='text/ractive'>
@@ -41,9 +40,7 @@ GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
   </script>
 ```
 
-这个Hello，World和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。
-
-然后，让我们来看一个事件的例子：
+这个hello，world和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。然后，让我们来看一个事件的例子：
 
 ```javascript
 listView = new Ractive({
@@ -57,7 +54,7 @@ listView = new Ractive({
   });
 ```
 
-这是的on，需要你在某个地方Fire：
+这是在监听，意味着你需要在某个地方Fire这个事件：
 
 ```javascript
 titleView.fire('changeColor', {color: color.toHexString()});
@@ -96,7 +93,11 @@ titleView.fire('changeColor', {color: color.toHexString()});
 
 上面是在[https://github.com/phodal/congee](https://github.com/phodal/congee)中用到的多个模板的View，他们用了同一个component。
 
+对比和介绍就在这里结束了，我们就可以开始这个项目的实战了。
+
 ### Step 2: Require.js模块化
+
+同样的在这里，我们也使用Require.js来作模块化和依赖管理。我们的项目的配置如下：
 
 ```javascript
 require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrView', 'scripts/views/parasView', 'scripts/views/followView', 'jquery', 'spectrum'],
@@ -125,10 +126,15 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
   });
 ```  
 
+在那之前，你自然需要先clone代码。然后在这里我们不同的几个模块进行初始化，并且为colorPicker配置了相应的监听事件。现在，让我们先到App模块中，看看我们做了些什么事？
+
 ###Step 3: 初始化
+
+初始化模块一共分为两部分，一部分是对CKEditor的初始化，一部分则是对colorPicker的初始化。
 
 #### CKEditor初始化
 
+CKEditor自身的编辑器配置比较长，我们就不在这里面列出这些代码了。
 
 ```javascript
 	var init = function () {
@@ -138,45 +144,7 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
      */
 
     CKEDITOR.editorConfig = function (config) {
-      config.allowedContent = true;
-      config.language = 'zh-cn';
-      //config.skin = 'minimalist';
-      config.pasteFilter = null;
-      config.forcePasteAsPlainText = false;
-      config.allowedContent = true;
-      config.pasteFromWordRemoveFontStyles = false;
-      config.pasteFromWordRemoveStyles = false;
-      config.extraPlugins = 'floating-tools,notification,autosave,templates,wordcount,' +
-        'clipboard,pastefromword,smiley,dialog,music,preview,selectall,clearall';
-      config.height = 637;
-      config.enterMode = CKEDITOR.ENTER_DIV;
-
-      config.wordcount = {
-        showParagraphs: true,
-        showWordCount: true,
-        showCharCount: true,
-        countSpacesAsChars: true,
-        countHTML: true
-      };
-
-      config.toolbar = [
-        {name: 'document', items: ['Music', 'Copy', 'SelectAll', 'ClearAll', 'Preview']},
-        {name: 'super', items: ['Smiley', 'RemoveFormat']},
-        {
-          name: 'basicstyles',
-          items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'CreateDiv']
-        },
-        {
-          name: 'paragraph',
-          items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',
-            '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
-        },
-        '/',
-        {name: 'clipboard', items: ['Undo', 'Redo']},
-        {name: 'styles', items: ['Format', 'Font', 'FontSize']},
-        {name: 'colors', items: ['TextColor', 'BGColor']},
-        {name: 'tools', items: ['Maximize', 'ShowBlocks', 'Source']}
-      ];
+      // ...
     };
     var congee = CKEDITOR.replace('congee', {
       uiColor: '#fafafa'
@@ -206,7 +174,11 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
     });
 ```
 
+``instanceReady``事件主要就是在编程器初始化后进行的。因此我们在这里初始化了jQuery插件PWS Tabs，以及jQuery插件mixItUp，他们用于进行页面的排版。
+
 #### ColorPicker初始化
+
+下面的代码便是对ColorPicker进行初始化，我们设置了几个常用的颜色放在调色板上。
 
 ```javascript
  var colorPicker = function (changeCB) {
@@ -231,6 +203,8 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
     });
   };
 ```  
+
+而实际上在这里我们已经完成了大部分的工作。
 
 ###Step 4: 
 
