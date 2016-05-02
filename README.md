@@ -2,11 +2,15 @@
 ===
 
 
-你是不是在为提高编程技术而发愁？
-你是不是在为找不到合适的练手项目而烦恼？
-你是不是在为有合适的项目，但是没有指南而烦恼？
+**你是不是在为提高编程技术而发愁？**
 
-虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
+**你是不是在为找不到合适的练手项目而烦恼？**
+
+**你是不是在为有合适的项目，但是没有指南而烦恼？**
+
+拥有Ideabook，你就等于拥有一系列的练手项目。
+
+> 虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
 
 我的其他电子书：
 
@@ -262,7 +266,7 @@ License
 
 [![Phodal's Article](http://brand.phodal.com/shields/article-small.svg)](https://www.phodal.com/) [![Phodal's Idea](http://brand.phodal.com/shields/idea-small.svg)](http://ideas.phodal.com/)
 
-© 2015~2016 [Phodal Huang](https://www.phodal.com). This code is distributed under the Creative Commons Attribution-Noncommercial-No Derivative Works 3.0  License. See `LICENSE` in this directory.
+© 2016 [Phodal Huang](https://www.phodal.com). This code is distributed under the Creative Commons Attribution-Noncommercial-No Derivative Works 3.0  License. See `LICENSE` in this directory.
 
 [![待我代码编成,娶你为妻可好](http://brand.phodal.com/slogan/slogan.svg)](http://www.xuntayizhan.com/person/ji-ke-ai-qing-zhi-er-shi-dai-wo-dai-ma-bian-cheng-qu-ni-wei-qi-ke-hao-wan/)
 
