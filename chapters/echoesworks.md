@@ -46,7 +46,21 @@ GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phoda
 
 ### Step 1: 基本的Slide功能
 
+由于我是一个懒人，所以在实现基本的Slide功能时，我找到了一个名为``bespoke``的迷你框架。原理大致和大家分享一下，在这个库里一共有下面几个函数：
+
+ - readURL() 读取URL来获取当前的页数，将跳转到相应的页数。
+ - activate(index, customData) 主要的函数，实际上就是切换className而已——将新的页面标记为'active'。
+ - writeURL(index) 切换slide的时候，更新URL的hash
+ - step(offset, customData) 计算页面
+ - on(eventName, callback) 事件监听函数
+ - fire(eventName, eventData) 事件触发函数
+ - createEventData (el, eventData) 创建事件的数据
+
+大致的功能就如上所说的，相当简单。
+
 ### Step 2: 解析Markdown
+
+接着，我们就可以创建解析Markdown的功能了，遗憾的是这里的代码我也是用别人的——``micromarkdown``，一个非常简单的Markdown解析器。
 
 ### Step 3: 事件处理
 

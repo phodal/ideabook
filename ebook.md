@@ -635,17 +635,24 @@ GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
 
 选用怎样的前端框架是一个有趣的话题，我需要一个数据绑定和模板。首先，我排除了React这个框架，我觉得他的模板会给我带来一堆麻烦事。Angluar是一个不错的选择，但是考虑Angluar 2.0就放弃了，Backbone也用了那么久。Knockout.js又进入了我的视野，但是后来我发现数据绑定到模板有点难。最后选了Ractive，后来发现果然上手很轻松。
 
-补充一句，这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。
+Ractive这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。 
 
+起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。
 
 步骤
 ---
 
+在创建这个项目的时候，我的迭代过程大致如下：
+
+ - 创建hello,world —— 结合不同的几个框架
+ - 创建基本的样式集
+ - 引用ColorPicker来对颜色进行处理
+ - 重构代码
+
+
 ###Step 1: hello,world
 
-起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。
-
-下面是一个简单的Hello，World。
+下面是一个简单的hello，world。
 
 ```html
   <script id='template' type='text/ractive'>
@@ -660,9 +667,7 @@ GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
   </script>
 ```
 
-这个Hello，World和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。
-
-然后，让我们来看一个事件的例子：
+这个hello，world和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。然后，让我们来看一个事件的例子：
 
 ```javascript
 listView = new Ractive({
@@ -676,7 +681,7 @@ listView = new Ractive({
   });
 ```
 
-这是的on，需要你在某个地方Fire：
+这是在监听，意味着你需要在某个地方Fire这个事件：
 
 ```javascript
 titleView.fire('changeColor', {color: color.toHexString()});
@@ -715,7 +720,11 @@ titleView.fire('changeColor', {color: color.toHexString()});
 
 上面是在[https://github.com/phodal/congee](https://github.com/phodal/congee)中用到的多个模板的View，他们用了同一个component。
 
+对比和介绍就在这里结束了，我们就可以开始这个项目的实战了。
+
 ### Step 2: Require.js模块化
+
+同样的在这里，我们也使用Require.js来作模块化和依赖管理。我们的项目的配置如下：
 
 ```javascript
 require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrView', 'scripts/views/parasView', 'scripts/views/followView', 'jquery', 'spectrum'],
@@ -744,10 +753,15 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
   });
 ```  
 
+在那之前，你自然需要先clone代码。然后在这里我们不同的几个模块进行初始化，并且为colorPicker配置了相应的监听事件。现在，让我们先到App模块中，看看我们做了些什么事？
+
 ###Step 3: 初始化
+
+初始化模块一共分为两部分，一部分是对CKEditor的初始化，一部分则是对colorPicker的初始化。
 
 #### CKEditor初始化
 
+CKEditor自身的编辑器配置比较长，我们就不在这里面列出这些代码了。
 
 ```javascript
 	var init = function () {
@@ -757,45 +771,7 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
      */
 
     CKEDITOR.editorConfig = function (config) {
-      config.allowedContent = true;
-      config.language = 'zh-cn';
-      //config.skin = 'minimalist';
-      config.pasteFilter = null;
-      config.forcePasteAsPlainText = false;
-      config.allowedContent = true;
-      config.pasteFromWordRemoveFontStyles = false;
-      config.pasteFromWordRemoveStyles = false;
-      config.extraPlugins = 'floating-tools,notification,autosave,templates,wordcount,' +
-        'clipboard,pastefromword,smiley,dialog,music,preview,selectall,clearall';
-      config.height = 637;
-      config.enterMode = CKEDITOR.ENTER_DIV;
-
-      config.wordcount = {
-        showParagraphs: true,
-        showWordCount: true,
-        showCharCount: true,
-        countSpacesAsChars: true,
-        countHTML: true
-      };
-
-      config.toolbar = [
-        {name: 'document', items: ['Music', 'Copy', 'SelectAll', 'ClearAll', 'Preview']},
-        {name: 'super', items: ['Smiley', 'RemoveFormat']},
-        {
-          name: 'basicstyles',
-          items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'CreateDiv']
-        },
-        {
-          name: 'paragraph',
-          items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',
-            '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
-        },
-        '/',
-        {name: 'clipboard', items: ['Undo', 'Redo']},
-        {name: 'styles', items: ['Format', 'Font', 'FontSize']},
-        {name: 'colors', items: ['TextColor', 'BGColor']},
-        {name: 'tools', items: ['Maximize', 'ShowBlocks', 'Source']}
-      ];
+      // ...
     };
     var congee = CKEDITOR.replace('congee', {
       uiColor: '#fafafa'
@@ -825,7 +801,11 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
     });
 ```
 
+``instanceReady``事件主要就是在编程器初始化后进行的。因此我们在这里初始化了jQuery插件PWS Tabs，以及jQuery插件mixItUp，他们用于进行页面的排版。
+
 #### ColorPicker初始化
+
+下面的代码便是对ColorPicker进行初始化，我们设置了几个常用的颜色放在调色板上。
 
 ```javascript
  var colorPicker = function (changeCB) {
@@ -851,9 +831,58 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
   };
 ```  
 
-###Step 4: 
+而实际上在这里我们已经完成了大部分的工作。
+
+###Step 4: 创建对应的View
+
+在这个项目里，比较麻烦的地方就是使用同样的颜色来显示一个模板，如下的代码是用于显示水平线的模板：
+
+```
+{{#hrStyle}}
+<div class="mix {{.category}}" data-value={{.data_value}}>
+  <section {{#section_style}}style="{{.section_style}}"{{/section_style}}>
+    <p style="{{.p_style}}{{#color}};border-color: {{.color}};{{/color}}"></p>
+  </section>
+</div>
+{{/hrStyle}}
+```
+
+下面的代码就是对应的View:
+
+```
+      parasView = new Ractive({
+        el: 'sandboxHr',
+        template: '<Grid hrStyle="{{styles}}" />',
+        components: {Grid: Grid},
+        data: {
+          styles: [
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px solid', color: color,  data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 3px double', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px dashed', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px dotted', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 2px dashed', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 2px dotted', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-bottom: 1px solid #fff;border-top: 1px solid', color: color,  data_value: dataValue, category: category},
+            {section_style: 'border-top: 1px solid #8c8b8b; border-bottom: 1px solid #fff;', p_style: 'content: "";display: block;margin-top: 2px;border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 6px;background: url(\'styles/images/hr/hr-11.png\') repeat-x 0 0;border: 0;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 6px;background: url(\'styles/images/hr/hr-12.png\') repeat-x 0 0;border: 0;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 10px;border: 0;box-shadow: 0 10px 10px -10px #8c8b8b inset;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'border: 0;height: 1px;background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);', data_value: dataValue, category: category}
+          ]
+        }
+      });
+```      
+
+我们所做的只是拿出每个不同的布局，再将这些布局显示到页面上。最后在值被修改时，改变这其中的值：
+
+```
+parasView.on('changeColor', function(args) {
+  parasView.findComponent('Grid').set('hrStyle.*.color', args.color);
+});
+```      
 
 ###练习建议
+
 
 JavaScript打造Slide应用
 ===================
@@ -863,13 +892,13 @@ JavaScript打造Slide应用
 
 ### 背景
 
-又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。
+又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的Slide框架 —— EchoesWorks。如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
 
 ###Showcase
 
 ![EchoesWorks](./images/echoesworks.jpg)
 
-如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
+GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phodal/echoesworks)
 
 ### 需求
 
@@ -887,9 +916,7 @@ JavaScript打造Slide应用
 
 5. 代码。我们真的需要在另外打开一个网址来看代码么?
 
-于是，``EchoesWorks``出现了。
-
-**EchoesWorks功能**
+于是，``EchoesWorks``出现了，它可以支持下面的一些功能：
 
  - 支持 Markdown
  - Github代码显示
@@ -905,7 +932,21 @@ JavaScript打造Slide应用
 
 ### Step 1: 基本的Slide功能
 
+由于我是一个懒人，所以在实现基本的Slide功能时，我找到了一个名为``bespoke``的迷你框架。原理大致和大家分享一下，在这个库里一共有下面几个函数：
+
+ - readURL() 读取URL来获取当前的页数，将跳转到相应的页数。
+ - activate(index, customData) 主要的函数，实际上就是切换className而已——将新的页面标记为'active'。
+ - writeURL(index) 切换slide的时候，更新URL的hash
+ - step(offset, customData) 计算页面
+ - on(eventName, callback) 事件监听函数
+ - fire(eventName, eventData) 事件触发函数
+ - createEventData (el, eventData) 创建事件的数据
+
+大致的功能就如上所说的，相当简单。
+
 ### Step 2: 解析Markdown
+
+接着，我们就可以创建解析Markdown的功能了，遗憾的是这里的代码我也是用别人的——``micromarkdown``，一个非常简单的Markdown解析器。
 
 ### Step 3: 事件处理
 
@@ -1250,7 +1291,9 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 **Solr 安装**
 
-    brew install solr
+```bash
+brew install solr
+```
 
 步骤
 ---
@@ -1261,17 +1304,18 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 由于，直接调用的是Solr的接口，所以我们的代码显得比较简单:
 
-	class All(Resource):
-	    @staticmethod
-	    def get():
-	        base_url = ''
-	        url = (base_url + 'select?q=' + request.query_string + '+&wt=json&indent=true')
-	        result = requests.get(url)
-	        return (result.json()['response']['docs']), 201, {'Access-Control-Allow-Origin': '*'}
+```python
+class All(Resource):
+    @staticmethod
+    def get():
+        base_url = ''
+        url = (base_url + 'select?q=' + request.query_string + '+&wt=json&indent=true')
+        result = requests.get(url)
+        return (result.json()['response']['docs']), 201, {'Access-Control-Allow-Origin': '*'}
 
 
-	api.add_resource(All, '/geo/')
-
+api.add_resource(All, '/geo/')
+```
 
 我们在前台需要做的便是，组装geo query。
 
@@ -1279,31 +1323,35 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 在Google Map的API是支持Polygon搜索的，有对应的一个
 
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', renderMarker);
+```javascript
+google.maps.event.addListener(drawingManager, 'polygoncomplete', renderMarker);
+```
 
 函数来监听，完成``polygoncomplete``时执行的函数，当我们完成搜索时，便执行``renderMarker``，在里面做的便是:
 
-    $.get('/geo/?' + query, function (results) {
-            for (var i = 0; i < results.length; i++) {
-                var location = results[i].geo[0].split(',');
-                var myLatLng = new google.maps.LatLng(location[0], location[1]);
-                var title = results[i].title;
-                marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: title
-                });
-
-                contentString = '<h1>City</h1><br/> address ' + i + '';
-
-                google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
-                    return function () {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
-                    };
-                })(marker, contentString, infowindow));
-            }
+```javascript
+$.get('/geo/?' + query, function (results) {
+    for (var i = 0; i < results.length; i++) {
+        var location = results[i].geo[0].split(',');
+        var myLatLng = new google.maps.LatLng(location[0], location[1]);
+        var title = results[i].title;
+        marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: title
         });
+
+        contentString = '<h1>City</h1><br/> address ' + i + '';
+
+        google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
+            return function () {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            };
+        })(marker, contentString, infowindow));
+    }
+});
+```
 
 对应的去解析数据，并显示在地图上
    

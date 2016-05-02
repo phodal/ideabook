@@ -127,7 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-1-helloworld">Step 1: hello,world</a></li>
 <li><a href="#step-2-require.js模块化">Step 2: Require.js模块化</a></li>
 <li><a href="#step-3-初始化">Step 3: 初始化</a></li>
-<li><a href="#step-4">Step 4:</a></li>
+<li><a href="#step-4-创建对应的view">Step 4: 创建对应的View</a></li>
 <li><a href="#练习建议-2">练习建议</a></li>
 </ul></li>
 </ul></li>
@@ -822,11 +822,18 @@ dwg.save()</code></pre></div>
 <p>GitHub: <a href="https://github.com/phodal/congee" class="uri">https://github.com/phodal/congee</a></p>
 <h3 id="ckeditor-ractive">CKEditor + Ractive</h3>
 <p>选用怎样的前端框架是一个有趣的话题，我需要一个数据绑定和模板。首先，我排除了React这个框架，我觉得他的模板会给我带来一堆麻烦事。Angluar是一个不错的选择，但是考虑Angluar 2.0就放弃了，Backbone也用了那么久。Knockout.js又进入了我的视野，但是后来我发现数据绑定到模板有点难。最后选了Ractive，后来发现果然上手很轻松。</p>
-<p>补充一句，这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。</p>
-<h2 id="步骤-3">步骤</h2>
-<h3 id="step-1-helloworld">Step 1: hello,world</h3>
+<p>Ractive这个框架比React诞生早了一个月，还是以DOM为核心。Ractive自称是一个模板驱动UI的库，在Github上说是下一代的DOM操作。因为Virtual Dom的出现，这个框架并没有那么流行。</p>
 <p>起先，这个框架是在卫报创建的用于产生新闻的应用程序 。有很多工具可以帮助我们构建Web应用程序 ，但是很少会考虑基本的问题：HTML，一个优秀的静态模板，但是并没有为交互设计。Ractive可以将一个模板插到DOM中，并且可以动态的改变它。</p>
-<p>下面是一个简单的Hello，World。</p>
+<h2 id="步骤-3">步骤</h2>
+<p>在创建这个项目的时候，我的迭代过程大致如下：</p>
+<ul>
+<li>创建hello,world —— 结合不同的几个框架</li>
+<li>创建基本的样式集</li>
+<li>引用ColorPicker来对颜色进行处理</li>
+<li>重构代码</li>
+</ul>
+<h3 id="step-1-helloworld">Step 1: hello,world</h3>
+<p>下面是一个简单的hello，world。</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">  <span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">&#39;template&#39;</span><span class="ot"> type=</span><span class="st">&#39;text/ractive&#39;</span><span class="kw">&gt;</span>
     <span class="op">&lt;</span>p<span class="op">&gt;</span>Hello<span class="op">,</span> <span class="op">{{</span>name<span class="op">}}!&lt;</span><span class="ss">/p&gt;</span>
 <span class="ss">  &lt;/script</span><span class="op">&gt;</span>
@@ -837,8 +844,7 @@ dwg.save()</code></pre></div>
       <span class="dt">data</span><span class="op">:</span> <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;world&#39;</span> <span class="op">}</span>
     <span class="op">}</span>)<span class="op">;</span>
   <span class="op">&lt;</span><span class="ss">/script&gt;</span></code></pre></div>
-<p>这个Hello，World和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。</p>
-<p>然后，让我们来看一个事件的例子：</p>
+<p>这个hello，world和一般的MVC框架并没有太大区别，甚至和我们用的Backbone很像。然后，让我们来看一个事件的例子：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">listView <span class="op">=</span> <span class="kw">new</span> <span class="at">Ractive</span>(<span class="op">{</span>
     <span class="dt">el</span><span class="op">:</span> <span class="st">&#39;sandboxTitle&#39;</span><span class="op">,</span>
     <span class="dt">template</span><span class="op">:</span> listTemplate<span class="op">,</span>
@@ -848,7 +854,7 @@ dwg.save()</code></pre></div>
   <span class="va">listView</span>.<span class="at">on</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="kw">function</span> (args) <span class="op">{</span>
     <span class="va">listView</span>.<span class="at">set</span>(<span class="st">&#39;color&#39;</span><span class="op">,</span> <span class="va">args</span>.<span class="at">color</span>)<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span></code></pre></div>
-<p>这是的on，需要你在某个地方Fire：</p>
+<p>这是在监听，意味着你需要在某个地方Fire这个事件：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">titleView</span>.<span class="at">fire</span>(<span class="st">&#39;changeColor&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">color</span><span class="op">:</span> <span class="va">color</span>.<span class="at">toHexString</span>()<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>接着，问题来了，这和我们jQuery的on，或者React的handleClick似乎没有太大的区别。接着Component来了：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="kw">var</span> Grid <span class="op">=</span> <span class="va">Ractive</span>.<span class="at">extend</span>(<span class="op">{</span>
@@ -878,7 +884,9 @@ dwg.save()</code></pre></div>
     <span class="va">parasView</span>.<span class="at">findComponent</span>(<span class="st">&#39;Grid&#39;</span>).<span class="at">set</span>(<span class="st">&#39;Style.*.color&#39;</span><span class="op">,</span> <span class="va">args</span>.<span class="at">color</span>)<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>上面是在<a href="https://github.com/phodal/congee" class="uri">https://github.com/phodal/congee</a>中用到的多个模板的View，他们用了同一个component。</p>
+<p>对比和介绍就在这里结束了，我们就可以开始这个项目的实战了。</p>
 <h3 id="step-2-require.js模块化">Step 2: Require.js模块化</h3>
+<p>同样的在这里，我们也使用Require.js来作模块化和依赖管理。我们的项目的配置如下：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">require</span>([<span class="st">&#39;scripts/app&#39;</span><span class="op">,</span> <span class="st">&#39;ractive&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/titleView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/hrView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/parasView&#39;</span><span class="op">,</span> <span class="st">&#39;scripts/views/followView&#39;</span><span class="op">,</span> <span class="st">&#39;jquery&#39;</span><span class="op">,</span> <span class="st">&#39;spectrum&#39;</span>]<span class="op">,</span>
   <span class="kw">function</span> (App<span class="op">,</span> Ractive<span class="op">,</span> TitleView<span class="op">,</span> ParasView<span class="op">,</span> HRView<span class="op">,</span> FollowView<span class="op">,</span> $) <span class="op">{</span>
     <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
@@ -903,8 +911,11 @@ dwg.save()</code></pre></div>
       <span class="va">followView</span>.<span class="at">fire</span>(<span class="st">&#39;changeName&#39;</span><span class="op">,</span> <span class="op">{</span><span class="dt">mpName</span><span class="op">:</span> <span class="at">$</span>(<span class="kw">this</span>).<span class="at">val</span>()<span class="op">}</span>)<span class="op">;</span>
     <span class="op">}</span>)<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>在那之前，你自然需要先clone代码。然后在这里我们不同的几个模块进行初始化，并且为colorPicker配置了相应的监听事件。现在，让我们先到App模块中，看看我们做了些什么事？</p>
 <h3 id="step-3-初始化">Step 3: 初始化</h3>
+<p>初始化模块一共分为两部分，一部分是对CKEditor的初始化，一部分则是对colorPicker的初始化。</p>
 <h4 id="ckeditor初始化">CKEditor初始化</h4>
+<p>CKEditor自身的编辑器配置比较长，我们就不在这里面列出这些代码了。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">var</span> init <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
     <span class="co">/**</span>
 <span class="co">     * </span>@license<span class="co"> Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.</span>
@@ -912,45 +923,7 @@ dwg.save()</code></pre></div>
 <span class="co">     */</span>
 
     <span class="va">CKEDITOR</span>.<span class="at">editorConfig</span> <span class="op">=</span> <span class="kw">function</span> (config) <span class="op">{</span>
-      <span class="va">config</span>.<span class="at">allowedContent</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">language</span> <span class="op">=</span> <span class="st">&#39;zh-cn&#39;</span><span class="op">;</span>
-      <span class="co">//config.skin = &#39;minimalist&#39;;</span>
-      <span class="va">config</span>.<span class="at">pasteFilter</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">forcePasteAsPlainText</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">allowedContent</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">pasteFromWordRemoveFontStyles</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">pasteFromWordRemoveStyles</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">extraPlugins</span> <span class="op">=</span> <span class="st">&#39;floating-tools,notification,autosave,templates,wordcount,&#39;</span> <span class="op">+</span>
-        <span class="st">&#39;clipboard,pastefromword,smiley,dialog,music,preview,selectall,clearall&#39;</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">height</span> <span class="op">=</span> <span class="dv">637</span><span class="op">;</span>
-      <span class="va">config</span>.<span class="at">enterMode</span> <span class="op">=</span> <span class="va">CKEDITOR</span>.<span class="at">ENTER_DIV</span><span class="op">;</span>
-
-      <span class="va">config</span>.<span class="at">wordcount</span> <span class="op">=</span> <span class="op">{</span>
-        <span class="dt">showParagraphs</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
-        <span class="dt">showWordCount</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
-        <span class="dt">showCharCount</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
-        <span class="dt">countSpacesAsChars</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
-        <span class="dt">countHTML</span><span class="op">:</span> <span class="kw">true</span>
-      <span class="op">};</span>
-
-      <span class="va">config</span>.<span class="at">toolbar</span> <span class="op">=</span> [
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;document&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Music&#39;</span><span class="op">,</span> <span class="st">&#39;Copy&#39;</span><span class="op">,</span> <span class="st">&#39;SelectAll&#39;</span><span class="op">,</span> <span class="st">&#39;ClearAll&#39;</span><span class="op">,</span> <span class="st">&#39;Preview&#39;</span>]<span class="op">},</span>
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;super&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Smiley&#39;</span><span class="op">,</span> <span class="st">&#39;RemoveFormat&#39;</span>]<span class="op">},</span>
-        <span class="op">{</span>
-          <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;basicstyles&#39;</span><span class="op">,</span>
-          <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Bold&#39;</span><span class="op">,</span> <span class="st">&#39;Italic&#39;</span><span class="op">,</span> <span class="st">&#39;Underline&#39;</span><span class="op">,</span> <span class="st">&#39;Strike&#39;</span><span class="op">,</span> <span class="st">&#39;Subscript&#39;</span><span class="op">,</span> <span class="st">&#39;Superscript&#39;</span><span class="op">,</span> <span class="st">&#39;CreateDiv&#39;</span>]
-        <span class="op">},</span>
-        <span class="op">{</span>
-          <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;paragraph&#39;</span><span class="op">,</span>
-          <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;NumberedList&#39;</span><span class="op">,</span> <span class="st">&#39;BulletedList&#39;</span><span class="op">,</span> <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;Outdent&#39;</span><span class="op">,</span> <span class="st">&#39;Indent&#39;</span><span class="op">,</span> <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;Blockquote&#39;</span><span class="op">,</span>
-            <span class="st">&#39;-&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyLeft&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyCenter&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyRight&#39;</span><span class="op">,</span> <span class="st">&#39;JustifyBlock&#39;</span>]
-        <span class="op">},</span>
-        <span class="st">&#39;/&#39;</span><span class="op">,</span>
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;clipboard&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Undo&#39;</span><span class="op">,</span> <span class="st">&#39;Redo&#39;</span>]<span class="op">},</span>
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;styles&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Format&#39;</span><span class="op">,</span> <span class="st">&#39;Font&#39;</span><span class="op">,</span> <span class="st">&#39;FontSize&#39;</span>]<span class="op">},</span>
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;colors&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;TextColor&#39;</span><span class="op">,</span> <span class="st">&#39;BGColor&#39;</span>]<span class="op">},</span>
-        <span class="op">{</span><span class="dt">name</span><span class="op">:</span> <span class="st">&#39;tools&#39;</span><span class="op">,</span> <span class="dt">items</span><span class="op">:</span> [<span class="st">&#39;Maximize&#39;</span><span class="op">,</span> <span class="st">&#39;ShowBlocks&#39;</span><span class="op">,</span> <span class="st">&#39;Source&#39;</span>]<span class="op">}</span>
-      ]<span class="op">;</span>
+      <span class="co">// ...</span>
     <span class="op">};</span>
     <span class="kw">var</span> congee <span class="op">=</span> <span class="va">CKEDITOR</span>.<span class="at">replace</span>(<span class="st">&#39;congee&#39;</span><span class="op">,</span> <span class="op">{</span>
       <span class="dt">uiColor</span><span class="op">:</span> <span class="st">&#39;#fafafa&#39;</span>
@@ -978,7 +951,9 @@ dwg.save()</code></pre></div>
         <span class="dt">mousescrollstep</span><span class="op">:</span> <span class="dv">40</span>
       <span class="op">}</span>)<span class="op">;</span>
     <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p><code>instanceReady</code>事件主要就是在编程器初始化后进行的。因此我们在这里初始化了jQuery插件PWS Tabs，以及jQuery插件mixItUp，他们用于进行页面的排版。</p>
 <h4 id="colorpicker初始化">ColorPicker初始化</h4>
+<p>下面的代码便是对ColorPicker进行初始化，我们设置了几个常用的颜色放在调色板上。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> colorPicker <span class="op">=</span> <span class="kw">function</span> (changeCB) <span class="op">{</span>
     <span class="at">$</span>(<span class="st">&#39;#colorpicker&#39;</span>).<span class="at">spectrum</span>(<span class="op">{</span>
       <span class="dt">showPaletteOnly</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
@@ -1000,17 +975,52 @@ dwg.save()</code></pre></div>
       <span class="dt">change</span><span class="op">:</span> changeCB
     <span class="op">}</span>)<span class="op">;</span>
   <span class="op">};</span></code></pre></div>
-<h3 id="step-4">Step 4:</h3>
+<p>而实际上在这里我们已经完成了大部分的工作。</p>
+<h3 id="step-4-创建对应的view">Step 4: 创建对应的View</h3>
+<p>在这个项目里，比较麻烦的地方就是使用同样的颜色来显示一个模板，如下的代码是用于显示水平线的模板：</p>
+<pre><code>{{#hrStyle}}
+&lt;div class=&quot;mix {{.category}}&quot; data-value={{.data_value}}&gt;
+  &lt;section {{#section_style}}style=&quot;{{.section_style}}&quot;{{/section_style}}&gt;
+    &lt;p style=&quot;{{.p_style}}{{#color}};border-color: {{.color}};{{/color}}&quot;&gt;&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+{{/hrStyle}}</code></pre>
+<p>下面的代码就是对应的View:</p>
+<pre><code>      parasView = new Ractive({
+        el: &#39;sandboxHr&#39;,
+        template: &#39;&lt;Grid hrStyle=&quot;{{styles}}&quot; /&gt;&#39;,
+        components: {Grid: Grid},
+        data: {
+          styles: [
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 1px solid&#39;, color: color,  data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 3px double&#39;, color: color, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 1px dashed&#39;, color: color, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 1px dotted&#39;, color: color, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 2px dashed&#39;, color: color, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-top: 2px dotted&#39;, color: color, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;background-color: #fff;border-bottom: 1px solid #fff;border-top: 1px solid&#39;, color: color,  data_value: dataValue, category: category},
+            {section_style: &#39;border-top: 1px solid #8c8b8b; border-bottom: 1px solid #fff;&#39;, p_style: &#39;content: &quot;&quot;;display: block;margin-top: 2px;border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;&#39;, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;height: 6px;background: url(\&#39;styles/images/hr/hr-11.png\&#39;) repeat-x 0 0;border: 0;&#39;, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;height: 6px;background: url(\&#39;styles/images/hr/hr-12.png\&#39;) repeat-x 0 0;border: 0;&#39;, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;height: 10px;border: 0;box-shadow: 0 10px 10px -10px #8c8b8b inset;&#39;, data_value: dataValue, category: category},
+            {section_style: &#39;&#39;, p_style: &#39;border: 0;height: 1px;background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);&#39;, data_value: dataValue, category: category}
+          ]
+        }
+      });</code></pre>
+<p>我们所做的只是拿出每个不同的布局，再将这些布局显示到页面上。最后在值被修改时，改变这其中的值：</p>
+<pre><code>parasView.on(&#39;changeColor&#39;, function(args) {
+  parasView.findComponent(&#39;Grid&#39;).set(&#39;hrStyle.*.color&#39;, args.color);
+});</code></pre>
 <h3 id="练习建议-2">练习建议</h3>
 <h1 id="javascript打造slide应用">JavaScript打造Slide应用</h1>
 <h2 id="概况-4">概况</h2>
 <h3 id="背景-4">背景</h3>
-<p>又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。</p>
+<p>又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的Slide框架 —— EchoesWorks。如名字所言，我所需要的是一个<code>回声</code>工坊，即将博客、Slide重新回放。</p>
 <h3 id="showcase-4">Showcase</h3>
 <figure>
 <img src="./images/echoesworks.jpg" alt="EchoesWorks" /><figcaption>EchoesWorks</figcaption>
 </figure>
-<p>如名字所言，我所需要的是一个<code>回声</code>工坊，即将博客、Slide重新回放。</p>
+<p>GitHub代码： <a href="https://github.com/phodal/echoesworks" class="uri">https://github.com/phodal/echoesworks</a></p>
 <h3 id="需求">需求</h3>
 <p>当前我们有不同的方式可以记录我们的想法、博客、过程，如视频、音频、博客、幻灯片等等。</p>
 <p>然而这些并非那么完美，让我们说说这些方式的一些缺陷吧。</p>
@@ -1021,8 +1031,7 @@ dwg.save()</code></pre></div>
 <li><p>幻灯片。一个好的PPT，也就意味着上面的内容是很少的。即如果没有人说的时候，就缺少真正有用的东西。</p></li>
 <li><p>代码。我们真的需要在另外打开一个网址来看代码么?</p></li>
 </ol>
-<p>于是，<code>EchoesWorks</code>出现了。</p>
-<p><strong>EchoesWorks功能</strong></p>
+<p>于是，<code>EchoesWorks</code>出现了，它可以支持下面的一些功能：</p>
 <ul>
 <li>支持 Markdown</li>
 <li>Github代码显示</li>
@@ -1035,7 +1044,19 @@ dwg.save()</code></pre></div>
 </ul>
 <h2 id="步骤-4">步骤</h2>
 <h3 id="step-1-基本的slide功能">Step 1: 基本的Slide功能</h3>
+<p>由于我是一个懒人，所以在实现基本的Slide功能时，我找到了一个名为<code>bespoke</code>的迷你框架。原理大致和大家分享一下，在这个库里一共有下面几个函数：</p>
+<ul>
+<li>readURL() 读取URL来获取当前的页数，将跳转到相应的页数。</li>
+<li>activate(index, customData) 主要的函数，实际上就是切换className而已——将新的页面标记为’active’。</li>
+<li>writeURL(index) 切换slide的时候，更新URL的hash</li>
+<li>step(offset, customData) 计算页面</li>
+<li>on(eventName, callback) 事件监听函数</li>
+<li>fire(eventName, eventData) 事件触发函数</li>
+<li>createEventData (el, eventData) 创建事件的数据</li>
+</ul>
+<p>大致的功能就如上所说的，相当简单。</p>
 <h3 id="step-2-解析markdown">Step 2: 解析Markdown</h3>
+<p>接着，我们就可以创建解析Markdown的功能了，遗憾的是这里的代码我也是用别人的——<code>micromarkdown</code>，一个非常简单的Markdown解析器。</p>
 <h3 id="step-3-事件处理">Step 3: 事件处理</h3>
 <h3 id="step-4-解析时间">Step 4: 解析时间</h3>
 <h3 id="step-5-进度条">Step 5: 进度条</h3>
@@ -1286,47 +1307,47 @@ git push -q upstream HEAD:gh-pages</code></pre>
 </blockquote>
 <p>即schema.xml</p>
 <p><strong>Solr 安装</strong></p>
-<pre><code>brew install solr</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">brew</span> install solr</code></pre></div>
 <h2 id="步骤-6">步骤</h2>
 <p>用Flask搭建一个简单的servrices，接着在前台用google的api，对后台发出请求。</p>
 <h3 id="step-1-solr-flask">Step 1: Solr Flask</h3>
 <p>由于，直接调用的是Solr的接口，所以我们的代码显得比较简单:</p>
-<pre><code>class All(Resource):
-    @staticmethod
-    def get():
-        base_url = &#39;&#39;
-        url = (base_url + &#39;select?q=&#39; + request.query_string + &#39;+&amp;wt=json&amp;indent=true&#39;)
-        result = requests.get(url)
-        return (result.json()[&#39;response&#39;][&#39;docs&#39;]), 201, {&#39;Access-Control-Allow-Origin&#39;: &#39;*&#39;}
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> All(Resource):
+    <span class="at">@staticmethod</span>
+    <span class="kw">def</span> get():
+        base_url <span class="op">=</span> <span class="st">&#39;&#39;</span>
+        url <span class="op">=</span> (base_url <span class="op">+</span> <span class="st">&#39;select?q=&#39;</span> <span class="op">+</span> request.query_string <span class="op">+</span> <span class="st">&#39;+&amp;wt=json&amp;indent=true&#39;</span>)
+        result <span class="op">=</span> requests.get(url)
+        <span class="cf">return</span> (result.json()[<span class="st">&#39;response&#39;</span>][<span class="st">&#39;docs&#39;</span>]), <span class="dv">201</span>, {<span class="st">&#39;Access-Control-Allow-Origin&#39;</span>: <span class="st">&#39;*&#39;</span>}
 
 
-api.add_resource(All, &#39;/geo/&#39;)</code></pre>
+api.add_resource(All, <span class="st">&#39;/geo/&#39;</span>)</code></pre></div>
 <p>我们在前台需要做的便是，组装geo query。</p>
 <h3 id="step-2-google-map-polygon">Step 2: Google map Polygon</h3>
 <p>在Google Map的API是支持Polygon搜索的，有对应的一个</p>
-<pre><code>google.maps.event.addListener(drawingManager, &#39;polygoncomplete&#39;, renderMarker);</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">google</span>.<span class="va">maps</span>.<span class="va">event</span>.<span class="at">addListener</span>(drawingManager<span class="op">,</span> <span class="st">&#39;polygoncomplete&#39;</span><span class="op">,</span> renderMarker)<span class="op">;</span></code></pre></div>
 <p>函数来监听，完成<code>polygoncomplete</code>时执行的函数，当我们完成搜索时，便执行<code>renderMarker</code>，在里面做的便是:</p>
-<pre><code>$.get(&#39;/geo/?&#39; + query, function (results) {
-        for (var i = 0; i &lt; results.length; i++) {
-            var location = results[i].geo[0].split(&#39;,&#39;);
-            var myLatLng = new google.maps.LatLng(location[0], location[1]);
-            var title = results[i].title;
-            marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: title
-            });
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">$</span>.<span class="at">get</span>(<span class="st">&#39;/geo/?&#39;</span> <span class="op">+</span> query<span class="op">,</span> <span class="kw">function</span> (results) <span class="op">{</span>
+    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">results</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+        <span class="kw">var</span> location <span class="op">=</span> results[i].<span class="at">geo</span>[<span class="dv">0</span>].<span class="at">split</span>(<span class="st">&#39;,&#39;</span>)<span class="op">;</span>
+        <span class="kw">var</span> myLatLng <span class="op">=</span> <span class="kw">new</span> <span class="va">google</span>.<span class="va">maps</span>.<span class="at">LatLng</span>(location[<span class="dv">0</span>]<span class="op">,</span> location[<span class="dv">1</span>])<span class="op">;</span>
+        <span class="kw">var</span> title <span class="op">=</span> results[i].<span class="at">title</span><span class="op">;</span>
+        marker <span class="op">=</span> <span class="kw">new</span> <span class="va">google</span>.<span class="va">maps</span>.<span class="at">Marker</span>(<span class="op">{</span>
+            <span class="dt">position</span><span class="op">:</span> myLatLng<span class="op">,</span>
+            <span class="dt">map</span><span class="op">:</span> map<span class="op">,</span>
+            <span class="dt">title</span><span class="op">:</span> title
+        <span class="op">}</span>)<span class="op">;</span>
 
-            contentString = &#39;&lt;h1&gt;City&lt;/h1&gt;&lt;br/&gt; address &#39; + i + &#39;&#39;;
+        contentString <span class="op">=</span> <span class="st">&#39;&lt;h1&gt;City&lt;/h1&gt;&lt;br/&gt; address &#39;</span> <span class="op">+</span> i <span class="op">+</span> <span class="st">&#39;&#39;</span><span class="op">;</span>
 
-            google.maps.event.addListener(marker, &#39;click&#39;, (function (marker, contentString, infowindow) {
-                return function () {
-                    infowindow.setContent(contentString);
-                    infowindow.open(map, marker);
-                };
-            })(marker, contentString, infowindow));
-        }
-    });</code></pre>
+        <span class="va">google</span>.<span class="va">maps</span>.<span class="va">event</span>.<span class="at">addListener</span>(marker<span class="op">,</span> <span class="st">&#39;click&#39;</span><span class="op">,</span> (<span class="kw">function</span> (marker<span class="op">,</span> contentString<span class="op">,</span> infowindow) <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">function</span> () <span class="op">{</span>
+                <span class="va">infowindow</span>.<span class="at">setContent</span>(contentString)<span class="op">;</span>
+                <span class="va">infowindow</span>.<span class="at">open</span>(map<span class="op">,</span> marker)<span class="op">;</span>
+            <span class="op">};</span>
+        <span class="op">}</span>)(marker<span class="op">,</span> contentString<span class="op">,</span> infowindow))<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>对应的去解析数据，并显示在地图上</p>
 <h1 id="一份代码打造跨平台应用">一份代码打造跨平台应用</h1>
 <h2 id="概况-7">概况</h2>
