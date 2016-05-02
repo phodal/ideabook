@@ -6,13 +6,13 @@ JavaScript打造Slide应用
 
 ### 背景
 
-又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的博客系统(框架) —— EchoesWorks。
+又开始造一个新的轮子了，不过这次的起因比较简单，是想重新发明一个更好的Slide框架 —— EchoesWorks。如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
 
 ###Showcase
 
 ![EchoesWorks](./images/echoesworks.jpg)
 
-如名字所言，我所需要的是一个``回声``工坊，即将博客、Slide重新回放。
+GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phodal/echoesworks)
 
 ### 需求
 
@@ -30,9 +30,7 @@ JavaScript打造Slide应用
 
 5. 代码。我们真的需要在另外打开一个网址来看代码么?
 
-于是，``EchoesWorks``出现了。
-
-**EchoesWorks功能**
+于是，``EchoesWorks``出现了，它可以支持下面的一些功能：
 
  - 支持 Markdown
  - Github代码显示
