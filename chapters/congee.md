@@ -23,6 +23,14 @@ Ractive这个框架比React诞生早了一个月，还是以DOM为核心。Racti
 步骤
 ---
 
+在创建这个项目的时候，我的迭代过程大致如下：
+
+ - 创建hello,world —— 结合不同的几个框架
+ - 创建基本的样式集
+ - 引用ColorPicker来对颜色进行处理
+ - 重构代码
+
+
 ###Step 1: hello,world
 
 下面是一个简单的hello，world。
@@ -206,6 +214,53 @@ CKEditor自身的编辑器配置比较长，我们就不在这里面列出这些
 
 而实际上在这里我们已经完成了大部分的工作。
 
-###Step 4: 
+###Step 4: 创建对应的View
+
+在这个项目里，比较麻烦的地方就是使用同样的颜色来显示一个模板，如下的代码是用于显示水平线的模板：
+
+```
+{{#hrStyle}}
+<div class="mix {{.category}}" data-value={{.data_value}}>
+  <section {{#section_style}}style="{{.section_style}}"{{/section_style}}>
+    <p style="{{.p_style}}{{#color}};border-color: {{.color}};{{/color}}"></p>
+  </section>
+</div>
+{{/hrStyle}}
+```
+
+下面的代码就是对应的View:
+
+```
+      parasView = new Ractive({
+        el: 'sandboxHr',
+        template: '<Grid hrStyle="{{styles}}" />',
+        components: {Grid: Grid},
+        data: {
+          styles: [
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px solid', color: color,  data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 3px double', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px dashed', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 1px dotted', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 2px dashed', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-top: 2px dotted', color: color, data_value: dataValue, category: category},
+            {section_style: '', p_style: 'background-color: #fff;border-bottom: 1px solid #fff;border-top: 1px solid', color: color,  data_value: dataValue, category: category},
+            {section_style: 'border-top: 1px solid #8c8b8b; border-bottom: 1px solid #fff;', p_style: 'content: "";display: block;margin-top: 2px;border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 6px;background: url(\'styles/images/hr/hr-11.png\') repeat-x 0 0;border: 0;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 6px;background: url(\'styles/images/hr/hr-12.png\') repeat-x 0 0;border: 0;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'height: 10px;border: 0;box-shadow: 0 10px 10px -10px #8c8b8b inset;', data_value: dataValue, category: category},
+            {section_style: '', p_style: 'border: 0;height: 1px;background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);', data_value: dataValue, category: category}
+          ]
+        }
+      });
+```      
+
+我们所做的只是拿出每个不同的布局，再将这些布局显示到页面上。最后在值被修改时，改变这其中的值：
+
+```
+parasView.on('changeColor', function(args) {
+  parasView.findComponent('Grid').set('hrStyle.*.color', args.color);
+});
+```      
 
 ###练习建议
+
