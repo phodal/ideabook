@@ -24,7 +24,9 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 **Solr 安装**
 
-    brew install solr
+```bash
+brew install solr
+```
 
 步骤
 ---
@@ -35,17 +37,18 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 由于，直接调用的是Solr的接口，所以我们的代码显得比较简单:
 
-	class All(Resource):
-	    @staticmethod
-	    def get():
-	        base_url = ''
-	        url = (base_url + 'select?q=' + request.query_string + '+&wt=json&indent=true')
-	        result = requests.get(url)
-	        return (result.json()['response']['docs']), 201, {'Access-Control-Allow-Origin': '*'}
+```python
+class All(Resource):
+    @staticmethod
+    def get():
+        base_url = ''
+        url = (base_url + 'select?q=' + request.query_string + '+&wt=json&indent=true')
+        result = requests.get(url)
+        return (result.json()['response']['docs']), 201, {'Access-Control-Allow-Origin': '*'}
 
 
-	api.add_resource(All, '/geo/')
-
+api.add_resource(All, '/geo/')
+```
 
 我们在前台需要做的便是，组装geo query。
 
@@ -53,31 +56,35 @@ GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr
 
 在Google Map的API是支持Polygon搜索的，有对应的一个
 
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', renderMarker);
+```javascript
+google.maps.event.addListener(drawingManager, 'polygoncomplete', renderMarker);
+```
 
 函数来监听，完成``polygoncomplete``时执行的函数，当我们完成搜索时，便执行``renderMarker``，在里面做的便是:
 
-    $.get('/geo/?' + query, function (results) {
-            for (var i = 0; i < results.length; i++) {
-                var location = results[i].geo[0].split(',');
-                var myLatLng = new google.maps.LatLng(location[0], location[1]);
-                var title = results[i].title;
-                marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: title
-                });
-
-                contentString = '<h1>City</h1><br/> address ' + i + '';
-
-                google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
-                    return function () {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
-                    };
-                })(marker, contentString, infowindow));
-            }
+```javascript
+$.get('/geo/?' + query, function (results) {
+    for (var i = 0; i < results.length; i++) {
+        var location = results[i].geo[0].split(',');
+        var myLatLng = new google.maps.LatLng(location[0], location[1]);
+        var title = results[i].title;
+        marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: title
         });
+
+        contentString = '<h1>City</h1><br/> address ' + i + '';
+
+        google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
+            return function () {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            };
+        })(marker, contentString, infowindow));
+    }
+});
+```
 
 对应的去解析数据，并显示在地图上
    
