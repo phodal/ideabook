@@ -64,7 +64,54 @@ GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phoda
 
 ### Step 3: 事件处理
 
+在我们完成了基本的Slide功能后，我们就可以处理一些特殊的事件，如移动设备和键盘事件。在EW初始化时，我们可以会trigger一个名为``ew:slide:init``的事件来告诉其他组件系统已经初始化了。这时在我们对应的事件处理函数中，我们就可以判断它是不是移动设备:
+
+```javascript
+slides = document.getElementsByTagName('section');
+syncSliderEventHandler();
+
+if (slides && isTouchDevice && window.slide) {
+	touchDeviceHandler();
+}
+```
+
+如果是移动设备，我们会额外的监听三个事件：
+
+ - touchstart
+ - touchend
+ - touchmove
+
+如果是键盘输入的话，那么依据不同的按键做不同的处理：
+
+```javascript
+document.addEventListener("keyup", function (event) {
+	var keyCode = event.keyCode;
+	if (keyCode === TAB || ( keyCode >= SPACE && keyCode <= PAGE_DOWN ) || (keyCode >= LEFT && keyCode <= DOWN)) {
+		switch (keyCode) {
+			case  PAGE_UP:
+			case  LEFT:
+			case  UP:
+				window.slide.prev();
+				break;
+			case TAB:
+			case SPACE:
+			case PAGE_DOWN:
+			case  RIGHT:
+			case DOWN:
+				window.slide.next();
+				break;
+		}
+
+		event.preventDefault();
+	}
+});
+```
+
+如向上就展示下一张幻灯片，向下就展示下一张幻灯片。
+
 ### Step 4: 解析时间
+
+
 
 ### Step 5: 进度条
 
@@ -72,22 +119,26 @@ GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phoda
 
 在这里并没有什么特别高级的用法，只是简单的事件监听
 
-		function handler() {
-			window.slide.slide(parseInt(localStorage.getItem('echoesworks'), 10));
-		}
+```javascript
+function handler() {
+	window.slide.slide(parseInt(localStorage.getItem('echoesworks'), 10));
+}
 
-		if (window.addEventListener) {
-			window.addEventListener("storage", handler, false);
-		} else {
-                       // IE
-			window.attachEvent("onstorage", handler);
-		}
+if (window.addEventListener) {
+	window.addEventListener("storage", handler, false);
+} else {
+               // IE
+	window.attachEvent("onstorage", handler);
+}
+```
 
 即，当监听到调用``storage``的方法，就会跳转到相应的页面。
 
 正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。
 
-    localStorage.setItem('echoesworks', index);
+```javascript
+localStorage.setItem('echoesworks', index);
+```
 
 这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。
 
