@@ -137,6 +137,24 @@ if (that.time < nextTime && words.length > 1) {
 
 ### Step 5: 进度条
 
+一如既往的，我们的进度条，还是用别人已经写好的组件。这里我们用到的是nanobar。在Nanobar里，我们定义了一个go函数，在这个函数里来转换进度条：
+
+```
+Nanobar.prototype.go = function (p) {
+	this.bars[0].go(p);
+	if (p == 100) {
+		init.call(this);
+	}
+};
+```
+
+在我们的slide文件里，再对其进行处理：
+
+```
+window.bar.go(100 * ( index + 1) / slides.length);
+```
+
+
 ### Step 6: 同步
 
 在这里并没有什么特别高级的用法，只是简单的事件监听
