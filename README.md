@@ -35,10 +35,6 @@ Idea指南的格式：
 
 ![QRCode](https://raw.githubusercontent.com/phodal/growth/master/www/img/wechat.jpg)
 
-有钱捧个钱场:
-
-![Alipay](https://raw.githubusercontent.com/phodal/growth/master/docs/alipay.png)![Wechat](https://raw.githubusercontent.com/phodal/growth/master/docs/wechat.png)
-
 截图集：
 
 将GitHub用户显示到地图上：
