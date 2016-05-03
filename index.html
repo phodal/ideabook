@@ -141,7 +141,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-1-基本的slide功能">Step 1: 基本的Slide功能</a></li>
 <li><a href="#step-2-解析markdown">Step 2: 解析Markdown</a></li>
 <li><a href="#step-3-事件处理">Step 3: 事件处理</a></li>
-<li><a href="#step-4-解析时间">Step 4: 解析时间</a></li>
+<li><a href="#step-4-解析字幕">Step 4: 解析字幕</a></li>
 <li><a href="#step-5-进度条">Step 5: 进度条</a></li>
 <li><a href="#step-6-同步">Step 6: 同步</a></li>
 <li><a href="#练习建议-3">练习建议</a></li>
@@ -1058,23 +1058,88 @@ dwg.save()</code></pre></div>
 <h3 id="step-2-解析markdown">Step 2: 解析Markdown</h3>
 <p>接着，我们就可以创建解析Markdown的功能了，遗憾的是这里的代码我也是用别人的——<code>micromarkdown</code>，一个非常简单的Markdown解析器。</p>
 <h3 id="step-3-事件处理">Step 3: 事件处理</h3>
-<h3 id="step-4-解析时间">Step 4: 解析时间</h3>
+<p>在我们完成了基本的Slide功能后，我们就可以处理一些特殊的事件，如移动设备和键盘事件。在EW初始化时，我们可以会trigger一个名为<code>ew:slide:init</code>的事件来告诉其他组件系统已经初始化了。这时在我们对应的事件处理函数中，我们就可以判断它是不是移动设备:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">slides <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&#39;section&#39;</span>)<span class="op">;</span>
+<span class="at">syncSliderEventHandler</span>()<span class="op">;</span>
+
+<span class="cf">if</span> (slides <span class="op">&amp;&amp;</span> isTouchDevice <span class="op">&amp;&amp;</span> <span class="va">window</span>.<span class="at">slide</span>) <span class="op">{</span>
+    <span class="at">touchDeviceHandler</span>()<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>如果是移动设备，我们会额外的监听三个事件：</p>
+<ul>
+<li>touchstart</li>
+<li>touchend</li>
+<li>touchmove</li>
+</ul>
+<p>如果是键盘输入的话，那么依据不同的按键做不同的处理：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&quot;keyup&quot;</span><span class="op">,</span> <span class="kw">function</span> (event) <span class="op">{</span>
+    <span class="kw">var</span> keyCode <span class="op">=</span> <span class="va">event</span>.<span class="at">keyCode</span><span class="op">;</span>
+    <span class="cf">if</span> (keyCode <span class="op">===</span> TAB <span class="op">||</span> ( keyCode <span class="op">&gt;=</span> SPACE <span class="op">&amp;&amp;</span> keyCode <span class="op">&lt;=</span> PAGE_DOWN ) <span class="op">||</span> (keyCode <span class="op">&gt;=</span> LEFT <span class="op">&amp;&amp;</span> keyCode <span class="op">&lt;=</span> DOWN)) <span class="op">{</span>
+        <span class="cf">switch</span> (keyCode) <span class="op">{</span>
+            <span class="cf">case</span>  <span class="dt">PAGE_UP</span><span class="op">:</span>
+            <span class="cf">case</span>  <span class="dt">LEFT</span><span class="op">:</span>
+            <span class="cf">case</span>  <span class="dt">UP</span><span class="op">:</span>
+                <span class="va">window</span>.<span class="va">slide</span>.<span class="at">prev</span>()<span class="op">;</span>
+                <span class="cf">break</span><span class="op">;</span>
+            <span class="cf">case</span> <span class="dt">TAB</span><span class="op">:</span>
+            <span class="cf">case</span> <span class="dt">SPACE</span><span class="op">:</span>
+            <span class="cf">case</span> <span class="dt">PAGE_DOWN</span><span class="op">:</span>
+            <span class="cf">case</span>  <span class="dt">RIGHT</span><span class="op">:</span>
+            <span class="cf">case</span> <span class="dt">DOWN</span><span class="op">:</span>
+                <span class="va">window</span>.<span class="va">slide</span>.<span class="at">next</span>()<span class="op">;</span>
+                <span class="cf">break</span><span class="op">;</span>
+        <span class="op">}</span>
+
+        <span class="va">event</span>.<span class="at">preventDefault</span>()<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>如向上就展示下一张幻灯片，向下就展示下一张幻灯片。</p>
+<h3 id="step-4-解析字幕">Step 4: 解析字幕</h3>
+<p>在EchoesWorks中提供了一个很有趣的功能——类似于听歌时的歌词显示，并且可以自动播放和切换。它并没有用到什么特殊的技能，只是简单的对比时间，并且替换文字。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span> (<span class="va">that</span>.<span class="at">time</span> <span class="op">&lt;</span> nextTime <span class="op">&amp;&amp;</span> <span class="va">words</span>.<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span>) <span class="op">{</span>
+        <span class="kw">var</span> length <span class="op">=</span> <span class="va">words</span>.<span class="at">length</span><span class="op">;</span>
+        <span class="kw">var</span> currentTime <span class="op">=</span> <span class="va">that</span>.<span class="va">parser</span>.<span class="at">parseTime</span>(<span class="va">that</span>.<span class="va">data</span>.<span class="at">times</span>)[currentSlide]<span class="op">;</span>
+        <span class="kw">var</span> time <span class="op">=</span> nextTime <span class="op">-</span> currentTime<span class="op">;</span>
+        <span class="kw">var</span> average <span class="op">=</span> time / length <span class="op">*</span> <span class="dv">1000</span><span class="op">;</span>
+        <span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+        <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;words&#39;</span>).<span class="at">innerHTML</span> <span class="op">=</span> words[i].<span class="at">word</span><span class="op">;</span>
+
+        timerWord <span class="op">=</span> <span class="at">setInterval</span>(<span class="kw">function</span> () <span class="op">{</span>
+            i<span class="op">++;</span>
+            <span class="cf">if</span> (i <span class="op">-</span> <span class="dv">1</span> <span class="op">===</span> length) <span class="op">{</span>
+                <span class="at">clearInterval</span>(timerWord)<span class="op">;</span>
+            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+                <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;words&#39;</span>).<span class="at">innerHTML</span> <span class="op">=</span> words[i].<span class="at">word</span><span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">},</span> average)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">return</span> timerWord<span class="op">;</span>
+}</code></pre></div>
 <h3 id="step-5-进度条">Step 5: 进度条</h3>
+<p>一如既往的，我们的进度条，还是用别人已经写好的组件。这里我们用到的是nanobar。在Nanobar里，我们定义了一个go函数，在这个函数里来转换进度条：</p>
+<pre><code>Nanobar.prototype.go = function (p) {
+    this.bars[0].go(p);
+    if (p == 100) {
+        init.call(this);
+    }
+};</code></pre>
+<p>在我们的slide文件里，再对其进行处理：</p>
+<pre><code>window.bar.go(100 * ( index + 1) / slides.length);</code></pre>
 <h3 id="step-6-同步">Step 6: 同步</h3>
 <p>在这里并没有什么特别高级的用法，只是简单的事件监听</p>
-<pre><code>    function handler() {
-        window.slide.slide(parseInt(localStorage.getItem(&#39;echoesworks&#39;), 10));
-    }
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">handler</span>() <span class="op">{</span>
+    <span class="va">window</span>.<span class="va">slide</span>.<span class="at">slide</span>(<span class="at">parseInt</span>(<span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;echoesworks&#39;</span>)<span class="op">,</span> <span class="dv">10</span>))<span class="op">;</span>
+<span class="op">}</span>
 
-    if (window.addEventListener) {
-        window.addEventListener(&quot;storage&quot;, handler, false);
-    } else {
-                   // IE
-        window.attachEvent(&quot;onstorage&quot;, handler);
-    }</code></pre>
+<span class="cf">if</span> (<span class="va">window</span>.<span class="at">addEventListener</span>) <span class="op">{</span>
+    <span class="va">window</span>.<span class="at">addEventListener</span>(<span class="st">&quot;storage&quot;</span><span class="op">,</span> handler<span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+               <span class="co">// IE</span>
+    <span class="va">window</span>.<span class="at">attachEvent</span>(<span class="st">&quot;onstorage&quot;</span><span class="op">,</span> handler)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>即，当监听到调用<code>storage</code>的方法，就会跳转到相应的页面。</p>
 <p>正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。</p>
-<pre><code>localStorage.setItem(&#39;echoesworks&#39;, index);</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">localStorage</span>.<span class="at">setItem</span>(<span class="st">&#39;echoesworks&#39;</span><span class="op">,</span> index)<span class="op">;</span></code></pre></div>
 <p>这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。</p>
 <h3 id="练习建议-3">练习建议</h3>
 <h1 id="编辑-发布-分离应用">编辑-发布-分离应用</h1>
