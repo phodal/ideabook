@@ -109,9 +109,31 @@ document.addEventListener("keyup", function (event) {
 
 如向上就展示下一张幻灯片，向下就展示下一张幻灯片。
 
-### Step 4: 解析时间
+### Step 4: 解析字幕
 
+在EchoesWorks中提供了一个很有趣的功能——类似于听歌时的歌词显示，并且可以自动播放和切换。它并没有用到什么特殊的技能，只是简单的对比时间，并且替换文字。
 
+```javascript
+if (that.time < nextTime && words.length > 1) {
+		var length = words.length;
+		var currentTime = that.parser.parseTime(that.data.times)[currentSlide];
+		var time = nextTime - currentTime;
+		var average = time / length * 1000;
+		var i = 0;
+		document.querySelector('words').innerHTML = words[i].word;
+
+		timerWord = setInterval(function () {
+			i++;
+			if (i - 1 === length) {
+				clearInterval(timerWord);
+			} else {
+				document.querySelector('words').innerHTML = words[i].word;
+			}
+		}, average);
+	}
+	return timerWord;
+}
+```
 
 ### Step 5: 进度条
 
