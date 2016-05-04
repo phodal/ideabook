@@ -1606,52 +1606,54 @@ if(isAndroid) {
 <h2 id="步骤-8">步骤</h2>
 <h3 id="step-1-django-gis-设置">Step 1: Django GIS 设置</h3>
 <p>1.创建虚拟环境</p>
-<pre><code> virtualenv -p /usr/bin/python2.67 django-elasticsearch</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">virtualenv</span> -p /usr/bin/python2.67 django-elasticsearch</code></pre></div>
 <p>2.创建项目</p>
 <p>为了方便，这里用的是Mezzanine CMS，相比Django的主要优势是，以后扩展方便。但是对于Django也是可以的。</p>
 <p>3.安装依赖</p>
 <p>这里我的所有依赖有</p>
-<pre><code>django-haystack
-Mezzanine==3.1.10
-djangorestframework
-pygeocoder
-elasticsearch</code></pre>
+<ul>
+<li>django-haystack</li>
+<li>Mezzanine==3.1.10</li>
+<li>djangorestframework</li>
+<li>pygeocoder</li>
+<li>elasticsearch</li>
+</ul>
 <p>安装</p>
-<pre><code>pip install requirements.txt</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install requirements.txt</code></pre></div>
 <p>4.安装ElasticSearch</p>
 <p>CentOS</p>
-<pre><code>wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.2.zip
-sudo unzip elasticsearch-1.4.2 -d /usr/local/elasticsearch
-rm elasticsearch-1.4.2.zip
-cd /usr/local/elasticsearch/elasticsearch-1.4.2/
-./bin/plugin install elasticsearch/elasticsearch-cloud-aws/2.4.1
-curl -XGET http://localhost:9200</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.2.zip
+<span class="kw">sudo</span> unzip elasticsearch-1.4.2 -d /usr/local/elasticsearch
+<span class="kw">rm</span> elasticsearch-1.4.2.zip
+<span class="kw">cd</span> /usr/local/elasticsearch/elasticsearch-1.4.2/
+<span class="kw">./bin/plugin</span> install elasticsearch/elasticsearch-cloud-aws/2.4.1
+<span class="kw">curl</span> -XGET http://localhost:9200</code></pre></div>
 <p>Mac OS</p>
-<pre><code>brew install elasticsearch</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">brew</span> install elasticsearch</code></pre></div>
 <p>5.Django Geo环境搭建</p>
 <p>CentOS等GNU/Linux系统: 可以参照<a href="http://www.phodal.com/blog/install-geo-django-in-centos/">CentOS Django Geo 环境搭建</a></p>
 <p>MacOS: <a href="http://www.phodal.com/blog/django-elasticsearch-geo-solution/">Mac OS Django Geo 环境搭建</a></p>
 <h3 id="step-2-配置haystack">Step 2: 配置Haystack</h3>
 <p><strong>配置Haystack</strong></p>
-<pre><code>HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">HAYSTACK_SIGNAL_PROCESSOR <span class="op">=</span> <span class="st">&#39;haystack.signals.RealtimeSignalProcessor&#39;</span>
 
-HAYSTACK_CONNECTIONS = {
-    &#39;default&#39;: {
-        &#39;ENGINE&#39;: &#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;,
-        &#39;URL&#39;: &#39;http://127.0.0.1:9200/&#39;,
-        &#39;INDEX_NAME&#39;: &#39;haystack&#39;,
+HAYSTACK_CONNECTIONS <span class="op">=</span> {
+    <span class="st">&#39;default&#39;</span>: {
+        <span class="st">&#39;ENGINE&#39;</span>: <span class="st">&#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;</span>,
+        <span class="co">&#39;URL&#39;</span>: <span class="st">&#39;http://127.0.0.1:9200/&#39;</span>,
+        <span class="co">&#39;INDEX_NAME&#39;</span>: <span class="st">&#39;haystack&#39;</span>,
     },
-}   </code></pre>
+}   </code></pre></div>
 <p><code>HAYSTACK_SIGNAL_PROCESSOR</code>是为了可以实时处理。 <code>HAYSTACK_CONNECTIONS</code> 则是配置搜索引擎用的。</p>
 <p><strong>配置Django</strong></p>
 <p>在<code>settings.py</code>中的<code>INSTALLED_APPS</code>添加</p>
-<pre><code>&quot;haystack&quot;,
-&quot;rest_framework&quot;,</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&quot;haystack&quot;</span>,
+<span class="co">&quot;rest_framework&quot;</span>,</code></pre></div>
 <p>接着</p>
-<pre><code> python manage.py createdb
- python manage.py migreate</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> manage.py createdb
+<span class="kw">python</span> manage.py migreate</code></pre></div>
 <p>运行</p>
-<pre><code> python manage.py runserver</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> manage.py runserver</code></pre></div>
 <p>官方有一个简单的文档说明空间搜索—— <a href="http://django-haystack.readthedocs.org/en/latest/spatial.html">Spatial Search</a></p>
 <p>里面只有<code>Solr</code>和<code>ElasticSearch</code>是支持的，当然我们也不需要这么复杂的特性。</p>
 <p>创建Django app名为nx，目录结构如下</p>
@@ -1668,63 +1670,63 @@ HAYSTACK_CONNECTIONS = {
 <p>api.py是后面要用的。</p>
 <h3 id="step-3-django-haystack-model创建">Step 3: Django Haystack Model创建</h3>
 <p>而一般的model没有什么区别，除了修改了save方法</p>
-<pre><code>from django.contrib import admin
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> django.contrib <span class="im">import</span> admin
 
-from django.contrib.gis.geos import Point
-from django.core import validators
-from django.utils.translation import ugettext_lazy as _
-from django.db import models
-from pygeocoder import Geocoder
+<span class="im">from</span> django.contrib.gis.geos <span class="im">import</span> Point
+<span class="im">from</span> django.core <span class="im">import</span> validators
+<span class="im">from</span> django.utils.translation <span class="im">import</span> ugettext_lazy <span class="im">as</span> _
+<span class="im">from</span> django.db <span class="im">import</span> models
+<span class="im">from</span> pygeocoder <span class="im">import</span> Geocoder
 
-class Note(models.Model):
-    title = models.CharField(&quot;标题&quot;, max_length=30, unique=True)
-    latitude = models.FloatField(blank=True)
-    longitude = models.FloatField(blank=True)
+<span class="kw">class</span> Note(models.Model):
+    title <span class="op">=</span> models.CharField(<span class="st">&quot;标题&quot;</span>, max_length<span class="op">=</span><span class="dv">30</span>, unique<span class="op">=</span><span class="va">True</span>)
+    latitude <span class="op">=</span> models.FloatField(blank<span class="op">=</span><span class="va">True</span>)
+    longitude <span class="op">=</span> models.FloatField(blank<span class="op">=</span><span class="va">True</span>)
 
-    def __unicode__(self):
-        return self.title
+    <span class="kw">def</span> <span class="fu">__unicode__</span>(<span class="va">self</span>):
+        <span class="cf">return</span> <span class="va">self</span>.title
 
-    def save(self, *args, **kwargs):
-        results = Geocoder.geocode(self.province + self.city + self.address)
-        self.latitude = results[0].coordinates[0]
-        self.longitude = results[0].coordinates[1]
-        super(Note, self).save(*args, **kwargs)
+    <span class="kw">def</span> save(<span class="va">self</span>, <span class="op">*</span>args, <span class="op">**</span>kwargs):
+        results <span class="op">=</span> Geocoder.geocode(<span class="va">self</span>.province <span class="op">+</span> <span class="va">self</span>.city <span class="op">+</span> <span class="va">self</span>.address)
+        <span class="va">self</span>.latitude <span class="op">=</span> results[<span class="dv">0</span>].coordinates[<span class="dv">0</span>]
+        <span class="va">self</span>.longitude <span class="op">=</span> results[<span class="dv">0</span>].coordinates[<span class="dv">1</span>]
+        <span class="bu">super</span>(Note, <span class="va">self</span>).save(<span class="op">*</span>args, <span class="op">**</span>kwargs)
 
-    def get_location(self):
-        return Point(self.longitude, self.latitude)
+    <span class="kw">def</span> get_location(<span class="va">self</span>):
+        <span class="cf">return</span> Point(<span class="va">self</span>.longitude, <span class="va">self</span>.latitude)
 
-    def get_location_info(self):
-        return self.province + self.city + self.address
+    <span class="kw">def</span> get_location_info(<span class="va">self</span>):
+        <span class="cf">return</span> <span class="va">self</span>.province <span class="op">+</span> <span class="va">self</span>.city <span class="op">+</span> <span class="va">self</span>.address
 
-admin.site.register(Note)</code></pre>
+admin.site.register(Note)</code></pre></div>
 <p>通过<code>Geocoder.geocode</code> 解析用户输入的地址，为了方便直接后台管理了。</p>
 <h3 id="step-4-创建search_index">Step 4: 创建search_index</h3>
 <p>在源码的目录下有一个<code>search_indexes.py</code>的文件就是用于索引用的。</p>
-<pre><code>from haystack import indexes
-from .models import Note
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> haystack <span class="im">import</span> indexes
+<span class="im">from</span> .models <span class="im">import</span> Note
 
-class NoteIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField(model_attr=&#39;title&#39;)
-    location = indexes.LocationField(model_attr=&#39;get_location&#39;)
-    location_info = indexes.CharField(model_attr=&#39;get_location_info&#39;)
+<span class="kw">class</span> NoteIndex(indexes.SearchIndex, indexes.Indexable):
+    text <span class="op">=</span> indexes.CharField(document<span class="op">=</span><span class="va">True</span>, use_template<span class="op">=</span><span class="va">True</span>)
+    title <span class="op">=</span> indexes.CharField(model_attr<span class="op">=</span><span class="st">&#39;title&#39;</span>)
+    location <span class="op">=</span> indexes.LocationField(model_attr<span class="op">=</span><span class="st">&#39;get_location&#39;</span>)
+    location_info <span class="op">=</span> indexes.CharField(model_attr<span class="op">=</span><span class="st">&#39;get_location_info&#39;</span>)
 
-    def get_model(self):
-        return Note</code></pre>
+    <span class="kw">def</span> get_model(<span class="va">self</span>):
+        <span class="cf">return</span> Note</code></pre></div>
 <p>与些同时我们还需要在<code>templates/search/indexes/nx/</code>目录中有<code>note_text.txt</code>里面的内容是:</p>
-<pre><code>{{ object.title }}
-{{ object.get_location }}
-{{ object.get_location_info }}</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">{{ <span class="bu">object</span>.title }}
+{{ <span class="bu">object</span>.get_location }}
+{{ <span class="bu">object</span>.get_location_info }}</code></pre></div>
 <p><strong>创建数据</strong></p>
 <p>migrate数据库</p>
-<pre><code>python manage.py migrate</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> manage.py migrate</code></pre></div>
 <p>run</p>
-<pre><code>python manage.py runserver</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> manage.py runserver</code></pre></div>
 <p>接着我们就可以后台创建数据了。 打开: http://127.0.0.1:8000/admin/nx/note/，把除了<code>Latitude</code>和<code>Longitude</code>以外的数据都一填——经纬度是自动生成的。就可以创建数据了。</p>
 <p><strong>测试</strong></p>
 <p>访问 http://localhost:9200/haystack/_search</p>
 <p>或者</p>
-<pre><code>curl -XGET http://127.0.0.1:9200/haystack/_search</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">curl</span> -XGET http://127.0.0.1:9200/haystack/_search</code></pre></div>
 <p>如果你没有Ionic的经验，可以参考一下之前的一些文章:<a href="http://www.phodal.com/blog/ionic-development-android-ios-windows-phone-application/">《HTML5打造原生应用——Ionic框架简介与Ionic Hello World》</a>。</p>
 <p>我们用到的库有:</p>
 <ul>
@@ -1732,122 +1734,122 @@ class NoteIndex(indexes.SearchIndex, indexes.Indexable):
 <li>ionic</li>
 <li>ngCordova</li>
 </ul>
-<p>将他们添加到<code>bower.json</code>，然后 bower install</p>
-<p>吧</p>
+<p>将他们添加到<code>bower.json</code>，然后执行</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">bower</span> install</code></pre></div>
 <h3 id="step-4-ionic-elasticsearch-创建页面">Step 4: Ionic ElasticSearch 创建页面</h3>
 <p>1.引入库</p>
 <p>在<code>index.html</code>中添加</p>
-<pre><code>&lt;script src=&quot;lib/elasticsearch/elasticsearch.angular.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;lib/ngCordova/dist/ng-cordova.js&quot;&gt;&lt;/script&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;lib/elasticsearch/elasticsearch.angular.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;lib/ngCordova/dist/ng-cordova.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
 <p>接着开始写我们的搜索模板<code>tab-search.html</code></p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ion-view</span><span class="ot"> view-title=</span><span class="st">&quot;搜索&quot;</span><span class="ot"> ng-controller=</span><span class="st">&quot;SearchCtrl&quot;</span><span class="kw">&gt;</span>
-        <span class="kw">&lt;ion-content&gt;</span>
-            <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;search-bar&quot;</span><span class="kw">&gt;</span>
-                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item item-input-inset&quot;</span><span class="kw">&gt;</span>
-                    <span class="kw">&lt;label</span><span class="ot"> class=</span><span class="st">&quot;item-input-wrapper&quot;</span><span class="ot"> id=</span><span class="st">&quot;search-input&quot;</span><span class="kw">&gt;</span>
-                        <span class="kw">&lt;i</span><span class="ot"> class=</span><span class="st">&quot;icon ion-search placeholder-icon&quot;</span><span class="kw">&gt;&lt;/i&gt;</span>
-                        <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;Search&quot;</span><span class="ot"> ng-model=</span><span class="st">&quot;query&quot;</span><span class="ot"> ng-change=</span><span class="st">&quot;search(query)&quot;</span><span class="ot"> autocorrect=</span><span class="st">&quot;off&quot;</span><span class="kw">&gt;</span>
-                    <span class="kw">&lt;/label&gt;</span>
-                <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;ion-content&gt;</span>
+        <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;search-bar&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item item-input-inset&quot;</span><span class="kw">&gt;</span>
+                <span class="kw">&lt;label</span><span class="ot"> class=</span><span class="st">&quot;item-input-wrapper&quot;</span><span class="ot"> id=</span><span class="st">&quot;search-input&quot;</span><span class="kw">&gt;</span>
+                    <span class="kw">&lt;i</span><span class="ot"> class=</span><span class="st">&quot;icon ion-search placeholder-icon&quot;</span><span class="kw">&gt;&lt;/i&gt;</span>
+                    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;Search&quot;</span><span class="ot"> ng-model=</span><span class="st">&quot;query&quot;</span><span class="ot"> ng-change=</span><span class="st">&quot;search(query)&quot;</span><span class="ot"> autocorrect=</span><span class="st">&quot;off&quot;</span><span class="kw">&gt;</span>
+                <span class="kw">&lt;/label&gt;</span>
             <span class="kw">&lt;/div&gt;</span>
-        <span class="kw">&lt;/ion-content&gt;</span>
-    <span class="kw">&lt;/ion-view&gt;</span></code></pre></div>
+        <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;/ion-content&gt;</span>
+<span class="kw">&lt;/ion-view&gt;</span></code></pre></div>
 <p>显示部分</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ion-list&gt;</span>
-                <span class="kw">&lt;ion-item</span><span class="ot"> class=</span><span class="st">&quot;item-remove-animate item-icon-right&quot;</span><span class="ot"> ng-repeat=</span><span class="st">&quot;result in results&quot;</span><span class="kw">&gt;</span>
-                    <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;icon-left&quot;</span><span class="kw">&gt;</span>{{result.title}}<span class="kw">&lt;/h2&gt;</span>
-                    <span class="kw">&lt;p&gt;</span>简介: {{result.body}}<span class="kw">&lt;/p&gt;</span>
-                    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;icon-left ion-ios-home location_info&quot;</span><span class="kw">&gt;</span>
-                        {{result.location_info}}
-                    <span class="kw">&lt;/div&gt;</span>
-                    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;</span><span class="kw">&gt;</span>
-                        <span class="kw">&lt;a</span><span class="ot"> ng-href=</span><span class="st">&quot;tel: {{result.phone_number}}&quot;</span><span class="kw">&gt;</span>{{result.phone_number}}<span class="kw">&lt;/a&gt;</span>
-                    <span class="kw">&lt;/div&gt;</span>
-                <span class="kw">&lt;/ion-item&gt;</span>
-            <span class="kw">&lt;/ion-list&gt;</span></code></pre></div>
+    <span class="kw">&lt;ion-item</span><span class="ot"> class=</span><span class="st">&quot;item-remove-animate item-icon-right&quot;</span><span class="ot"> ng-repeat=</span><span class="st">&quot;result in results&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;icon-left&quot;</span><span class="kw">&gt;</span>{{result.title}}<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;p&gt;</span>简介: {{result.body}}<span class="kw">&lt;/p&gt;</span>
+        <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;icon-left ion-ios-home location_info&quot;</span><span class="kw">&gt;</span>
+            {{result.location_info}}
+        <span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;a</span><span class="ot"> ng-href=</span><span class="st">&quot;tel: {{result.phone_number}}&quot;</span><span class="kw">&gt;</span>{{result.phone_number}}<span class="kw">&lt;/a&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;/ion-item&gt;</span>
+<span class="kw">&lt;/ion-list&gt;</span></code></pre></div>
 <p>而我们期待的<code>SearchCtrl</code>则是这样的</p>
-<pre><code>$scope.query = &quot;&quot;;
-var doSearch = ionic.debounce(function(query) {
-    ESService.search(query, 0).then(function(results){
-        $scope.results = results;
-    });
-}, 500);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">$scope</span>.<span class="at">query</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span>
+<span class="kw">var</span> doSearch <span class="op">=</span> <span class="va">ionic</span>.<span class="at">debounce</span>(<span class="kw">function</span>(query) <span class="op">{</span>
+    <span class="va">ESService</span>.<span class="at">search</span>(query<span class="op">,</span> <span class="dv">0</span>).<span class="at">then</span>(<span class="kw">function</span>(results)<span class="op">{</span>
+        <span class="va">$scope</span>.<span class="at">results</span> <span class="op">=</span> results<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">},</span> <span class="dv">500</span>)<span class="op">;</span>
 
-$scope.search = function(query) {
-    doSearch(query);
-}</code></pre>
+<span class="va">$scope</span>.<span class="at">search</span> <span class="op">=</span> <span class="kw">function</span>(query) <span class="op">{</span>
+    <span class="at">doSearch</span>(query)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>当我们点下搜索的时候，调用 ESService.</p>
 <h3 id="step-5-ionic-elasticsearch-service">Step 5: Ionic ElasticSearch Service</h3>
 <p>接着我们就来构建我们的ESService，下面的部分来自网上:</p>
-<pre><code>angular.module(&#39;starter.services&#39;, [&#39;ngCordova&#39;, &#39;elasticsearch&#39;])
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">angular</span>.<span class="at">module</span>(<span class="st">&#39;starter.services&#39;</span><span class="op">,</span> [<span class="st">&#39;ngCordova&#39;</span><span class="op">,</span> <span class="st">&#39;elasticsearch&#39;</span>])
 
-.factory(&#39;ESService&#39;,
-  [&#39;$q&#39;, &#39;esFactory&#39;, &#39;$location&#39;, &#39;$localstorage&#39;, function($q, elasticsearch, $location, $localstorage){
-    var client = elasticsearch({
-      host: $location.host() + &quot;:9200&quot;
-    });
+.<span class="at">factory</span>(<span class="st">&#39;ESService&#39;</span><span class="op">,</span>
+  [<span class="st">&#39;$q&#39;</span><span class="op">,</span> <span class="st">&#39;esFactory&#39;</span><span class="op">,</span> <span class="st">&#39;$location&#39;</span><span class="op">,</span> <span class="st">&#39;$localstorage&#39;</span><span class="op">,</span> <span class="kw">function</span>($q<span class="op">,</span> elasticsearch<span class="op">,</span> $location<span class="op">,</span> $localstorage)<span class="op">{</span>
+    <span class="kw">var</span> client <span class="op">=</span> <span class="at">elasticsearch</span>(<span class="op">{</span>
+      <span class="dt">host</span><span class="op">:</span> <span class="va">$location</span>.<span class="at">host</span>() <span class="op">+</span> <span class="st">&quot;:9200&quot;</span>
+    <span class="op">}</span>)<span class="op">;</span>
 
-    var search = function(term, offset){
-      var deferred = $q.defer(), query, sort;
-      if(!term){
-        query = {
-          &quot;match_all&quot;: {}
-        };
-      } else {
-        query = {
-          match: { title: term }
-        }
-      }
+    <span class="kw">var</span> search <span class="op">=</span> <span class="kw">function</span>(term<span class="op">,</span> offset)<span class="op">{</span>
+      <span class="kw">var</span> deferred <span class="op">=</span> <span class="va">$q</span>.<span class="at">defer</span>()<span class="op">,</span> query<span class="op">,</span> sort<span class="op">;</span>
+      <span class="cf">if</span>(<span class="op">!</span>term)<span class="op">{</span>
+        query <span class="op">=</span> <span class="op">{</span>
+          <span class="st">&quot;match_all&quot;</span><span class="op">:</span> <span class="op">{}</span>
+        <span class="op">};</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        query <span class="op">=</span> <span class="op">{</span>
+          <span class="dt">match</span><span class="op">:</span> <span class="op">{</span> <span class="dt">title</span><span class="op">:</span> term <span class="op">}</span>
+        <span class="op">}</span>
+      <span class="op">}</span>
 
-      var position = $localstorage.get(&#39;position&#39;);
+      <span class="kw">var</span> position <span class="op">=</span> <span class="va">$localstorage</span>.<span class="at">get</span>(<span class="st">&#39;position&#39;</span>)<span class="op">;</span>
 
-      if(position){
-        sort = [{
-          &quot;_geo_distance&quot;: {
-            &quot;location&quot;: position,
-            &quot;unit&quot;: &quot;km&quot;
-          }
-        }];
-      } else {
-        sort = [];
-      }
+      <span class="cf">if</span>(position)<span class="op">{</span>
+        sort <span class="op">=</span> [<span class="op">{</span>
+          <span class="st">&quot;_geo_distance&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;location&quot;</span><span class="op">:</span> position<span class="op">,</span>
+            <span class="st">&quot;unit&quot;</span><span class="op">:</span> <span class="st">&quot;km&quot;</span>
+          <span class="op">}</span>
+        <span class="op">}</span>]<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        sort <span class="op">=</span> []<span class="op">;</span>
+      <span class="op">}</span>
 
-      client.search({
-        &quot;index&quot;: &#39;haystack&#39;,
-        &quot;body&quot;: {
-          &quot;query&quot;: query,
-          &quot;sort&quot;: sort
-        }
-      }).then(function(result) {
-        var ii = 0, hits_in, hits_out = [];
-        hits_in = (result.hits || {}).hits || [];
-        for(;ii &lt; hits_in.length; ii++){
-          var data = hits_in[ii]._source;
-          var distance = {};
-          if(hits_in[ii].sort){
-            distance = {&quot;distance&quot;: parseFloat(hits_in[ii].sort[0]).toFixed(1)}
-          }
-          angular.extend(data, distance);
-          hits_out.push(data);
-        }
-        deferred.resolve(hits_out);
-      }, deferred.reject);
+      <span class="va">client</span>.<span class="at">search</span>(<span class="op">{</span>
+        <span class="st">&quot;index&quot;</span><span class="op">:</span> <span class="st">&#39;haystack&#39;</span><span class="op">,</span>
+        <span class="st">&quot;body&quot;</span><span class="op">:</span> <span class="op">{</span>
+          <span class="st">&quot;query&quot;</span><span class="op">:</span> query<span class="op">,</span>
+          <span class="st">&quot;sort&quot;</span><span class="op">:</span> sort
+        <span class="op">}</span>
+      <span class="op">}</span>).<span class="at">then</span>(<span class="kw">function</span>(result) <span class="op">{</span>
+        <span class="kw">var</span> ii <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> hits_in<span class="op">,</span> hits_out <span class="op">=</span> []<span class="op">;</span>
+        hits_in <span class="op">=</span> (<span class="va">result</span>.<span class="at">hits</span> <span class="op">||</span> <span class="op">{}</span>).<span class="at">hits</span> <span class="op">||</span> []<span class="op">;</span>
+        <span class="cf">for</span>(<span class="op">;</span>ii <span class="op">&lt;</span> <span class="va">hits_in</span>.<span class="at">length</span><span class="op">;</span> ii<span class="op">++</span>)<span class="op">{</span>
+          <span class="kw">var</span> data <span class="op">=</span> hits_in[ii].<span class="at">_source</span><span class="op">;</span>
+          <span class="kw">var</span> distance <span class="op">=</span> <span class="op">{};</span>
+          <span class="cf">if</span>(hits_in[ii].<span class="at">sort</span>)<span class="op">{</span>
+            distance <span class="op">=</span> <span class="op">{</span><span class="st">&quot;distance&quot;</span><span class="op">:</span> <span class="at">parseFloat</span>(hits_in[ii].<span class="at">sort</span>[<span class="dv">0</span>]).<span class="at">toFixed</span>(<span class="dv">1</span>)<span class="op">}</span>
+          <span class="op">}</span>
+          <span class="va">angular</span>.<span class="at">extend</span>(data<span class="op">,</span> distance)<span class="op">;</span>
+          <span class="va">hits_out</span>.<span class="at">push</span>(data)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="va">deferred</span>.<span class="at">resolve</span>(hits_out)<span class="op">;</span>
+      <span class="op">},</span> <span class="va">deferred</span>.<span class="at">reject</span>)<span class="op">;</span>
 
-      return deferred.promise;
-    };
+      <span class="cf">return</span> <span class="va">deferred</span>.<span class="at">promise</span><span class="op">;</span>
+    <span class="op">};</span>
 
 
-    return {
-      &quot;search&quot;: search
-    };
-  }]
-);</code></pre>
+    <span class="cf">return</span> <span class="op">{</span>
+      <span class="st">&quot;search&quot;</span><span class="op">:</span> search
+    <span class="op">};</span>
+  <span class="op">}</span>]
+)<span class="op">;</span></code></pre></div>
 <p>这个Service主要做的是创建ElasitcSearch Query，然后返回解析结果。</p>
 <p><strong>设计思路</strong></p>
 <ol type="1">
-<li><p>判断是否有上次记录的位置信息，如果有则将地图的中心设置为上次的位置。</p></li>
-<li><p>将位置添加到ElasticSearch的Query中。</p></li>
-<li><p>从ElasticSearch中获取数据，并解析Render到地图上。</p></li>
+<li>判断是否有上次记录的位置信息，如果有则将地图的中心设置为上次的位置。</li>
+<li>将位置添加到ElasticSearch的Query中。</li>
+<li>从ElasticSearch中获取数据，并解析Render到地图上。</li>
 </ol>
 <p><strong>OpenLayer</strong></p>
 <blockquote>
@@ -1856,35 +1858,35 @@ $scope.search = function(query) {
 <h3 id="step-6-ionic-openlayer-地图显示">Step 6: Ionic OpenLayer 地图显示</h3>
 <p>1.下载OpenLayer</p>
 <p>2.添加到<code>index.html</code>:</p>
-<pre><code>&lt;script src=&quot;js/ol.js&quot;&gt;&lt;/script&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/ol.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
 <p><strong>创建NSService</strong></p>
 <p>新建一个<code>MapCtrl</code>，需要用到<code>ESService</code>和 <code>NSService</code>，NSService是官方示例中的一个函数，提供了一个<code>getRendererFromQueryString</code>方法。</p>
-<pre><code>.factory(&#39;NSService&#39;, function(){
-      var exampleNS = {};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">.<span class="at">factory</span>(<span class="st">&#39;NSService&#39;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+      <span class="kw">var</span> exampleNS <span class="op">=</span> <span class="op">{};</span>
 
-      exampleNS.getRendererFromQueryString = function() {
-        var obj = {}, queryString = location.search.slice(1),
-            re = /([^&amp;=]+)=([^&amp;]*)/g, m;
+      <span class="va">exampleNS</span>.<span class="at">getRendererFromQueryString</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="kw">var</span> obj <span class="op">=</span> <span class="op">{},</span> queryString <span class="op">=</span> <span class="va">location</span>.<span class="va">search</span>.<span class="at">slice</span>(<span class="dv">1</span>)<span class="op">,</span>
+            re <span class="op">=</span> <span class="ss">/</span><span class="sc">([^&amp;=]+)</span><span class="ss">=</span><span class="sc">([^&amp;]*)</span><span class="ss">/g</span><span class="op">,</span> m<span class="op">;</span>
 
-        while (m = re.exec(queryString)) {
-          obj[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-        }
-        if (&#39;renderers&#39; in obj) {
-          return obj[&#39;renderers&#39;].split(&#39;,&#39;);
-        } else if (&#39;renderer&#39; in obj) {
-          return [obj[&#39;renderer&#39;]];
-        } else {
-          return undefined;
-        }
-      };
+        <span class="cf">while</span> (m <span class="op">=</span> <span class="va">re</span>.<span class="at">exec</span>(queryString)) <span class="op">{</span>
+          obj[<span class="at">decodeURIComponent</span>(m[<span class="dv">1</span>])] <span class="op">=</span> <span class="at">decodeURIComponent</span>(m[<span class="dv">2</span>])<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="cf">if</span> (<span class="st">&#39;renderers&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
+          <span class="cf">return</span> obj[<span class="st">&#39;renderers&#39;</span>].<span class="at">split</span>(<span class="st">&#39;,&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="st">&#39;renderer&#39;</span> <span class="kw">in</span> obj) <span class="op">{</span>
+          <span class="cf">return</span> [obj[<span class="st">&#39;renderer&#39;</span>]]<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+          <span class="cf">return</span> <span class="kw">undefined</span><span class="op">;</span>
+        <span class="op">}</span>
+      <span class="op">};</span>
 
-      return {
-        &quot;exampleNS&quot;: exampleNS
-      };
-})</code></pre>
+      <span class="cf">return</span> <span class="op">{</span>
+        <span class="st">&quot;exampleNS&quot;</span><span class="op">:</span> exampleNS
+      <span class="op">};</span>
+<span class="op">}</span>)</code></pre></div>
 <p><strong>创建基本地图显示</strong></p>
 <p>这里我们使用的是Bing地图:</p>
-<pre><code>  var view = new ol.View({
+<pre class="javascirpt"><code>var view = new ol.View({
     center: map_center,
     zoom: 4
 });
@@ -1911,87 +1913,87 @@ var map = new ol.Map({
 <p>一个简单的地图如上如示。</p>
 <p><strong>获取当前位置</strong></p>
 <p>ngCordova有一个插件是<code>$cordovaGeolocation</code>，用于获取当前的位置。代码如下所示:</p>
-<pre><code>var posOptions = {timeout: 10000, enableHighAccuracy: true};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> posOptions <span class="op">=</span> <span class="op">{</span><span class="dt">timeout</span><span class="op">:</span> <span class="dv">10000</span><span class="op">,</span> <span class="dt">enableHighAccuracy</span><span class="op">:</span> <span class="kw">true</span><span class="op">};</span>
 $cordovaGeolocation
-    .getCurrentPosition(posOptions)
-    .then(function (position) {
-        var pos = new ol.proj.transform([position.coords.longitude, position.coords.latitude], &#39;EPSG:4326&#39;, &#39;EPSG:3857&#39;);
+    .<span class="at">getCurrentPosition</span>(posOptions)
+    .<span class="at">then</span>(<span class="kw">function</span> (position) <span class="op">{</span>
+        <span class="kw">var</span> pos <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">proj</span>.<span class="at">transform</span>([<span class="va">position</span>.<span class="va">coords</span>.<span class="at">longitude</span><span class="op">,</span> <span class="va">position</span>.<span class="va">coords</span>.<span class="at">latitude</span>]<span class="op">,</span> <span class="st">&#39;EPSG:4326&#39;</span><span class="op">,</span> <span class="st">&#39;EPSG:3857&#39;</span>)<span class="op">;</span>
 
-        $localstorage.set(&#39;position&#39;, [position.coords.latitude, position.coords.longitude].toString());
-        $localstorage.set(&#39;map_center&#39;, pos);
+        <span class="va">$localstorage</span>.<span class="at">set</span>(<span class="st">&#39;position&#39;</span><span class="op">,</span> [<span class="va">position</span>.<span class="va">coords</span>.<span class="at">latitude</span><span class="op">,</span> <span class="va">position</span>.<span class="va">coords</span>.<span class="at">longitude</span>].<span class="at">toString</span>())<span class="op">;</span>
+        <span class="va">$localstorage</span>.<span class="at">set</span>(<span class="st">&#39;map_center&#39;</span><span class="op">,</span> pos)<span class="op">;</span>
 
-        view.setCenter(pos);
-    }, function (err) {
-        console.log(err)
-    });</code></pre>
+        <span class="va">view</span>.<span class="at">setCenter</span>(pos)<span class="op">;</span>
+    <span class="op">},</span> <span class="kw">function</span> (err) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(err)
+    <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>当获取到位置时，将位置存储到<code>localstorage</code>中。</p>
 <p><strong>获取结果并显示</strong></p>
 <p>最后代码如下所示，获取解析后的结果，添加icon</p>
-<pre><code>ESService.search(&quot;&quot;, 0).then(function(results){
-    var vectorSource = new ol.source.Vector({ });
-    $.each(results, function(index, result){
-        var position = result.location.split(&quot;,&quot;);
-        var pos = ol.proj.transform([parseFloat(position[1]), parseFloat(position[0])], &#39;EPSG:4326&#39;, &#39;EPSG:3857&#39;);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">ESService</span>.<span class="at">search</span>(<span class="st">&quot;&quot;</span><span class="op">,</span> <span class="dv">0</span>).<span class="at">then</span>(<span class="kw">function</span>(results)<span class="op">{</span>
+    <span class="kw">var</span> vectorSource <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">source</span>.<span class="at">Vector</span>(<span class="op">{</span> <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">$</span>.<span class="at">each</span>(results<span class="op">,</span> <span class="kw">function</span>(index<span class="op">,</span> result)<span class="op">{</span>
+        <span class="kw">var</span> position <span class="op">=</span> <span class="va">result</span>.<span class="va">location</span>.<span class="at">split</span>(<span class="st">&quot;,&quot;</span>)<span class="op">;</span>
+        <span class="kw">var</span> pos <span class="op">=</span> <span class="va">ol</span>.<span class="va">proj</span>.<span class="at">transform</span>([<span class="at">parseFloat</span>(position[<span class="dv">1</span>])<span class="op">,</span> <span class="at">parseFloat</span>(position[<span class="dv">0</span>])]<span class="op">,</span> <span class="st">&#39;EPSG:4326&#39;</span><span class="op">,</span> <span class="st">&#39;EPSG:3857&#39;</span>)<span class="op">;</span>
 
-        var iconFeature = new ol.Feature({
-                geometry: new ol.geom.Point(pos),
-                name: result.title,
-                phone: result.phone_number,
-                distance: result.distance
-        });
-        vectorSource.addFeature(iconFeature);
-    });
+        <span class="kw">var</span> iconFeature <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Feature</span>(<span class="op">{</span>
+                <span class="dt">geometry</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">geom</span>.<span class="at">Point</span>(pos)<span class="op">,</span>
+                <span class="dt">name</span><span class="op">:</span> <span class="va">result</span>.<span class="at">title</span><span class="op">,</span>
+                <span class="dt">phone</span><span class="op">:</span> <span class="va">result</span>.<span class="at">phone_number</span><span class="op">,</span>
+                <span class="dt">distance</span><span class="op">:</span> <span class="va">result</span>.<span class="at">distance</span>
+        <span class="op">}</span>)<span class="op">;</span>
+        <span class="va">vectorSource</span>.<span class="at">addFeature</span>(iconFeature)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
 
-    var iconStyle = new ol.style.Style({
-        image: new ol.style.Icon(({
-            anchor: [0.5, 46],
-            anchorXUnits: &#39;fraction&#39;,
-            anchorYUnits: &#39;pixels&#39;,
-            opacity: 0.75,
-            src: &#39;img/icon.png&#39;
-        }))
-    });
+    <span class="kw">var</span> iconStyle <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Style</span>(<span class="op">{</span>
+        <span class="dt">image</span><span class="op">:</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">style</span>.<span class="at">Icon</span>((<span class="op">{</span>
+            <span class="dt">anchor</span><span class="op">:</span> [<span class="fl">0.5</span><span class="op">,</span> <span class="dv">46</span>]<span class="op">,</span>
+            <span class="dt">anchorXUnits</span><span class="op">:</span> <span class="st">&#39;fraction&#39;</span><span class="op">,</span>
+            <span class="dt">anchorYUnits</span><span class="op">:</span> <span class="st">&#39;pixels&#39;</span><span class="op">,</span>
+            <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span>
+            <span class="dt">src</span><span class="op">:</span> <span class="st">&#39;img/icon.png&#39;</span>
+        <span class="op">}</span>))
+    <span class="op">}</span>)<span class="op">;</span>
 
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        style: iconStyle
-    });
-    map.addLayer(vectorLayer);
-});</code></pre>
+    <span class="kw">var</span> vectorLayer <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="va">layer</span>.<span class="at">Vector</span>(<span class="op">{</span>
+        <span class="dt">source</span><span class="op">:</span> vectorSource<span class="op">,</span>
+        <span class="dt">style</span><span class="op">:</span> iconStyle
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">map</span>.<span class="at">addLayer</span>(vectorLayer)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p><strong>添加点击事件</strong></p>
 <p>在上面的代码中添加:</p>
-<pre><code>    var element = document.getElementById(&#39;popup&#39;);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> element <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;popup&#39;</span>)<span class="op">;</span>
 
-    var popup = new ol.Overlay({
-        element: element,
-        positioning: &#39;bottom-center&#39;,
-        stopEvent: false
-    });
-    map.addOverlay(popup);
+<span class="kw">var</span> popup <span class="op">=</span> <span class="kw">new</span> <span class="va">ol</span>.<span class="at">Overlay</span>(<span class="op">{</span>
+    <span class="dt">element</span><span class="op">:</span> element<span class="op">,</span>
+    <span class="dt">positioning</span><span class="op">:</span> <span class="st">&#39;bottom-center&#39;</span><span class="op">,</span>
+    <span class="dt">stopEvent</span><span class="op">:</span> <span class="kw">false</span>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">map</span>.<span class="at">addOverlay</span>(popup)<span class="op">;</span>
 
-    map.on(&#39;click&#39;, function(evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel,
-            function(feature, layer) {
-                return feature;
-            });
+<span class="va">map</span>.<span class="at">on</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="kw">function</span>(evt) <span class="op">{</span>
+    <span class="kw">var</span> feature <span class="op">=</span> <span class="va">map</span>.<span class="at">forEachFeatureAtPixel</span>(<span class="va">evt</span>.<span class="at">pixel</span><span class="op">,</span>
+        <span class="kw">function</span>(feature<span class="op">,</span> layer) <span class="op">{</span>
+            <span class="cf">return</span> feature<span class="op">;</span>
+        <span class="op">}</span>)<span class="op">;</span>
 
-        if (feature) {
-            var geometry = feature.getGeometry();
-            var coord = geometry.getCoordinates();
-            popup.setPosition(coord);
-            $(element).popover({
-                &#39;placement&#39;: &#39;top&#39;,
-                &#39;html&#39;: true,
-                &#39;content&#39;: &quot;&lt;h4&gt;商品:&quot; + feature.get(&#39;name&#39;) + &quot;&lt;/h4&gt;&quot; + &#39;&#39; +
-                &#39;&lt;div class=&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;&gt;&#39; +
-                &#39;&lt;a ng-href=&quot;tel: {{result.phone_number}}&quot;&gt;&#39; + feature.get(&#39;phone&#39;) + &#39;&lt;/a&gt; &lt;/div&gt;&#39; +
-                    &quot;&lt;p class=&#39;icon-left ion-ios-navigate&#39;&gt; &quot; + feature.get(&#39;distance&#39;) + &quot;公里&lt;/p&gt;&quot;
-            });
-            $(element).popover(&#39;show&#39;);
-        } else {
-            $(element).popover(&#39;destroy&#39;);
-        }
-    });</code></pre>
+    <span class="cf">if</span> (feature) <span class="op">{</span>
+        <span class="kw">var</span> geometry <span class="op">=</span> <span class="va">feature</span>.<span class="at">getGeometry</span>()<span class="op">;</span>
+        <span class="kw">var</span> coord <span class="op">=</span> <span class="va">geometry</span>.<span class="at">getCoordinates</span>()<span class="op">;</span>
+        <span class="va">popup</span>.<span class="at">setPosition</span>(coord)<span class="op">;</span>
+        <span class="at">$</span>(element).<span class="at">popover</span>(<span class="op">{</span>
+            <span class="st">&#39;placement&#39;</span><span class="op">:</span> <span class="st">&#39;top&#39;</span><span class="op">,</span>
+            <span class="st">&#39;html&#39;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+            <span class="st">&#39;content&#39;</span><span class="op">:</span> <span class="st">&quot;&lt;h4&gt;商品:&quot;</span> <span class="op">+</span> <span class="va">feature</span>.<span class="at">get</span>(<span class="st">&#39;name&#39;</span>) <span class="op">+</span> <span class="st">&quot;&lt;/h4&gt;&quot;</span> <span class="op">+</span> <span class="st">&#39;&#39;</span> <span class="op">+</span>
+            <span class="st">&#39;&lt;div class=&quot;button icon-left ion-ios-telephone button-calm button-outline&quot;&gt;&#39;</span> <span class="op">+</span>
+            <span class="st">&#39;&lt;a ng-href=&quot;tel: {{result.phone_number}}&quot;&gt;&#39;</span> <span class="op">+</span> <span class="va">feature</span>.<span class="at">get</span>(<span class="st">&#39;phone&#39;</span>) <span class="op">+</span> <span class="st">&#39;&lt;/a&gt; &lt;/div&gt;&#39;</span> <span class="op">+</span>
+                <span class="st">&quot;&lt;p class=&#39;icon-left ion-ios-navigate&#39;&gt; &quot;</span> <span class="op">+</span> <span class="va">feature</span>.<span class="at">get</span>(<span class="st">&#39;distance&#39;</span>) <span class="op">+</span> <span class="st">&quot;公里&lt;/p&gt;&quot;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+        <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;show&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        <span class="at">$</span>(element).<span class="at">popover</span>(<span class="st">&#39;destroy&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>当用户点击时，调用Bootstrap的Popover来显示信息。</p>
 <figure>
 <img src="./images/elasticsearch_ionit_map.jpg" alt="ElasticSearch Map" /><figcaption>ElasticSearch Map</figcaption>
