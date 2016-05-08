@@ -10,7 +10,7 @@
 
 拥有Ideabook，你就等于拥有一系列的练手项目。
 
-> 虽然在我的[Idea](https://github.com/phodal/ideas)列表里已经有了足够多的Idea，但是这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
+> 我的[Idea](https://github.com/phodal/ideas)在不断地增长，有些Idea有Cool，而这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
 
 Idea指南的格式：
 
