@@ -1,80 +1,80 @@
 {
   "content": [
     {
-      "title": "chapters/序：如何成为全栈增长工程师",
+      "title": "序：如何成为全栈增长工程师",
       "path": "chapters/chapter-1.md"
     },
     {
-      "title": "chapters/分析网站日志，打造访问地图",
-      "path":"big-data.md"
+      "title": "分析网站日志，打造访问地图",
+      "path": "chapters/big-data.md"
     },
     {
-      "title": "chapters/书籍录入程序",
-      "path":"bookshelf.md"
+      "title": "书籍录入程序",
+      "path": "chapters/bookshelf.md"
     },
     {
-      "title": "chapters/制作专属Badge制作",
-      "path":"brand.md"
+      "title": "制作专属Badge制作",
+      "path": "chapters/brand.md"
     },
     {
-      "title": "chapters/Web文本编辑器",
-      "path":"congee.md"
+      "title": "Web文本编辑器",
+      "path": "chapters/congee.md"
     },
     {
-      "title": "chapters/JavaScript打造Slide应用",
-      "path":"echoesworks.md"
+      "title": "JavaScript打造Slide应用",
+      "path": "chapters/echoesworks.md"
     },
     {
-      "title": "chapters/编辑-发布-分离应用",
-      "path":"eppsc.md"
+      "title": "编辑-发布-分离应用",
+      "path": "chapters/eppsc.md"
     },
     {
-      "title": "chapters/Google Map与Solr实现多边形搜索",
-      "path":"google-map-solr.md"
+      "title": "Google Map与Solr实现多边形搜索",
+      "path": "chapters/google-map-solr.md"
     },
     {
-      "title": "chapters/一份代码打造跨平台应用",
-      "path":"growth.md"
+      "title": "一份代码打造跨平台应用",
+      "path": "chapters/growth.md"
     },
     {
-      "title": "chapters/ionic-es.md",
-      "path":"ionic-es.md"
+      "title": "ionic-es.md",
+      "path": "chapters/ionic-es.md"
     },
     {
-      "title": "chapters/一步步搭建JavaScript框架: Lettuce",
-      "path":"lettuce.md"
+      "title": "一步步搭建JavaScript框架: Lettuce",
+      "path": "chapters/lettuce.md"
     },
     {
-      "title": "chapters/基于Virtual DOM的测试代码生成",
-      "path":"luffa.md"
+      "title": "基于Virtual DOM的测试代码生成",
+      "path": "chapters/luffa.md"
     },
     {
-      "title": "chapters/单页面移动应用",
-      "path":"moqimobi.md"
+      "title": "单页面移动应用",
+      "path": "chapters/moqimobi.md"
     },
     {
-      "title": "chapters/Oculus + Node.js + Three.js 打造VR世界",
-      "path":"oculus-three.md"
+      "title": "Oculus + Node.js + Three.js 打造VR世界",
+      "path": "chapters/oculus-three.md"
     },
     {
-      "title": "chapters/制作照片地图",
-      "path":"onmap.md"
+      "title": "制作照片地图",
+      "path": "chapters/onmap.md"
     },
     {
-      "title": "chapters/D3.js 制作技能树",
-      "path":"sherlock.md"
+      "title": "D3.js 制作技能树",
+      "path": "chapters/sherlock.md"
     },
     {
-      "title": "chapters/技术雷达趋势",
-      "path":"tech-stack.md"
+      "title": "技术雷达趋势",
+      "path": "chapters/tech-stack.md"
     },
     {
-      "title": "chapters/文本转化为Logo",
-      "path":"text2logo.md"
+      "title": "文本转化为Logo",
+      "path": "chapters/text2logo.md"
     },
     {
-      "title": "chapters/GEOJSON与ElasticSearch实现高级图形搜索",
-      "path":"vmap.md"
+      "title": "GEOJSON与ElasticSearch实现高级图形搜索",
+      "path": "chapters/vmap.md"
     }
   ],
   "source": "http://ideabook.phodal.com/"
