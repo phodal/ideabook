@@ -1,0 +1,81 @@
+{
+  "content": [
+    {
+      "title": "序：如何成为全栈增长工程师",
+      "path": "chapters/chapter-1.md"
+    },
+    {
+      "title": "分析网站日志，打造访问地图",
+      "path":"big-data.md"
+    },
+    {
+      "title": "书籍录入程序",
+      "path":"bookshelf.md"
+    },
+    {
+      "title": "制作专属Badge制作",
+      "path":"brand.md"
+    },
+    {
+      "title": "Web文本编辑器",
+      "path":"congee.md"
+    },
+    {
+      "title": "JavaScript打造Slide应用",
+      "path":"echoesworks.md"
+    },
+    {
+      "title": "编辑-发布-分离应用",
+      "path":"eppsc.md"
+    },
+    {
+      "title": "Google Map与Solr实现多边形搜索",
+      "path":"google-map-solr.md"
+    },
+    {
+      "title": "一份代码打造跨平台应用",
+      "path":"growth.md"
+    },
+    {
+      "title": "ionic-es.md",
+      "path":"ionic-es.md"
+    },
+    {
+      "title": "一步步搭建JavaScript框架: Lettuce",
+      "path":"lettuce.md"
+    },
+    {
+      "title": "基于Virtual DOM的测试代码生成",
+      "path":"luffa.md"
+    },
+    {
+      "title": "单页面移动应用",
+      "path":"moqimobi.md"
+    },
+    {
+      "title": "Oculus + Node.js + Three.js 打造VR世界",
+      "path":"oculus-three.md"
+    },
+    {
+      "title": "制作照片地图",
+      "path":"onmap.md"
+    },
+    {
+      "title": "D3.js 制作技能树",
+      "path":"sherlock.md"
+    },
+    {
+      "title": "技术雷达趋势",
+      "path":"tech-stack.md"
+    },
+    {
+      "title": "文本转化为Logo",
+      "path":"text2logo.md"
+    },
+    {
+      "title": "GEOJSON与ElasticSearch实现高级图形搜索",
+      "path":"vmap.md"
+    }
+  ],
+  "source": "http://ideabook.phodal.com/"
+}
