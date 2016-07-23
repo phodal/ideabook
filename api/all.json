@@ -1,10 +1,6 @@
 {
   "content": [
     {
-      "title": "序：如何成为全栈增长工程师",
-      "path": "chapters/chapter-1.md"
-    },
-    {
       "title": "分析网站日志，打造访问地图",
       "path": "chapters/big-data.md"
     },
