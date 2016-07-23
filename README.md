@@ -92,7 +92,7 @@ O2O地图搜索：
         *   [Step 1: ZXing扫描与Douban API](http://ideabook.phodal.com/#step-1-zxing扫描与douban-api)
         *   [Step 2: 存储数据库](http://ideabook.phodal.com/#step-2-存储数据库)
         *   [练习建议](http://ideabook.phodal.com/#练习建议-1)
-*   [制作专属Badge制作](http://ideabook.phodal.com/#制作专属badge制作)
+*   [制作专属Badge](http://ideabook.phodal.com/#制作专属badge)
     *   [概况](http://ideabook.phodal.com/#概况-2)
         *   [背景](http://ideabook.phodal.com/#背景-2)
         *   [ShowCase](http://ideabook.phodal.com/#showcase-2)

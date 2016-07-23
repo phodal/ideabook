@@ -9,7 +9,7 @@
       "path": "chapters/bookshelf.md"
     },
     {
-      "title": "制作专属Badge制作",
+      "title": "制作专属Badge",
       "path": "chapters/brand.md"
     },
     {
@@ -21,7 +21,7 @@
       "path": "chapters/echoesworks.md"
     },
     {
-      "title": "编辑-发布-分离应用",
+      "title": "编辑-发布-分离的博客系统",
       "path": "chapters/eppsc.md"
     },
     {
@@ -33,7 +33,7 @@
       "path": "chapters/growth.md"
     },
     {
-      "title": "ionic-es.md",
+      "title": "Ionic ElasticSearch打造O2O应用",
       "path": "chapters/ionic-es.md"
     },
     {

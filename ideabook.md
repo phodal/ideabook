@@ -492,7 +492,7 @@ function saveToDatabase(data, barcodeData) {
 
 ###练习建议
 
-制作专属Badge制作
+制作专属Badge
 ===
 
 概况
