@@ -8,7 +8,7 @@ Web文本编辑器
 
 ### ShowCase
 
-![Screenshot](./images/congee.jpg)
+![Screenshot](http://ideabook.phodal.com/images/congee.jpg)
 
 GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
 

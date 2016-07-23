@@ -12,7 +12,7 @@
 
 最后的效果如下图所示：
 
-![Bookshelf](./images/bookshelf.jpg)
+![Bookshelf](http://ideabook.phodal.com/images/bookshelf.jpg)
 
 代码见： [https://github.com/phodal/bookshelf/](https://github.com/phodal/bookshelf/)
 
