@@ -363,8 +363,8 @@ var create_map = function(mapData){
 
 ###练习建议
 
-书籍录入程序
-======
+书籍录入移动应用：条形码扫描
+===
 
 概况
 ---
@@ -425,6 +425,7 @@ $scope.scan = function () {
 ###Step 2: 存储数据库
 
 开始之前，我们需要添加Cordova的SQLite插件：
+
 
     cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 
@@ -489,8 +490,6 @@ function saveToDatabase(data, barcodeData) {
 	return self;
 })
 ```	
-
-###练习建议
 
 制作专属Badge
 ===
@@ -617,7 +616,7 @@ dwg.save()
 
 
 
-Web文本编辑器
+微信文章编辑器
 =====
 
 概况
@@ -884,8 +883,8 @@ parasView.on('changeColor', function(args) {
 ###练习建议
 
 
-JavaScript打造Slide应用
-===================
+JavaScript制作Slide框架
+===
 
 概况
 ---
@@ -1071,8 +1070,8 @@ localStorage.setItem('echoesworks', index);
 ### 练习建议
   
 
-编辑-发布-分离应用
-==========
+编辑-发布-分离的博客系统
+===
 
 概况
 ---
@@ -1356,7 +1355,7 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
-Google Map与Solr实现多边形搜索
+Solr实现多边形地理搜索
 ===
 
 概况
@@ -1602,7 +1601,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 那么未来呢？你觉得会是怎样的？
 
-Ionic ElasticSearch打造O2O应用
+Ionic与ElasticSearch打造O2O应用
 ===
 
 概况
@@ -2249,7 +2248,7 @@ map.on('click', function(evt) {
 ![ElasticSearch Map](http://ideabook.phodal.com/images/elasticsearch_ionit_map.jpg)
     
 
-一步步搭建JavaScript框架: Lettuce
+一步步搭建JavaScript框架
 ===
 
 概况
@@ -2677,7 +2676,7 @@ function printNode(applyNode, originRootNodeHTML, patchIndex) {
 
 最后，我们似乎就可以生成相应的测试代码了。。。
 
-单页面移动应用
+基于Backbone的单页面移动应用
 ===
 
 概况
@@ -4171,7 +4170,7 @@ if (this.camera.position.y < -10) {
 ###练习建议
 
 
-制作照片地图
+手动制作照片地图
 ===
 
 概况
@@ -4179,7 +4178,7 @@ if (this.camera.position.y < -10) {
 
 ### Background:把照片放在地图上
 
-我使用的Nokia Lumia 920没有一个好的照片应用
+我使用的Nokia Lumia 920没有一个好的照片应用,而我当时也没有钱换一个新手机
 
 ### Showcase
 
@@ -4357,8 +4356,8 @@ jsonFile.close()
 
 
 
-D3.js 制作技能树
-===========
+D3.js打造技能树
+===
 
 概况
 ---
@@ -4631,7 +4630,7 @@ for (var quadrant in data) {
 ```
 
 
-文本转化为Logo
+文本转Logo
 ===
 
 概况
@@ -4726,13 +4725,11 @@ colors_length = ConfigColor.items('Color').__len__()
 
 最后我们就可以得到我们想要的图片了~~
 
-GEOJSON与ElasticSearch实现高级图形搜索
+GeoJSON与ElasticSearch实现高级图形搜索
 ===
 
 概况
 ---
-
-### 背景
 
 ### Showcase
 

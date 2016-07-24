@@ -1,10 +1,8 @@
-GEOJSON与ElasticSearch实现高级图形搜索
+GeoJSON与ElasticSearch实现高级图形搜索
 ===
 
 概况
 ---
-
-### 背景
 
 ### Showcase
 

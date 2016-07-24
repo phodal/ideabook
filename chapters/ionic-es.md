@@ -1,4 +1,4 @@
-Ionic ElasticSearch打造O2O应用
+Ionic与ElasticSearch打造O2O应用
 ===
 
 概况

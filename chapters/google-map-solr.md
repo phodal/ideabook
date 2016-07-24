@@ -1,4 +1,4 @@
-Google Map与Solr实现多边形搜索
+Solr实现多边形地理搜索
 ===
 
 概况

@@ -1,4 +1,4 @@
-一步步搭建JavaScript框架: Lettuce
+一步步搭建JavaScript框架
 ===
 
 概况

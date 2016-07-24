@@ -1,5 +1,5 @@
-JavaScript打造Slide应用
-===================
+JavaScript制作Slide框架
+===
 
 概况
 ---

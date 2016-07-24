@@ -5,7 +5,7 @@
       "path": "chapters/big-data.md"
     },
     {
-      "title": "书籍录入程序",
+      "title": "书籍录入移动应用：条形码扫描",
       "path": "chapters/bookshelf.md"
     },
     {
@@ -13,11 +13,11 @@
       "path": "chapters/brand.md"
     },
     {
-      "title": "Web文本编辑器",
+      "title": "微信文章编辑器",
       "path": "chapters/congee.md"
     },
     {
-      "title": "JavaScript打造Slide应用",
+      "title": "JavaScript制作Slide框架",
       "path": "chapters/echoesworks.md"
     },
     {
@@ -25,7 +25,7 @@
       "path": "chapters/eppsc.md"
     },
     {
-      "title": "Google Map与Solr实现多边形搜索",
+      "title": "Solr实现多边形地理搜索",
       "path": "chapters/google-map-solr.md"
     },
     {
@@ -33,11 +33,11 @@
       "path": "chapters/growth.md"
     },
     {
-      "title": "Ionic ElasticSearch打造O2O应用",
+      "title": "Ionic与ElasticSearch打造O2O应用",
       "path": "chapters/ionic-es.md"
     },
     {
-      "title": "一步步搭建JavaScript框架: Lettuce",
+      "title": "一步步搭建JavaScript框架",
       "path": "chapters/lettuce.md"
     },
     {
@@ -45,7 +45,7 @@
       "path": "chapters/luffa.md"
     },
     {
-      "title": "单页面移动应用",
+      "title": "基于Backbone的单页面移动应用",
       "path": "chapters/moqimobi.md"
     },
     {
@@ -53,11 +53,11 @@
       "path": "chapters/oculus-three.md"
     },
     {
-      "title": "制作照片地图",
+      "title": "手动制作照片地图",
       "path": "chapters/onmap.md"
     },
     {
-      "title": "D3.js 制作技能树",
+      "title": "D3.js打造技能树",
       "path": "chapters/sherlock.md"
     },
     {
@@ -65,11 +65,11 @@
       "path": "chapters/tech-stack.md"
     },
     {
-      "title": "文本转化为Logo",
+      "title": "文本转Logo",
       "path": "chapters/text2logo.md"
     },
     {
-      "title": "GEOJSON与ElasticSearch实现高级图形搜索",
+      "title": "GeoJSON与ElasticSearch实现高级图形搜索",
       "path": "chapters/vmap.md"
     }
   ],

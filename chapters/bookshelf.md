@@ -1,5 +1,5 @@
-书籍录入程序
-======
+书籍录入移动应用：条形码扫描
+===
 
 概况
 ---
@@ -60,6 +60,7 @@ $scope.scan = function () {
 ###Step 2: 存储数据库
 
 开始之前，我们需要添加Cordova的SQLite插件：
+
 
     cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 
@@ -124,5 +125,3 @@ function saveToDatabase(data, barcodeData) {
 	return self;
 })
 ```	
-
-###练习建议
