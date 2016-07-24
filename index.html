@@ -103,6 +103,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#步骤-1">步骤</a><ul>
 <li><a href="#step-1-zxing扫描与douban-api">Step 1: ZXing扫描与Douban API</a></li>
 <li><a href="#step-2-存储数据库">Step 2: 存储数据库</a></li>
+<li><a href="#练习建议-1">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#制作专属badge">制作专属Badge</a><ul>
@@ -127,7 +128,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-2-require.js模块化">Step 2: Require.js模块化</a></li>
 <li><a href="#step-3-初始化">Step 3: 初始化</a></li>
 <li><a href="#step-4-创建对应的view">Step 4: 创建对应的View</a></li>
-<li><a href="#练习建议-1">练习建议</a></li>
+<li><a href="#练习建议-2">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#javascript制作slide框架">JavaScript制作Slide框架</a><ul>
@@ -143,7 +144,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-4-解析字幕">Step 4: 解析字幕</a></li>
 <li><a href="#step-5-进度条">Step 5: 进度条</a></li>
 <li><a href="#step-6-同步">Step 6: 同步</a></li>
-<li><a href="#练习建议-2">练习建议</a></li>
+<li><a href="#练习建议-3">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#编辑-发布-分离的博客系统">编辑-发布-分离的博客系统</a><ul>
@@ -206,7 +207,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-3-寻找所需要的函数">Step 3: 寻找所需要的函数</a></li>
 <li><a href="#step-4-整合">Step 4: 整合</a></li>
 <li><a href="#step-5-测试">Step 5: 测试</a></li>
-<li><a href="#练习建议-3">练习建议</a></li>
+<li><a href="#练习建议-4">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</a><ul>
@@ -250,7 +251,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-3-node-oculus-websocket">Step 3: Node Oculus WebSocket</a></li>
 <li><a href="#step-4-oculus-effect-dk2-control">Step 4: Oculus Effect + DK2 Control</a></li>
 <li><a href="#step-5-three.js-keyhandler">Step 5: Three.js KeyHandler</a></li>
-<li><a href="#练习建议-4">练习建议</a></li>
+<li><a href="#练习建议-5">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#手动制作照片地图">手动制作照片地图</a><ul>
@@ -262,7 +263,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#步骤-13">步骤</a><ul>
 <li><a href="#step-1-解析读取照片信息">Step 1: 解析读取照片信息</a></li>
 <li><a href="#step-2-上传数据">Step 2: 上传数据</a></li>
-<li><a href="#练习建议-5">练习建议</a></li>
+<li><a href="#练习建议-6">练习建议</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#d3.js打造技能树">D3.js打造技能树</a><ul>
@@ -630,29 +631,29 @@ def get_geo(ip):
 <p>所需要的移动框架还是Ionic，用于扫描条形码的库是ZXing。</p>
 <h2 id="步骤-1">步骤</h2>
 <p>开始之前，我们需要先安装Ionic，并且使用它来创建一个APP。然后我们还需要添加对应的二维码扫描库，代码如下所示：</p>
-<pre><code>phonegap plugin add phonegap-plugin-barcodescanner</code></pre>
-<p>接着我们就可以开始制作我们的APP了。</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">phonegap</span> plugin add phonegap-plugin-barcodescanner</code></pre></div>
+<p>7 接着我们就可以开始制作我们的APP了。</p>
 <h3 id="step-1-zxing扫描与douban-api">Step 1: ZXing扫描与Douban API</h3>
 <p>我们需要在我们的模板里，添加一个ICON或者按钮来触发程序调用相应的函数：</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;i</span><span class="ot"> class=</span><span class="st">&quot;icon icon-right ion-qr-scanner&quot;</span><span class="ot"> ng-click=</span><span class="st">&quot;scan()&quot;</span><span class="kw">&gt;&lt;/i&gt;</span></code></pre></div>
 <p>在我们的函数里，我们只需要调用cordovaBarcodeScanner的scan方法就可以获取到二维码的值。再用$http.get去获取豆瓣API的相应的结果，并且将这个结果存储到数据库中。代码如下所示：</p>
-<pre><code>$scope.scan = function () {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">$scope</span>.<span class="at">scan</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
   $cordovaBarcodeScanner
-    .scan()
-    .then(function (barcodeData) {
-      $scope.info = barcodeData.text;
-      $http.get(&quot;https://api.douban.com/v2/book/isbn/&quot; + barcodeData.text).success(function (data) {
-        $scope.detail = data;
-        saveToDatabase(data, barcodeData);
-      });
-    }, function (error) {
-      alert(error);
-    });
-}</code></pre>
+    .<span class="at">scan</span>()
+    .<span class="at">then</span>(<span class="kw">function</span> (barcodeData) <span class="op">{</span>
+      <span class="va">$scope</span>.<span class="at">info</span> <span class="op">=</span> <span class="va">barcodeData</span>.<span class="at">text</span><span class="op">;</span>
+      <span class="va">$http</span>.<span class="at">get</span>(<span class="st">&quot;https://api.douban.com/v2/book/isbn/&quot;</span> <span class="op">+</span> <span class="va">barcodeData</span>.<span class="at">text</span>).<span class="at">success</span>(<span class="kw">function</span> (data) <span class="op">{</span>
+        <span class="va">$scope</span>.<span class="at">detail</span> <span class="op">=</span> data<span class="op">;</span>
+        <span class="at">saveToDatabase</span>(data<span class="op">,</span> barcodeData)<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">},</span> <span class="kw">function</span> (error) <span class="op">{</span>
+      <span class="at">alert</span>(error)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>随后，我们就可以创建我们的代码来保存数据到数据库中。</p>
 <h3 id="step-2-存储数据库">Step 2: 存储数据库</h3>
 <p>开始之前，我们需要添加Cordova的SQLite插件：</p>
-<pre><code>cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cordova</span> plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git</code></pre></div>
 <p>在系统初始化的时候，创建对应的数据库及其表。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span>(<span class="va">window</span>.<span class="at">cordova</span>) <span class="op">{</span>
   <span class="co">//$cordovaSQLite.deleteDB(&quot;my.db&quot;);</span>
@@ -702,6 +703,7 @@ def get_geo(ip):
     <span class="op">};</span>
     <span class="cf">return</span> self<span class="op">;</span>
 <span class="op">}</span>)</code></pre></div>
+<h3 id="练习建议-1">练习建议</h3>
 <h1 id="制作专属badge">制作专属Badge</h1>
 <h2 id="概况-2">概况</h2>
 <h3 id="背景-2">背景</h3>
@@ -994,7 +996,7 @@ dwg.save()</code></pre></div>
 <pre><code>parasView.on(&#39;changeColor&#39;, function(args) {
   parasView.findComponent(&#39;Grid&#39;).set(&#39;hrStyle.*.color&#39;, args.color);
 });</code></pre>
-<h3 id="练习建议-1">练习建议</h3>
+<h3 id="练习建议-2">练习建议</h3>
 <h1 id="javascript制作slide框架">JavaScript制作Slide框架</h1>
 <h2 id="概况-4">概况</h2>
 <h3 id="背景-4">背景</h3>
@@ -1124,7 +1126,7 @@ dwg.save()</code></pre></div>
 <p>正常情况下，我们只用一个标签来展示我们的slide。当我们有另外一个标签的时候，我们就可以存储当前的slide。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">localStorage</span>.<span class="at">setItem</span>(<span class="st">&#39;echoesworks&#39;</span><span class="op">,</span> index)<span class="op">;</span></code></pre></div>
 <p>这样就可以实现，在一个页面到下一页时，另外一个标签也会跳到下一页。</p>
-<h3 id="练习建议-2">练习建议</h3>
+<h3 id="练习建议-3">练习建议</h3>
 <h1 id="编辑-发布-分离的博客系统">编辑-发布-分离的博客系统</h1>
 <h2 id="概况-5">概况</h2>
 <h3 id="背景-编辑-发布-开发分离">背景: 编辑-发布-开发分离</h3>
@@ -2136,7 +2138,7 @@ root.Lettuce = Lettuce;
 <h3 id="step-3-寻找所需要的函数">Step 3: 寻找所需要的函数</h3>
 <h3 id="step-4-整合">Step 4: 整合</h3>
 <h3 id="step-5-测试">Step 5: 测试</h3>
-<h3 id="练习建议-3">练习建议</h3>
+<h3 id="练习建议-4">练习建议</h3>
 <h1 id="基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</h1>
 <h2 id="概况-10">概况</h2>
 <h3 id="背景-9">背景</h3>
@@ -3501,7 +3503,7 @@ yaw = (rotation about (Pitch • Raw • Z));”</code></pre>
     <span class="kw">this</span>.<span class="va">camera</span>.<span class="va">position</span>.<span class="at">y</span> <span class="op">=</span> <span class="op">-</span><span class="dv">10</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 <p>快接上你的HMD试试吧~~</p>
-<h3 id="练习建议-4">练习建议</h3>
+<h3 id="练习建议-5">练习建议</h3>
 <h1 id="手动制作照片地图">手动制作照片地图</h1>
 <h2 id="概况-13">概况</h2>
 <h3 id="background把照片放在地图上">Background:把照片放在地图上</h3>
@@ -3630,7 +3632,7 @@ jsonFile.writelines(<span class="st">&#39;]}</span><span class="ch">\n</span><sp
 jsonFile.close()</code></pre></div>
 <h3 id="step-2-上传数据">Step 2: 上传数据</h3>
 <p>注册CartoDB，然后上传数据。</p>
-<h3 id="练习建议-5">练习建议</h3>
+<h3 id="练习建议-6">练习建议</h3>
 <p>无</p>
 <h1 id="d3.js打造技能树">D3.js打造技能树</h1>
 <h2 id="概况-14">概况</h2>

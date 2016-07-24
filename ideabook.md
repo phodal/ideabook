@@ -390,8 +390,10 @@ var create_map = function(mapData){
 
 开始之前，我们需要先安装Ionic，并且使用它来创建一个APP。然后我们还需要添加对应的二维码扫描库，代码如下所示：
 
-    phonegap plugin add phonegap-plugin-barcodescanner
-
+```bash
+phonegap plugin add phonegap-plugin-barcodescanner
+```
+7
 接着我们就可以开始制作我们的APP了。
 
 ###Step 1: ZXing扫描与Douban API
@@ -404,7 +406,7 @@ var create_map = function(mapData){
 
 在我们的函数里，我们只需要调用cordovaBarcodeScanner的scan方法就可以获取到二维码的值。再用$http.get去获取豆瓣API的相应的结果，并且将这个结果存储到数据库中。代码如下所示：
 
-```
+```javascript
 $scope.scan = function () {
   $cordovaBarcodeScanner
     .scan()
@@ -426,9 +428,9 @@ $scope.scan = function () {
 
 开始之前，我们需要添加Cordova的SQLite插件：
 
-
-    cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
-
+```bash
+cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
+```
 
 在系统初始化的时候，创建对应的数据库及其表。
 
@@ -490,6 +492,7 @@ function saveToDatabase(data, barcodeData) {
 	return self;
 })
 ```	
+###练习建议
 
 制作专属Badge
 ===
