@@ -33,7 +33,7 @@ Idea指南的格式：
 
 欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
 
-![QRCode](https://raw.githubusercontent.com/phodal/growth/master/www/img/wechat.jpg)
+![QRCode](https://raw.githubusercontent.com/phodal/growth/master/marketing/wechat.jpg)
 
 截图集：
 
