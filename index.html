@@ -65,7 +65,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 
 <p>微信公众号</p>
-<p><img src="https://raw.githubusercontent.com/phodal/growth/master/www/img/wechat.jpg" alt=""/></p>
+<p><img src="http://articles.phodal.com/qrcode.jpg" alt=""/></p>
 <p>
 当前为预览版，在使用的过程中遇到任何遇到请及时与我联系。阅读过程中问题，不烦在GitHub上提出来：
 <a href="https://github.com/phodal/ideabook/issues">Idea Ebook Issues</a>
@@ -209,6 +209,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#step-5-测试">Step 5: 测试</a></li>
 <li><a href="#练习建议-4">练习建议</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#制作简易mac-os上的伪锁屏工具">制作简易Mac OS上的伪锁屏工具</a><ul>
+<li><a href="#mac-os-python截图">Mac OS Python截图</a></li>
+<li><a href="#mac-os-python调节亮度">Mac OS Python调节亮度</a></li>
+<li><a href="#mac-os-python-gtk-全屏图片">Mac OS Python GTK 全屏图片</a></li>
 </ul></li>
 <li><a href="#基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</a><ul>
 <li><a href="#概况-10">概况</a><ul>
@@ -2139,6 +2144,63 @@ root.Lettuce = Lettuce;
 <h3 id="step-4-整合">Step 4: 整合</h3>
 <h3 id="step-5-测试">Step 5: 测试</h3>
 <h3 id="练习建议-4">练习建议</h3>
+<h1 id="制作简易mac-os上的伪锁屏工具">制作简易Mac OS上的伪锁屏工具</h1>
+<p>今天中午在锁屏的时候，想到一件有意思的事。平时我会有两种“锁屏方式”：</p>
+<ul>
+<li>传统的锁屏方式：command + alt + 电源，适用于长时间离开。</li>
+<li>将屏幕亮度调暗，适用于上个厕所什么的。</li>
+</ul>
+<p>然后在我回来的时候，我在想如果别人都知道我的屏幕是变暗的话，那么就有意思了。。。然后我就想做个简单的工具，来Mock当前的屏幕：</p>
+<ol type="1">
+<li>一键截取当前屏幕</li>
+<li>打开截图将设为最大化</li>
+<li>降低屏幕亮度</li>
+</ol>
+<p>接着，我就开始编写了。</p>
+<h3 id="mac-os-python截图">Mac OS Python截图</h3>
+<p>在Mac OS上有一个工具<code>screencapture</code>，可以用于截取当前屏幕。如：</p>
+<pre><code>screencapture screen.png</code></pre>
+<p>将图片存储为screen.png，我们只需要调用Python调用系统的命令，即可：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">import</span> os
+
+<span class="kw">os.system</span>(<span class="st">&quot;screencapture screen.png&quot;</span>)</code></pre></div>
+<h3 id="mac-os-python调节亮度">Mac OS Python调节亮度</h3>
+<p>在Mac OS上有一个工具叫<code>brightness</code>，可以用百分比调节屏幕的亮度，如</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">brightness</span> 0</code></pre></div>
+<p>可以将屏幕的亮度调到0，即最低。所以，先安装这个工具：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">brew</span> install brightness</code></pre></div>
+<p>然后用Python的os模块，即可调用 。</p>
+<h3 id="mac-os-python-gtk-全屏图片">Mac OS Python GTK 全屏图片</h3>
+<p>随后，用GTK简单的弄了个全屏图片的脚本，就完成了。</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">
+<span class="im">import</span> os
+<span class="im">import</span> pygtk
+<span class="im">import</span> gtk
+
+os.system(<span class="st">&quot;screencapture screen.png&quot;</span>)
+os.system(<span class="st">&quot;brightness 0&quot;</span>)
+
+win <span class="op">=</span> gtk.Window()
+
+im <span class="op">=</span> gtk.Image()
+pixbuf <span class="op">=</span> gtk.gdk.pixbuf_new_from_file(<span class="st">&quot;screen.png&quot;</span>)
+scaled_buf <span class="op">=</span> pixbuf.scale_simple(<span class="dv">1440</span>,<span class="dv">900</span>,gtk.gdk.INTERP_BILINEAR)
+im.set_from_pixbuf(scaled_buf)
+im.show()
+
+vbox <span class="op">=</span> gtk.VBox()
+vbox.pack_start (im)
+win.add(vbox)
+
+win.fullscreen()
+win.show_all()
+
+win.set_keep_above(<span class="va">True</span>)<span class="op">;</span>
+gtk.main()</code></pre></div>
+<p>最后，再写个简单的函数即可：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">function</span><span class="fu"> ss()</span> <span class="kw">{</span> 
+    <span class="kw">python</span> <span class="st">&quot;/Users/fdhuang/learing/mock-screen/main.py&quot;</span> 
+<span class="kw">}</span></code></pre></div>
 <h1 id="基于virtual-dom的测试代码生成">基于Virtual DOM的测试代码生成</h1>
 <h2 id="概况-10">概况</h2>
 <h3 id="背景-9">背景</h3>
