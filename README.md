@@ -1,7 +1,6 @@
 一个全栈增长工程师的练手项目集
 ===
 
-
 **你是不是在为提高编程技术而发愁？**
 
 **你是不是在为找不到合适的练手项目而烦恼？**
@@ -11,18 +10,6 @@
 拥有Ideabook，你就等于拥有一系列的练手项目。
 
 > 我的[Idea](https://github.com/phodal/ideas)在不断地增长，有些Idea有Cool，而这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
-
-Idea指南的格式：
-
- * 概况
-    * 背景
-    * Showcase
-    * 技术栈等介绍
- * 步骤
-    * Step *
-    * 练习建议          
-
-**PS: 当前为预览版，在使用的过程中遇到任何遇到请及时与我联系**
 
 我的其他电子书：
 
@@ -34,40 +21,6 @@ Idea指南的格式：
 欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
 
 ![QRCode](https://raw.githubusercontent.com/phodal/growth/master/marketing/wechat.jpg)
-
-截图集：
-
-将GitHub用户显示到地图上：
-
-![GitHub User In Map](./images/anti-map-action.jpg)
-
-书籍录入程序：
-
-![书籍录入程序](./images/bookshelf.jpg)
-
-Web文本编辑器：
-
-![Web文本编辑器](./images/congee.jpg)
-
-O2O地图搜索：
-
-![O2O地图搜索](./images/elasticsearch_ionit_map.jpg)
-
-全平台应用：
-
-![全平台应用](./images/full-platforms.jpg)
-
-技能树：
-
-![技能树](./images/tips.jpg)
-
-编辑-发布-开发分离的文本编辑器：
-
-![编辑-发布-开发分离的文本编辑器](./images/eche-editor-screenshot.png)
-
-测试代码生成器：
-
-![测试代码生成器](./images/luffa.jpg)
 
 目录
 ---
