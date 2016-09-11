@@ -2472,7 +2472,12 @@ grunt里的任务包含了:
 制作简易Mac OS上的伪锁屏工具
 ===
 
-今天中午在锁屏的时候，想到一件有意思的事。平时我会有两种“锁屏方式”：
+概况
+---
+
+### 背景
+
+某天中午在锁屏的时候，想到一件有意思的事。平时我会有两种“锁屏方式”：
 
  - 传统的锁屏方式：command + alt + 电源，适用于长时间离开。
  - 将屏幕亮度调暗，适用于上个厕所什么的。
@@ -2485,7 +2490,10 @@ grunt里的任务包含了:
 
 接着，我就开始编写了。
 
-### Mac OS Python截图
+步骤
+---
+
+### Step 1：屏幕截图
 
 在Mac OS上有一个工具``screencapture``，可以用于截取当前屏幕。如：
 
@@ -2501,7 +2509,7 @@ import os
 os.system("screencapture screen.png")
 ```
 
-### Mac OS Python调节亮度
+### Step 2：调节亮度
 
 在Mac OS上有一个工具叫``brightness``，可以用百分比调节屏幕的亮度，如
 
@@ -2517,7 +2525,7 @@ brew install brightness
 
 然后用Python的os模块，即可调用 。
 
-### Mac OS Python GTK 全屏图片
+### Step 3：全屏图片
 
 随后，用GTK简单的弄了个全屏图片的脚本，就完成了。
 

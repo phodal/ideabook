@@ -69,6 +69,10 @@
       "path": "chapters/text2logo.md"
     },
     {
+      "title": "制作简易Mac OS上的伪锁屏工具",
+      "path": "chapters1/lock.md"
+    },
+    {
       "title": "GeoJSON与ElasticSearch实现高级图形搜索",
       "path": "chapters/vmap.md"
     }
