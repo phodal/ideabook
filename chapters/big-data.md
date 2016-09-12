@@ -16,7 +16,7 @@
 
 这是一个Web生成的界面，通过Elastic.js向搜索引擎查询数据，将再这些数据渲染到地图上。
 
-###Hadoop + Pig + Jython + AmMap + ElasticSearch
+### Hadoop + Pig + Jython + AmMap + ElasticSearch
 
 我们使用的技术栈有上面这些，他们的简介如下：
 
@@ -36,7 +36,7 @@
  - 转换IP为GEO信息
  - 展示数据到地图上
 
-###Step 1: 搭建基础设施
+### Step 1: 搭建基础设施
 
 在这一些系列的实战中，比较麻烦的就是安装这些工具，我们需要安装上面提到的一系列工具。对于不同的系统来说，都有相似的安装工具：
 
@@ -64,7 +64,7 @@ brew install jython
 
 下面我们就可以尝试去解析我们的日志了。
 
-###Step 2: 解析access.log
+### Step 2: 解析access.log
 
 在开始解析之前，先让我们来看看几条Nginx的日志：
 
@@ -114,7 +114,7 @@ STORE A INTO 'nginx/log' USING org.elasticsearch.hadoop.pig.EsStorage();
 
 接着，我们就可以对值进行一些特殊的处理，如A是转化时间戳后的结果。B是按时间戳排序后的结果。最后，我们再将这些值存储到ElasticSearch对应的索引``nginx/log``中。
 
-###Step 3: 转换IP为GEO信息
+### Step 3: 转换IP为GEO信息
 
 在简单地完成了一个Demo之后，我们就可以将IP转换为GEO信息了，这里我们需要用到一个名为pygeoip的库。GeoIP是一个根据IP地址查询位置的API的集成。它支持对国家、地区、城市、纬度和经度的查询。实际上，就是在一个数据库中有对应的国家和地区的IP段，根据这个IP段，我们就可以获取对应的地理位置。
 
@@ -192,7 +192,7 @@ def get_geo(ip):
 
 代码相应的简单，和一般的Python代码也没有啥区别。这里一些用户自定义函数，在函数的最前面有一个``outputSchema``，用于返回输出的结果。
 
-###Step 4: 展示数据到地图上
+### Step 4: 展示数据到地图上
 
 现在，我们终于可以将数据转化到可视化界面了。开始之前，我们需要几个库
 
@@ -360,4 +360,4 @@ var create_map = function(mapData){
 
 我们可以看到比较麻烦的地方就是生成地图上的数量点，也就是create_map函数。
 
-###练习建议
+### 练习建议
