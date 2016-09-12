@@ -127,4 +127,7 @@ function saveToDatabase(data, barcodeData) {
 	return self;
 })
 ```	
-###练习建议
+
+### 上传数据
+
+### 练习建议

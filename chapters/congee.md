@@ -31,7 +31,7 @@ Ractive这个框架比React诞生早了一个月，还是以DOM为核心。Racti
  - 重构代码
 
 
-###Step 1: hello,world
+### Step 1: hello,world
 
 下面是一个简单的hello，world。
 
@@ -136,7 +136,7 @@ require(['scripts/app', 'ractive', 'scripts/views/titleView', 'scripts/views/hrV
 
 在那之前，你自然需要先clone代码。然后在这里我们不同的几个模块进行初始化，并且为colorPicker配置了相应的监听事件。现在，让我们先到App模块中，看看我们做了些什么事？
 
-###Step 3: 初始化
+### Step 3: 初始化
 
 初始化模块一共分为两部分，一部分是对CKEditor的初始化，一部分则是对colorPicker的初始化。
 
@@ -214,7 +214,7 @@ CKEditor自身的编辑器配置比较长，我们就不在这里面列出这些
 
 而实际上在这里我们已经完成了大部分的工作。
 
-###Step 4: 创建对应的View
+### Step 4: 创建对应的View
 
 在这个项目里，比较麻烦的地方就是使用同样的颜色来显示一个模板，如下的代码是用于显示水平线的模板：
 
@@ -262,5 +262,5 @@ parasView.on('changeColor', function(args) {
 });
 ```      
 
-###练习建议
+### 练习建议
 

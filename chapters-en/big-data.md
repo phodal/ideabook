@@ -21,5 +21,5 @@ Steps
 
 ### Step 4: show in map
 
-Suggestions
+Practise
 ---

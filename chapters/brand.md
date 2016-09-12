@@ -44,7 +44,7 @@
 
 代码： GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
 
-###SVG与SVGWrite
+### SVG与SVGWrite
 
 SVG就是一个XML
 
@@ -121,4 +121,8 @@ dwg.save()
 ![Finally](http://ideabook.phodal.com/images/finally-brand.jpg)
 
 
+### Step 3: 完成
+
+练习建议
+---
 
