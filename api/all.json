@@ -70,7 +70,7 @@
     },
     {
       "title": "制作简易Mac OS上的伪锁屏工具",
-      "path": "chapters1/lock.md"
+      "path": "chapters/lock.md"
     },
     {
       "title": "GeoJSON与ElasticSearch实现高级图形搜索",
