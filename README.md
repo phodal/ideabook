@@ -7,16 +7,13 @@
 
 **你是不是在为有合适的项目，但是没有指南而烦恼？**
 
-拥有Ideabook，你就等于拥有一系列的练手项目。
-
-> 我的[Idea](https://github.com/phodal/ideas)在不断地增长，有些Idea有Cool，而这些Idea都没有一个好的实战指南。这个电子书的目标就是为这些Idea提供实战指南，一步步搭建。
-
 我的其他电子书：
 
  - 《[一步步搭建物联网系统](https://github.com/phodal/designiot)》
  - 《[GitHub 漫游指南](https://github.com/phodal/github-roam)》
  - 《[RePractise](https://github.com/phodal/repractise)》
  - 《[Growth: 全栈增长工程师指南](https://github.com/phodal/growth-ebook)》
+ - 《[Growth: 全栈增长工程师实战](https://github.com/phodal/growth-in-action)》
 
 欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
 
