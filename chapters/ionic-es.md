@@ -323,7 +323,7 @@ curl -XGET http://127.0.0.1:9200/haystack/_search
 bower install
 ```
 
-### Step 4: Ionic ElasticSearch 创建页面
+### Step 5: Ionic ElasticSearch 创建页面
 
 1.引入库
 
@@ -385,7 +385,7 @@ $scope.search = function(query) {
 
 当我们点下搜索的时候，调用 ESService.
 
-### Step 5: Ionic ElasticSearch Service
+### Step 6: Ionic ElasticSearch Service
 
 接着我们就来构建我们的ESService，下面的部分来自网上:
 
@@ -468,7 +468,7 @@ angular.module('starter.services', ['ngCordova', 'elasticsearch'])
 
 > OpenLayers是一个用于开发WebGIS客户端的JavaScript包。OpenLayers 支持的地图来源包括Google Maps、Yahoo、 Map、微软Virtual Earth 等，用户还可以用简单的图片地图作为背景图，与其他的图层在OpenLayers 中进行叠加，在这一方面OpenLayers提供了非常多的选择。除此之外，OpenLayers实现访问地理空间数据的方法都符合行业标准。OpenLayers 支持Open GIS 协会制定的WMS（Web Mapping Service）和WFS（Web Feature Service）等网络服务规范，可以通过远程服务的方式，将以OGC 服务形式发布的地图数据加载到基于浏览器的OpenLayers 客户端中进行显示。OpenLayers采用面向对象方式开发，并使用来自Prototype.js和Rico中的一些组件。
 
-### Step 6: Ionic OpenLayer 地图显示
+### Step 7: Ionic OpenLayer 地图显示
 
 1.下载OpenLayer
 
