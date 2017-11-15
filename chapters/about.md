@@ -38,12 +38,12 @@ Phodal's Idea实战指南
 
 我的微信公众号:
 
-![作者微信公众号：phodal-weixin](http://ideabook.phodal.com/images/wechat.jpg)
+![作者微信公众号：phodal-weixin](./images/wechat.jpg)
 
 支持作者，可以加入作者的小密圈:
 
-![小密圈](http://ideabook.phodal.com/images/xiaomiquan.jpg)
+![小密圈](./images/xiaomiquan.jpg)
 
 或者转账：
 
-![支付宝](http://ideabook.phodal.com/images/alipay.png) ![微信](http://ideabook.phodal.com/images/wechat-pay.png)
+![支付宝](./images/alipay.png) ![微信](./images/wechat-pay.png)

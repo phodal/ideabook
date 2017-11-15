@@ -20,7 +20,7 @@ Web本身就是跨平台的，这意味着这中间存在着无限的可能性�
 
 截图合并如下：
 
-![growth-full-platforms.png](http://ideabook.phodal.com/images/growth-full-platforms.jpg)
+![growth-full-platforms.png](./images/growth-full-platforms.jpg)
 
 ### Ionic & Electron & Cordova
 
@@ -51,7 +51,7 @@ Mobile = Cordova + Angular.js + Ionic
  
 接着我用Ionic创建了这个应用，这是一个再普通不过的过程。在这个过程里，我一直使用Chrome在调度我的代码。因为我是Android用户，我有Google Play的账号，便发布了Android版本。这时候遇到了一个问题，我并没有Apple Developer账号(现在在申请ing。。)，而主要的用户对象程序员，这是一群**不土**的土豪。
 
-![iPHONE](http://ideabook.phodal.com/images/iphone.jpg)
+![iPHONE](./images/iphone.jpg)
 
 偶然间我才想到，我只要上传Web版本的代码就可以暂时性实现这个需求了。接着找了个AWS S3的插件，直接上传到了AWS S3上托管成静态文件服务。
 
@@ -59,7 +59,7 @@ Mobile = Cordova + Angular.js + Ionic
 
 所以，最后我们的流程图就如下所示：
 
-![Growth Arch](http://ideabook.phodal.com/images/growth-arch.png)
+![Growth Arch](./images/growth-arch.png)
 
 除了显示到VR设备上，好像什么也不缺了。并且在我之前的文章《[Oculus + Node.js + Three.js 打造VR世界](https://github.com/phodal/oculus-nodejs-threejs-example)》，也展示了Web在VR世界的可能性。
 
@@ -72,11 +72,11 @@ Mobile = Cordova + Angular.js + Ionic
 
 响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：
 
-![full-platforms.jpg](http://ideabook.phodal.com/images/full-platforms.jpg)
+![full-platforms.jpg](./images/full-platforms.jpg)
 
 这也意味着，我们需要对不同的设备进行一些处理，如在大的屏幕下，我们需要展示菜单：
 
-![gnu-linux.png](http://ideabook.phodal.com/images/gnu-linux.jpg)
+![gnu-linux.png](./images/gnu-linux.jpg)
 
 而这可以依赖于Ionic的**expose-aside-when="large"**，而并非所有的情形都是这么简单的。如我最近遇到的问题就是图片缩放的问题，之前的图片针对的都是手机版——经过了一定的缩放。
 
@@ -145,7 +145,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 如果有一天，我有钱开放这个应用的应用号，那么我就会再次献上这个图：
 
-![六边形架构](http://ideabook.phodal.com/images/hexoarch.png)
+![六边形架构](./images/hexoarch.png)
 
 ### 未来
 

@@ -12,7 +12,7 @@
 
 最后的效果如下图如示：
 
-![Demo](http://ideabook.phodal.com/images/map_with_bg.jpg)
+![Demo](./images/map_with_bg.jpg)
 
 这是一个Web生成的界面，通过Elastic.js向搜索引擎查询数据，将再这些数据渲染到地图上。
 

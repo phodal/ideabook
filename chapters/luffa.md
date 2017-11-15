@@ -10,7 +10,7 @@
 
 ### ShowCase
 
-![Luffa Screenshot](http://ideabook.phodal.com/images/luffa.jpg)
+![Luffa Screenshot](./images/luffa.jpg)
 
 源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
 

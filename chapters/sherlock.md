@@ -12,7 +12,7 @@ D3.js打造技能树
 
 代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
 
-![Sherlock](http://ideabook.phodal.com/images/sherlock.png)
+![Sherlock](./images/sherlock.png)
 
 ###Graphviz
 
@@ -36,7 +36,7 @@ dot -Tjpg lz.dot -o lz.jpg
 
 就会生成下面的图片
 
-![lz](http://ideabook.phodal.com/images/lz.jpg)
+![lz](./images/lz.jpg)
 	
 接着我们便可以建立一个简单的模型来构建我们的技能树。
 
@@ -61,7 +61,7 @@ dot -Tjpg lz.dot -o lz.jpg
 
 于是我们有了这张图:
 
-![Tree](http://ideabook.phodal.com/images/tree.jpg)
+![Tree](./images/tree.jpg)
 
 而我们的代码是这样的:
 
@@ -89,7 +89,7 @@ digraph tree
   
 使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。
 
-![Tooltips](http://ideabook.phodal.com/images/tips.jpg)
+![Tooltips](./images/tips.jpg)
 
 #### Tooltipster
 

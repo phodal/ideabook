@@ -12,15 +12,15 @@ Ionic与ElasticSearch打造O2O应用
 
 最后效果图
 
-![elasticsearch_ionic_map](http://ideabook.phodal.com/images/elasticsearch_ionic_map.jpg) 
+![elasticsearch_ionic_map](./images/elasticsearch_ionic_map.jpg) 
 
-![elasticsearch_ionic_info_page](http://ideabook.phodal.com/images/elasticsearch_ionic_info_page.jpg)
+![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
 
 ### 构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
 
-![Django ElasticSearch Ionic 架构](http://ideabook.phodal.com/images/struct.png)
+![Django ElasticSearch Ionic 架构](./images/struct.png)
 
 #### 服务端
 
@@ -642,5 +642,5 @@ map.on('click', function(evt) {
 
 当用户点击时，调用Bootstrap的Popover来显示信息。
 
-![ElasticSearch Map](http://ideabook.phodal.com/images/elasticsearch_ionit_map.jpg)
+![ElasticSearch Map](./images/elasticsearch_ionit_map.jpg)
     

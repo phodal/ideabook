@@ -8,7 +8,7 @@
 
 ### ShowCase
 
-![Screenshot](http://ideabook.phodal.com/images/congee.jpg)
+![Screenshot](./images/congee.jpg)
 
 GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
 

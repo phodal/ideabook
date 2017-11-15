@@ -17,7 +17,7 @@
 
 最后的效果如下图:
 
-![Screenshot](http://ideabook.phodal.com/images/tech-stack.jpg)
+![Screenshot](./images/tech-stack.jpg)
 
 ### D3.js
 

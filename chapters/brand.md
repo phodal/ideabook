@@ -8,11 +8,11 @@
 
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
-![Badge](http://ideabook.phodal.com/images/badge.png)
+![Badge](./images/badge.png)
 
 接着，我就找了个图形工具简单地先设计了下面的一个Badge:
 
-![Demo](http://ideabook.phodal.com/images/demo.png)
+![Demo](./images/demo.png)
 
 生成的格式是SVG，接着我就打开SVG看看里面发现了什么。
 
@@ -40,7 +40,7 @@
 
 ### ShowCase
 
-![Finally](http://ideabook.phodal.com/images/finally-brand.jpg)
+![Finally](./images/finally-brand.jpg)
 
 代码： GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
 
@@ -92,7 +92,7 @@ dwg.save()
 
 第一眼看到
 
-![Idea Prototype](http://ideabook.phodal.com/images/brand-idea-prototype.jpg)
+![Idea Prototype](./images/brand-idea-prototype.jpg)
 
 我就想着要不和这个一样好了，不就是画几条线的事么。
 
@@ -118,7 +118,7 @@ dwg.save()
 
 就有了下面的图，于是我又按照这种感觉来了好几下
 
-![Finally](http://ideabook.phodal.com/images/finally-brand.jpg)
+![Finally](./images/finally-brand.jpg)
 
 
 ### Step 3: 完成

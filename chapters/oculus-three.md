@@ -14,9 +14,9 @@ Oculus  + Node.js  + Three.js 打造VR世界
 
 这个repo的最后效果图如下所示:
 
-![最后效果图](http://ideabook.phodal.com/images/demo.jpg)
+![最后效果图](./images/demo.jpg)
 
-![Three.js Oculus Effect](http://ideabook.phodal.com/images/oculus-vr.jpg)
+![Three.js Oculus Effect](./images/oculus-vr.jpg)
 
 效果：
 
@@ -304,7 +304,7 @@ this.controller.setRotationFromMatrix(this.camera.matrix);
 
 这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。
 
-![Oculus 6050](http://ideabook.phodal.com/images/mpu6050.jpg)
+![Oculus 6050](./images/mpu6050.jpg)
 
 
 **Three.js  DK2Controls**

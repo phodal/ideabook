@@ -39,15 +39,15 @@ Phodal's Idea实战指南
 
 我的微信公众号:
 
-![作者微信公众号：phodal-weixin](http://ideabook.phodal.com/images/wechat.jpg)
+![作者微信公众号：phodal-weixin](./images/wechat.jpg)
 
 支持作者，可以加入作者的小密圈:
 
-![小密圈](http://ideabook.phodal.com/images/xiaomiquan.jpg)
+![小密圈](./images/xiaomiquan.jpg)
 
 或者转账：
 
-![支付宝](http://ideabook.phodal.com/images/alipay.png) ![微信](http://ideabook.phodal.com/images/wechat-pay.png)
+![支付宝](./images/alipay.png) ![微信](./images/wechat-pay.png)
 
 分析网站日志，打造访问地图
 ===
@@ -63,7 +63,7 @@ Phodal's Idea实战指南
 
 最后的效果如下图如示：
 
-![Demo](http://ideabook.phodal.com/images/map_with_bg.jpg)
+![Demo](./images/map_with_bg.jpg)
 
 这是一个Web生成的界面，通过Elastic.js向搜索引擎查询数据，将再这些数据渲染到地图上。
 
@@ -427,7 +427,7 @@ var create_map = function(mapData){
 
 最后的效果如下图所示：
 
-![Bookshelf](http://ideabook.phodal.com/images/bookshelf.jpg)
+![Bookshelf](./images/bookshelf.jpg)
 
 代码见： [https://github.com/phodal/bookshelf/](https://github.com/phodal/bookshelf/)
 
@@ -557,11 +557,11 @@ function saveToDatabase(data, barcodeData) {
 
 前几天，再次看到一些CI的Badge的时候，就想着要做一个自己的Badge:
 
-![Badge](http://ideabook.phodal.com/images/badge.png)
+![Badge](./images/badge.png)
 
 接着，我就找了个图形工具简单地先设计了下面的一个Badge:
 
-![Demo](http://ideabook.phodal.com/images/demo.png)
+![Demo](./images/demo.png)
 
 生成的格式是SVG，接着我就打开SVG看看里面发现了什么。
 
@@ -589,7 +589,7 @@ function saveToDatabase(data, barcodeData) {
 
 ### ShowCase
 
-![Finally](http://ideabook.phodal.com/images/finally-brand.jpg)
+![Finally](./images/finally-brand.jpg)
 
 代码： GitHub: [https://github.com/phodal/brand](https://github.com/phodal/brand)
 
@@ -641,7 +641,7 @@ dwg.save()
 
 第一眼看到
 
-![Idea Prototype](http://ideabook.phodal.com/images/brand-idea-prototype.jpg)
+![Idea Prototype](./images/brand-idea-prototype.jpg)
 
 我就想着要不和这个一样好了，不就是画几条线的事么。
 
@@ -667,7 +667,7 @@ dwg.save()
 
 就有了下面的图，于是我又按照这种感觉来了好几下
 
-![Finally](http://ideabook.phodal.com/images/finally-brand.jpg)
+![Finally](./images/finally-brand.jpg)
 
 
 ### Step 3: 完成
@@ -686,7 +686,7 @@ dwg.save()
 
 ### ShowCase
 
-![Screenshot](http://ideabook.phodal.com/images/congee.jpg)
+![Screenshot](./images/congee.jpg)
 
 GitHub: [https://github.com/phodal/congee](https://github.com/phodal/congee)
 
@@ -955,7 +955,7 @@ JavaScript制作Slide框架
 
 ###Showcase
 
-![EchoesWorks](http://ideabook.phodal.com/images/echoesworks.jpg)
+![EchoesWorks](./images/echoesworks.jpg)
 
 GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phodal/echoesworks)
 
@@ -1157,7 +1157,7 @@ So，你可能会担心如果这时候修改的东西有问题了怎么办。
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
-![Echeveria Editor](http://ideabook.phodal.com/images/eche-editor-screenshot.png)
+![Echeveria Editor](./images/eche-editor-screenshot.png)
 
 作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
 
@@ -1216,7 +1216,7 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
 
 在控制台中运行一下 ``man git``你会得到下面的结果:
 
-![Man Git](http://ideabook.phodal.com/images/man-git.png)
+![Man Git](./images/man-git.png)
 
 这个答案看起来很有意思——不过这看上去似乎无关主题。
 
@@ -1246,11 +1246,11 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 2. git push
 Carrot使用了下面的方案来搭建他们的静态内容的CMS。
 
-![Carrot](http://ideabook.phodal.com/images/carrot.png)
+![Carrot](./images/carrot.png)
 
 在这个方案里内容是用Contentful来发布他们的内容。而在我司[ThoughtWorks](https://www.thoughtworks.com/)的官网里则采用了Github来管理这些内容。于是如果让我们写一个基于Github的CMS，那么架构变成了这样：
 
-![Github 编辑-发布-开发](http://ideabook.phodal.com/images/travis-edit-publish-code.png)
+![Github 编辑-发布-开发](./images/travis-edit-publish-code.png)
 
 或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
 
@@ -1425,7 +1425,7 @@ Solr实现多边形地理搜索
 
 ### Showcase
 
-![Google Map Solr](http://ideabook.phodal.com/images/gmap-solr.jpg)
+![Google Map Solr](./images/gmap-solr.jpg)
 
 GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
 
@@ -1528,7 +1528,7 @@ Web本身就是跨平台的，这意味着这中间存在着无限的可能性�
 
 截图合并如下：
 
-![growth-full-platforms.png](http://ideabook.phodal.com/images/growth-full-platforms.jpg)
+![growth-full-platforms.png](./images/growth-full-platforms.jpg)
 
 ### Ionic & Electron & Cordova
 
@@ -1559,7 +1559,7 @@ Mobile = Cordova + Angular.js + Ionic
  
 接着我用Ionic创建了这个应用，这是一个再普通不过的过程。在这个过程里，我一直使用Chrome在调度我的代码。因为我是Android用户，我有Google Play的账号，便发布了Android版本。这时候遇到了一个问题，我并没有Apple Developer账号(现在在申请ing。。)，而主要的用户对象程序员，这是一群**不土**的土豪。
 
-![iPHONE](http://ideabook.phodal.com/images/iphone.jpg)
+![iPHONE](./images/iphone.jpg)
 
 偶然间我才想到，我只要上传Web版本的代码就可以暂时性实现这个需求了。接着找了个AWS S3的插件，直接上传到了AWS S3上托管成静态文件服务。
 
@@ -1567,7 +1567,7 @@ Mobile = Cordova + Angular.js + Ionic
 
 所以，最后我们的流程图就如下所示：
 
-![Growth Arch](http://ideabook.phodal.com/images/growth-arch.png)
+![Growth Arch](./images/growth-arch.png)
 
 除了显示到VR设备上，好像什么也不缺了。并且在我之前的文章《[Oculus + Node.js + Three.js 打造VR世界](https://github.com/phodal/oculus-nodejs-threejs-example)》，也展示了Web在VR世界的可能性。
 
@@ -1580,11 +1580,11 @@ Mobile = Cordova + Angular.js + Ionic
 
 响应式设计可以主要依赖于Media Query，而响应式设计主要要追随的一点是不同的设备不同的显示，如：
 
-![full-platforms.jpg](http://ideabook.phodal.com/images/full-platforms.jpg)
+![full-platforms.jpg](./images/full-platforms.jpg)
 
 这也意味着，我们需要对不同的设备进行一些处理，如在大的屏幕下，我们需要展示菜单：
 
-![gnu-linux.png](http://ideabook.phodal.com/images/gnu-linux.jpg)
+![gnu-linux.png](./images/gnu-linux.jpg)
 
 而这可以依赖于Ionic的**expose-aside-when="large"**，而并非所有的情形都是这么简单的。如我最近遇到的问题就是图片缩放的问题，之前的图片针对的都是手机版——经过了一定的缩放。
 
@@ -1653,7 +1653,7 @@ if(typeof module !== 'undefined' && module && module.exports){
 
 如果有一天，我有钱开放这个应用的应用号，那么我就会再次献上这个图：
 
-![六边形架构](http://ideabook.phodal.com/images/hexoarch.png)
+![六边形架构](./images/hexoarch.png)
 
 ### 未来
 
@@ -1675,15 +1675,15 @@ Ionic与ElasticSearch打造O2O应用
 
 最后效果图
 
-![elasticsearch_ionic_map](http://ideabook.phodal.com/images/elasticsearch_ionic_map.jpg) 
+![elasticsearch_ionic_map](./images/elasticsearch_ionic_map.jpg) 
 
-![elasticsearch_ionic_info_page](http://ideabook.phodal.com/images/elasticsearch_ionic_info_page.jpg)
+![elasticsearch_ionic_info_page](./images/elasticsearch_ionic_info_page.jpg)
 
 ### 构架设计
 
 对我们的需求进行简要的思考后，设计出了下面的一些简单的架构。
 
-![Django ElasticSearch Ionic 架构](http://ideabook.phodal.com/images/struct.png)
+![Django ElasticSearch Ionic 架构](./images/struct.png)
 
 #### 服务端
 
@@ -2305,7 +2305,7 @@ map.on('click', function(evt) {
 
 当用户点击时，调用Bootstrap的Popover来显示信息。
 
-![ElasticSearch Map](http://ideabook.phodal.com/images/elasticsearch_ionit_map.jpg)
+![ElasticSearch Map](./images/elasticsearch_ionit_map.jpg)
     
 
 一步步搭建JavaScript框架
@@ -2634,7 +2634,7 @@ function ss() {
 
 ### ShowCase
 
-![Luffa Screenshot](http://ideabook.phodal.com/images/luffa.jpg)
+![Luffa Screenshot](./images/luffa.jpg)
 
 源码见：[https://github.com/phodal/luffa](https://github.com/phodal/luffa)
 
@@ -3847,9 +3847,9 @@ Oculus  + Node.js  + Three.js 打造VR世界
 
 这个repo的最后效果图如下所示:
 
-![最后效果图](http://ideabook.phodal.com/images/demo.jpg)
+![最后效果图](./images/demo.jpg)
 
-![Three.js Oculus Effect](http://ideabook.phodal.com/images/oculus-vr.jpg)
+![Three.js Oculus Effect](./images/oculus-vr.jpg)
 
 效果：
 
@@ -4137,7 +4137,7 @@ this.controller.setRotationFromMatrix(this.camera.matrix);
 
 这使我有足够的理由相信Oculus就是一个手机 + 一个6轴运动处理组件的升级板——因为，我玩过MPU6050这样的传感器，如图。。。
 
-![Oculus 6050](http://ideabook.phodal.com/images/mpu6050.jpg)
+![Oculus 6050](./images/mpu6050.jpg)
 
 
 **Three.js  DK2Controls**
@@ -4338,7 +4338,7 @@ if (this.camera.position.y < -10) {
 
 ### Showcase
 
-![Phodal's Image](http://ideabook.phodal.com/images/onmap-demo.jpg)
+![Phodal's Image](./images/onmap-demo.jpg)
 
 ###框架： EXIF & ExifRead & CartoDB
 
@@ -4526,7 +4526,7 @@ D3.js打造技能树
 
 代码见： [https://github.com/phodal/sherlock](https://github.com/phodal/sherlock)
 
-![Sherlock](http://ideabook.phodal.com/images/sherlock.png)
+![Sherlock](./images/sherlock.png)
 
 ###Graphviz
 
@@ -4550,7 +4550,7 @@ dot -Tjpg lz.dot -o lz.jpg
 
 就会生成下面的图片
 
-![lz](http://ideabook.phodal.com/images/lz.jpg)
+![lz](./images/lz.jpg)
 	
 接着我们便可以建立一个简单的模型来构建我们的技能树。
 
@@ -4575,7 +4575,7 @@ dot -Tjpg lz.dot -o lz.jpg
 
 于是我们有了这张图:
 
-![Tree](http://ideabook.phodal.com/images/tree.jpg)
+![Tree](./images/tree.jpg)
 
 而我们的代码是这样的:
 
@@ -4603,7 +4603,7 @@ digraph tree
   
 使用D3.js与Darge-d3构建一个简单的技能树的时候，需要一个简单的类似于小贴士的插件。
 
-![Tooltips](http://ideabook.phodal.com/images/tips.jpg)
+![Tooltips](./images/tips.jpg)
 
 #### Tooltipster
 
@@ -4693,7 +4693,7 @@ inner.selectAll('g.node')
 
 最后的效果如下图:
 
-![Screenshot](http://ideabook.phodal.com/images/tech-stack.jpg)
+![Screenshot](./images/tech-stack.jpg)
 
 ### D3.js
 
@@ -4798,7 +4798,7 @@ for (var quadrant in data) {
 
 ### ShowCase
 
-![Node](http://ideabook.phodal.com/images/node.png) ![Refactor](http://ideabook.phodal.com/images/refactor.png) ![TDD](http://ideabook.phodal.com/images/tdd.png) ![Clean Code](http://ideabook.phodal.com/images/clean_code.png)
+![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
 
 代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
   
@@ -4893,11 +4893,11 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 或者你已经使用过了相应多的省市区与地图联动，但是这些联动往往是单向的、不可逆。并且这些数据往往都是在线使用的，不能离线使用。下图是一个结合百度地图的省市区与地图联动：
 
-![一般的省市区与地图联动](http://ideabook.phodal.com/images/general-province-city-map.png)
+![一般的省市区与地图联动](./images/general-province-city-map.png)
 
 我们可以在这个应用里选择，相应的省市区然后地图会跳转到相应的地图。当我们在地图上漫游的时候，如果没有显示当前的省市区是不是变得很难使用。于是，我们就来创建一个吧：
 
-![地图到省市区联动](http://ideabook.phodal.com/images/anti-map-action.jpg)
+![地图到省市区联动](./images/anti-map-action.jpg)
 
 ### jQuery + Mustache + Leaflet
 
@@ -4927,7 +4927,7 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 换句话来说，根据这个文件里面的多边形，我们可以绘制出中国地图。由于上面的点是真实的地理位置信息，所以无论我们怎样的缩放这些点的位置都不会发生变化。如下图是GitHub对这个数据文件的解析：
 
-![中国GeoJSON文件](http://ideabook.phodal.com/images/china-geojson.jpg)
+![中国GeoJSON文件](./images/china-geojson.jpg)
 
 （PS: 预览可以打开这个页面：[Vmap GeoJSON](https://github.com/phodal/vmap/blob/gh-pages/static/data/china.json)
 
@@ -4939,7 +4939,7 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 所谓的多边形搜索就是画一个圈圈（任意多边形），然后你就可以去约这个圈圈里的人，如下图所示：
 
-![多边形搜索](http://ideabook.phodal.com/images/geopoly2d-small.png)
+![多边形搜索](./images/geopoly2d-small.png)
 
 而圈圈搜索依赖于圈圈上的连续的点构建的形状来进行搜索，上面的每个点都包含了相应的经纬度。因此，只要是在这个圈圈里的用户都是可以搜索得到的。
 
@@ -4957,7 +4957,7 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 最初的时候要用Event的形式来实现，但是发现这样似乎会让其紧耦合。就改用了监听Hash Change的形式来实现，在总的地图上每一个省都有一个对应的ID，这个ID会对应相应的省的数据。如下图所示：
 
-![Province Hash](http://ideabook.phodal.com/images/province-hash-with-map.jpg)
+![Province Hash](./images/province-hash-with-map.jpg)
 
 接着，我们就需要从这个Hash中判断它的级别和ID，随后转由相应的函数来处理这些逻辑即可。随后，我们要做两件事：
 
@@ -4976,7 +4976,7 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 同理，我们也可以对上面的市运行处理。但是因为这些市并不存在GEO信息，所以我只是从其多连形信息取了一个点，再将这个点放到data-geo中：
 
-![Data GEO](http://ideabook.phodal.com/images/city-with-geo.jpg)
+![Data GEO](./images/city-with-geo.jpg)
 
 对应于省市的，对于区的处理也是如此。这样，我们就完成了地点到地图的显示了。
 
@@ -4984,5 +4984,5 @@ GeoJSON与ElasticSearch实现高级图形搜索
 
 从地图上到地点就比较简单了，点击时修改对应的text即可。
 
-![VMap Click ](http://ideabook.phodal.com/images/vmap-click-handler.jpg)
+![VMap Click ](./images/vmap-click-handler.jpg)
 

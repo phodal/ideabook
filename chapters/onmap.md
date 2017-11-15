@@ -10,7 +10,7 @@
 
 ### Showcase
 
-![Phodal's Image](http://ideabook.phodal.com/images/onmap-demo.jpg)
+![Phodal's Image](./images/onmap-demo.jpg)
 
 ###框架： EXIF & ExifRead & CartoDB
 

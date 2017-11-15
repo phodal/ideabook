@@ -10,7 +10,7 @@ JavaScript制作Slide框架
 
 ###Showcase
 
-![EchoesWorks](http://ideabook.phodal.com/images/echoesworks.jpg)
+![EchoesWorks](./images/echoesworks.jpg)
 
 GitHub代码： [https://github.com/phodal/echoesworks](https://github.com/phodal/echoesworks)
 

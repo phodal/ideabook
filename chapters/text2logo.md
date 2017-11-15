@@ -10,7 +10,7 @@
 
 ### ShowCase
 
-![Node](http://ideabook.phodal.com/images/node.png) ![Refactor](http://ideabook.phodal.com/images/refactor.png) ![TDD](http://ideabook.phodal.com/images/tdd.png) ![Clean Code](http://ideabook.phodal.com/images/clean_code.png)
+![Node](./images/node.png) ![Refactor](./images/refactor.png) ![TDD](./images/tdd.png) ![Clean Code](./images/clean_code.png)
 
 代码见:[https://github.com/phodal/text2logo](https://github.com/phodal/text2logo)
   

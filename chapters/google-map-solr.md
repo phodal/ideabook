@@ -8,7 +8,7 @@ Solr实现多边形地理搜索
 
 ### Showcase
 
-![Google Map Solr](http://ideabook.phodal.com/images/gmap-solr.jpg)
+![Google Map Solr](./images/gmap-solr.jpg)
 
 GitHub [https://github.com/phodal/gmap-solr](https://github.com/phodal/gmap-solr)
 
