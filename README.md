@@ -19,7 +19,7 @@
 
 欢迎关注我的微信公众号（扫描下面的二维码或搜索 Phodal）.
 
-![QRCode](https://raw.githubusercontent.com/phodal/growth/master/marketing/wechat.jpg)
+![QRCode](https://phodal.github.io/growth-materials/wp.jpg)
 
 目录
 ---
